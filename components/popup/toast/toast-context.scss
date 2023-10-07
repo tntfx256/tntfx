@@ -1,0 +1,12 @@
+@import "@tntfx/theme";
+
+.toast-container {
+  @include fill(absolute);
+  z-index: var(--layer-toast);
+  display: flex;
+  overflow: hidden;
+  flex-flow: column-reverse nowrap;
+  align-items: center;
+  padding: var(--layout-spacing-xxl) var(--layout-spacing-md);
+  pointer-events: none;
+}

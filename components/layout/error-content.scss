@@ -1,0 +1,13 @@
+.error-content {
+  width: 100%;
+
+  &-desc {
+    margin-top: var(--layout-spacing-md);
+    font-size: var(--font-size-md);
+  }
+
+  &-details {
+    margin-top: 10px;
+    font-size: var(--font-size-sm);
+  }
+}

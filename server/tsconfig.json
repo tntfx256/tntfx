@@ -1,0 +1,6 @@
+{
+  "extends": "@tntfx/tsconfig/base.json",
+
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules", ".turbo", "dist"]
+}

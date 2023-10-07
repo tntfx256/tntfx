@@ -1,0 +1,15 @@
+{
+  "name": "@tntfx/core",
+  "version": "0.1.0",
+  "private": true,
+  "sideEffects": false,
+  "main": "index.ts",
+  "types": "index.ts",
+  "scripts": {},
+  "dependencies": {
+    "react-icons": "^4.11.0"
+  },
+  "devDependencies": {
+    "@tntfx/tsconfig": "^0.1.0"
+  }
+}

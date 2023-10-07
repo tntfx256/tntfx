@@ -1,0 +1,13 @@
+@import "@tntfx/theme";
+
+.entity-item {
+  @include blur;
+
+  overflow: hidden;
+  box-shadow: var(--shadow-xs);
+
+  &.icon {
+    border-color: var(--color-border);
+    border-radius: var(--border-radius-sm);
+  }
+}

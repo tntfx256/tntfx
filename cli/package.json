@@ -1,0 +1,13 @@
+{
+  "name": "@tntfx/cli",
+  "version": "0.1.0",
+  "private": true,
+  "sideEffects": false,
+  "main": "index.ts",
+  "types": "index.ts",
+  "devDependencies": {
+    "@tntfx/tsconfig": "^0.1.0",
+    "@types/node": "^20.8.3",
+    "typescript": "^5.1.3"
+  }
+}

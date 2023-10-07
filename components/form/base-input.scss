@@ -1,0 +1,11 @@
+.base-input {
+  position: relative;
+  width: 100%;
+  height: var(--layout-height-element);
+  padding: 0 var(--layout-spacing-md);
+  border: 0;
+  caret-color: inherit;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-md);
+  line-height: var(--line-height-md);
+}

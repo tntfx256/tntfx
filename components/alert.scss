@@ -1,0 +1,28 @@
+@import "@tntfx/theme";
+
+.alert {
+  @include blur;
+  min-width: var(--layout-width-element-xxxl);
+  padding: var(--layout-spacing-sm) var(--layout-spacing-md);
+
+  border: 1px solid transparent;
+  border-radius: var(--border-radius-sm);
+
+  &-icon {
+    width: var(--icon-size-xl);
+    height: var(--icon-size-xl);
+    margin-right: var(--layout-spacing-md);
+  }
+
+  &-title {
+    white-space: nowrap;
+  }
+
+  &.type-error {
+    border-color: var(--color-error-alpha);
+
+    .alert-icon {
+      color: var(--color-error);
+    }
+  }
+}

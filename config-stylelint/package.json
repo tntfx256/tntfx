@@ -1,0 +1,12 @@
+{
+  "name": "@tntfx/stylelint-config",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./index.js",
+  "dependencies": {
+    "postcss": "^8.4.31",
+    "stylelint-config-idiomatic-order": "^9.0.0",
+    "stylelint-config-recommended-scss": "^13.0.0",
+    "stylelint-order": "^6.0.3"
+  }
+}

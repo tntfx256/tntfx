@@ -1,0 +1,25 @@
+.split-view {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  flex: 1;
+  flex-flow: row nowrap;
+
+  &.side-visible {
+    .sidebar-backdrop {
+      border-right: 1px solid var(--color-border);
+    }
+  }
+
+  .content {
+    position: relative;
+    display: flex;
+    overflow: auto;
+    height: 100%;
+    flex: 1;
+    flex-flow: column nowrap;
+    padding-left: var(--layout-spacing-sm);
+    background-color: var(--color-element);
+    color: var(--color-element-text);
+  }
+}

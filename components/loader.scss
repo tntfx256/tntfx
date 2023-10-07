@@ -1,0 +1,29 @@
+$size: var(--layout-height-element-sm);
+
+.loader {
+  > .loader-circle {
+    width: $size;
+    height: $size;
+    border: 2px solid rgba(0 0 0 / 15%);
+    border-radius: 50%;
+    border-top-color: var(--color-primary);
+  }
+
+  &.variant-primary {
+    > .loader-circle {
+      border-top-color: var(--color-primary);
+    }
+  }
+
+  &.variant-secondary {
+    > .loader-circle {
+      border-top-color: var(--color-secondary);
+    }
+  }
+
+  &.variant-destructive {
+    > .loader-circle {
+      border-top-color: var(--color-error);
+    }
+  }
+}

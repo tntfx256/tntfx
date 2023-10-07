@@ -1,0 +1,22 @@
+$badge-size: 1rem;
+$badge-offset: 0.25rem;
+
+.badge-wrapper.box {
+  overflow: visible;
+  width: fit-content;
+  height: fit-content;
+
+  .badge.box {
+    position: absolute;
+    top: -$badge-offset;
+    right: -$badge-offset;
+    overflow: hidden;
+    width: $badge-size;
+    height: $badge-size;
+    align-items: center;
+    justify-content: center;
+    border-radius: $badge-size;
+    background-color: var(--color-error);
+    color: var(--color-error-text);
+  }
+}

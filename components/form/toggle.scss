@@ -1,0 +1,71 @@
+@import "@tntfx/theme";
+
+.toggle {
+  $size: calc(var(--layout-height-element-md) - var(--layout-spacing-xs));
+  $indicatorSize: $size;
+  $containerWidth: calc(2 * $size);
+  $containerHeight: calc(2 * calc($indicatorSize / 3));
+  $containerBorderRadius: calc($containerHeight / 2);
+  $indicatorOffset: calc(-1 * calc(var(--layout-height-element-md) / 6));
+
+  &.form-element {
+    max-width: max-content;
+    flex-flow: row nowrap;
+    align-items: center;
+    padding: 0 var(--layout-spacing-sm);
+    border-color: transparent;
+
+    @include hover;
+    @include disabled;
+
+    .label {
+      position: relative !important;
+      top: unset !important;
+      left: unset !important;
+      flex: 1;
+      padding-right: var(--layout-spacing-sm);
+      filter: none !important;
+      transform: none !important;
+    }
+  }
+
+  &-checkbox {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &-container {
+    position: relative;
+    width: $containerWidth;
+    min-width: var(--layout-width-element-sm);
+    height: $containerHeight;
+    border: 1px solid var(--color-border-alpha);
+    border-radius: $containerBorderRadius;
+    background-color: var(--color-element);
+  }
+
+  &-indicator {
+    position: absolute;
+    top: $indicatorOffset;
+    right: $size;
+    left: -1px;
+    overflow: hidden;
+    width: $indicatorSize;
+    height: $indicatorSize;
+    border: 1px solid var(--color-border-alpha);
+    border-radius: 50%;
+    background-color: var(--color-element);
+    transition-duration: var(--animation-sm);
+    transition-property: right, left, background-color;
+  }
+
+  &._checked {
+    .toggle-indicator {
+      right: -1px;
+      left: $size;
+      border-color: var(--color-primary);
+      background-color: var(--color-primary-text);
+    }
+  }
+}

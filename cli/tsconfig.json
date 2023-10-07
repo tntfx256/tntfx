@@ -1,0 +1,5 @@
+{
+  "extends": "@tntfx/tsconfig/base.json",
+
+  "include": ["**/*.ts"]
+}

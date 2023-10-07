@@ -1,0 +1,17 @@
+.dialog.frame {
+  &._active {
+    z-index: var(--layer-popup) !important;
+  }
+  // width: 90%;
+  // min-width: var(--breakpoint-xs);
+  // min-width: min(90%, var(--breakpoint-xs));
+  // max-width: 90%;
+  // max-width: min(90%, var(--breakpoint-sm));
+  // min-height: 30vh;
+  // max-height: 90%;
+  // height: 90%;
+
+  .dialog-body {
+    padding: var(--layout-spacing-md);
+  }
+}

@@ -1,0 +1,21 @@
+.link {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  color: inherit;
+  cursor: pointer;
+  text-decoration-color: var(--color-active);
+  text-decoration-skip-ink: none;
+  text-decoration-thickness: 0.75px;
+
+  // &:hover {
+  //   color: var(--color-secondary);
+  //   text-decoration-color: var(--color-secondary);
+  // }
+
+  .svg {
+    width: 0.6rem;
+    height: 0.6rem;
+    margin-left: 0.25rem;
+  }
+}

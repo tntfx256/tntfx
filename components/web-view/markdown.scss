@@ -1,0 +1,36 @@
+.markdown {
+  overflow: auto;
+  flex: 1;
+
+  h1 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-xl);
+    line-height: var(--line-height-xl);
+  }
+
+  h2 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-lg);
+    line-height: var(--line-height-lg);
+  }
+
+  strong {
+    font-weight: var(--font-weight-lg);
+  }
+
+  ul {
+    padding: var(--layout-spacing-sm);
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  p {
+    padding: var(--layout-spacing-sm);
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-md);
+    line-height: var(--line-height-md);
+    text-indent: 0.2rem;
+  }
+}

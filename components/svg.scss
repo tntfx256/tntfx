@@ -1,0 +1,44 @@
+.svg {
+  display: inline-block;
+  width: var(--icon-size-md);
+  max-width: unset;
+  height: var(--icon-size-md);
+  aspect-ratio: 1 / 1;
+
+  &,
+  * {
+    color: inherit;
+    stroke: currentColor;
+    stroke-width: 1px;
+    -webkit-tap-highlight-color: transparent;
+
+    &[stroke="none"] {
+      stroke-width: 0;
+    }
+  }
+
+  &.size-xSmall {
+    width: var(--icon-size-xs);
+    height: var(--icon-size-xs);
+  }
+  &.size-small {
+    width: var(--icon-size-sm);
+    height: var(--icon-size-sm);
+  }
+
+  &.size-large {
+    width: var(--icon-size-lg);
+    height: var(--icon-size-lg);
+  }
+
+  &.size-xLarge {
+    width: var(--icon-size-xl);
+    height: var(--icon-size-xl);
+  }
+
+  // SPECIALS
+  &.svg-maximize,
+  &.svg-restoreMaximize {
+    padding: 10% 4%;
+  }
+}

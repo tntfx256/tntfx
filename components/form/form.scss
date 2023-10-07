@@ -1,0 +1,23 @@
+.form {
+  display: block;
+  width: 100%;
+
+  .legend {
+    padding-left: var(--layout-spacing-xxs);
+  }
+
+  > form {
+    display: flex;
+    flex-direction: column;
+    padding: var(--layout-spacing-md);
+    border-radius: var(--border-radius-sm);
+
+    .form {
+      padding-left: var(--layout-spacing-md);
+    }
+  }
+
+  &._bordered > form {
+    border: 1px solid var(--color-border);
+  }
+}

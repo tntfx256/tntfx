@@ -1,0 +1,78 @@
+@import "@tntfx/theme";
+
+.button {
+  @include hover;
+  @include active;
+  @include disabled;
+
+  @extend %no-select;
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  min-width: fit-content;
+  height: var(--layout-height-element);
+  min-height: var(--layout-height-element);
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--layout-spacing-md);
+  border: 1px solid transparent;
+  border-radius: var(--border-radius-sm);
+  color: var(--color-element-text);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-sm);
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  &.shape-outlined {
+    border: 1px solid var(--color-border);
+  }
+
+  &.shape-contained {
+    border-color: var(--color-border);
+    background-color: var(--color-element);
+    color: var(--color-element-text);
+  }
+
+  &.variant-primary {
+    color: var(--color-primary);
+
+    &.shape-contained {
+      border-color: var(--color-primary);
+      background-color: var(--color-primary);
+      color: var(--color-primary-text);
+    }
+
+    &.shape-outlined {
+      border-color: var(--color-primary);
+    }
+  }
+
+  &.variant-secondary {
+    color: var(--color-secondary);
+
+    &.shape-contained {
+      border-color: var(--color-secondary);
+      background-color: var(--color-secondary);
+      color: var(--color-secondary-text);
+    }
+
+    &.shape-outlined {
+      border-color: var(--color-secondary);
+    }
+  }
+
+  &.variant-destructive {
+    color: var(--color-error);
+
+    &.shape-contained {
+      border-color: var(--color-error);
+      background-color: var(--color-error);
+      color: var(--color-error-text);
+    }
+
+    &.shape-outlined {
+      border-color: var(--color-error);
+    }
+  }
+}

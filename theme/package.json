@@ -1,0 +1,18 @@
+{
+  "name": "@tntfx/theme",
+  "version": "0.1.0",
+  "private": true,
+  "sideEffects": false,
+  "type": "module",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "scripts": {},
+  "dependencies": {
+    "@tntfx/core": "^0.1.0",
+    "@tntfx/hooks": "^0.1.0",
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "@tntfx/tsconfig": "^0.1.0"
+  }
+}

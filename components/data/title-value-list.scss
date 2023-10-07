@@ -1,0 +1,18 @@
+.tvl {
+  padding: var(--layout-spacing-sm);
+  background-color: var(--color-element);
+  color: var(--color-element-text);
+
+  &-item {
+    padding: var(--layout-spacing-sm);
+
+    &-title {
+      display: block;
+      color: var(--color-primary);
+    }
+
+    &-value {
+      padding-left: var(--layout-spacing-lg);
+    }
+  }
+}

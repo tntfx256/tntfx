@@ -1,0 +1,100 @@
+/*
+The new CSS reset - version 1.6.1 (last updated 25.5.2022) 
+https://github.com/elad2412/the-new-css-reset
+*/
+
+*:where(:not(html, iframe, canvas, img, svg, video, svg *, symbol *)) {
+  all: unset;
+  display: revert;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+a,
+button {
+  cursor: revert;
+}
+
+ol,
+ul,
+menu {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+textarea {
+  white-space: revert;
+}
+
+meter {
+  -webkit-appearance: revert;
+  appearance: revert;
+}
+
+::placeholder {
+  color: unset;
+}
+
+:where([hidden]) {
+  display: none;
+}
+
+:where([contenteditable]:not([contenteditable="false"])) {
+  -webkit-line-break: after-white-space;
+  line-break: after-white-space;
+  overflow-wrap: break-word;
+  -moz-user-modify: read-write;
+  -webkit-user-modify: read-write;
+}
+
+:where([draggable="true"]) {
+  -webkit-user-drag: element;
+}
+
+#root,
+#__next {
+  isolation: isolate;
+}

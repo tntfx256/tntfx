@@ -1,0 +1,38 @@
+@import "@tntfx/theme";
+
+$sidebarMinWidth: 240px;
+$sidebarMaxWidth: var(--breakpoint-xs);
+
+.sidebar-backdrop.box.backdrop {
+  z-index: var(--layer-sidebar);
+  min-height: 100%;
+  max-height: 100%;
+  align-items: stretch;
+  justify-content: flex-start;
+
+  &.open:not(.overlay) {
+    width: fit-content;
+    min-width: $sidebarMinWidth;
+    max-width: $sidebarMaxWidth;
+    background-color: transparent;
+  }
+
+  .sidebar {
+    display: flex;
+    width: fit-content;
+    min-width: $sidebarMinWidth;
+    max-width: $sidebarMaxWidth;
+    height: 100%;
+    flex: 1;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    background-color: var(--color-body);
+    color: var(--color-body-text);
+
+    &.blur {
+      @include blur(2rem);
+      background-color: var(--color-body-alpha);
+      color: var(--color-body-alpha-text);
+    }
+  }
+}

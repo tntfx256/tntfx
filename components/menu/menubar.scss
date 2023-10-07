@@ -1,0 +1,11 @@
+@use "./utils.scss";
+
+.menubar {
+  @extend %menu;
+
+  flex-direction: row;
+
+  .menu-item {
+    padding: 0 var(--layout-spacing-xs);
+  }
+}
