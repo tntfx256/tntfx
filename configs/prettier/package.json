@@ -1,0 +1,8 @@
+{
+  "name": "@tntfx/prettier-config",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "prettier": "^3.0.3"
+  }
+}

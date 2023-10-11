@@ -1,19 +1,20 @@
 {
   "name": "@tntfx/hooks",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "private": true,
-  "main": "./index.ts",
-  "types": "./index.ts",
-  "scripts": {},
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "types": "tsc -p tsconfig.json --noEmit"
+  },
   "dependencies": {
-    "@tntfx/core": "^0.1.0",
-    "axios": "^1.5.1",
+    "@tanstack/react-query": "^4.36.1",
+    "@tntfx/core": "workspace:*",
     "immer": "^10.0.3"
   },
   "devDependencies": {
-    "@tntfx/test": "^0.1.0",
-    "@tntfx/tsconfig": "^0.1.0",
-    "@types/graphql": "^14.5.0"
+    "@tntfx/test": "workspace:*",
+    "@tntfx/tsconfig": "workspace:*"
   },
   "peerDependencies": {
     "graphql": "^16.6.0",

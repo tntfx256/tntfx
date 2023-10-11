@@ -1,14 +1,16 @@
 {
   "name": "@tntfx/test",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "private": true,
-  "main": "./index.tsx",
-  "types": "./index.tsx",
-  "scripts": {},
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "types": "tsc -p tsconfig.json --noEmit"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^6.1.3",
     "@testing-library/react": "^14.0.0",
-    "@tntfx/core": "^0.1.0",
+    "@tntfx/core": "workspace:*",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "react": "^18.2.0",
@@ -16,10 +18,13 @@
     "ts-node": "^10.9.1"
   },
   "devDependencies": {
-    "@tntfx/tsconfig": "^0.1.0",
+    "@tntfx/tsconfig": "workspace:*",
     "@types/jest": "^29.5.5",
-    "@types/node": "^20.8.3",
-    "@types/react": "^18.2.25",
-    "@types/react-dom": "^18.2.11"
+    "@types/node": "^20.8.4",
+    "@types/react": "^18.2.27",
+    "@types/react-dom": "^18.2.12"
+  },
+  "peerDependencies": {
+    "react-dom": "^18.2.0"
   }
 }

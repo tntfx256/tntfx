@@ -5,6 +5,5 @@
     "types": ["node", "jest", "@testing-library/jest-dom"]
   },
 
-  "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", ".turbo", "dist"]
+  "include": ["src"]
 }

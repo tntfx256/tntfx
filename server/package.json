@@ -1,19 +1,18 @@
 {
   "name": "@tntfx/server",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "private": true,
-  "main": "./index.ts",
-  "types": "./index.ts",
-  "scripts": {},
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "types": "tsc -p tsconfig.json --noEmit"
+  },
   "dependencies": {
-    "@apollo/server": "^4.9.4",
-    "@as-integrations/next": "^2.0.2",
-    "@tntfx/components": "^0.1.0",
-    "@tntfx/core": "^0.1.0",
-    "@tntfx/hooks": "^0.1.0",
-    "@tntfx/theme": "^0.1.0",
+    "@tntfx/components": "workspace:*",
+    "@tntfx/core": "workspace:*",
+    "@tntfx/hooks": "workspace:*",
+    "@tntfx/theme": "workspace:*",
     "firebase-admin": "^11.11.0",
-    "graphql": "^16.8.1",
     "iron-session": "^6.3.1",
     "next": "^13.5.4",
     "node-mailjet": "^6.0.4"
