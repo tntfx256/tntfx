@@ -1,7 +1,11 @@
 import type { Actionable, Boundary, ClassAndChildren, IconName, MessageType, Second } from "@tntfx/core";
 import type { BackdropProps } from "../backdrop";
 
-export type PopupType = "dialog" | "toast"; // "Notification"
+export enum PopupType {
+  Dialog = "dialog",
+  Toast = "toast",
+  // Notification = "Notification"
+}
 
 interface CommonPopupProps extends ClassAndChildren, Actionable {
   id: string;

@@ -11,16 +11,17 @@ type TypingProps = {
   size?: Size;
   whiteSpace?: CSSProperties["whiteSpace"];
   variant?: Variant;
+  as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span";
 };
 
 const pickProps = splitProperties("color", "fontWeight", "textAlign", "whiteSpace");
 
 export function Text(props: ClassAndChildren<TypingProps>) {
-  const { className, children, size, variant, ...libProps } = props;
+  const { className, children, size, variant, as, ...libProps } = props;
 
   const [style, rest] = pickProps(libProps);
 
-  const Component = SizeMap[size || "medium"];
+  const Component = as || SizeMap[size || "medium"];
 
   return (
     <Component className={classNames("text", className, `size-${size}`, `variant-${variant}`)} style={style} {...rest}>

@@ -9,12 +9,12 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^4.36.1",
-    "@tntfx/core": "workspace:*",
+    "@tntfx/core": "*",
     "immer": "^10.0.3"
   },
   "devDependencies": {
-    "@tntfx/test": "workspace:*",
-    "@tntfx/tsconfig": "workspace:*"
+    "@tntfx/test": "*",
+    "@tntfx/tsconfig": "*"
   },
   "peerDependencies": {
     "graphql": "^16.6.0",

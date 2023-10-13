@@ -56,7 +56,6 @@ export function Image(props: ImageProps) {
         error={error}
         fallback={
           <NextImage
-            {...nextImageProps}
             alt={alt}
             className="image-view"
             height={height}
@@ -65,6 +64,7 @@ export function Image(props: ImageProps) {
             width={width}
             onError={handleError}
             onLoad={handleLoad}
+            {...nextImageProps}
           />
         }
       />

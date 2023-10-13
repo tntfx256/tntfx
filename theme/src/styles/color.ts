@@ -1,5 +1,6 @@
-import type { ColorScheme, PaletteColor, PaletteColorWithAlt, ThemeOptions } from "../types";
 import { Colors } from "./colors";
+import { defaultTheme } from "./theme";
+import type { ColorScheme, PaletteColor, PaletteColorWithAlt, Theme, ThemeOptions } from "../types";
 
 type WithSchema = Record<ColorScheme, string>;
 type RGBA = { alpha: number; blue: number; green: number; red: number };
@@ -109,7 +110,9 @@ function toString(color: RGBA): string {
   return `rgb(${[color.red, color.green, color.blue].join(" ")} / ${alpha}%)`;
 }
 
-export function createThemePalette(palette: Required<ThemeOptions["palette"]>) {
+export function createThemePalette(iPalette: Required<ThemeOptions["palette"]>) {
+  const palette = iPalette!;
+
   return {
     selected: Color.combo(palette.selected, palette.text),
     backdrop: Color.combo(Color.alpha(Colors.Black, 0.25), palette.text),

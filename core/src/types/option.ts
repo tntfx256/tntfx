@@ -1,5 +1,8 @@
-import type { Size, Variant } from "./base";
+import type { PropsWithChildren, ReactElement, ReactNode } from "react";
+import type { Any, MaybePromise, Size, Variant } from "./base";
+import { Field } from "../field";
 import type { IconName } from "../icon";
+import { Model } from "../model";
 
 export type Option<T extends string = string> = {
   id: T;
@@ -16,3 +19,28 @@ export type Option<T extends string = string> = {
   size?: Size;
   variant?: Variant;
 };
+
+export class OptionModel extends Model<Option> {
+  static get fields() {
+    return {
+      id: new Field("id", { minLength: 1, required: true, type: "STRING" }),
+      title: new Field("title", { minLength: 1, required: true, type: "STRING" }),
+    };
+  }
+
+  static convert(values: Readonly<string[]> | string[]): Option[] {
+    return values.map((v) => ({ id: v, title: v }));
+  }
+}
+
+export type Action = "Cancel" | "Ok" | "Retry";
+export type ActionSet = "Ok" | "OkCancel" | "RetryCancel";
+export type Actions<T extends string = string> = ActionSet | Option<T>[];
+export type OnAction<T extends string = string> = (action: T extends Action ? Action : T) => MaybePromise<Any<boolean>>;
+export type Actionable<T extends string = string> = { actions?: Actions<T>; onAction?: OnAction<T> };
+
+export type ClassName<T = {}> = T & { className?: string };
+export type ClassAndChildren<T = {}> = PropsWithChildren<ClassName<T>>;
+
+// Next.js
+export type WithLayout<T = unknown> = T & { getLayout?: (page: ReactElement) => ReactNode };

@@ -1,12 +1,10 @@
 import type { ReactNode } from "react";
-import { useCallback, useEffect } from "react";
-import type { Boundary, ClassAndChildren, Container, IconName } from "@tntfx/core";
+import { useEffect, useState } from "react";
+import { type Boundary, calcInitialFrameDimension, type ClassAndChildren, type Dimension, type IconName } from "@tntfx/core";
 import { useRefState, useToggle } from "@tntfx/hooks";
 import { classNames } from "@tntfx/theme";
+import { FrameStatus } from "./types";
 import { useFrameDimensions } from "./use-frame-dimensions";
-import { useFrameDrag } from "./use-frame-drag";
-import { useFrameResize } from "./use-frame-resize";
-import type { FrameEvent } from "./utils";
 import { Icon } from "../../icon";
 import { Sidebar } from "../../menu/sidebar";
 import { Toolbar } from "../../menu/toolbar";
@@ -15,8 +13,8 @@ import { Text } from "../../typography";
 import { Box } from "../box";
 import "./frame.scss";
 
-export interface FrameProps extends ClassAndChildren, Omit<Container, "entity"> {
-  isSidebarOpen?: boolean;
+export interface FrameProps {
+  // isSidebarOpen?: boolean;
   draggable?: boolean;
   resizable?: boolean;
   title?: string;
@@ -24,96 +22,101 @@ export interface FrameProps extends ClassAndChildren, Omit<Container, "entity"> 
   boundary?: Boundary;
   isDialog?: boolean;
   // slots
-  headerSlot?: ReactNode;
-  titlebarSlot?: ReactNode;
-  sidebarSlot?: ReactNode;
-  footerSlot?: ReactNode;
+  slots?: {
+    header?: ReactNode;
+    titlebar?: ReactNode;
+    sidebar?: ReactNode;
+    footer?: ReactNode;
+  };
+  onClose?: () => void;
+  // headerSlot?: ReactNode;
+  // titlebarSlot?: ReactNode;
+  // sidebarSlot?: ReactNode;
+  // footerSlot?: ReactNode;
   //
-  onChange: (event: FrameEvent) => void;
-  onSidebarToggle?: () => void;
+  // onChange: (event: FrameEvent) => void;
+  // onSidebarToggle?: () => void;
 }
 
-export function Frame(props: FrameProps) {
+export function Frame(props: ClassAndChildren<FrameProps>) {
   const {
-    id,
+    // id,
     draggable,
     resizable,
-    headerSlot,
-    titlebarSlot,
     title,
     icon,
-    footerSlot,
-    sidebarSlot,
     className,
     children,
-    isSidebarOpen: isSidebarOpenExternal,
-    state,
-    status,
-    boundary,
-    dimension,
     isDialog,
-    onChange,
-    onSidebarToggle,
+    slots = {},
+
+    // isSidebarOpen: isSidebarOpenExternal,
+    // state,
+    // status,
+    boundary,
+    // dimension,
+    // onChange,
+    // onSidebarToggle,
+    onClose,
   } = props;
 
   const [initiated, setInitiated] = useToggle();
-  const [isSidebarOpenInternal, showSidebar, hideSidebar] = useToggle(!!isSidebarOpenExternal);
+  const [isSidebarOpen, , , toggleSidebar] = useToggle();
   const [frame, frameRefHandler] = useRefState<HTMLDivElement>();
+  const [dimension, setDimension] = useState<Dimension>(() => calcInitialFrameDimension(boundary));
+  const [frameStatus, setFrameStatus] = useState<FrameStatus>(FrameStatus.Normal);
 
-  useFrameDrag({ id, draggable, status, frameElement: frame, boundary, isDialog, onChange });
-  useFrameResize({ id, resizable, status, frameElement: frame, boundary, isDialog, onChange });
+  // useFrameDrag({ draggable, frameStatus, frameElement: frame, boundary, isDialog, setDimension });
+  // useFrameResize({ resizable, frameStatus, frameElement: frame, boundary, isDialog, setDimension });
+
   const { headerHeight, footerHeight } = useFrameDimensions(frame);
 
-  const toggleSidebar = useCallback((isVisible?: boolean) => {
-    if (isVisible) {
-      showSidebar();
-    } else {
-      hideSidebar();
-    }
-  }, []);
+  // const toggleSidebar = useCallback((isVisible?: boolean) => {
+  //   if (isVisible) {
+  //     showSidebar();
+  //   } else {
+  //     hideSidebar();
+  //   }
+  // }, []);
 
-  useEffect(() => {
-    toggleSidebar(isSidebarOpenExternal);
-  }, [isSidebarOpenExternal]);
+  // useEffect(() => {
+  //   toggleSidebar(isSidebarOpenExternal);
+  // }, [isSidebarOpenExternal]);
 
-  const handleSidebarToggle = useCallback(() => {
-    if (onSidebarToggle) {
-      onSidebarToggle();
-    } else {
-      toggleSidebar(!isSidebarOpenInternal);
-    }
-  }, [onSidebarToggle, isSidebarOpenInternal]);
+  // const handleSidebarToggle = useCallback(() => {
+  //   if (onSidebarToggle) {
+  //     onSidebarToggle();
+  //   } else {
+  //     toggleSidebar(!isSidebarOpenInternal);
+  //   }
+  // }, [onSidebarToggle, isSidebarOpenInternal]);
 
   useEffect(() => {
     if (frame && !initiated) {
       const dimension = frame.getBoundingClientRect();
-      onChange({ id, type: "init", dimension });
+      setDimension(dimension);
+      // onChange({ id, type: "init", dimension });
       setInitiated();
     }
-  }, [frame, initiated]);
+  }, [frame, initiated, setInitiated]);
 
   return (
     <Box
-      className={classNames("frame", `status-${status}`, className, { _active: state === "active", _initiated: initiated })}
+      className={classNames("frame", `status-${status}`, className, { _initiated: initiated })}
       draggable={draggable}
-      id={id}
       ref={frameRefHandler}
       resizable={resizable}
       style={initiated ? dimension : undefined}
     >
       <DialogProvider>
         <Box className="frame-wrapper">
-          {sidebarSlot && (
-            <Sidebar
-              className={classNames("frame-sidebar", [className, "-sidebar"])}
-              isOpen={isSidebarOpenInternal}
-              overlay={false}
-            >
+          {slots.sidebar && (
+            <Sidebar className={classNames("frame-sidebar", [className, "-sidebar"])} isOpen={isSidebarOpen} overlay={false}>
               <div
                 className="frame-sidebar-placeholder"
                 style={{ height: headerHeight, minHeight: headerHeight, maxHeight: headerHeight }}
               />
-              {sidebarSlot}
+              {slots.sidebar}
             </Sidebar>
           )}
 
@@ -121,25 +124,26 @@ export function Frame(props: FrameProps) {
             <Box className={classNames("frame-header", [className, "-header"])}>
               <Toolbar>
                 <Toolbar.Title>
-                  {!!sidebarSlot ? <Icon name="sidebar" onClick={handleSidebarToggle} /> : <Icon name={icon || "apps"} />}
+                  {slots.sidebar ? <Icon name="sidebar" onClick={toggleSidebar} /> : <Icon name={icon || "apps"} />}
                   {title && <Text size="large">{title}</Text>}
                 </Toolbar.Title>
 
-                <Toolbar.Section>{titlebarSlot}</Toolbar.Section>
+                <Toolbar.Section>{slots.titlebar}</Toolbar.Section>
 
                 <Toolbar.Control>
-                  <Icon disabled={isDialog} name="minimize" onClick={() => onChange({ id, type: "minimize" })} />
-
                   <Icon
                     disabled={isDialog}
-                    name={status === "maximized" ? "restoreMaximize" : "maximize"}
-                    onClick={() => onChange({ id, type: status === "maximized" ? "restore" : "maximize" })}
+                    name={frameStatus === "maximized" ? "restoreMaximize" : "maximize"}
+                    // onClick={() => onChange({ id, type: status === "maximized" ? "restore" : "maximize" })}
                   />
 
-                  <Icon name="cross" onClick={() => onChange({ id, type: "close" })} />
+                  <Icon
+                    name="cross"
+                    // onClick={() => onChange({ id, type: "close" })}
+                  />
                 </Toolbar.Control>
               </Toolbar>
-              {headerSlot}
+              {slots.header}
             </Box>
 
             <Box className={classNames("frame-body", [className, "-body"])}>
@@ -150,7 +154,7 @@ export function Frame(props: FrameProps) {
               />
             </Box>
 
-            {footerSlot && <Box className={classNames("frame-footer", [className, "-footer"])}>{footerSlot}</Box>}
+            {slots.footer && <Box className={classNames("frame-footer", [className, "-footer"])}>{slots.footer}</Box>}
           </Box>
         </Box>
       </DialogProvider>

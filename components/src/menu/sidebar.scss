@@ -1,12 +1,13 @@
 @import "@tntfx/theme";
 
-$sidebarMinWidth: 240px;
+$sidebarMinWidth: 128px;
 $sidebarMaxWidth: var(--breakpoint-xs);
 
 .sidebar-backdrop.box.backdrop {
   z-index: var(--layer-sidebar);
   min-height: 100%;
   max-height: 100%;
+  flex-direction: row;
   align-items: stretch;
   justify-content: flex-start;
 
@@ -15,6 +16,15 @@ $sidebarMaxWidth: var(--breakpoint-xs);
     min-width: $sidebarMinWidth;
     max-width: $sidebarMaxWidth;
     background-color: transparent;
+  }
+
+  &.__with-body {
+    background: var(--color-element);
+
+    &.open:not(.overlay) {
+      width: 100%;
+      max-width: none;
+    }
   }
 
   .sidebar {
@@ -34,5 +44,12 @@ $sidebarMaxWidth: var(--breakpoint-xs);
       background-color: var(--color-body-alpha);
       color: var(--color-body-alpha-text);
     }
+  }
+
+  .sidebar-body {
+    flex: 1;
+    border-radius: var(--border-radius-md);
+    margin: var(--layout-spacing-md);
+    margin-left: 0;
   }
 }

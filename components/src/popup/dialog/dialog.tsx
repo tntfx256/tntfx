@@ -1,18 +1,14 @@
-import { useCallback, useState } from "react";
-import type { Container } from "@tntfx/core";
-import { calcInitialFrameDimension } from "@tntfx/core";
+import { useCallback } from "react";
 import { classNames } from "@tntfx/theme";
 import { Backdrop } from "../../backdrop";
 import { ActionBar } from "../../layout/action-bar";
 import { Frame } from "../../layout/frame";
-import type { FrameEvent } from "../../layout/frame/utils";
 import { getCloseAction } from "../../utils";
 import type { DialogProps } from "../types";
 import "./dialog.scss";
 
 export function Dialog(props: DialogProps) {
   const {
-    id,
     isOpen,
     className,
     actions,
@@ -26,32 +22,28 @@ export function Dialog(props: DialogProps) {
     ...frameProps
   } = props;
 
-  const [container] = useState(() => {
-    // const id = generateId();
+  // const [container] = useState(() => {
+  //   // const id = generateId();
 
-    const container: Container = {
-      id,
-      dimension: calcInitialFrameDimension([]),
-      entity: { id, icon: "apps", name: "dialog", path: "/", type: "App" },
-      state: "active",
-      status: "normal",
-    };
+  //   const container: Container = {
+  //     id,
+  //     dimension: calcInitialFrameDimension([]),
+  //     entity: { id, icon: "apps", name: "dialog", path: "/", type: "App" },
+  //     state: "active",
+  //     status: "normal",
+  //   };
 
-    return container;
-  });
+  //   return container;
+  // });
   const closeAction = getCloseAction(actions);
 
-  const handleChange = useCallback((event: FrameEvent) => {
-    const { type } = event;
-    switch (type) {
-      case "close":
-        if (onAction && closeAction) {
-          onAction(closeAction);
-        } else {
-          onClose?.();
-        }
+  const handleClose = useCallback(() => {
+    if (onAction && closeAction) {
+      onAction(closeAction);
+    } else {
+      onClose?.();
     }
-  }, []);
+  }, [closeAction, onAction, onClose]);
 
   return (
     <Backdrop
@@ -64,11 +56,13 @@ export function Dialog(props: DialogProps) {
     >
       <Frame
         className={classNames("dialog", className)}
-        footerSlot={actions || onAction ? <ActionBar actions={actions} onAction={onAction} /> : undefined}
+        slots={{
+          footer: actions || onAction ? <ActionBar actions={actions} onAction={onAction} /> : undefined,
+        }}
         {...frameProps}
-        {...container}
         isDialog
-        onChange={handleChange}
+        // onChange={handleChange}
+        onClose={handleClose}
       />
     </Backdrop>
   );

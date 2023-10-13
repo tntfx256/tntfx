@@ -1,33 +1,35 @@
 import { useEffect, useState } from "react";
-import type { Boundary, FrameStatus, Nullable } from "@tntfx/core";
+import type { Boundary, Nullable } from "@tntfx/core";
 import { boundaryToBoundingRect } from "@tntfx/core";
 import { useDrag } from "@tntfx/hooks";
-import type { FrameEventHandler } from "./utils";
+import type { SetDimension } from "./types";
+import { FrameStatus } from "./types";
 
 interface UseFrameDragConfig {
-  id: string;
-  isDialog?: boolean;
-  status?: FrameStatus;
+  // id: string;
+  // isDialog?: boolean;
+  frameStatus?: FrameStatus;
   draggable: boolean | undefined;
   frameElement: Nullable<HTMLDivElement>;
   boundary?: Boundary;
-  onChange: FrameEventHandler;
+  setDimension: SetDimension;
 }
 
 export function useFrameDrag(config: UseFrameDragConfig) {
-  const { id, isDialog, frameElement, status, draggable, boundary, onChange } = config;
+  const { frameElement, frameStatus, draggable, boundary, setDimension } = config;
 
   const [headerElement, setHeaderElement] = useState<Nullable<HTMLDivElement>>(null);
 
   useDrag(headerElement, {
     boundingRect: boundaryToBoundingRect(boundary || {}),
     target: frameElement,
-    draggable: draggable && (!status || status === "normal"),
+    draggable: draggable && (!frameStatus || frameStatus === FrameStatus.Normal),
     onDragStart() {
-      onChange({ id, type: "activate", isDialog });
+      // onChange({ id, type: "activate", isDialog });
     },
     onDragEnd(dimension) {
-      onChange({ id, type: "drag", dimension, isDialog });
+      // onChange({ id, type: "drag", dimension, isDialog });
+      setDimension(dimension);
     },
   });
 

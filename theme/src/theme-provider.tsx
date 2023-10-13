@@ -1,9 +1,10 @@
-import { isServer, logger } from "@tntfx/core";
 import type { PropsWithChildren } from "react";
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import { logger } from "@tntfx/core";
+import { useColorScheme } from "./hooks";
 import { injectTheme } from "./styles/css-vars";
 import { defaultTheme } from "./styles/theme";
-import type { ColorScheme, ColorSchemeMode, Theme } from "./types";
+import type { ColorSchemeMode, Theme } from "./types";
 // reset should be first
 import "./styles/reset.scss";
 // and then the global
@@ -29,7 +30,9 @@ ThemeContext.displayName = "themeProvider";
 export function ThemeProvider(props: PropsWithChildren<ThemeProviderProps>) {
   const { mode, defaultTheme, alternateTheme, children } = props;
 
-  const getNewTheme = useCallback(() => {
+  const isDark = useColorScheme();
+
+  const setTheme = useCallback(() => {
     let hasError = false;
     if (defaultTheme.mode === alternateTheme?.mode) {
       hasError = true;
@@ -47,7 +50,7 @@ export function ThemeProvider(props: PropsWithChildren<ThemeProviderProps>) {
       return theme;
     }
 
-    const colorScheme = mode === "system" ? getSystemColorScheme(defaultTheme.mode) : mode;
+    const colorScheme = mode === "system" ? (isDark ? "dark" : "light") : mode;
 
     const theme =
       defaultTheme.mode === "light"
@@ -62,26 +65,14 @@ export function ThemeProvider(props: PropsWithChildren<ThemeProviderProps>) {
 
     injectTheme(theme);
     return theme;
-  }, [alternateTheme, defaultTheme, mode]);
+  }, [alternateTheme, defaultTheme, isDark, mode]);
 
-  const [state, setState] = useState<ThemeState>(() => ({ theme: getNewTheme() }));
+  const [state, setState] = useState<ThemeState>(() => ({ theme: setTheme() }));
 
   // setting system themeChange handler
   useEffect(() => {
-    const mqListener = () => {
-      setState({ theme: getNewTheme() });
-    };
-    const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
-
-    // setting the color scheme change handler
-    if (mode === "system") {
-      darkThemeMq.addEventListener("change", mqListener);
-    }
-
-    setState({ theme: getNewTheme() });
-
-    return () => darkThemeMq.removeEventListener("change", mqListener);
-  }, [getNewTheme, mode]);
+    setState({ theme: setTheme() });
+  }, [setTheme, mode]);
 
   return <ThemeContext.Provider value={state}>{children}</ThemeContext.Provider>;
 }
@@ -90,13 +81,4 @@ export function useTheme() {
   const { theme } = useContext(ThemeContext);
 
   return { theme, isDark: theme.mode === "dark" };
-}
-
-function getSystemColorScheme(defaultMode: ColorScheme): ColorScheme {
-  if (isServer()) {
-    return defaultMode;
-  }
-
-  const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
-  return darkThemeMq.matches ? "dark" : "light";
 }

@@ -26,3 +26,5 @@ export const Box = forwardRef(function Box(props: ClassAndChildren<BoxProps>, re
   );
 });
 // );
+
+Box.displayName = "Box";

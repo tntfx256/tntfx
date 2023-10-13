@@ -9,6 +9,12 @@ $sizeMap: (
   xxxLarge: xxxl,
 );
 
+$breakpoint-xs: 320px;
+$breakpoint-sm: 480px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
 @mixin hover {
   &:hover:not(:disabled, ._disabled, ._selected) {
     filter: brightness(var(--effect-hover));
@@ -70,14 +76,22 @@ $sizeMap: (
   }
 }
 
-@mixin belowLargeScreen() {
-  @media all and (max-width: var(--breakpoint-lg)) {
+@mixin largeScreen() {
+  $width: $breakpoint-lg + 1;
+
+  @media all and (min-width: $width) {
     @content;
   }
 }
 
-@mixin largeScreen() {
-  @media all and (min-width: calc(var(--breakpoint-lg) + 1)) {
+@mixin belowLargeScreen() {
+  @media all and (max-width: $breakpoint-lg) {
+    @content;
+  }
+}
+
+@mixin belowMedium() {
+  @media all and (max-width: $breakpoint-md) {
     @content;
   }
 }

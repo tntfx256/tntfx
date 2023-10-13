@@ -1,7 +1,6 @@
 import type { Sizable, Size } from "@tntfx/core";
 import { isServer } from "@tntfx/core";
 import { CssSizeMap } from "./const";
-import { toRem } from "./utils";
 import type { PaletteColor, Theme } from "../types";
 
 const classes = {
@@ -23,11 +22,11 @@ export function injectTheme(theme: Theme) {
   const style = document.documentElement.style;
 
   // BREAKPOINT
-  style.setProperty("--breakpoint-xs", toRem(breakpoints.xSmall));
-  style.setProperty("--breakpoint-sm", toRem(breakpoints.small));
-  style.setProperty("--breakpoint-md", toRem(breakpoints.medium));
-  style.setProperty("--breakpoint-lg", toRem(breakpoints.large));
-  style.setProperty("--breakpoint-xl", toRem(breakpoints.xLarge));
+  style.setProperty("--breakpoint-xs", `${breakpoints.xSmall}px`);
+  style.setProperty("--breakpoint-sm", `${breakpoints.small}px`);
+  style.setProperty("--breakpoint-md", `${breakpoints.medium}px`);
+  style.setProperty("--breakpoint-lg", `${breakpoints.large}px`);
+  style.setProperty("--breakpoint-xl", `${breakpoints.xLarge}px`);
 
   // EFFECTS
 

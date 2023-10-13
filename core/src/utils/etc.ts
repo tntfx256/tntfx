@@ -43,20 +43,6 @@ export function getNonEmptyValues<T extends OBJECT>(data: T): Partial<T> {
   return values;
 }
 
-export type WithCorsProxy = {
-  contents: string;
-  status: {
-    content_length: number;
-    content_type: string;
-    http_code: number;
-    response_time: number;
-    url: string;
-  };
-};
-export function withCorsProxy(url: string) {
-  return `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
-}
-
 export function isServer() {
   return typeof window === "undefined";
 }

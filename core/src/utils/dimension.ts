@@ -47,9 +47,9 @@ export function getMinDimension(isDialog = false): Dimension {
 }
 
 export function calcInitialFrameDimension(
-  otherFrames: Dimension[],
-  boundary?: Boundary,
-  initialDimension?: Dimension
+  // otherFrames: Dimension[],
+  boundary?: Boundary
+  // initialDimension?: Dimension
 ): Dimension {
   const { desktop } = getScreenDimension();
   const hasBoundingRect = Boolean(boundary);
@@ -73,20 +73,21 @@ export function calcInitialFrameDimension(
     // put the popup in the middle
     left = Math.ceil(boundingRect.left + (boundingRect.width - width) / 2);
     top = Math.ceil(boundingRect.top + (boundingRect.height - height) / 2);
-  } else {
-    // check overlap with other frames
-    while (otherFrames.some((frame) => frame.top === top || frame.left === left)) {
-      if (
-        left + width + offset.X <= boundingRect.left + boundingRect.width &&
-        top + height + offset.Y <= boundingRect.top + boundingRect.height
-      ) {
-        left += offset.X;
-        top += offset.Y;
-      } else {
-        break;
-      }
-    }
   }
+  // else {
+  // check overlap with other frames
+  // while (otherFrames.some((frame) => frame.top === top || frame.left === left)) {
+  //   if (
+  //     left + width + offset.X <= boundingRect.left + boundingRect.width &&
+  //     top + height + offset.Y <= boundingRect.top + boundingRect.height
+  //   ) {
+  //     left += offset.X;
+  //     top += offset.Y;
+  //   } else {
+  //     break;
+  //   }
+  // }
+  // }
 
   return { height, left, top, width };
 }

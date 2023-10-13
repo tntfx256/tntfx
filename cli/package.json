@@ -2,17 +2,15 @@
   "name": "@tntfx/cli",
   "version": "0.0.0",
   "private": true,
-  "main": "src/index.ts",
-  "types": "src/index.ts",
   "scripts": {
     "types": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@tntfx/core": "workspace:*",
-    "@tntfx/theme": "workspace:*"
+    "@tntfx/core": "*",
+    "@tntfx/theme": "*"
   },
   "devDependencies": {
-    "@tntfx/tsconfig": "workspace:*",
+    "@tntfx/tsconfig": "*",
     "@types/node": "^20.8.4",
     "typescript": "^5.2.2"
   }

@@ -3,7 +3,7 @@ import type { Nullable, SerializableError } from "@tntfx/core";
 // REQUEST
 // ----------------
 export type ResponseStatus = { status: number; statusText: string };
-// export type PrepareHeaders = (headers: AxiosHeaders) => Promise<void>;
+export type PrepareHeaders = (headers: Headers) => Promise<void>;
 // export type Transform<T, D = Any> = (data: D) => MaybePromise<T>;
 
 // export type RequestConfig<T> = { url?: string; method?: Method; transform?: Transform<T> };

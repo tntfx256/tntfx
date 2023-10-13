@@ -20,7 +20,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius-lg);
   background-color: var(--color-body);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-lg);
   color: var(--color-body-text);
 
   opacity: 0.5;
@@ -37,19 +37,9 @@
     }
   }
 
-  &._active {
-    z-index: var(--layer-window-active);
-    box-shadow: var(--shadow-lg);
-  }
-
   &.status {
     transition-duration: var(--animation-duration-short);
     transition-property: top left width height transform;
-
-    &-minimized,
-    &-minimized-max {
-      transform: scale3d(0, 0, 0);
-    }
 
     &-maximized {
       top: 0 !important;
