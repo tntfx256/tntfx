@@ -1,7 +1,7 @@
-import type { IconName, OBJECT, Option, StringKeys } from "@tntfx/core";
+import type { IconName, Option, StringKeys, TObject } from "@tntfx/core";
 import type { useHistory } from "@tntfx/hooks";
 
-export type ContentMap = OBJECT<{ icon?: IconName; title: string; content: string }>;
+export type ContentMap = TObject<{ icon?: IconName; title: string; content: string }>;
 
 export type WebViewProps<T extends ContentMap = ContentMap, K extends StringKeys<T> = StringKeys<T>> = {
   startPage: K;

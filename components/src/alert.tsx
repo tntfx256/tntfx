@@ -1,6 +1,6 @@
 import type { Actions, ClassAndChildren, IconName, MessageType, OnAction } from "@tntfx/core";
 import { classNames } from "@tntfx/theme";
-import { ActionBar } from "./layout/action-bar";
+import { ActionBar } from "./layout";
 import { Box } from "./layout/box";
 import { Svg } from "./svg";
 import { Text } from "./typography/text";

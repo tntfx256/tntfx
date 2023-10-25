@@ -1,8 +1,10 @@
+@use "@tntfx/theme" as *;
+
 .svg {
   display: inline-block;
-  width: var(--icon-size-md);
+  width: size(md);
   max-width: unset;
-  height: var(--icon-size-md);
+  height: size(md);
   aspect-ratio: 1 / 1;
 
   &,
@@ -18,22 +20,22 @@
   }
 
   &.size-xSmall {
-    width: var(--icon-size-xs);
-    height: var(--icon-size-xs);
+    width: size(xs);
+    height: size(xs);
   }
   &.size-small {
-    width: var(--icon-size-sm);
-    height: var(--icon-size-sm);
+    width: size(sm);
+    height: size(sm);
   }
 
   &.size-large {
-    width: var(--icon-size-lg);
-    height: var(--icon-size-lg);
+    width: size(lg);
+    height: size(lg);
   }
 
   &.size-xLarge {
-    width: var(--icon-size-xl);
-    height: var(--icon-size-xl);
+    width: size(xl);
+    height: size(xl);
   }
 
   // SPECIALS

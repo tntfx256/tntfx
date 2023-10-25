@@ -38,11 +38,7 @@ export const FormElement = forwardRef(function FormElement(
   const hasError = !!error;
 
   return (
-    <div
-      className={classNames("form-element", className, { error: hasError, _disabled: disabled })}
-      ref={ref}
-      onClick={handleClick}
-    >
+    <div className={classNames("form-element", className, { error: hasError })} ref={ref} onClick={handleClick}>
       {label && (
         <label className="label" htmlFor={name}>
           {label}

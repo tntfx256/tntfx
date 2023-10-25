@@ -3,7 +3,7 @@
 .card {
   overflow: hidden;
   border: 1px solid var(--color-border);
-  border-radius: var(--border-radius-md);
+  border-radius: $border-radius-md;
 
   &-header {
     position: absolute;
@@ -12,7 +12,7 @@
     left: 0;
 
     .toolbar-title {
-      padding-left: var(--layout-spacing-md);
+      padding-left: size(md);
     }
   }
 

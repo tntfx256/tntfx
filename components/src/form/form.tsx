@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import type { ClassAndChildren, Option } from "@tntfx/core";
 import { classNames } from "@tntfx/theme";
 import { Box } from "../layout";
-import { ActionBar } from "../layout/action-bar";
+import { ActionBar } from "../layout/bar/action-bar";
 import { Text } from "../typography/text";
 import "./form.scss";
 

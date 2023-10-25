@@ -1,9 +1,11 @@
+@use "@tntfx/theme" as *;
+
 .text {
   padding: 0;
   margin: 0;
-  font-size: var(--font-size-md);
-  font-weight: var(--font-weight-sm);
-  line-height: var(--line-height-md);
+  font-size: $font-size-md;
+  font-weight: $font-weight-sm;
+  line-height: $line-height-md;
   text-align: inherit;
 
   &.variant-primary {
@@ -17,50 +19,50 @@
     color: var(--color-error);
   }
 
-  &.size-xxSmall {
-    font-size: var(--font-size-xxs);
-    font-weight: var(--font-weight-xxs);
-    line-height: var(--line-height-xxs);
+  &.size-2xSmall {
+    font-size: $font-size-2xs;
+    font-weight: $font-weight-2xs;
+    line-height: $line-height-2xs;
   }
   &.size-xSmall {
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-xs);
-    line-height: var(--line-height-xs);
+    font-size: $font-size-xs;
+    font-weight: $font-weight-2xs;
+    line-height: $line-height-xs;
   }
 
   &.size-small {
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-sm);
-    line-height: var(--line-height-sm);
+    font-size: $font-size-sm;
+    font-weight: $font-weight-sm;
+    line-height: $line-height-sm;
   }
 
   &.size-medium {
-    font-size: var(--font-size-md);
-    font-weight: var(--font-weight-md);
-    line-height: var(--line-height-md);
+    font-size: $font-size-md;
+    font-weight: $font-weight-md;
+    line-height: $line-height-md;
   }
 
   &.size-large {
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-lg);
-    line-height: var(--line-height-lg);
+    font-size: $font-size-lg;
+    font-weight: $font-weight-md;
+    line-height: $line-height-lg;
   }
 
   &.size-xLarge {
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-xl);
-    line-height: var(--line-height-xl);
+    font-size: $font-size-xl;
+    font-weight: $font-weight-lg;
+    line-height: $line-height-xl;
   }
 
-  &.size-xxLarge {
-    font-size: var(--font-size-xxl);
-    font-weight: var(--font-weight-xxl);
-    line-height: var(--line-height-xxl);
+  &.size-2xLarge {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-xl;
+    line-height: $line-height-2xl;
   }
 
-  &.size-xxxLarge {
-    font-size: var(--font-size-xxxl);
-    font-weight: var(--font-weight-xxxl);
-    line-height: var(--line-height-xxxl);
+  &.size-3xLarge {
+    font-size: $font-size-3xl;
+    font-weight: $font-weight-2xl;
+    line-height: $line-height-3xl;
   }
 }

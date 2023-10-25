@@ -2,29 +2,21 @@ import type { ForwardedRef, HTMLAttributes } from "react";
 import { forwardRef } from "react";
 import type { ClassAndChildren } from "@tntfx/core";
 import type { EnhancedProps } from "@tntfx/theme";
-import { classNames, useStyle } from "@tntfx/theme";
+import { classNames, useParseProps } from "@tntfx/theme";
 import "./box.scss";
 
-export type BoxProps = HTMLAttributes<HTMLDivElement> &
-  EnhancedProps & { horizontal?: boolean; draggable?: boolean; resizable?: boolean };
+export type BoxProps = HTMLAttributes<HTMLDivElement> & Partial<EnhancedProps>;
 
-// export const Box = memo(
-export const Box = forwardRef(function Box(props: ClassAndChildren<BoxProps>, ref: ForwardedRef<HTMLDivElement>) {
-  const { className, children, horizontal, draggable, resizable, ...libProps } = props;
-
-  const result = useStyle(libProps);
+function BoxWithRefs(props: ClassAndChildren<BoxProps>, ref: ForwardedRef<HTMLDivElement>) {
+  const { children, ...libProps } = props;
+  const result = useParseProps(libProps);
 
   return (
-    <div
-      style={result.style}
-      {...result.props}
-      className={classNames("box", { horizontal, draggable, resizable }, className)}
-      ref={ref}
-    >
+    <div className={classNames("box", result.className)} ref={ref} style={result.style} {...result.props}>
       {children}
     </div>
   );
-});
-// );
+}
 
+export const Box = forwardRef(BoxWithRefs);
 Box.displayName = "Box";

@@ -1,0 +1,36 @@
+@use "@tntfx/theme" as *;
+
+.toolbar-section {
+  @include unSelectable;
+  position: relative;
+  overflow: visible;
+  height: 100%;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+
+  .svg {
+    width: size(md);
+    height: size(md);
+  }
+
+  .icon {
+    padding: size(xs);
+  }
+
+  .button:not(.icon) {
+    min-width: $layout-width-element-md;
+    margin: 0 size(md);
+  }
+
+  .form-element {
+    flex: 1;
+    margin: 0;
+  }
+
+  &-title.text {
+    font-size: $font-size-md;
+    font-weight: $font-weight-sm;
+  }
+}

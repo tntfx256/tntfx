@@ -1,4 +1,4 @@
-import type { Any, OBJECT } from "../types";
+import type { Any, TObject } from "../types";
 import { EmptyValues } from "../validation";
 
 type Callback = (...args: Any[]) => void;
@@ -26,12 +26,12 @@ export function debounceCallback(cb: Callback, delay = 100) {
   };
 }
 
-export function getFirstPair<T = Any>(object: OBJECT<T>) {
+export function getFirstPair<T = Any>(object: TObject<T>) {
   const [pair] = Object.entries(object);
   return pair ? { key: pair[0], value: pair[1] } : { key: "", value: "" };
 }
 
-export function getNonEmptyValues<T extends OBJECT>(data: T): Partial<T> {
+export function getNonEmptyValues<T extends TObject>(data: T): Partial<T> {
   const values: Partial<T> = {};
 
   for (const [field, value] of Object.entries(data)) {

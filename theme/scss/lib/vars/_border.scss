@@ -1,0 +1,10 @@
+@use "../units.scss" as *;
+
+$border-radius-2xs: toRem(2);
+$border-radius-xs: toRem(4);
+$border-radius-sm: toRem(8);
+$border-radius-md: toRem(12);
+$border-radius-lg: toRem(16);
+$border-radius-xl: toRem(20);
+$border-radius-2xl: toRem(24);
+$border-radius-3xl: toRem(32);

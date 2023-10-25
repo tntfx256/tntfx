@@ -1,6 +1,5 @@
-import type { PropsWithChildren, ReactElement } from "react";
-import { memo } from "react";
-import type { Any, Option } from "@tntfx/core";
+import type { PropsWithChildren } from "react";
+import type { Option } from "@tntfx/core";
 import { classNames } from "@tntfx/theme";
 import { MenuItem } from "./menu-item";
 import "./menubar.scss";
@@ -12,7 +11,7 @@ export type MenubarProps<T extends string = string> = {
   selected?: T;
 };
 
-export const Menubar = memo(function Menubar<T extends string = string>(props: PropsWithChildren<MenubarProps<T>>) {
+export function Menubar<T extends string = string>(props: PropsWithChildren<MenubarProps<T>>) {
   const { className, items, onClick, children, selected, ...libProps } = props;
 
   const hasItems = items && items.length > 0;
@@ -27,8 +26,6 @@ export const Menubar = memo(function Menubar<T extends string = string>(props: P
       {children}
     </ul>
   );
-}) as <T extends string = string>(
-  props: PropsWithChildren<MenubarProps<T>>
-) => ReactElement<PropsWithChildren<MenubarProps<T>>>;
+}
 
-(Menubar as Any).Item = MenuItem;
+Menubar.Item = MenuItem;

@@ -1,15 +1,15 @@
 import type { Field } from "./field";
-import type { Any, OBJECT, StringKeys } from "./types";
+import type { Any, StringKeys, TObject } from "./types";
 import type { Violations } from "./validation";
 
-export type Fields<I extends OBJECT = OBJECT> = { [N in StringKeys<I>]: Field<N> };
+export type Fields<I extends TObject = TObject> = { [N in StringKeys<I>]: Field<N> };
 
-export type ModelConstructor<I extends OBJECT = OBJECT> = {
+export type ModelConstructor<I extends TObject = TObject> = {
   new (): Model<I>;
   fields: Fields<I>;
 };
 
-export class Model<I extends OBJECT = OBJECT> {
+export class Model<I extends TObject = TObject> {
   #fieldNames: StringKeys<I>[] = [];
   #fields: Fields<Required<I>> = {} as Fields<I>;
   #values: Partial<I> = {};
@@ -44,7 +44,7 @@ export class Model<I extends OBJECT = OBJECT> {
       if (name in values) {
         const { props } = this.#fields[name]!;
         // if it's a list of object
-        if (props.type === "LIST" && Array.isArray(values[name]) && props.listType == "OBJECT" && props.model) {
+        if (props.type === "List" && Array.isArray(values[name]) && props.listType == "Object" && props.model) {
           const model = new Model();
           model.extend(props.model.fields);
           this.#values[name] = [] as unknown as I[StringKeys<I>];
@@ -56,7 +56,7 @@ export class Model<I extends OBJECT = OBJECT> {
               this.#values[name].push(model.getValues());
             }
           }
-        } else if (props.type === "OBJECT" && props.model) {
+        } else if (props.type === "Object" && props.model) {
           // or if it's just a single object
           const model = new Model();
           model.extend(props.model.fields);
@@ -80,7 +80,7 @@ export class Model<I extends OBJECT = OBJECT> {
     return Model.validate<I>(this, fieldNames);
   }
 
-  static validate<I extends OBJECT = OBJECT>(model: Model<I>, fieldNames?: (keyof I)[]) {
+  static validate<I extends TObject = TObject>(model: Model<I>, fieldNames?: (keyof I)[]) {
     let hasViolation = false;
     const violations: Violations = {};
 

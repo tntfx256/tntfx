@@ -1,9 +1,9 @@
-import type { ERROR } from "@tntfx/core";
+import type { TError } from "@tntfx/core";
 import { finalizeError } from "@tntfx/core";
 import "./error-content.scss";
 
 export type ErrorContentProps = {
-  error?: ERROR;
+  error?: TError;
 };
 
 export function ErrorContent(props: ErrorContentProps) {

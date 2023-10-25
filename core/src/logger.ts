@@ -1,4 +1,4 @@
-import type { Any, OBJECT } from "./types";
+import type { Any, TObject } from "./types";
 import { now } from "./utils/date-time";
 
 const LogTypes = ["DEBUG", "INFO", "WARN", "ERROR"] as const;
@@ -12,7 +12,7 @@ export interface LoggerDriver {
 }
 
 export class Logger {
-  static #loggers: OBJECT<Logger> = {};
+  static #loggers: TObject<Logger> = {};
 
   static getInstance(name = "name") {
     if (!Logger.#loggers[name]) {

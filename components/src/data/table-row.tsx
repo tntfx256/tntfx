@@ -17,7 +17,7 @@ export function TableRow<T>(props: ClassAndChildren<TableRowProps<T>>) {
       e.stopPropagation();
       onRowSelect?.(record);
     },
-    [onRowSelect, record]
+    [onRowSelect, record],
   );
 
   const isSelected = selected || (record && selectedRow === record?.[id]);

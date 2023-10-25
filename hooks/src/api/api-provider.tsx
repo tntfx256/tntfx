@@ -1,5 +1,4 @@
-import type { PropsWithChildren } from "react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { type PropsWithChildren } from "react";
 import type { PrepareHeaders } from "./types";
 import { initStore } from "../store";
 
@@ -9,7 +8,6 @@ export type ApiConfig = {
   prepareHeaders?: PrepareHeaders;
 };
 
-const queryClient = new QueryClient();
 const { StoreProvider, useStore } = initStore<ApiConfig>({ name: "api" });
 
 export type ApiProviderProps = {
@@ -19,11 +17,7 @@ export type ApiProviderProps = {
 export function ApiProvider(props: PropsWithChildren<ApiProviderProps>) {
   const { apiConfig, children } = props;
 
-  return (
-    <StoreProvider {...apiConfig}>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-    </StoreProvider>
-  );
+  return <StoreProvider {...apiConfig}>{children}</StoreProvider>;
 }
 
 export function useApiConfig() {

@@ -7,29 +7,29 @@
   position: relative;
   display: flex;
   min-width: var(--layout-width-element-xl);
-  height: var(--layout-height-element-md);
+  height: $layout-height-element-md;
   flex-flow: column nowrap;
   align-items: flex-start;
   justify-content: flex-start;
   border: 1px solid var(--color-border);
-  border-radius: var(--border-radius-sm);
+  border-radius: $border-radius-sm;
 
   /* for label animation, error and help texts */
-  margin: var(--layout-spacing-lg) var(--layout-spacing-sm) var(--layout-spacing-md) var(--layout-spacing-sm);
+  margin: size(lg);
   // background-color: var(--color-element-alpha);
   color: var(--color-element-alpha-text);
-  // transition: background-color var(--animation-duration-sm) var(--animation-easing);
+  // transition: background-color $animation-duration-sm) var(--animation-easing;
 
   .label {
     position: absolute;
     top: 50%;
-    left: var(--layout-spacing-md);
+    left: size(md);
     color: var(--color-element-alpha-text);
     filter: opacity(0.25);
-    font-size: var(--font-size-md);
-    font-weight: var(--font-weight-md);
+    font-size: $font-size-md;
+    font-weight: $font-weight-md;
     transform: translate3d(0, -50%, 0);
-    transition-duration: var(--animation-duration-sm);
+    transition-duration: $animation-duration-sm;
     transition-property: top, left, transform;
     transition-timing-function: var(--animation-easing);
   }
@@ -37,7 +37,7 @@
   .hint {
     position: absolute;
     top: -2px;
-    right: var(--border-radius-xs);
+    right: $border-radius-xs;
     color: var(--color-info);
     transform: translate3d(0, -100%, 0);
   }
@@ -55,7 +55,7 @@
   &:not(.pristine) {
     .label {
       top: -2px;
-      left: var(--border-radius-xs);
+      left: $border-radius-xs;
       filter: opacity(0.75);
       transform: translate3d(-5px, -90%, 0) scale3d(0.9, 0.9, 1);
     }

@@ -1,10 +1,10 @@
 import { useCallback, useMemo, useState } from "react";
-import type { Any, Model, ModelConstructor, Nullable, OBJECT, Violations } from "@tntfx/core";
+import type { Any, Model, ModelConstructor, Nullable, TObject, Violations } from "@tntfx/core";
 import { Err } from "@tntfx/core";
 import type { ParsedResponse } from "./api/types";
 import { parseResponse } from "./api/utils";
 
-export function useModel<I extends OBJECT = OBJECT>(builder: ModelConstructor<I>, initialValue?: Nullable<Partial<I>>) {
+export function useModel<I extends TObject = TObject>(builder: ModelConstructor<I>, initialValue?: Nullable<Partial<I>>) {
   // const popup = usePopup();
   const [model] = useState<Model<I>>(() => {
     const model = new builder();
@@ -20,7 +20,7 @@ export function useModel<I extends OBJECT = OBJECT>(builder: ModelConstructor<I>
       model.setValues({ [name]: value } as Any);
       setValues(model.getValues());
     },
-    [model]
+    [model],
   );
 
   const handleModelValueChange = useCallback(
@@ -28,7 +28,7 @@ export function useModel<I extends OBJECT = OBJECT>(builder: ModelConstructor<I>
       model.setValues(values);
       setValues(model.getValues());
     },
-    [model]
+    [model],
   );
 
   const handleResponse = useCallback(
@@ -54,7 +54,7 @@ export function useModel<I extends OBJECT = OBJECT>(builder: ModelConstructor<I>
       return result;
     },
 
-    [model.fieldNames]
+    [model.fieldNames],
   );
 
   const validate = useCallback(
@@ -69,7 +69,7 @@ export function useModel<I extends OBJECT = OBJECT>(builder: ModelConstructor<I>
       }
       return !!violations;
     },
-    [model]
+    [model],
   );
 
   return useMemo(
@@ -81,8 +81,8 @@ export function useModel<I extends OBJECT = OBJECT>(builder: ModelConstructor<I>
       validate,
       values,
     }),
-    [handleModelValueChange, handleResponse, handleValueChange, validate, values, violations]
+    [handleModelValueChange, handleResponse, handleValueChange, validate, values, violations],
   );
 }
 
-export type UseModel<I extends OBJECT = OBJECT> = ReturnType<typeof useModel<I>>;
+export type UseModel<I extends TObject = TObject> = ReturnType<typeof useModel<I>>;

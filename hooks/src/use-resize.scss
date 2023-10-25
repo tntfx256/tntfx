@@ -1,3 +1,5 @@
+@use "@tntfx/theme" as *;
+
 $size: 10px;
 $barOffset: -5px;
 $cornerSize: 20px;
@@ -6,7 +8,7 @@ $cornerOffset: -10px;
 .frame.box {
   .resize {
     position: absolute;
-    z-index: var(--layer-window);
+    z-index: $layer-window;
     border: 1px solid transparent;
     background: transparent;
   }

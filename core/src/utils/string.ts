@@ -15,11 +15,12 @@ export function uppercase(string: string) {
   return string.toUpperCase();
 }
 
-export function serialize<T = Any>(value: T): string {
+export type Serialized<T = any> = string;
+export function serialize<T = Any>(value: T): Serialized<T> {
   return JSON.stringify(value);
 }
 
-export function deserialize<T = Any>(value: string): T {
+export function deserialize<T = Any>(value: Serialized<T>): T {
   return JSON.parse(value) as T;
 }
 

@@ -1,21 +1,20 @@
-import type { DependencyList, EffectCallback } from "react";
-import { useEffect, useMemo, useRef } from "react";
 import type { Nullable } from "@tntfx/core";
 import { serialize } from "@tntfx/core";
+import type { DependencyList, EffectCallback } from "react";
+import { useEffect, useMemo, useRef } from "react";
 
 type Destructor = ReturnType<EffectCallback> | void;
 
-export function useSerializedMemo<T>(factory: (serializedDeps: string[]) => T, deps: DependencyList): T {
+export function useSerializedMemo<T>(factory: () => Exclude<T, void>, deps: DependencyList): T {
   const serializedDeps = deps.map(serialize);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  return useMemo<T>(() => factory(serializedDeps), serializedDeps);
+  return useMemo<T>(factory, serializedDeps);
 }
 
 export function useSerializedEffect(
   effect: (serializedDeps: string[]) => Destructor,
   deps: DependencyList,
-  skipFirst = false
+  skipFirstRun = false
 ) {
   const ref = useRef<Nullable<string[]>>(null);
   const serializedDeps = deps.map(serialize);
@@ -30,7 +29,7 @@ export function useSerializedEffect(
     }
 
     ref.current = serializedDeps;
-    return skipFirst ? undefined : effect(serializedDeps);
+    return skipFirstRun ? undefined : effect(serializedDeps);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [serializedDeps]);

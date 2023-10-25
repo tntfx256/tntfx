@@ -2,8 +2,8 @@
 
 %sticky {
   @include blur;
-  position: absolute;
-  z-index: var(--layer-window);
+  position: sticky;
+  z-index: $layer-window;
   right: 0;
   left: 0;
   background-color: var(--color-body-alpha);
@@ -15,30 +15,23 @@
 }
 
 .frame {
-  z-index: var(--layer-window);
+  position: absolute;
+  z-index: $layer-window;
   overflow: hidden;
   border: 1px solid var(--color-border);
-  border-radius: var(--border-radius-lg);
+  border-radius: $border-radius-md;
   background-color: var(--color-body);
   box-shadow: var(--shadow-lg);
   color: var(--color-body-text);
 
-  opacity: 0.5;
-
-  &._initiated {
-    position: absolute;
-    opacity: 1;
-
-    .frame-wrapper {
-      @include fill;
-      overflow: hidden;
-      flex-direction: row;
-      border-radius: inherit;
-    }
+  .frame-wrapper {
+    overflow: hidden;
+    flex-direction: row;
+    border-radius: inherit;
   }
 
   &.status {
-    transition-duration: var(--animation-duration-short);
+    transition-duration: $animation-duration-sm;
     transition-property: top left width height transform;
 
     &-maximized {
@@ -53,17 +46,18 @@
 
   &-content {
     overflow: auto;
-    min-height: 100%;
+    // min-height: 100%;
     flex: 1;
     border-radius: inherit;
   }
 
   &-body {
     overflow: auto;
-    width: fit-content;
-    min-width: 100%;
-    height: fit-content;
-    min-height: 100%;
+    // width: fit-content;
+    // min-width: 100%;
+    // height: fit-content;
+    // min-height: 100%;
+    flex: 1;
     background-color: var(--color-body);
     color: var(--color-body-text);
   }
@@ -72,6 +66,7 @@
     @extend %sticky;
     position: sticky;
     top: 0;
+    height: $layout-height-element-lg;
     border-bottom: 1px solid var(--color-border);
     border-top-left-radius: inherit;
     border-top-right-radius: inherit;
@@ -98,6 +93,7 @@
   &-footer {
     @extend %sticky;
     bottom: 0;
+    height: $layout-height-element-md;
     border-top: 1px solid var(--color-border);
     border-bottom-left-radius: inherit;
     border-bottom-right-radius: inherit;

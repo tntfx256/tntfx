@@ -1,18 +1,18 @@
 @import "@tntfx/theme";
 
 .toggle {
-  $size: calc(var(--layout-height-element-md) - var(--layout-spacing-xs));
+  $size: calc($layout-height-element-md - size(xs));
   $indicatorSize: $size;
   $containerWidth: calc(2 * $size);
-  $containerHeight: calc(2 * calc($indicatorSize / 3));
+  $containerHeight: calc(4 * calc($indicatorSize / 5));
   $containerBorderRadius: calc($containerHeight / 2);
-  $indicatorOffset: calc(-1 * calc(var(--layout-height-element-md) / 6));
+  $indicatorOffset: calc(-1 * calc(calc($indicatorSize - $containerHeight) / 2));
 
   &.form-element {
     max-width: max-content;
     flex-flow: row nowrap;
     align-items: center;
-    padding: 0 var(--layout-spacing-sm);
+    padding: 0 size(sm);
     border-color: transparent;
 
     @include hover;
@@ -23,7 +23,7 @@
       top: unset !important;
       left: unset !important;
       flex: 1;
-      padding-right: var(--layout-spacing-sm);
+      padding-right: size(sm);
       filter: none !important;
       transform: none !important;
     }
@@ -47,7 +47,7 @@
 
   &-indicator {
     position: absolute;
-    top: $indicatorOffset;
+    top: calc($indicatorOffset - 1px);
     right: $size;
     left: -1px;
     overflow: hidden;
@@ -56,16 +56,20 @@
     border: 1px solid var(--color-border-alpha);
     border-radius: 50%;
     background-color: var(--color-element);
-    transition-duration: var(--animation-sm);
+    transition-duration: $animation-duration-sm;
     transition-property: right, left, background-color;
   }
 
   &._checked {
+    .toggle-container {
+      background-color: var(--color-element-alt);
+    }
+
     .toggle-indicator {
       right: -1px;
       left: $size;
       border-color: var(--color-primary);
-      background-color: var(--color-primary-text);
+      background-color: var(--color-primary);
     }
   }
 }

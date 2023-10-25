@@ -1,5 +1,6 @@
 import type { PropsWithChildren, ReactElement, ReactNode } from "react";
-import type { Any, MaybePromise, Size, Variant } from "./base";
+import type { Any, MaybePromise } from "./base";
+import type { Size, Variant } from "./theme";
 import { Field } from "../field";
 import type { IconName } from "../icon";
 import { Model } from "../model";
@@ -23,8 +24,8 @@ export type Option<T extends string = string> = {
 export class OptionModel extends Model<Option> {
   static get fields() {
     return {
-      id: new Field("id", { minLength: 1, required: true, type: "STRING" }),
-      title: new Field("title", { minLength: 1, required: true, type: "STRING" }),
+      id: new Field("id", { minLength: 1, required: true, type: "String" }),
+      title: new Field("title", { minLength: 1, required: true, type: "String" }),
     };
   }
 

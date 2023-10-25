@@ -1,7 +1,7 @@
 @import "@tntfx/theme";
 
 .image {
-  @extend %no-select;
+  @include unSelectable;
   position: relative;
   width: 100%;
   height: 100%;

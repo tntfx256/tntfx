@@ -37,7 +37,7 @@ export function Button(props: ClassAndChildren<ButtonProps>) {
         hideInnerLoader();
       }
     },
-    [disabled, hideInnerLoader, isLoading, onClick, showInnerLoader]
+    [disabled, hideInnerLoader, isLoading, onClick, showInnerLoader],
   );
 
   const showLoader = isInnerLoading || isLoading;

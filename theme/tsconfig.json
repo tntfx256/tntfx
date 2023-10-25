@@ -1,5 +1,6 @@
 {
   "extends": "@tntfx/tsconfig/react.json",
 
-  "include": ["src"]
+  "include": ["**/*"],
+  "exclude": ["node_modules"]
 }

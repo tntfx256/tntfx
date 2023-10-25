@@ -15,7 +15,7 @@ export type MenuListProps<T extends string = string> = {
 
 function MenuListWithRef<T extends string = string>(
   props: ClassAndChildren<MenuListProps<T>>,
-  ref: ForwardedRef<HTMLUListElement>
+  ref: ForwardedRef<HTMLUListElement>,
 ) {
   const { className, items, selected, onClick, children, render, ...libProps } = props;
 
@@ -23,7 +23,7 @@ function MenuListWithRef<T extends string = string>(
     (id: T) => {
       return onClick?.(id);
     },
-    [onClick]
+    [onClick],
   );
 
   return (
@@ -43,7 +43,7 @@ function MenuListWithRef<T extends string = string>(
 }
 
 export const MenuList = forwardRef(MenuListWithRef) as <T extends string = string>(
-  props: ClassAndChildren<MenuListProps<T>> & { ref?: ForwardedRef<HTMLUListElement> }
+  props: ClassAndChildren<MenuListProps<T>> & { ref?: ForwardedRef<HTMLUListElement> },
 ) => ReturnType<typeof MenuListWithRef>;
 
 (MenuList as Any).Item = MenuItem;

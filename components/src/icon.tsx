@@ -35,7 +35,6 @@ export const Icon = memo(function Icon(props: ClassAndChildren<IconProps>) {
 
   const classes = classNames("icon", className, `icon-${name}`, `layout-${layout}`, `variant-${variant}`, {
     clickable: onClick && !disabled,
-    _disabled: disabled,
   });
 
   return (

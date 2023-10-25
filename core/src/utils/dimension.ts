@@ -47,7 +47,6 @@ export function getMinDimension(isDialog = false): Dimension {
 }
 
 export function calcInitialFrameDimension(
-  // otherFrames: Dimension[],
   boundary?: Boundary
   // initialDimension?: Dimension
 ): Dimension {

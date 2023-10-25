@@ -1,11 +1,13 @@
+@use "@tntfx/theme" as *;
+
 .date-time {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: var(--layout-spacing-md) 0;
+  padding: size(md 0);
 
   &-time {
-    font-weight: var(--font-weight-sm);
+    font-weight: $font-weight-sm;
   }
 }

@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import type { ERROR } from "@tntfx/core";
+import type { TError } from "@tntfx/core";
 import { finalizeError } from "@tntfx/core";
 import { useToggle } from "@tntfx/hooks";
 import { Colors } from "@tntfx/theme";
@@ -9,7 +9,7 @@ import { Colors } from "@tntfx/theme";
  */
 
 export type BlueScreenProps = {
-  error: ERROR;
+  error: TError;
   reset?: () => void;
 };
 

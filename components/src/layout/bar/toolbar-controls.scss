@@ -1,0 +1,21 @@
+@use "@tntfx/theme" as *;
+
+.header-controls {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  bottom: 0;
+
+  .icon {
+    @include hover;
+    align-self: flex-start;
+    border-radius: 0;
+
+    &-cross:not(:disabled) {
+      &:hover {
+        background-color: var(--color-error);
+        color: var(--color-error-text);
+      }
+    }
+  }
+}

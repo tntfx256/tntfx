@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { classNames } from "@tntfx/theme";
 import { Backdrop } from "../../backdrop";
-import { ActionBar } from "../../layout/action-bar";
+import { ActionBar } from "../../layout/bar/action-bar";
 import { Frame } from "../../layout/frame";
 import { getCloseAction } from "../../utils";
 import type { DialogProps } from "../types";
@@ -45,7 +45,7 @@ export function Dialog(props: DialogProps) {
     }
   }, [closeAction, onAction, onClose]);
 
-  return (
+  return isOpen ? (
     <Backdrop
       animation="zoom"
       background={background}
@@ -65,5 +65,5 @@ export function Dialog(props: DialogProps) {
         onClose={handleClose}
       />
     </Backdrop>
-  );
+  ) : null;
 }

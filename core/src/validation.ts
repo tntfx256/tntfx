@@ -1,6 +1,6 @@
 import type { ErrorMessages } from "./error";
 import type { Field, FieldProps, FieldType } from "./field";
-import type { Any, OBJECT } from "./types";
+import type { Any, TObject } from "./types";
 import { getFirstPair } from "./utils/etc";
 
 export const EmptyValues = [undefined, null, ""];
@@ -13,13 +13,13 @@ type ValidatorFn = (value: Any, field: Field) => ValidationResult;
 
 export const TypeValidator: Record<FieldType, ValidatorFn> = {
   // ANY: () => true,
-  BOOLEAN: (value: Any) => [0, 1, true, false].includes(value),
-  ENUM: (value: Any, field: Field) => field.props.enum!.includes(value),
-  LIST: (value: Any) => Array.isArray(value),
-  NUMBER: (value: Any) => !isNaN(value) && typeof value === "number",
-  OBJECT: (value: Any) => typeof value === "object",
-  STRING: (value: Any) => typeof value === "string",
-  TIMESTAMP: (value: Any, field: Field) => TypeValidator.NUMBER(value, field),
+  Boolean: (value: Any) => [0, 1, true, false].includes(value),
+  Enum: (value: Any, field: Field) => field.props.enum!.includes(value),
+  List: (value: Any) => Array.isArray(value),
+  Number: (value: Any) => !isNaN(value) && typeof value === "number",
+  Object: (value: Any) => typeof value === "object",
+  String: (value: Any) => typeof value === "string",
+  Timestamp: (value: Any, field: Field) => TypeValidator.Number(value, field),
 };
 
 export const Validator: Record<keyof FieldProps, ValidatorFn> = {
@@ -31,7 +31,7 @@ export const Validator: Record<keyof FieldProps, ValidatorFn> = {
   enum(value: Any, field: Field) {
     const { name, props } = field;
 
-    if (props.type === "LIST") {
+    if (props.type === "List") {
       return Array.isArray(value)
         ? value.map((v, i) => (props.enum!.includes(v) ? null : `${name}.[${i}]`)).filter(Boolean)[0] || true
         : false;
@@ -43,7 +43,7 @@ export const Validator: Record<keyof FieldProps, ValidatorFn> = {
   length(value: string, field: Field) {
     const { name, props } = field;
 
-    if (props.type === "LIST") {
+    if (props.type === "List") {
       return Array.isArray(value)
         ? value.map((v, i) => (v.length == props.length! ? null : `${name}.[${i}]`)).filter(Boolean)[0] || true
         : false;
@@ -54,17 +54,17 @@ export const Validator: Record<keyof FieldProps, ValidatorFn> = {
 
   listLength(value: string, field: Field) {
     const { props } = field;
-    return props.type === "LIST" && Array.isArray(value) && value.length == props.listLength!;
+    return props.type === "List" && Array.isArray(value) && value.length == props.listLength!;
   },
 
   listMaxLength(value: string, field: Field) {
     const { props } = field;
-    return props.type === "LIST" && Array.isArray(value) && value.length <= props.listMaxLength!;
+    return props.type === "List" && Array.isArray(value) && value.length <= props.listMaxLength!;
   },
 
   listMinLength(value: string, field: Field) {
     const { props } = field;
-    return props.type === "LIST" && Array.isArray(value) && value.length >= props.listMinLength!;
+    return props.type === "List" && Array.isArray(value) && value.length >= props.listMinLength!;
   },
 
   listType(value: Any[], field: Field) {
@@ -77,7 +77,7 @@ export const Validator: Record<keyof FieldProps, ValidatorFn> = {
   max(value: number, field: Field) {
     const { name, props } = field;
 
-    if (props.type === "LIST") {
+    if (props.type === "List") {
       return Array.isArray(value)
         ? value.map((v, i) => (v <= props.max! ? null : `${name}.[${i}]`)).filter(Boolean)[0] || true
         : false;
@@ -88,7 +88,7 @@ export const Validator: Record<keyof FieldProps, ValidatorFn> = {
   maxLength(value: string, field: Field) {
     const { name, props } = field;
 
-    if (props.type === "LIST") {
+    if (props.type === "List") {
       return Array.isArray(value)
         ? value.map((v, i) => (v.length <= props.maxLength! ? null : `${name}.[${i}]`)).filter(Boolean)[0] || true
         : false;
@@ -100,7 +100,7 @@ export const Validator: Record<keyof FieldProps, ValidatorFn> = {
   min(value: number, field: Field) {
     const { name, props } = field;
 
-    if (props.type === "LIST") {
+    if (props.type === "List") {
       return Array.isArray(value)
         ? value.map((v, i) => (v >= props.min! ? null : `${name}.[${i}]`)).filter(Boolean)[0] || true
         : false;
@@ -112,7 +112,7 @@ export const Validator: Record<keyof FieldProps, ValidatorFn> = {
   minLength(value: string, field: Field) {
     const { name, props } = field;
 
-    if (props.type === "LIST") {
+    if (props.type === "List") {
       return Array.isArray(value)
         ? value.map((v, i) => (v.length >= props.minLength! ? null : `${name}.[${i}]`)).filter(Boolean)[0] || true
         : false;
@@ -128,7 +128,7 @@ export const Validator: Record<keyof FieldProps, ValidatorFn> = {
     // null is object
     if (!value) return false;
 
-    if (props.type === "LIST") {
+    if (props.type === "List") {
       return Array.isArray(value)
         ? ((value
             .map((v, i) => {
@@ -158,7 +158,7 @@ export const Validator: Record<keyof FieldProps, ValidatorFn> = {
     const { name, props } = field;
     const regex = new RegExp(props.pattern!);
 
-    if (props.type === "LIST") {
+    if (props.type === "List") {
       return Array.isArray(value)
         ? value.map((v, i) => (regex.test(v) ? null : `${name}.[${i}]`)).filter(Boolean)[0] || true
         : false;
@@ -171,8 +171,8 @@ export const Validator: Record<keyof FieldProps, ValidatorFn> = {
     const { props } = field;
     if (!props.required) return true;
 
-    if (props.type === "LIST") return Array.isArray(value) && value.length > 0;
-    if (props.type === "OBJECT") return value && typeof value == "object" && Object.keys(value).length > 0;
+    if (props.type === "List") return Array.isArray(value) && value.length > 0;
+    if (props.type === "Object") return value && typeof value == "object" && Object.keys(value).length > 0;
 
     return !EmptyValues.includes(value);
   },
@@ -183,7 +183,7 @@ export const Validator: Record<keyof FieldProps, ValidatorFn> = {
   },
 };
 
-export type Violations = OBJECT<string>;
+export type Violations = TObject<string>;
 export type ValidationRules = keyof FieldProps | "unknown";
 
 export const Regex = {

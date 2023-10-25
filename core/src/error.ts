@@ -1,6 +1,6 @@
 import type { Field } from "./field";
 import { logger } from "./logger";
-import type { Any, ERROR } from "./types";
+import type { Any, TError } from "./types";
 import type { ValidationRules, Violations } from "./validation";
 
 export const errorNames = {
@@ -98,7 +98,7 @@ export function createError(name: ErrorNames, message: ErrorMessages, descriptio
   return new SerializableError(message, name, description);
 }
 
-export function finalizeError(rawError: ERROR): SerializableError {
+export function finalizeError(rawError: TError): SerializableError {
   if (isSerializableError(rawError)) {
     return rawError;
   }
@@ -159,7 +159,7 @@ export function getViolationMessage(field: Field, rule: ValidationRules) {
   return validationErrorMessages[rule](field.name, rule === "unknown" ? "" : field.props[rule]);
 }
 
-export function isSerializableError(error: ERROR): error is SerializableError {
+export function isSerializableError(error: TError): error is SerializableError {
   return !!(error && typeof error === "object" && (error as Any).$$name === "SerializableError");
 }
 

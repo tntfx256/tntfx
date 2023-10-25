@@ -1,13 +1,15 @@
+@use "@tntfx/theme" as *;
+
 .error-content {
   width: 100%;
 
   &-desc {
-    margin-top: var(--layout-spacing-md);
-    font-size: var(--font-size-md);
+    margin-top: size(md);
+    font-size: $font-size-md;
   }
 
   &-details {
     margin-top: 10px;
-    font-size: var(--font-size-sm);
+    font-size: $font-size-sm;
   }
 }

@@ -82,12 +82,12 @@ export function useDrag<T extends HTMLElement = HTMLElement>(element: Nullable<T
 
       const top = Math.min(
         Math.max(possibleTop, boundingRect.top),
-        boundingRect.top + boundingRect.height - dimension.height
+        boundingRect.top + boundingRect.height - dimension.height,
       );
 
       const left = Math.min(
         Math.max(possibleLeft, boundingRect.left),
-        boundingRect.left + boundingRect.width - dimension.width
+        boundingRect.left + boundingRect.width - dimension.width,
       );
 
       if (target) {

@@ -30,7 +30,7 @@ export const Svg = memo(function Svg(props: ClassName<SvgProps>) {
     [disabled, onClick]
   );
 
-  return (
+  return name ? (
     <>
       {IconsMap[name]?.({
         className: classNames("svg", className, `svg-${name}`, `size-${size}`, { disabled }),
@@ -38,5 +38,5 @@ export const Svg = memo(function Svg(props: ClassName<SvgProps>) {
         onClick: handleClick,
       }) || `[${name}]`}
     </>
-  );
+  ) : null;
 });

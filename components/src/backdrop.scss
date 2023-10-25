@@ -1,13 +1,13 @@
-@import "@tntfx/theme";
+@use "@tntfx/theme" as *;
 
 .backdrop.box {
-  z-index: var(--layer-modal);
+  z-index: $layer-modal;
   overflow: hidden;
   align-items: center;
   justify-content: center;
   background-color: transparent;
   pointer-events: all;
-  transition-timing-function: var(--animation-easing);
+  transition-timing-function: $animation-easing;
 
   &.global {
     position: fixed !important;
@@ -20,21 +20,21 @@
   &.zoom {
     border-radius: 10rem;
     transform: scale3d(0, 0, 0);
-    transition-duration: var(--animation-duration-xxs);
+    transition-duration: $animation-duration-xs;
     transition-property: transform, border-radius;
   }
 
   &.slide-right {
     // transform: translate3d(-110%, 0, 0);
     width: 0;
-    transition-duration: var(--animation-duration-md);
+    transition-duration: $animation-duration-md;
     transition-property: width;
   }
 
   &.slide-up {
     // transform: translate3d(-110%, 0, 0);
     height: 0;
-    transition-duration: var(--animation-duration-md);
+    transition-duration: $animation-duration-md;
     transition-property: width;
   }
 

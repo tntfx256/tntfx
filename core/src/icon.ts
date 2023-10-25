@@ -120,4 +120,4 @@ export const IconsMap = {
   storybook: TbComponents,
 };
 
-export type IconName = keyof typeof IconsMap;
+export type IconName = keyof typeof IconsMap | "";

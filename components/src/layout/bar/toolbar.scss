@@ -1,0 +1,28 @@
+@use "@tntfx/theme" as *;
+
+.toolbar {
+  @include unSelectable;
+  z-index: $layer-window;
+  overflow: visible;
+  width: 100%;
+  min-height: $layout-height-footer;
+  max-height: $layout-height-header;
+  border-radius: inherit;
+  white-space: nowrap;
+
+  &._as-header {
+    height: $layout-height-header;
+    min-height: $layout-height-header;
+  }
+
+  &._as-footer {
+    height: $layout-height-footer;
+    max-height: $layout-height-footer;
+  }
+
+  & > &-section {
+    &:last-of-type:not(:first-of-type) {
+      justify-content: flex-end;
+    }
+  }
+}

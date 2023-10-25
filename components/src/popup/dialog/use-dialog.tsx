@@ -1,5 +1,5 @@
 import { useId } from "react";
-import type { ERROR, Nullable } from "@tntfx/core";
+import type { Nullable, TError } from "@tntfx/core";
 import { useStore } from "./dialog-context";
 import { ErrorContent } from "../../layout/error-content";
 import type { DialogPayload } from "../types";
@@ -14,7 +14,7 @@ export function useDialog() {
     setState({ dialogs: dialogs.filter((d) => d.id !== id) });
   }
 
-  function showMessageBox(payload: Nullable<Omit<DialogPayload, "id">>, error?: ERROR) {
+  function showMessageBox(payload: Nullable<Omit<DialogPayload, "id">>, error?: TError) {
     let onClose: DialogPayload["onClose"] = close;
     if (payload) {
       if (payload.onClose) {

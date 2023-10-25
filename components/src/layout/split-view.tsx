@@ -1,6 +1,6 @@
 import type { ClassAndChildren } from "@tntfx/core";
 import { classNames } from "@tntfx/theme";
-import { Sidebar } from "../menu/sidebar";
+import { Sidebar } from "../menu/sidebar/sidebar";
 import "./split-view.scss";
 
 type SplitViewProps = {

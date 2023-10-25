@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from "react";
-import type { OBJECT } from "@tntfx/core";
+import type { TObject } from "@tntfx/core";
 import { initStore } from "./store";
 
 type Locale = {
@@ -7,7 +7,7 @@ type Locale = {
   // calendar
   // dateTime formatter
   // injectable dictionary
-  dictionary: OBJECT<string>;
+  dictionary: TObject<string>;
 };
 
 type IntlState = {

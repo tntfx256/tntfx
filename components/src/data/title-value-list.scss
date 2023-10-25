@@ -1,10 +1,12 @@
+@use "@tntfx/theme" as *;
+
 .tvl {
-  padding: var(--layout-spacing-sm);
+  padding: size(sm);
   background-color: var(--color-element);
   color: var(--color-element-text);
 
   &-item {
-    padding: var(--layout-spacing-sm);
+    padding: size(sm);
 
     &-title {
       display: block;
@@ -12,7 +14,7 @@
     }
 
     &-value {
-      padding-left: var(--layout-spacing-lg);
+      padding-left: size(lg);
     }
   }
 }

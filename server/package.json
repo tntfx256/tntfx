@@ -8,6 +8,9 @@
     "types": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
+    "@apollo/server": "^4.9.4",
+    "@as-integrations/next": "^2.0.2",
+    "@graphql-tools/schema": "^10.0.0",
     "@tntfx/components": "*",
     "@tntfx/core": "*",
     "@tntfx/hooks": "*",
@@ -15,7 +18,7 @@
     "firebase-admin": "^11.11.0",
     "graphql": "^16.8.1",
     "iron-session": "^6.3.1",
-    "next": "^13.5.4",
+    "next": "^13.5.6",
     "node-mailjet": "^6.0.4"
   }
 }

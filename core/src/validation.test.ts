@@ -16,7 +16,7 @@ describe("Validation", () => {
       //   [undefined, true],
       //   [{ name: "test" }, true],
       // ],
-      BOOLEAN: [
+      Boolean: [
         [0, true],
         [1, true],
         [true, true],
@@ -24,13 +24,13 @@ describe("Validation", () => {
         ["false", false],
         ["", false],
       ],
-      ENUM: [
+      Enum: [
         ["test", true, { enum: ["test", "another"] }],
         ["invalid", false, { enum: ["test", "another"] }],
         [null, false, { enum: ["test", "another"] }],
         [12, false, { enum: ["test", "another"] }],
       ],
-      LIST: [
+      List: [
         ["", false],
         [null, false],
         [{ 1: 1 }, false],
@@ -38,32 +38,32 @@ describe("Validation", () => {
         [["test", 12, true, {}], true],
         [[0, true], true],
       ],
-      NUMBER: [
+      Number: [
         [0, true],
         ["0", false],
         [-5.456, true],
         [NaN, false],
         [undefined, false],
       ],
-      OBJECT: [
+      Object: [
         [{ name: "t" }, true],
         [{}, true],
         [123, false],
         [true, false],
       ],
-      STRING: [
+      String: [
         ["", true],
         ["123", true],
         ["asd", true],
         [123, false],
       ],
-      TIMESTAMP: [],
+      Timestamp: [],
     };
 
     for (const [type, tests] of Object.entries(testCases)) {
       for (const [value, result, props] of tests) {
         expect(TypeValidator[type as FieldType](value, new Field("name", { type: type as FieldType, ...props }))).toBe(
-          result
+          result,
         );
       }
     }
@@ -73,7 +73,7 @@ describe("Validation", () => {
     const testCases: Array<{ field: Field; tests: Array<[rule: keyof FieldProps, value: Any, result: ValidationResult]> }> =
       [
         {
-          field: new Field("age", { listType: "NUMBER", type: "LIST" }),
+          field: new Field("age", { listType: "Number", type: "List" }),
           tests: [
             ["type", "test", false],
             ["type", [1, "test", true], true],
@@ -82,7 +82,7 @@ describe("Validation", () => {
         },
 
         {
-          field: new Field("level", { enum: ["first", "second", "third"], listType: "ENUM", type: "LIST" }),
+          field: new Field("level", { enum: ["first", "second", "third"], listType: "Enum", type: "List" }),
           tests: [
             ["type", "test", false],
             ["type", ["first", "test"], true],
@@ -95,7 +95,7 @@ describe("Validation", () => {
         },
 
         {
-          field: new Field("friends", { listType: "OBJECT", model: FriendModel, type: "LIST" }),
+          field: new Field("friends", { listType: "Object", model: FriendModel, type: "List" }),
           tests: [
             ["type", "test", false],
             ["type", {}, false],
@@ -117,7 +117,7 @@ describe("Validation", () => {
         },
 
         {
-          field: new Field("friends", { listType: "OBJECT", model: FriendModel, required: true, type: "LIST" }),
+          field: new Field("friends", { listType: "Object", model: FriendModel, required: true, type: "List" }),
           tests: [["required", [], false]],
         },
       ];

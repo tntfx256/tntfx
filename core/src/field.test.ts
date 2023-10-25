@@ -3,7 +3,7 @@ import { Field } from "./field";
 
 describe("field", () => {
   it("should validate the field", () => {
-    const field = new Field("name", { maxLength: 6, minLength: 2, type: "STRING" });
+    const field = new Field("name", { maxLength: 6, minLength: 2, type: "String" });
 
     let value = "a";
     expect(field.validate(value)).toStrictEqual([Err.Message.VALUE_TOO_SHORT]);
@@ -16,7 +16,7 @@ describe("field", () => {
   });
 
   it("should validate the list", () => {
-    const field = new Field("name", { listType: "STRING", maxLength: 6, minLength: 2, type: "LIST" });
+    const field = new Field("name", { listType: "String", maxLength: 6, minLength: 2, type: "List" });
 
     const value = "a";
     expect(field.validate(value)).toStrictEqual([Err.Message.VALUE_INVALID]);

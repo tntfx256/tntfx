@@ -41,7 +41,7 @@ export function TextInput(props: PropsWithChildren<TextInputProps>) {
       }
       onKeyUp?.(e);
     },
-    [onEnter, onKeyUp]
+    [onEnter, onKeyUp],
   );
 
   const handleFocus = useCallback(
@@ -49,7 +49,7 @@ export function TextInput(props: PropsWithChildren<TextInputProps>) {
       getFocused();
       onFocus?.(e);
     },
-    [getFocused, onFocus]
+    [getFocused, onFocus],
   );
 
   const handleBlur = useCallback(
@@ -57,7 +57,7 @@ export function TextInput(props: PropsWithChildren<TextInputProps>) {
       lostFocused();
       onBlur?.(e);
     },
-    [lostFocused, onBlur]
+    [lostFocused, onBlur],
   );
 
   return (

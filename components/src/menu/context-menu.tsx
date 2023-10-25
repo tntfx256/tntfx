@@ -34,7 +34,7 @@ export function ContextMenu<T extends string = string>(props: ClassAndChildren<C
       onItemSelect?.(id);
       hideMenu();
     },
-    [hideMenu, onItemSelect]
+    [hideMenu, onItemSelect],
   );
 
   const handleMenuOpen = useCallback(
@@ -43,7 +43,7 @@ export function ContextMenu<T extends string = string>(props: ClassAndChildren<C
       e.stopPropagation();
       showMenu();
     },
-    [showMenu]
+    [showMenu],
   );
 
   const handleMenuClose = useCallback(() => {

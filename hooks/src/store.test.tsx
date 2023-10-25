@@ -72,7 +72,7 @@ describe("initStore", () => {
     const { rerender } = render(
       <Provider {...initialState}>
         <p>text child</p>
-      </Provider>
+      </Provider>,
     );
     expect(stateValue).toEqual(initialState);
     // expect(screen.getByText("text child")).toBeInTheDocument();
@@ -83,7 +83,7 @@ describe("initStore", () => {
     render(
       <SecondProvider {...initialState} value="second">
         <p>second text</p>
-      </SecondProvider>
+      </SecondProvider>,
     );
     expect(secondStateValue).toEqual({ ...initialState, value: "second" });
 
@@ -128,7 +128,7 @@ describe("initStore", () => {
             });
           },
         }),
-        [names, setState]
+        [names, setState],
       );
     }
 

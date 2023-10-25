@@ -25,7 +25,7 @@ export function useLazyTimer(timeout?: number, fn?: Function) {
         if (cb.current) {
           cb.current();
         }
-      }
+      },
   );
 
   useEffect(() => () => clearTimeout(timer.current), []);
@@ -45,7 +45,7 @@ export function useLazyTimer(timeout?: number, fn?: Function) {
         }
       },
     }),
-    [callback, timeout]
+    [callback, timeout],
   );
 }
 
@@ -73,7 +73,7 @@ export function useLazyInterval(interval?: number, fn?: Function) {
         if (cb.current) {
           cb.current();
         }
-      }
+      },
   );
 
   useEffect(() => () => clearInterval(timer.current), []);
@@ -94,6 +94,6 @@ export function useLazyInterval(interval?: number, fn?: Function) {
         }
       },
     }),
-    [callback, interval]
+    [callback, interval],
   );
 }

@@ -2,7 +2,6 @@ export * from "./api";
 export * from "./debug";
 export * from "./store";
 export * from "./use-drag";
-export * from "./use-drag";
 export * from "./use-history";
 export * from "./use-model";
 export * from "./use-reducer";

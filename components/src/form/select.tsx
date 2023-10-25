@@ -79,7 +79,7 @@ export function Select<T extends string = string, M extends boolean = false>(pro
       }
       setState({ filteredOptions: options, text: "" });
     },
-    [hideDropdown, multi, name, onChange, options, setState, value]
+    [hideDropdown, multi, name, onChange, options, setState, value],
   );
 
   const handleTextChange = useCallback(
@@ -91,7 +91,7 @@ export function Select<T extends string = string, M extends boolean = false>(pro
         setState({ filteredOptions: options, text: "" });
       }
     },
-    [options, setState]
+    [options, setState],
   );
 
   const handleShowDropdown = useCallback(() => {
@@ -113,7 +113,7 @@ export function Select<T extends string = string, M extends boolean = false>(pro
         onChange?.([...currentValue, id] as Any, name || "");
       }
     },
-    [name, onChange, value]
+    [name, onChange, value],
   );
 
   // setting dropdown position

@@ -1,9 +1,9 @@
-import type { Any, Nullable, OBJECT } from "./types";
+import type { Any, Nullable, TObject } from "./types";
 import { isClient, isServer } from "./utils/etc";
 import { deserialize, serialize } from "./utils/string";
 
 export class MemoryStorage {
-  #storage: OBJECT = {};
+  #storage: TObject = {};
 
   get length() {
     return Object.keys(this.#storage).length;

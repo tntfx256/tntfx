@@ -2,7 +2,7 @@ import { createWebViewLink } from "@tntfx/core";
 import { useWebView } from "./web-view-provider";
 import { TextInput } from "../form/text-input";
 import { Icon } from "../icon";
-import { Toolbar } from "../menu/toolbar";
+import { Toolbar } from "../layout/bar/toolbar";
 import "./web-view.scss";
 
 type WebViewHeaderProps = {

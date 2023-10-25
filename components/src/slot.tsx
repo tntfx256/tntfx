@@ -1,6 +1,6 @@
 import type { PropsWithChildren, ReactNode } from "react";
 import { createContext, useCallback, useContext, useId, useLayoutEffect, useRef } from "react";
-import type { Any, OBJECT } from "@tntfx/core";
+import type { Any, TObject } from "@tntfx/core";
 import { useRender, useToggle } from "@tntfx/hooks";
 
 type SlotProps<T> = PropsWithChildren<{ name: T }>;
@@ -14,7 +14,7 @@ export type SlotContext<T extends string> = {
   addSlot: (name: T, id: string, children: ReactNode) => void;
   getSlot: (name: T) => ReactNode;
   removeSlot: (name: T, id: string) => void;
-  context: OBJECT;
+  context: TObject;
 };
 
 export function createSlots<T extends string>(name: string, slots: ReadonlyArray<T>) {
@@ -58,7 +58,7 @@ export function createSlots<T extends string>(name: string, slots: ReadonlyArray
           }
         }
       },
-      [isMounted, render]
+      [isMounted, render],
     );
 
     const removeSlot = useCallback((name: N, id: string) => {

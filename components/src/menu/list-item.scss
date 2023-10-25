@@ -1,12 +1,13 @@
-@use "./menu-item.scss";
+@use "@tntfx/theme" as *;
+@use "./menu-item.scss" as *;
 
 .list-item {
   @extend %menu-item;
 
   height: unset;
-  // padding: var(--layout-spacing-xs) 0 0 0;
+  // padding: size(xs 0 0 0);
 
   .avatar {
-    margin-right: var(--layout-spacing-sm);
+    margin-right: size(sm);
   }
 }

@@ -1,4 +1,4 @@
-export * from "./action-bar";
+export * from "./bar";
 export * from "./blue-screen";
 export * from "./box";
 export * from "./card";

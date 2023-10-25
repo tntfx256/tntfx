@@ -44,7 +44,7 @@ describe("Model", () => {
   it("should return correct validation for required list of objects", () => {
     const model = new Model();
     model.extend({
-      friends: new Field("friends", { listType: "OBJECT", model: FriendModel, required: true, type: "LIST" }),
+      friends: new Field("friends", { listType: "Object", model: FriendModel, required: true, type: "List" }),
     });
 
     model.setValues({}, true);

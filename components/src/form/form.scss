@@ -1,19 +1,21 @@
+@use "@tntfx/theme" as *;
+
 .form {
   display: block;
   width: 100%;
 
   .legend {
-    padding-left: var(--layout-spacing-xxs);
+    padding-left: size(2xs);
   }
 
   > form {
     display: flex;
     flex-direction: column;
-    padding: var(--layout-spacing-md);
-    border-radius: var(--border-radius-sm);
+    padding: size(md);
+    border-radius: $border-radius-sm;
 
     .form {
-      padding-left: var(--layout-spacing-md);
+      padding-left: size(md);
     }
   }
 

@@ -4,14 +4,14 @@
   position: relative;
   display: flex;
   width: 100%;
-  height: var(--layout-height-element);
-  min-height: var(--layout-height-element);
+  height: $layout-height-element;
+  min-height: $layout-height-element;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  padding: 0 var(--layout-spacing-md);
+  padding: 0 size(md);
   border: 1px solid transparent;
-  border-radius: var(--border-radius-xxs);
+  border-radius: $border-radius-2xs;
   text-align: start;
 
   > .link {
@@ -28,13 +28,13 @@
     background-color: var(--color-primary);
     content: "";
     transform: scale3d(0, 1, 1);
-    transition: transform var(--animation-duration-sm) var(--animation-easing);
+    transition: transform $animation-duration-sm $animation-easing;
   }
 
   &.clickable {
     @include hover;
     cursor: pointer;
-    transition-duration: var(--animation-duration-sm);
+    transition-duration: $animation-duration-sm;
     transition-property: background-color, color;
     transition-timing-function: var(--animation-easing);
 

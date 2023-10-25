@@ -1,8 +1,8 @@
 /** @type {import('eslint').ESLint.ConfigData} */
 const esLintConfig = {
-  extends: ["next/core-web-vitals", "turbo", "prettier"],
+  extends: ["next/core-web-vitals", "turbo", "prettier", "plugin:@tanstack/eslint-plugin-query/recommended"],
   parser: "@typescript-eslint/parser",
-  plugins: ["@typescript-eslint", "simple-import-sort"],
+  plugins: ["@typescript-eslint", "simple-import-sort", "@tanstack/query"],
   reportUnusedDisableDirectives: true,
   parserOptions: {
     ecmaVersion: 2020,
@@ -21,6 +21,8 @@ const esLintConfig = {
     "@typescript-eslint/consistent-type-imports": "warn",
     "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/prefer-for-of": "warn",
+
+    "@tanstack/query/exhaustive-deps": "warn",
 
     "import/first": "warn",
     "import/newline-after-import": "warn",

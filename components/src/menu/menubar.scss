@@ -1,4 +1,5 @@
-@use "./utils.scss";
+@use "@tntfx/theme" as *;
+@use "./utils.scss" as *;
 
 .menubar {
   @extend %menu;
@@ -6,6 +7,6 @@
   flex-direction: row;
 
   .menu-item {
-    padding: 0 var(--layout-spacing-xs);
+    padding: 0 size(xs);
   }
 }

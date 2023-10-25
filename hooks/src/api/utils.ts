@@ -1,22 +1,21 @@
-import type { Any, ERROR } from "@tntfx/core";
-import { Err, finalizeError } from "@tntfx/core";
+import type { Any, TError } from "@tntfx/core";
+import { Err } from "@tntfx/core";
 import type { FailedResponse, ParsedResponse, RequestState, SuccessResponse } from "./types";
+import * as utils from "../use-status";
 
 export function createInitialState(): RequestState<null> {
-  return { data: null, error: null, isLoading: false, response: null };
+  return { ...createInitialState(), response: null };
 }
 
-export function createErrorState<T>(error: ERROR, status?: number, statusText?: string): RequestState<T> {
+export function createErrorState<T>(error: TError, status?: number, statusText?: string): RequestState<T> {
   return {
-    data: null,
-    error: finalizeError(error),
-    isLoading: false,
+    ...utils.createErrorState(error),
     response: { status: status || 500, statusText: statusText || "Server Error" },
   };
 }
 
 export function createSuccessState<T>(data: T, status: number, statusText: string): RequestState<T> {
-  return { data, error: null, isLoading: false, response: { status, statusText } };
+  return { ...utils.createSuccessState(data), response: { status, statusText } };
 }
 
 export function parseResponse<T = Any>(result: RequestState<T>): ParsedResponse<T> {
@@ -35,7 +34,7 @@ export function isParsedResponse(response: ParsedResponse<Any> | unknown): respo
 export function createAxiosErrorState<T>(error: Any): RequestState<T> {
   if (error.response) {
     const { data, status, statusText } = error.response;
-    return createErrorState<T>(data, status, statusText);
+    return createErrorState(data, status, statusText);
   }
 
   if (error.request) {

@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useRef, useState } from "react";
-import type { Any, ERROR, SerializableError, Status } from "@tntfx/core";
+import type { Any, SerializableError, TError } from "@tntfx/core";
 import { finalizeError } from "@tntfx/core";
 import { useStateReducer } from "./use-reducer";
 
@@ -15,25 +15,18 @@ type UseStatusResult<T extends string> = WithExtraMethods<T> & {
 
 export type OperationIdle = { isLoading: false; error: null; data: null };
 export type OperationLoading = { isLoading: true; error: null; data: null };
-export type OperationSuccess<T = Any> = { isLoading: false; data: T; error: null };
+export type OperationSuccess<T> = { isLoading: false; data: T; error: null };
 export type OperationError = { isLoading: false; data: null; error: SerializableError };
 export type AsyncOperation<T = Any> = OperationIdle | OperationLoading | OperationSuccess<T> | OperationError;
 
 export function useStatus<T extends string>(statuses: readonly (T & string)[]): UseStatusResult<T> {
   const [status, setStatus] = useState<T>(statuses[0]);
 
-  return useMemo(
-    () => ({
-      setStatus,
-      status,
-      ...(statuses.reduce((m, s) => ({ ...m, [`is${s}`]: s === status }), {}) as WithExtraMethods<T>),
-    }),
-    [status, statuses]
-  );
-}
-
-export function useAsyncStatus() {
-  return useStatus<Status>(asyncStatus);
+  return {
+    setStatus,
+    status,
+    ...(statuses.reduce((m, s) => ({ ...m, [`is${s}`]: s === status }), {}) as WithExtraMethods<T>),
+  };
 }
 
 export function useToggle(initialState = false): [status: boolean, ...rest: Array<() => void>] {
@@ -59,7 +52,7 @@ export function useStatusRef<T extends string>(statuses: readonly (T & string)[]
         ref.current = status;
       },
     }),
-    []
+    [],
   );
 }
 
@@ -71,17 +64,17 @@ export function useAsyncOperation<T>() {
   }, [setState]);
 
   const setError = useCallback(
-    (error: ERROR) => {
+    (error: TError) => {
       setState(createErrorState(error));
     },
-    [setState]
+    [setState],
   );
 
   const setSuccess = useCallback(
     (data: T) => {
       setState(createSuccessState(data));
     },
-    [setState]
+    [setState],
   );
 
   return {
@@ -102,8 +95,12 @@ export function isIdleState(operation: AsyncOperation): operation is OperationId
   return operation && !operation.isLoading && !operation.data && !operation.error;
 }
 
-export function createErrorState(error: ERROR): AsyncOperation {
-  return { isLoading: false, data: null, error: finalizeError(error) };
+export function createErrorState(error: TError): AsyncOperation {
+  return {
+    isLoading: false,
+    data: null,
+    error: finalizeError(error),
+  };
 }
 export function isErrorState(operation: AsyncOperation): operation is OperationError {
   return Boolean(operation && !operation.isLoading && operation.error);

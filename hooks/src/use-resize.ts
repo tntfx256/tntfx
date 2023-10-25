@@ -32,7 +32,7 @@ export function useResize<T extends HTMLElement = HTMLElement>(element: Nullable
       resizer.className = `resize resize-${key}`;
       resizer.setAttribute("data-t", key);
       return resizer;
-    })
+    }),
   );
 
   useEffect(() => {

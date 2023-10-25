@@ -1,25 +1,26 @@
-@import "@tntfx/theme";
+@use "sass:map";
+@use "@tntfx/theme" as *;
 
 .spacer {
   &:not(.horizontal) {
-    height: var(--layout-spacing-md);
+    height: size(md);
 
-    @each $key, $value in $sizeMap {
-      &.size-#{$key} {
-        height: var(--layout-spacing-#{$value});
-        min-height: var(--layout-spacing-#{$value});
-      }
-    }
+    // @each $key, $v in $sizeValues {
+    //   &.size-#{$key} {
+    //     height: map.get($sizeMap, $key);
+    //     min-height: map.get($sizeMap, $key);
+    //   }
+    // }
   }
 
   &.horizontal {
-    width: var(--layout-spacing-md);
+    width: size(md);
 
-    @each $key, $value in $sizeMap {
-      &.size-#{$key} {
-        width: var(--layout-spacing-#{$value});
-        min-width: var(--layout-spacing-#{$value});
-      }
-    }
+    // @each $key, $v in $sizeMap {
+    //   &.size-#{$key} {
+    //     width: map.get($sizeMap, $key);
+    //     min-width: map.get($sizeMap, $key);
+    //   }
+    // }
   }
 }

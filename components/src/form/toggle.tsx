@@ -23,7 +23,7 @@ export function Toggle(props: ClassName<ToggleProps>) {
 
   return (
     <FormElement
-      className={classNames("toggle", className, { _disabled: disabled, _checked: value })}
+      className={classNames("toggle", className, { _checked: value })}
       error={error}
       label={label}
       name={name}

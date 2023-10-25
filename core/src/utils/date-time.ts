@@ -1,4 +1,4 @@
-import type { TIMESTAMP } from "../types";
+import type { Timestamp } from "../types";
 
 export const shortMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -18,11 +18,11 @@ export function formatDate(date: Date | number | string, showTime = true): strin
   return [year, month, day].map(zeroFill).join("/") + (showTime ? " " + [hour, minute].map(zeroFill).join(":") : "");
 }
 
-export function now(): TIMESTAMP {
+export function now(): Timestamp {
   return Date.now();
 }
 
-export function toTimestamp(date: Date | number | string): TIMESTAMP {
+export function toTimestamp(date: Date | number | string): Timestamp {
   if (date instanceof Date) {
     return date.getTime();
   }

@@ -27,7 +27,6 @@ export function MenuItem<T extends string = string>(props: ClassName<MenuItemPro
       value={item.id}
       className={classNames("menu-item", className, `layout-${layout}`, {
         clickable: onClick || item.href,
-        _disabled: item.disabled,
         selected,
       })}
       onClick={item.disabled ? undefined : clickHandler}

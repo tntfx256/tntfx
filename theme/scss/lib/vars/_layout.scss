@@ -1,0 +1,68 @@
+@use "sass:map";
+@use "../units.scss" as *;
+
+$sizeValues: (
+  4xs: toRem(2),
+  3xs: toRem(4),
+  2x: toRem(8),
+  xs: toRem(12),
+  sm: toRem(16),
+  md: toRem(20),
+  lg: toRem(24),
+  xl: toRem(28),
+  2xl: toRem(32),
+  3xl: toRem(36),
+  4xl: toRem(40),
+  5xl: toRem(48),
+  6xl: toRem(56),
+  7xl: toRem(68),
+);
+
+@function size($size: "md") {
+  @return map.get($sizeValues, $size);
+}
+
+@each $size, $value in $sizeValues {
+  .p-#{$size} {
+    padding: $value;
+  }
+  .px-#{$size} {
+    padding-right: $value;
+    padding-left: $value;
+  }
+  .py-#{$size} {
+    padding-top: $value;
+    padding-bottom: $value;
+  }
+
+  .m-#{$size} {
+    margin: $value;
+  }
+  .mx-#{$size} {
+    margin-right: $value;
+    margin-left: $value;
+  }
+  .my-#{$size} {
+    margin-top: $value;
+    margin-bottom: $value;
+  }
+
+  .br-#{$size} {
+    border-radius: $value;
+  }
+
+  .size-#{$size} {
+    width: $value;
+    height: $value;
+  }
+}
+
+$layout-height-element-sm: toRem(34);
+$layout-height-element-md: toRem(40);
+$layout-height-element-lg: toRem(48);
+
+$layout-height-element: $layout-height-element-md;
+$layout-height-header: $layout-height-element-lg;
+$layout-height-footer: $layout-height-element-md;
+
+$layout-width-element-md: toRem(64);

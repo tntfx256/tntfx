@@ -1,3 +1,5 @@
+@use "@tntfx/theme" as *;
+
 .avatar {
   position: relative;
   display: flex;
@@ -16,7 +18,7 @@
 
   &-abbr {
     font-size: 200%;
-    font-weight: var(--font-weight-xl);
+    font-weight: $font-weight-lg;
     text-align: center;
     text-transform: uppercase;
   }
