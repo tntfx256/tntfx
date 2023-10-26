@@ -1,5 +1,5 @@
 @use "sass:map";
-@use "../units.scss" as *;
+@use "./units" as *;
 
 $sizeValues: (
   4xs: toRem(2),
@@ -20,41 +20,6 @@ $sizeValues: (
 
 @function size($size: "md") {
   @return map.get($sizeValues, $size);
-}
-
-@each $size, $value in $sizeValues {
-  .p-#{$size} {
-    padding: $value;
-  }
-  .px-#{$size} {
-    padding-right: $value;
-    padding-left: $value;
-  }
-  .py-#{$size} {
-    padding-top: $value;
-    padding-bottom: $value;
-  }
-
-  .m-#{$size} {
-    margin: $value;
-  }
-  .mx-#{$size} {
-    margin-right: $value;
-    margin-left: $value;
-  }
-  .my-#{$size} {
-    margin-top: $value;
-    margin-bottom: $value;
-  }
-
-  .br-#{$size} {
-    border-radius: $value;
-  }
-
-  .size-#{$size} {
-    width: $value;
-    height: $value;
-  }
 }
 
 $layout-height-element-sm: toRem(34);

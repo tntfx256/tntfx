@@ -1,0 +1,59 @@
+@use "sass:map";
+@use "../lib/layout";
+@use "../lib/animation";
+
+@each $size, $value in layout.$sizeValues {
+  .p-#{$size} {
+    padding: $value;
+  }
+  .px-#{$size} {
+    padding-right: $value;
+    padding-left: $value;
+  }
+  .py-#{$size} {
+    padding-top: $value;
+    padding-bottom: $value;
+  }
+
+  .m-#{$size} {
+    margin: $value;
+  }
+  .mx-#{$size} {
+    margin-right: $value;
+    margin-left: $value;
+  }
+  .my-#{$size} {
+    margin-top: $value;
+    margin-bottom: $value;
+  }
+
+  .br-#{$size} {
+    border-radius: $value;
+  }
+
+  .size-#{$size} {
+    width: $value;
+    height: $value;
+  }
+}
+
+// ANIMATION
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animation {
+  &-rotate {
+    animation-duration: calc(3 * animation.$animation-duration-lg);
+    animation-iteration-count: infinite;
+    animation-name: rotate;
+    animation-timing-function: linear;
+    transition-property: transform;
+  }
+}

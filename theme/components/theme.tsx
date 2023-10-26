@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from "react";
-import "../../scss/styles/index.scss";
+import "../styles/base.scss";
 
 export function ThemeProvider({ children }: PropsWithChildren) {
   return children;

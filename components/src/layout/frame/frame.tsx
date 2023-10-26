@@ -1,6 +1,11 @@
 import type { ReactNode } from "react";
 import { useEffect, useState } from "react";
-import { type Boundary, type ClassAndChildren, type Dimension, type IconName } from "@tntfx/core";
+import {
+  type Boundary,
+  type ClassAndChildren,
+  type Dimension,
+  type IconName,
+} from "@tntfx/core";
 import { useRefState, useToggle } from "@tntfx/hooks";
 import { classNames } from "@tntfx/theme";
 import { FrameStatus } from "./types";
@@ -98,6 +103,8 @@ export function Frame(props: ClassAndChildren<FrameProps>) {
     }
   }, [boundary, dimension, frame]);
 
+  const hasHeader = Boolean(slots.titlebar || slots.header || title);
+
   return (
     <Box
       className={classNames("frame", { _dialog: isDialog }, className)}
@@ -113,33 +120,47 @@ export function Frame(props: ClassAndChildren<FrameProps>) {
       {/* <DialogProvider> */}
       <Box className="frame-wrapper">
         {slots.sidebar && (
-          <Sidebar className={classNames("frame-sidebar", [className, "-sidebar"])} isOpen={isSidebarOpen} overlay={false}>
+          <Sidebar
+            className={classNames("frame-sidebar", [className, "-sidebar"])}
+            isOpen={isSidebarOpen}
+            overlay={false}
+          >
             <div
               className="frame-sidebar-placeholder"
-              style={{ height: headerHeight, minHeight: headerHeight, maxHeight: headerHeight }}
+              style={{
+                height: headerHeight,
+                minHeight: headerHeight,
+                maxHeight: headerHeight,
+              }}
             />
             {slots.sidebar}
           </Sidebar>
         )}
 
         <Box className="frame-content">
-          <Box className={classNames("frame-header", [className, "-header"])}>
-            <Toolbar as="header" icon={slots.sidebar ? "sidebar" : icon} title={title} onClose={onClose}>
-              {slots.titlebar}
-            </Toolbar>
-            {slots.header}
-          </Box>
+          {hasHeader && (
+            <Box className={classNames("frame-header", [className, "-header"])}>
+              <Toolbar
+                as="header"
+                icon={slots.sidebar ? "sidebar" : icon}
+                title={title}
+                onClose={onClose}
+              >
+                {slots.titlebar}
+              </Toolbar>
+              {slots.header}
+            </Box>
+          )}
 
           <Box className={classNames("frame-body", [className, "-body"])}>
             {children}
-            <div
-              className="frame-footer-placeholder"
-              style={{ height: footerHeight, minHeight: footerHeight, maxHeight: footerHeight }}
-            />
           </Box>
 
           {slots.footer && (
-            <Toolbar as="footer" className={classNames("frame-footer", [className, "-footer"])}>
+            <Toolbar
+              as="footer"
+              className={classNames("frame-footer", [className, "-footer"])}
+            >
               {slots.footer}
             </Toolbar>
           )}

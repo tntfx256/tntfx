@@ -1,4 +1,4 @@
-@use "../units.scss" as *;
+@use "./units" as *;
 
 $border-radius-2xs: toRem(2);
 $border-radius-xs: toRem(4);

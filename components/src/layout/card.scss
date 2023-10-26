@@ -1,24 +1,11 @@
-@import "@tntfx/theme";
+@use "@tntfx/theme";
 
 .card {
-  overflow: hidden;
-  border: 1px solid var(--color-border);
-  border-radius: $border-radius-md;
-
-  &-header {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-
-    .toolbar-title {
-      padding-left: size(md);
-    }
+  &.frame {
+    position: relative;
   }
 
   &-body {
-    @include withTitlebarPadding;
-    overflow: auto;
-    flex: 1;
+    padding: theme.size("md");
   }
 }

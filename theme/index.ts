@@ -1,4 +1,3 @@
-export * from "./runtime/components";
-export * from "./runtime/hooks";
-export * from "./runtime/types";
-export * from "./runtime/utils";
+export * from "./components";
+export * from "./hooks";
+export * from "./utils";

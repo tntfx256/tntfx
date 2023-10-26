@@ -1,4 +1,4 @@
-@use "./vars/layout.scss" as *;
+@use "./layout" as *;
 
 @mixin hover {
   &:hover:not(:disabled, ._selected) {
@@ -51,6 +51,8 @@
 
 @mixin withTitlebarPadding($numberOfTitlebar: 1) {
   > *:first-child:not(.toolbar) {
-    padding-top: calc(size(md) + calc($numberOfTitlebar * $layout-height-header));
+    padding-top: calc(
+      size(md) + calc($numberOfTitlebar * $layout-height-header)
+    );
   }
 }

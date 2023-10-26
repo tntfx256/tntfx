@@ -1,4 +1,4 @@
-@use "../lib" as *;
+@use "../lib.scss" as *;
 
 * {
   -webkit-overflow-scrolling: auto;
@@ -17,7 +17,7 @@
 }
 
 *::-webkit-scrollbar-thumb {
-  border-radius: var($border-radius-sm);
+  border-radius: $border-radius-sm;
   color: var(--color-secondary);
 }
 
@@ -48,10 +48,13 @@ html {
 
 body {
   position: relative;
-  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
   background-color: var(--color-body);
   color: var(--color-body-text);
   font-family: inherit;
+  display: flex;
+  flex-direction: column;
 }
 
 @media (min-width: $breakpoint-xs) {

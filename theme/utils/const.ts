@@ -1,14 +1,18 @@
 import type { Sizable } from "@tntfx/core";
 
 export const CssSizeMap: Sizable<string> = {
-  xxSmall: "-2xs",
-  xSmall: "-xs",
-  small: "-sm",
-  medium: "-md",
-  large: "-lg",
-  xLarge: "-xl",
-  xxLarge: "-2xl",
-  xxxLarge: "-3xl",
+  "3xSmall": "3xs",
+  "2xSmall": "2xs",
+  xSmall: "xs",
+  small: "sm",
+  medium: "md",
+  large: "lg",
+  xLarge: "xl",
+  "2xLarge": "2xl",
+  "3xLarge": "3xl",
+  "4xLarge": "4xl",
+  "5xLarge": "5xl",
+  "6xLarge": "6xl",
 };
 
 export const Colors = {

@@ -3,29 +3,43 @@ import type { Actionable, ClassAndChildren, IconName } from "@tntfx/core";
 import { classNames } from "@tntfx/theme";
 import { ActionBar } from "./bar/action-bar";
 import { Toolbar } from "./bar/toolbar";
-import { Box } from "./box";
+import { Box, BoxProps } from "./box";
 import "./card.scss";
+import { Frame } from "./frame";
 
-type CardProps<T extends string = string> = Actionable<T> & {
-  title?: string;
-  headerSlot?: ReactNode;
-  icon?: IconName;
-};
+export type CardProps<T extends string = string> = BoxProps &
+  Actionable<T> & {
+    title?: string;
+    headerSlot?: ReactNode;
+    icon?: IconName;
+  };
 
-export function Card<T extends string = string>(props: ClassAndChildren<CardProps<T>>) {
-  const { className, children, actions, icon, headerSlot, title, onAction } = props;
-
-  const hasHeader = Boolean(title || icon || headerSlot);
+export function Card<T extends string = string>(
+  props: ClassAndChildren<CardProps<T>>
+) {
+  const {
+    className,
+    children,
+    actions,
+    // icon,
+    headerSlot,
+    // title,
+    onAction,
+    ...boxProps
+  } = props;
 
   return (
-    <Box className={classNames("card", className)}>
-      <Box className="card-body">{children}</Box>
-      <ActionBar<T> actions={actions} className="card-footer" onAction={onAction} />
-      {hasHeader && (
-        <Toolbar className="card-header" icon={icon} title={title}>
-          {headerSlot}
-        </Toolbar>
-      )}
-    </Box>
+    <Frame
+      className={classNames("card", className)}
+      {...boxProps}
+      slots={{
+        header: headerSlot,
+        footer: actions ? (
+          <ActionBar actions={actions} onAction={onAction} />
+        ) : undefined,
+      }}
+    >
+      {children}
+    </Frame>
   );
 }

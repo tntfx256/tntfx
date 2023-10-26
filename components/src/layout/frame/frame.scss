@@ -1,9 +1,9 @@
-@import "@tntfx/theme";
+@use "@tntfx/theme";
 
 %sticky {
-  @include blur;
+  @include theme.blur;
   position: sticky;
-  z-index: $layer-window;
+  z-index: theme.$layer-window;
   right: 0;
   left: 0;
   background-color: var(--color-body-alpha);
@@ -16,10 +16,10 @@
 
 .frame {
   position: absolute;
-  z-index: $layer-window;
+  z-index: theme.$layer-window;
   overflow: hidden;
   border: 1px solid var(--color-border);
-  border-radius: $border-radius-md;
+  border-radius: theme.$border-radius-sm;
   background-color: var(--color-body);
   box-shadow: var(--shadow-lg);
   color: var(--color-body-text);
@@ -31,7 +31,7 @@
   }
 
   &.status {
-    transition-duration: $animation-duration-sm;
+    transition-duration: theme.$animation-duration-sm;
     transition-property: top left width height transform;
 
     &-maximized {
@@ -66,8 +66,9 @@
     @extend %sticky;
     position: sticky;
     top: 0;
-    height: $layout-height-element-lg;
+    height: theme.$layout-height-header;
     border-bottom: 1px solid var(--color-border);
+    border-radius: 0;
     border-top-left-radius: inherit;
     border-top-right-radius: inherit;
 
@@ -90,13 +91,15 @@
     // }
   }
 
-  &-footer {
+  &-footer.box.horizontal {
     @extend %sticky;
     bottom: 0;
-    height: $layout-height-element-md;
+    height: theme.$layout-height-footer;
     border-top: 1px solid var(--color-border);
+    border-radius: 0;
     border-bottom-left-radius: inherit;
     border-bottom-right-radius: inherit;
+    justify-content: flex-end;
 
     // &-placeholder {
     //   border: 2px solid red;

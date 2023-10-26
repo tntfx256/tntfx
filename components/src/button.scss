@@ -1,26 +1,26 @@
-@use "@tntfx/theme" as *;
+@use "@tntfx/theme";
 
 .button {
-  @include hover;
-  @include active;
-  @include disabled;
-  @include unSelectable;
+  @include theme.hover;
+  @include theme.active;
+  @include theme.disabled;
+  @include theme.unSelectable;
 
   position: relative;
   display: flex;
   overflow: hidden;
   min-width: fit-content;
-  height: $layout-height-element;
-  min-height: $layout-height-element;
+  height: theme.$layout-height-element;
+  min-height: theme.$layout-height-element;
   flex-flow: row nowrap;
   align-items: center;
   justify-content: center;
   padding: 0 size(md);
   border: 1px solid transparent;
-  border-radius: $border-radius-sm;
-  color: var(--color-element-text);
-  font-size: $font-size-sm;
-  font-weight: $font-weight-sm;
+  border-radius: theme.$border-radius-sm;
+  color: var(--color-body-text);
+  font-size: theme.$font-size-sm;
+  font-weight: theme.$font-weight-sm;
   text-transform: uppercase;
   white-space: nowrap;
 
