@@ -12,8 +12,6 @@ export function SidebarProvider(props: PropsWithChildren) {
 export function useSidebar() {
   const [state, setState] = useStore();
 
-  console.log(state);
-
   const show = useCallback(() => setState({ visible: true }), [setState]);
   const hide = useCallback(() => setState({ visible: false }), [setState]);
   const toggle = useCallback(() => setState((s) => ({ visible: !s.visible })), [setState]);

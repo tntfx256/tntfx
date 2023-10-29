@@ -12,6 +12,10 @@ export type EnhancedProps = {
   flow: CSSProperties["flexFlow"];
   flex: CSSProperties["flex"];
   whiteSpace: CSSProperties["whiteSpace"];
+  color: CSSProperties["color"];
+  fontWeight: CSSProperties["fontWeight"];
+  textAlign: CSSProperties["textAlign"];
+
   padding: Size;
   verticalPadding: Size;
   horizontalPadding: Size;
@@ -32,11 +36,7 @@ export type EnhancedProps = {
 };
 
 type PropMap = {
-  [K in Keys<EnhancedProps>]: (
-    value: EnhancedProps[K],
-    style: CSSProperties,
-    classList: Set<string>
-  ) => void | string;
+  [K in Keys<EnhancedProps>]: (value: EnhancedProps[K], style: CSSProperties, classList: Set<string>) => void | string;
 };
 
 export const propsMap: PropMap = {
@@ -89,6 +89,15 @@ export const propsMap: PropMap = {
   },
   whiteSpace(value, style) {
     style.whiteSpace = value;
+  },
+  color(value, style) {
+    style.color = value;
+  },
+  fontWeight(value, style) {
+    style.fontWeight = value;
+  },
+  textAlign(value, style) {
+    style.textAlign = value;
   },
   style(value, style) {
     Object.assign(style, value);

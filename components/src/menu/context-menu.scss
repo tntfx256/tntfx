@@ -4,7 +4,7 @@
   position: relative;
 
   &-backdrop {
-    .menu-list {
+    .menu {
       @include theme.blur;
       position: absolute;
       z-index: theme.$layer-context-menu;

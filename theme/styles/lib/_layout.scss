@@ -50,10 +50,9 @@ $elementWidth-2xl: utils.toRem(160);
 $elementWidth-3xl: utils.toRem(192);
 $elementWidth-4xl: utils.toRem(224);
 
-// $layout-height-element-sm: 34;
-// $layout-height-element-md: 40;
-// $layout-height-element-lg: 48;
-
+$layout-height-element-sm: utils.toRem(32);
 $layout-height-element: utils.toRem(38);
-$layout-height-header: calc(1.15 * $size-xl);
-$layout-height-footer: $size-xl;
+$layout-height-footer: utils.toRem(44);
+$layout-height-header: utils.toRem(50);
+
+// $layout-height-element-lg: 48;

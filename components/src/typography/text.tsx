@@ -1,6 +1,5 @@
 import type { CSSProperties, HTMLAttributes } from "react";
 import type { ClassAndChildren, Size, Variant } from "@tntfx/core";
-import { splitProperties } from "@tntfx/core";
 import { classNames, useParseProps } from "@tntfx/theme";
 import "./text.scss";
 
@@ -15,13 +14,6 @@ type TypingProps = Att & {
   as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span";
 };
 
-const pickProps = splitProperties(
-  "color",
-  "fontWeight",
-  "textAlign",
-  "whiteSpace"
-);
-
 export function Text(props: ClassAndChildren<TypingProps>) {
   const { children, as, ...libProps } = props;
 
@@ -30,11 +22,7 @@ export function Text(props: ClassAndChildren<TypingProps>) {
   const Component = as || SizeMap[props.size || "md"];
 
   return (
-    <Component
-      className={classNames("text", result.className)}
-      style={result.style}
-      {...result.props}
-    >
+    <Component className={classNames("text", result.className)} style={result.style} {...result.props}>
       {children}
     </Component>
   );

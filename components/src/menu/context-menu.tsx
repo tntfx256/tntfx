@@ -20,11 +20,8 @@ type ContextMenuProps<T extends string = string> = {
   onItemSelect?: (id: T) => void;
 };
 
-export function ContextMenu<T extends string = string>(
-  props: ClassAndChildren<ContextMenuProps<T>>
-) {
-  const { children, className, items, onItemSelect, onClose, ...libProps } =
-    props;
+export function ContextMenu<T extends string = string>(props: ClassAndChildren<ContextMenuProps<T>>) {
+  const { children, className, items, onItemSelect, onClose, ...libProps } = props;
 
   const alignment = useRef<MenuAlignment>({
     horizontal: "left",
@@ -128,10 +125,7 @@ export function ContextMenu<T extends string = string>(
             onClick={handleMenuClose}
           >
             <Menu
-              className={classNames(
-                `_align-${alignment.current.vertical}`,
-                `_align-${alignment.current.horizontal}`
-              )}
+              className={classNames(`_align-${alignment.current.vertical}`, `_align-${alignment.current.horizontal}`)}
               items={items}
               ref={list}
               onClick={handleMenuItemClick}
