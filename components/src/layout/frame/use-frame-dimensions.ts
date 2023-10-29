@@ -10,7 +10,10 @@ export function useFrameDimensions(frame: Nullable<HTMLDivElement>) {
   const headerRef = useRef<Nullable<HTMLDivElement>>(null);
   const footerRef = useRef<Nullable<HTMLDivElement>>(null);
 
-  const [dimensions, setDimensions] = useState({ headerHeight: 0, footerHeight: 0 });
+  const [dimensions, setDimensions] = useState({
+    headerHeight: 0,
+    footerHeight: 0,
+  });
 
   useEffect(() => {
     if (!frame) {

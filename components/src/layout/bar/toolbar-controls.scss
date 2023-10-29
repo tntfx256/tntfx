@@ -1,15 +1,16 @@
-@use "@tntfx/theme" as *;
+@use "@tntfx/theme";
 
-.header-controls {
+.toolbar-controls {
   position: absolute;
-  top: -1px;
-  right: -1px;
+  top: 0;
+  right: 0;
   bottom: 0;
 
   .icon {
-    @include hover;
+    @include theme.hover;
     align-self: flex-start;
     border-radius: 0;
+    padding: theme.$spacing-xs;
 
     &-cross:not(:disabled) {
       &:hover {

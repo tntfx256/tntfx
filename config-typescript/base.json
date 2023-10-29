@@ -5,13 +5,14 @@
   "compilerOptions": {
     "module": "ESNext",
     "moduleResolution": "Node",
-    "target": "ES2020",
+    "target": "ES6",
     "esModuleInterop": true,
     "isolatedModules": true,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
 
     "strict": true,
+    "strictNullChecks": true,
     "allowJs": false,
     "skipLibCheck": true,
 
@@ -29,5 +30,7 @@
     "preserveWatchOutput": true,
 
     "jsx": "preserve"
-  }
+  },
+
+  "exclude": ["node_modules"]
 }

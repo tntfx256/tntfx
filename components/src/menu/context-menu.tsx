@@ -3,7 +3,7 @@ import { useCallback, useLayoutEffect, useRef } from "react";
 import type { ClassAndChildren, Nullable, Option } from "@tntfx/core";
 import { useToggle } from "@tntfx/hooks";
 import { classNames } from "@tntfx/theme";
-import { MenuList } from "./menu-list";
+import { Menu } from "./menu";
 import { Backdrop } from "../backdrop";
 import { Portal } from "../portal";
 import "./context-menu.scss";
@@ -20,10 +20,16 @@ type ContextMenuProps<T extends string = string> = {
   onItemSelect?: (id: T) => void;
 };
 
-export function ContextMenu<T extends string = string>(props: ClassAndChildren<ContextMenuProps<T>>) {
-  const { children, className, items, onItemSelect, onClose, ...libProps } = props;
+export function ContextMenu<T extends string = string>(
+  props: ClassAndChildren<ContextMenuProps<T>>
+) {
+  const { children, className, items, onItemSelect, onClose, ...libProps } =
+    props;
 
-  const alignment = useRef<MenuAlignment>({ horizontal: "left", vertical: "bottom" });
+  const alignment = useRef<MenuAlignment>({
+    horizontal: "left",
+    vertical: "bottom",
+  });
   const [visible, showMenu, hideMenu] = useToggle();
 
   const context = useRef<Nullable<HTMLDivElement>>(null);
@@ -34,7 +40,7 @@ export function ContextMenu<T extends string = string>(props: ClassAndChildren<C
       onItemSelect?.(id);
       hideMenu();
     },
-    [hideMenu, onItemSelect],
+    [hideMenu, onItemSelect]
   );
 
   const handleMenuOpen = useCallback(
@@ -43,7 +49,7 @@ export function ContextMenu<T extends string = string>(props: ClassAndChildren<C
       e.stopPropagation();
       showMenu();
     },
-    [showMenu],
+    [showMenu]
   );
 
   const handleMenuClose = useCallback(() => {
@@ -112,7 +118,7 @@ export function ContextMenu<T extends string = string>(props: ClassAndChildren<C
       onClick={handleMenuOpen}
     >
       {children}
-      {visible && (
+      {visible && items && (
         <Portal id="context-menu-portal">
           <Backdrop
             persistent
@@ -121,8 +127,11 @@ export function ContextMenu<T extends string = string>(props: ClassAndChildren<C
             isOpen={visible}
             onClick={handleMenuClose}
           >
-            <MenuList
-              className={classNames(`_align-${alignment.current.vertical}`, `_align-${alignment.current.horizontal}`)}
+            <Menu
+              className={classNames(
+                `_align-${alignment.current.vertical}`,
+                `_align-${alignment.current.horizontal}`
+              )}
               items={items}
               ref={list}
               onClick={handleMenuItemClick}

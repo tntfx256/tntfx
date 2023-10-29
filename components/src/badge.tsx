@@ -13,11 +13,15 @@ export function Badge(props: ClassAndChildren<BadgeProps>) {
   const { className, children, variant = "destructive", count } = props;
 
   return (
-    <Box className={classNames("badge-wrapper", { [`${className}-badge-wrapper`]: className })}>
+    <Box
+      className={classNames("badge-wrapper", {
+        [`${className}-badge-wrapper`]: className,
+      })}
+    >
       {children}
       {Boolean(count) && (
         <Box className={classNames("badge", className, `variant-${variant}`)}>
-          <Text fontWeight="bold" size="xSmall">
+          <Text fontWeight="bold" size="xs">
             {count}
           </Text>
         </Box>

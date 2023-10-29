@@ -9,7 +9,7 @@ import { FormElement } from "./form-element";
 import { TextInput } from "./text-input";
 import { Backdrop } from "../backdrop";
 import { Icon } from "../icon";
-import { MenuList } from "../menu";
+import { Menu } from "../menu";
 import { Svg } from "../svg";
 import { Text } from "../typography/text";
 import "./select.scss";
@@ -31,7 +31,10 @@ type State<T extends string = string> = {
 
 const initialState: State = { filteredOptions: [], text: "", displayValue: "" };
 
-type SelectProps<T extends string = string, M extends boolean = false> = FormElementProps & {
+type SelectProps<
+  T extends string = string,
+  M extends boolean = false,
+> = FormElementProps & {
   options: Option<T>[];
   searchable?: boolean;
   readOnly?: boolean;
@@ -41,7 +44,9 @@ type SelectProps<T extends string = string, M extends boolean = false> = FormEle
   onChange?: (value: M extends true ? T[] : T, name: string) => void;
 };
 
-export function Select<T extends string = string, M extends boolean = false>(props: ClassName<SelectProps<T, M>>) {
+export function Select<T extends string = string, M extends boolean = false>(
+  props: ClassName<SelectProps<T, M>>
+) {
   const {
     name,
     label,
@@ -61,7 +66,8 @@ export function Select<T extends string = string, M extends boolean = false>(pro
   const [isOpen, showDropdown, hideDropdown] = useToggle();
   const listRef = useRef<Nullable<HTMLUListElement>>(null);
   const inputRef = useRef<Nullable<HTMLInputElement>>(null);
-  const [{ filteredOptions, text, dropdown, displayValue }, setState] = useStateReducer(initialState as State<T>);
+  const [{ filteredOptions, text, dropdown, displayValue }, setState] =
+    useStateReducer(initialState as State<T>);
 
   const handleItemSelect = useCallback(
     (id: T) => {
@@ -79,19 +85,22 @@ export function Select<T extends string = string, M extends boolean = false>(pro
       }
       setState({ filteredOptions: options, text: "" });
     },
-    [hideDropdown, multi, name, onChange, options, setState, value],
+    [hideDropdown, multi, name, onChange, options, setState, value]
   );
 
   const handleTextChange = useCallback(
     (text: string) => {
       if (text) {
         const regex = new RegExp(text, "ig");
-        setState({ filteredOptions: options.filter(({ title }) => regex.test(title)), text });
+        setState({
+          filteredOptions: options.filter(({ title }) => regex.test(title)),
+          text,
+        });
       } else {
         setState({ filteredOptions: options, text: "" });
       }
     },
-    [options, setState],
+    [options, setState]
   );
 
   const handleShowDropdown = useCallback(() => {
@@ -108,26 +117,46 @@ export function Select<T extends string = string, M extends boolean = false>(pro
     (id: T) => {
       const currentValue = assertMultiValue<T>(value);
       if (currentValue.includes(id)) {
-        onChange?.(currentValue.filter((item) => item !== id) as Any, name || "");
+        onChange?.(
+          currentValue.filter((item) => item !== id) as Any,
+          name || ""
+        );
       } else {
         onChange?.([...currentValue, id] as Any, name || "");
       }
     },
-    [name, onChange, value],
+    [name, onChange, value]
   );
 
   // setting dropdown position
   useEffect(() => {
     if (!isOpen || !inputRef.current) return;
 
-    const { bottom, left, top, width } = inputRef.current.getBoundingClientRect() || {};
+    const { bottom, left, top, width } =
+      inputRef.current.getBoundingClientRect() || {};
     const maxUpHeight = top - OFFSET;
     const maxDownHeight = window.innerHeight - bottom - OFFSET;
 
     if (maxDownHeight >= maxUpHeight) {
-      setState({ dropdown: { direction: "down", maxHeight: maxDownHeight, left, width, position: bottom } });
+      setState({
+        dropdown: {
+          direction: "down",
+          maxHeight: maxDownHeight,
+          left,
+          width,
+          position: bottom,
+        },
+      });
     } else {
-      setState({ dropdown: { direction: "up", maxHeight: maxUpHeight, left, width, position: top } });
+      setState({
+        dropdown: {
+          direction: "up",
+          maxHeight: maxUpHeight,
+          left,
+          width,
+          position: top,
+        },
+      });
     }
   }, [isOpen, setState]);
 
@@ -142,7 +171,9 @@ export function Select<T extends string = string, M extends boolean = false>(pro
             .join(", "),
         });
       } else {
-        setState({ displayValue: options.find(({ id }) => value == id)?.title || "" });
+        setState({
+          displayValue: options.find(({ id }) => value == id)?.title || "",
+        });
       }
     } else {
       setState({ displayValue: "" });
@@ -162,7 +193,10 @@ export function Select<T extends string = string, M extends boolean = false>(pro
 
   return (
     <FormElement
-      className={classNames("select", className, dirClassName, { "is-open": shouldShowDropdown, pristine: !value })}
+      className={classNames("select", className, dirClassName, {
+        "is-open": shouldShowDropdown,
+        pristine: !value,
+      })}
       disabled={disabled}
       error={error}
       isLoading={isLoading}
@@ -179,10 +213,16 @@ export function Select<T extends string = string, M extends boolean = false>(pro
         onClick={handleShowDropdown}
         onFocus={handleShowDropdown}
       />
-      <Svg className="control-icon" name="down" size="small" />
+      <Svg className="control-icon" name="down" size="sm" />
 
       {shouldShowDropdown && (
-        <Backdrop global isOpen background="transparent" className="select-backdrop" onClick={hideDropdown}>
+        <Backdrop
+          global
+          isOpen
+          background="transparent"
+          className="select-backdrop"
+          onClick={hideDropdown}
+        >
           <div
             className={classNames("select-dropdown", dirClassName)}
             style={{
@@ -207,7 +247,7 @@ export function Select<T extends string = string, M extends boolean = false>(pro
             {isEmpty ? (
               <Text className="select-dropdown-empty">Empty</Text>
             ) : (
-              <MenuList<T>
+              <Menu<T>
                 className="select-dropdown-list"
                 items={filteredOptions}
                 ref={listRef}
@@ -216,7 +256,11 @@ export function Select<T extends string = string, M extends boolean = false>(pro
                     <Text key={item.id}>
                       {multi ? (
                         <Icon
-                          name={multiValues.includes(item.id) ? "checkSquare" : "square"}
+                          name={
+                            multiValues.includes(item.id)
+                              ? "checkSquare"
+                              : "square"
+                          }
                           onClick={() => toggleMultiselectItem(item.id)}
                         />
                       ) : null}

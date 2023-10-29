@@ -1,10 +1,10 @@
-@use "@tntfx/theme" as *;
+@use "@tntfx/theme";
 
 .svg {
   display: inline-block;
-  width: size(md);
+  width: theme.$size-md;
   max-width: unset;
-  height: size(md);
+  height: theme.$size-md;
   aspect-ratio: 1 / 1;
 
   &,
@@ -20,22 +20,22 @@
   }
 
   &.size-xSmall {
-    width: size(xs);
-    height: size(xs);
+    width: theme.$size-xs;
+    height: theme.$size-xs;
   }
   &.size-small {
-    width: size(sm);
-    height: size(sm);
+    width: theme.$size-sm;
+    height: theme.$size-sm;
   }
 
   &.size-large {
-    width: size(lg);
-    height: size(lg);
+    width: theme.$size-lg;
+    height: theme.$size-lg;
   }
 
   &.size-xLarge {
-    width: size(xl);
-    height: size(xl);
+    width: theme.$size-xl;
+    height: theme.$size-xl;
   }
 
   // SPECIALS

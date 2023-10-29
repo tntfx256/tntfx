@@ -1,11 +1,11 @@
-@use "@tntfx/theme" as *;
+@use "@tntfx/theme";
 
 .text {
   padding: 0;
   margin: 0;
-  font-size: $font-size-md;
-  font-weight: $font-weight-sm;
-  line-height: $line-height-md;
+  font-size: theme.$fontSize-md;
+  font-weight: theme.$fontWeight-sm;
+  line-height: theme.$lineHeight-md;
   text-align: inherit;
 
   &.variant-primary {
@@ -20,49 +20,49 @@
   }
 
   &.size-2xSmall {
-    font-size: $font-size-2xs;
-    font-weight: $font-weight-2xs;
-    line-height: $line-height-2xs;
+    font-size: theme.$fontSize-2xs;
+    font-weight: theme.$fontWeight-2xs;
+    line-height: theme.$lineHeight-2xs;
   }
   &.size-xSmall {
-    font-size: $font-size-xs;
-    font-weight: $font-weight-2xs;
-    line-height: $line-height-xs;
+    font-size: theme.$fontSize-xs;
+    font-weight: theme.$fontWeight-2xs;
+    line-height: theme.$lineHeight-xs;
   }
 
   &.size-small {
-    font-size: $font-size-sm;
-    font-weight: $font-weight-sm;
-    line-height: $line-height-sm;
+    font-size: theme.$fontSize-sm;
+    font-weight: theme.$fontWeight-sm;
+    line-height: theme.$lineHeight-sm;
   }
 
   &.size-medium {
-    font-size: $font-size-md;
-    font-weight: $font-weight-md;
-    line-height: $line-height-md;
+    font-size: theme.$fontSize-md;
+    font-weight: theme.$fontWeight-md;
+    line-height: theme.$lineHeight-md;
   }
 
   &.size-large {
-    font-size: $font-size-lg;
-    font-weight: $font-weight-md;
-    line-height: $line-height-lg;
+    font-size: theme.$fontSize-lg;
+    font-weight: theme.$fontWeight-md;
+    line-height: theme.$lineHeight-md;
   }
 
   &.size-xLarge {
-    font-size: $font-size-xl;
-    font-weight: $font-weight-lg;
-    line-height: $line-height-xl;
+    font-size: theme.$fontSize-xl;
+    font-weight: theme.$fontWeight-lg;
+    line-height: theme.$lineHeight-xl;
   }
 
   &.size-2xLarge {
-    font-size: $font-size-2xl;
-    font-weight: $font-weight-xl;
-    line-height: $line-height-2xl;
+    font-size: theme.$fontSize-2xl;
+    font-weight: theme.$fontWeight-xl;
+    line-height: theme.$lineHeight-2xl;
   }
 
   &.size-3xLarge {
-    font-size: $font-size-3xl;
-    font-weight: $font-weight-2xl;
-    line-height: $line-height-3xl;
+    font-size: theme.$fontSize-3xl;
+    font-weight: theme.$fontWeight-2xl;
+    line-height: theme.$lineHeight-3xl;
   }
 }

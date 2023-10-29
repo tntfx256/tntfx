@@ -1,3 +1,6 @@
+@forward "./lib/utils";
+@forward "./lib/mixins";
+
 @forward "./lib/animation";
 @forward "./lib/border";
 @forward "./lib/breakpoint";
@@ -5,5 +8,4 @@
 @forward "./lib/layer";
 @forward "./lib/layout";
 @forward "./lib/media-queries";
-@forward "./lib/units";
-@forward "./lib/utils";
+@forward "./lib/shadow";

@@ -1,42 +1,27 @@
-@import "@tntfx/theme";
+@use "@tntfx/theme";
 
 .icon {
   $textOffset: 2px;
 
-  @include disabled;
+  @include theme.disabled;
   display: inline-flex;
-  min-width: size(sm);
+  width: theme.$size-md;
+  height: theme.$size-md;
   flex-flow: column nowrap;
   align-items: center;
   justify-content: center;
-  padding: size(sm);
+  padding: theme.$spacing-sm;
   border: 1px solid transparent;
-  border-radius: $border-radius-sm;
-
-  &.variant-primary {
-    color: var(--color-primary);
-  }
-  &.variant-secondary {
-    color: var(--color-secondary);
-  }
-  &.variant-destructive {
-    color: var(--color-error);
-  }
+  border-radius: theme.$borderRadius-sm;
 
   &.clickable {
     cursor: pointer;
   }
 
-  &.type {
-    &-error {
-      color: var(--color-error);
-    }
-  }
-
   .text {
     margin: $textOffset 0 0 0;
-    font-size: $font-size-md;
-    font-weight: $font-weight-sm;
+    font-size: theme.$fontSize-md;
+    font-weight: theme.$fontWeight-sm;
     white-space: nowrap;
   }
 

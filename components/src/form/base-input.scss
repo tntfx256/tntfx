@@ -1,13 +1,28 @@
-@use "@tntfx/theme" as *;
+@use "@tntfx/theme";
 
 .base-input {
   position: relative;
   width: 100%;
-  height: $layout-height-element;
-  padding: 0 size(md);
+  height: theme.$layout-height-element;
+  padding: 0 theme.$spacing-md;
   border: 0;
   caret-color: inherit;
-  font-size: $font-size-md;
-  font-weight: $font-weight-md;
-  line-height: $line-height-md;
+  font-size: max(#{theme.$fontSize-md}, 16px);
+  font-weight: theme.$fontWeight-md;
+  line-height: theme.$lineHeight-md;
+
+  &[type="text"],
+  &[type="number"],
+  &[type="password"],
+  &[type="email"] {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  &[type="number"]::-webkit-inner-spin-button,
+  &[type="number"]::-webkit-outer-spin-button {
+    margin: 0;
+    -webkit-appearance: none;
+    appearance: none;
+  }
 }

@@ -2,7 +2,6 @@ import type { CSSProperties } from "react";
 import type { TError } from "@tntfx/core";
 import { finalizeError } from "@tntfx/core";
 import { useToggle } from "@tntfx/hooks";
-import { Colors } from "@tntfx/theme";
 
 /**
  * BlueScreen should not use any component
@@ -17,7 +16,8 @@ export function BlueScreen(props: BlueScreenProps) {
   const { error: rawError, reset } = props;
 
   const [isErrorDetailVisible, showDetails, hideDetails] = useToggle();
-  const { name, message, description, originalName, code, stack, status } = finalizeError(rawError);
+  const { name, message, description, originalName, code, stack, status } =
+    finalizeError(rawError);
 
   return (
     <div style={wrapperStyle}>
@@ -67,7 +67,7 @@ const wrapperStyle: CSSProperties = {
   left: 0,
   alignItems: "flex-start",
   background: "#0070d5",
-  color: Colors.White,
+  color: "#f5f5f5",
   justifyContent: "flex-start",
   padding: "1rem",
 };

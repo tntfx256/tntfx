@@ -1,5 +1,5 @@
 {
   "extends": "@tntfx/tsconfig/react.json",
 
-  "include": ["src"]
+  "include": ["src", "./fw-provider.tsx"]
 }

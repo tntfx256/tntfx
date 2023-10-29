@@ -19,7 +19,9 @@ export type BackdropProps = {
   onClick?: () => void;
 };
 
-export const Backdrop = memo(function Backdrop(props: ClassAndChildren<BackdropProps>) {
+export const Backdrop = memo(function Backdrop(
+  props: ClassAndChildren<BackdropProps>
+) {
   const {
     children,
     className,
@@ -46,7 +48,14 @@ export const Backdrop = memo(function Backdrop(props: ClassAndChildren<BackdropP
 
   const backdrop = (
     <Box
-      className={classNames("backdrop", className, animation, `bg-${background}`, { overlay, open: isOpen, global })}
+      role="presentation"
+      className={classNames(
+        "backdrop",
+        className,
+        animation,
+        `bg-${background}`,
+        { overlay, open: isOpen, global }
+      )}
       style={style}
       onClick={handleClick}
     >

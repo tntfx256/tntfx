@@ -1,0 +1,46 @@
+@use "sass:map";
+@use "../../lib/layout";
+// @use "../../lib/animation";
+@use "../../lib/border";
+
+@each $size, $value in layout.$sizes {
+  .p-#{$size} {
+    padding: map.get(layout.$spacing, $size);
+  }
+  .px-#{$size} {
+    padding-right: map.get(layout.$spacing, $size);
+    padding-left: map.get(layout.$spacing, $size);
+  }
+  .py-#{$size} {
+    padding-top: map.get(layout.$spacing, $size);
+    padding-bottom: map.get(layout.$spacing, $size);
+  }
+
+  .m-#{$size} {
+    margin: map.get(layout.$spacing, $size);
+  }
+  .mx-#{$size} {
+    margin-right: map.get(layout.$spacing, $size);
+    margin-left: map.get(layout.$spacing, $size);
+  }
+  .my-#{$size} {
+    margin-top: map.get(layout.$spacing, $size);
+    margin-bottom: map.get(layout.$spacing, $size);
+  }
+
+  // .br-#{$size} {
+  //   border-radius: border.borderRadius($size);
+  // }
+
+  .size-#{$size} {
+    width: $value;
+    height: $value;
+  }
+
+  .elevation-#{$size} {
+    filter: drop-shadow(var(--shadow-#{$size}));
+  }
+  .shadow-#{$size} {
+    box-shadow: var(--shadow-#{$size});
+  }
+}

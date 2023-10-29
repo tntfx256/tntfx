@@ -1,10 +1,10 @@
-@use "@tntfx/theme" as *;
+@use "@tntfx/theme";
 
-$sidebarMinWidth: 128px;
-$sidebarMaxWidth: $breakpoint-xs;
+$sidebarMinWidth: theme.$breakpoint-2xs;
+$sidebarMaxWidth: theme.$breakpoint-sm;
 
 .sidebar-backdrop.box.backdrop {
-  z-index: $layer-sidebar;
+  z-index: theme.$layer-sidebar;
   min-height: 100%;
   max-height: 100%;
   flex-direction: row;
@@ -40,7 +40,7 @@ $sidebarMaxWidth: $breakpoint-xs;
     color: var(--color-body-text);
 
     &.blur {
-      @include blur(2rem);
+      @include theme.blur(2rem);
       background-color: var(--color-body-alpha);
       color: var(--color-body-alpha-text);
     }
@@ -48,8 +48,8 @@ $sidebarMaxWidth: $breakpoint-xs;
 
   .sidebar-body {
     flex: 1;
-    border-radius: $border-radius-md;
-    margin: size(md);
+    border-radius: theme.$borderRadius-md;
+    margin: theme.$spacing-md;
     margin-left: 0;
   }
 }

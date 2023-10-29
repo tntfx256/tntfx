@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import type { Boundary, Nullable } from "@tntfx/core";
 import { boundaryToBoundingRect } from "@tntfx/core";
-import { useDrag } from "@tntfx/hooks";
+import { useDrag, useRuntime } from "@tntfx/hooks";
 import type { SetDimension } from "./types";
 import { FrameStatus } from "./types";
 
 interface UseFrameDragConfig {
-  // id: string;
+  id: string;
   // isDialog?: boolean;
   frameStatus?: FrameStatus;
   draggable: boolean | undefined;
@@ -16,15 +16,20 @@ interface UseFrameDragConfig {
 }
 
 export function useFrameDrag(config: UseFrameDragConfig) {
-  const { frameElement, frameStatus, draggable, boundary, setDimension } = config;
+  const { id, frameElement, frameStatus, draggable, boundary, setDimension } =
+    config;
 
-  const [headerElement, setHeaderElement] = useState<Nullable<HTMLDivElement>>(null);
+  const runtime = useRuntime();
+  const [headerElement, setHeaderElement] =
+    useState<Nullable<HTMLDivElement>>(null);
 
   useDrag(headerElement, {
     boundingRect: boundaryToBoundingRect(boundary || {}),
     target: frameElement,
-    draggable: draggable && (!frameStatus || frameStatus === FrameStatus.Normal),
+    draggable:
+      draggable && (!frameStatus || frameStatus === FrameStatus.Normal),
     onDragStart() {
+      runtime.activate(id);
       // onChange({ id, type: "activate", isDialog });
     },
     onDragEnd(dimension) {
@@ -37,6 +42,8 @@ export function useFrameDrag(config: UseFrameDragConfig) {
     if (headerElement || !frameElement) {
       return;
     }
-    setHeaderElement(frameElement.querySelector<HTMLDivElement>(".frame-header"));
+    setHeaderElement(
+      frameElement.querySelector<HTMLDivElement>(".frame-header")
+    );
   }, [frameElement, headerElement]);
 }

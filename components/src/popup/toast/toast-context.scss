@@ -1,12 +1,12 @@
-@use "@tntfx/theme" as *;
+@use "@tntfx/theme";
 
 .toast-container {
-  @include fill(absolute);
-  z-index: $layer-toast;
+  @include theme.fill(absolute);
+  z-index: theme.$layer-toast;
   display: flex;
   overflow: hidden;
   flex-flow: column-reverse nowrap;
   align-items: center;
-  padding: size(2xl);
+  padding: theme.$spacing-2xl;
   pointer-events: none;
 }

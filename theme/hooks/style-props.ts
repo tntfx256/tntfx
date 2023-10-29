@@ -1,7 +1,6 @@
 import type { CSSProperties } from "react";
 import type { Any, Keys, Shape, Size, TObject, Variant } from "@tntfx/core";
 import { useSerializedMemo } from "@tntfx/hooks";
-import { CssSizeMap } from "../utils/const";
 import { splitBySpace } from "../utils/utils";
 
 export type EnhancedProps = {
@@ -10,7 +9,9 @@ export type EnhancedProps = {
   justifyContent: CSSProperties["justifyContent"];
   width: CSSProperties["width"];
   height: CSSProperties["height"];
+  flow: CSSProperties["flexFlow"];
   flex: CSSProperties["flex"];
+  whiteSpace: CSSProperties["whiteSpace"];
   padding: Size;
   verticalPadding: Size;
   horizontalPadding: Size;
@@ -19,6 +20,7 @@ export type EnhancedProps = {
   horizontalMargin: Size;
   borderRadius: Size;
   elevation: Size;
+  shadow: Size;
   className: string;
 
   horizontal: boolean;
@@ -30,14 +32,20 @@ export type EnhancedProps = {
 };
 
 type PropMap = {
-  [K in Keys<EnhancedProps>]: (value: EnhancedProps[K], style: CSSProperties, classList: Set<string>) => void | string;
+  [K in Keys<EnhancedProps>]: (
+    value: EnhancedProps[K],
+    style: CSSProperties,
+    classList: Set<string>
+  ) => void | string;
 };
 
 export const propsMap: PropMap = {
   alignItems(value, style) {
+    style.display = "flex";
     style.alignItems = value;
   },
   justifyContent(value, style) {
+    style.display = "flex";
     style.justifyContent = value;
   },
   width(value, style) {
@@ -46,44 +54,41 @@ export const propsMap: PropMap = {
   height(value, style) {
     style.height = value;
   },
+  flow(value, style) {
+    style.flexFlow = value;
+  },
   flex(value, style) {
     style.flex = value;
   },
   padding(value, _, classList) {
-    // style.padding = `var(--layout-spacing)`;
-    classList.add(`p-${CssSizeMap[value]}`);
+    classList.add(`p-${value}`);
   },
   verticalPadding(value, _, classList) {
-    classList.add(`py-${CssSizeMap[value]}`);
-    // style.paddingTop = `var(--layout-spacing${CssSizeMap[value]})`;
-    // style.paddingBottom = `var(--layout-spacing${CssSizeMap[value]})`;
+    classList.add(`py-${value}`);
   },
   horizontalPadding(value, _, classList) {
-    classList.add(`px-${CssSizeMap[value]}`);
-    // style.paddingLeft = `var(--layout-spacing${CssSizeMap[value]})`;
-    // style.paddingRight = `var(--layout-spacing${CssSizeMap[value]})`;
+    classList.add(`px-${value}`);
   },
   margin(value, _, classList) {
-    classList.add(`m-${CssSizeMap[value]}`);
-    // style.margin = `var(--layout-spacing${CssSizeMap[value]})`;
+    classList.add(`m-${value}`);
   },
   verticalMargin(value, _, classList) {
-    classList.add(`my-${CssSizeMap[value]}`);
-    // style.paddingTop = `var(--layout-spacing${CssSizeMap[value]})`;
-    // style.paddingBottom = `var(--layout-spacing${CssSizeMap[value]})`;
+    classList.add(`my-${value}`);
   },
   horizontalMargin(value, _, classList) {
-    classList.add(`mx-${CssSizeMap[value]}`);
-    // style.paddingLeft = `var(--layout-spacing${CssSizeMap[value]})`;
-    // style.paddingRight = `var(--layout-spacing${CssSizeMap[value]})`;
+    classList.add(`mx-${value}`);
   },
   borderRadius(value, _, classList) {
-    classList.add(`br-${CssSizeMap[value]}`);
-    // style.borderRadius = `var(--border-radius${CssSizeMap[value]})`;
+    classList.add(`br-${value}`);
   },
   elevation(value, _, classList) {
-    classList.add(`shadow-${CssSizeMap[value]}`);
-    // style.boxShadow = `var(--shadow${CssSizeMap[value]})`;
+    classList.add(`elevation-${value}`);
+  },
+  shadow(value, _, classList) {
+    classList.add(`shadow-${value}`);
+  },
+  whiteSpace(value, style) {
+    style.whiteSpace = value;
   },
   style(value, style) {
     Object.assign(style, value);

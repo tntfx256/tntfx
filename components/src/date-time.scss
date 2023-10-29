@@ -1,13 +1,13 @@
-@use "@tntfx/theme" as *;
+@use "@tntfx/theme";
 
 .date-time {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: size(md 0);
+  padding: theme.$spacing-md 0;
 
-  &-time {
-    font-weight: $font-weight-sm;
+  &__time {
+    font-weight: theme.$fontWeight-sm;
   }
 }

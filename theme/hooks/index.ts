@@ -1,2 +1,2 @@
-export * from "./color-scheme";
+export * from "./media-queries";
 export * from "./style-props";

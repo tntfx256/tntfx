@@ -9,7 +9,7 @@ export type Option<T extends string = string> = {
   id: T;
   title: string;
   avatar?: string;
-  children?: Option[];
+  children?: Option<T>[];
   disabled?: boolean;
   external?: boolean;
   hidden?: boolean;
@@ -25,7 +25,11 @@ export class OptionModel extends Model<Option> {
   static get fields() {
     return {
       id: new Field("id", { minLength: 1, required: true, type: "String" }),
-      title: new Field("title", { minLength: 1, required: true, type: "String" }),
+      title: new Field("title", {
+        minLength: 1,
+        required: true,
+        type: "String",
+      }),
     };
   }
 
@@ -37,11 +41,18 @@ export class OptionModel extends Model<Option> {
 export type Action = "Cancel" | "Ok" | "Retry";
 export type ActionSet = "Ok" | "OkCancel" | "RetryCancel";
 export type Actions<T extends string = string> = ActionSet | Option<T>[];
-export type OnAction<T extends string = string> = (action: T extends Action ? Action : T) => MaybePromise<Any<boolean>>;
-export type Actionable<T extends string = string> = { actions?: Actions<T>; onAction?: OnAction<T> };
+export type OnAction<T extends string = string> = (
+  action: T extends Action ? Action : T
+) => MaybePromise<Any<boolean>>;
+export type Actionable<T extends string = string> = {
+  actions?: Actions<T>;
+  onAction?: OnAction<T>;
+};
 
 export type ClassName<T = {}> = T & { className?: string };
 export type ClassAndChildren<T = {}> = PropsWithChildren<ClassName<T>>;
 
 // Next.js
-export type WithLayout<T = unknown> = T & { getLayout?: (page: ReactElement) => ReactNode };
+export type WithLayout<T = unknown> = T & {
+  getLayout?: (page: ReactElement) => ReactNode;
+};

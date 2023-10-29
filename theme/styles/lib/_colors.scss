@@ -1,0 +1,99 @@
+@function background($element, $type) {
+  @if $type {
+    @return "var(--color-#{$element}-#{$type})";
+  }
+  @return "var(--color-#{$element})";
+}
+
+@function color($element, $type) {
+  @if $type {
+    @return "var(--color-#{$element}-#{$type}-text)";
+  }
+  @return "var(--color-#{$element}-text)";
+}
+
+@function shadow($size) {
+  @return "var(--shadow-#{$size})";
+}
+
+@function lighten($color, $amount) {
+  @return color-mix(in srgb, #{$color}, white $amount);
+}
+
+@function darken($color, $amount) {
+  @return color-mix(in srgb, #{$color}, black $amount);
+}
+
+@function alpha($color, $amount) {
+  @return color-mix(in srgb, #{$color}, transparent $amount);
+}
+
+/* 
+  white: #fff,
+  black: #000,
+
+  primary: #007bff,
+  primary-text: #fff,
+  
+
+  secondary: #6c757d,
+  secondary-text: #fff,
+  
+
+  success: #28a745,
+  success-text: #fff,
+  
+
+  info: #17a2b8,
+  info-text: #fff,
+  
+
+  warning: #ffc107,
+  warning-text: #212529,
+  
+
+  danger: #dc3545,
+  danger-text: #fff,
+  
+
+  light: #f8f9fa,
+  light-text: #212529,
+  
+
+  dark: #343a40,
+  dark-text: #fff,
+  
+
+  body: #fff,
+  body-text: #212529,
+
+  surface: #fff,
+  surface-text: #212529,
+  surface-dark: #e2e3e5,
+  surface-dark-text: #212529,
+  surface-alpha: rgba(255, 255, 255, 0.5),
+  surface-alpha-text: #212529,
+
+  element: #e2e3e5,
+  element-text: #212529,
+  element-light: #f8f9fa,
+  element-light-text: #212529,
+  element-dark: #c6c8ca,
+  element-dark-text: #212529,
+  element-alpha: rgba(226, 227, 229, 0.5),
+  element-alpha-text: #212529,
+
+  element-disabled: #e2e3e5,
+  element-disabled-text: #212529,
+  element-hover: #d4d5d7,
+  element-hover-text: #212529,
+
+  link: #007bff,
+  link-hover: #0056b3,
+  link-active: #0056b3,
+  link-visited: #0056b3,
+  link-focus: #0056b3,
+  link-disabled: #6c757d,
+
+
+*/

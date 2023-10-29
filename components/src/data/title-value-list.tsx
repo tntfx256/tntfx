@@ -20,7 +20,7 @@ export function TitleValueList(props: ClassName<TitleValueListProps>) {
       {items.map(({ title, value }) => {
         return (
           <div key={title} className="tvl-item">
-            <Text className="tvl-item-title" size="large">
+            <Text className="tvl-item-title" size="lg">
               {title}
             </Text>
             <div className="tvl-item-value">{value}</div>

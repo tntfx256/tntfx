@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useRef, useState } from "react";
 import type { Any, Nullable } from "@tntfx/core";
+import { useEffect, useRef, useState } from "react";
 
 export function useTimer(timeout?: number, fn?: Function) {
   const timer = useLazyTimer(timeout, fn);
@@ -25,28 +25,25 @@ export function useLazyTimer(timeout?: number, fn?: Function) {
         if (cb.current) {
           cb.current();
         }
-      },
+      }
   );
 
   useEffect(() => () => clearTimeout(timer.current), []);
 
-  return useMemo(
-    () => ({
-      set fn(callback: Function) {
-        cb.current = callback;
-      },
-      stop() {
-        clearTimeout(timer.current);
-      },
-      restart() {
-        clearTimeout(timer.current);
-        if (timeout && timeout > 0) {
-          timer.current = setTimeout(callback, timeout);
-        }
-      },
-    }),
-    [callback, timeout],
-  );
+  return {
+    set fn(callback: Function) {
+      cb.current = callback;
+    },
+    stop() {
+      clearTimeout(timer.current);
+    },
+    restart() {
+      clearTimeout(timer.current);
+      if (timeout && timeout > 0) {
+        timer.current = setTimeout(callback, timeout);
+      }
+    },
+  };
 }
 
 export function useInterval(interval?: number, fn?: Function) {
@@ -73,27 +70,24 @@ export function useLazyInterval(interval?: number, fn?: Function) {
         if (cb.current) {
           cb.current();
         }
-      },
+      }
   );
 
   useEffect(() => () => clearInterval(timer.current), []);
 
-  return useMemo(
-    () => ({
-      set fn(callback: Function) {
-        cb.current = callback;
-      },
-      stop() {
-        clearInterval(timer.current);
-      },
-      restart() {
-        clearInterval(timer.current);
-        if (interval && interval > 0) {
-          callback();
-          timer.current = setInterval(callback, interval);
-        }
-      },
-    }),
-    [callback, interval],
-  );
+  return {
+    set fn(callback: Function) {
+      cb.current = callback;
+    },
+    stop() {
+      clearInterval(timer.current);
+    },
+    restart() {
+      clearInterval(timer.current);
+      if (interval && interval > 0) {
+        callback();
+        timer.current = setInterval(callback, interval);
+      }
+    },
+  };
 }

@@ -1,29 +1,7 @@
 @use "./breakpoint" as *;
 
-@mixin aboveLarge() {
-  $width: $breakpoint-lg + 1;
-
-  @media screen and (min-width: $width) {
-    @content;
-  }
-}
-
-@mixin blowLarge() {
-  @media screen and (max-width: $breakpoint-lg) {
-    @content;
-  }
-}
-
-@mixin aboveMedium() {
-  $width: $breakpoint-md + 1;
-
-  @media screen and (min-width: $width) {
-    @content;
-  }
-}
-
-@mixin belowMedium() {
-  @media screen and (max-width: $breakpoint-md) {
+@mixin belowSmall() {
+  @media screen and (max-width: $breakpoint-sm) {
     @content;
   }
 }
@@ -36,8 +14,30 @@
   }
 }
 
-@mixin belowSmall() {
-  @media screen and (max-width: $breakpoint-sm) {
+@mixin belowMedium() {
+  @media screen and (max-width: $breakpoint-md) {
+    @content;
+  }
+}
+
+@mixin aboveMedium() {
+  $width: $breakpoint-md + 1;
+
+  @media screen and (min-width: $width) {
+    @content;
+  }
+}
+
+@mixin blowLarge() {
+  @media screen and (max-width: $breakpoint-lg) {
+    @content;
+  }
+}
+
+@mixin aboveLarge() {
+  $width: $breakpoint-lg + 1;
+
+  @media screen and (min-width: $width) {
     @content;
   }
 }

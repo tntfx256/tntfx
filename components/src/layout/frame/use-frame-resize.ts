@@ -1,12 +1,12 @@
 import type { Boundary, Nullable } from "@tntfx/core";
 import { boundaryToBoundingRect } from "@tntfx/core";
-import { useResize } from "@tntfx/hooks";
-import type { SetDimension } from "./types";
+import { useResize, useRuntime } from "@tntfx/hooks";
+import type { FrameStatus, SetDimension } from "./types";
 
 interface UseFrameResizeConfig {
-  // id: string;
+  id: string;
   // isDialog?: boolean;
-  // frameStatus?: FrameStatus;
+  frameStatus?: FrameStatus;
   resizable: boolean | undefined;
   frameElement: Nullable<HTMLDivElement>;
   boundary?: Boundary;
@@ -14,12 +14,16 @@ interface UseFrameResizeConfig {
 }
 
 export function useFrameResize(config: UseFrameResizeConfig) {
-  const { resizable, boundary, frameElement, setDimension } = config;
+  const { id, resizable, boundary, frameElement, setDimension, frameStatus } =
+    config;
+
+  const runtime = useRuntime();
 
   useResize(frameElement, {
-    resizable: resizable && (!status || status === "normal"),
+    resizable: resizable && (!frameStatus || frameStatus === "normal"),
     boundingRect: boundaryToBoundingRect(boundary || {}),
     onResizeStart() {
+      runtime.activate(id);
       // onChange({ id, type: "activate", isDialog });
     },
     onResizeEnd(dimension) {

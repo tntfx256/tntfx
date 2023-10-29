@@ -21,7 +21,7 @@ export function DialogProvider(props: PropsWithChildren) {
   );
 }
 
-const DialogContainer: React.FC<PropsWithChildren> = function ToastContainer() {
+function DialogContainer() {
   const [{ dialogs }] = useStore();
 
   return (
@@ -31,6 +31,6 @@ const DialogContainer: React.FC<PropsWithChildren> = function ToastContainer() {
       ))}
     </div>
   );
-};
+}
 
 export { useStore };

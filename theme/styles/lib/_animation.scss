@@ -1,8 +1,14 @@
-$animation-easing: cubic-bezier(0.25, 0, 0.4, 1);
+@use "sass:map";
 
-$animation-duration-xs: 90ms;
-$animation-duration-sm: 145ms;
-$animation-duration-md: 250ms;
-$animation-duration-lg: 500ms;
-$animation-duration-xl: 750ms;
-$animation-duration-2xl: 1s;
+$animation-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+$animation-linear: cubic-bezier(0, 0, 1, 1);
+$animation-ease-in: cubic-bezier(0.42, 0, 1, 1);
+$animation-ease-out: cubic-bezier(0, 0, 0.58, 1);
+$animation-ease-in-out: cubic-bezier(0.42, 0, 0.58, 1);
+
+$duration-xs: 90ms;
+$duration-sm: 145ms;
+$duration-md: 250ms;
+$duration-lg: 500ms;
+$duration-xl: 750ms;
+$duration-2xl: 1s;

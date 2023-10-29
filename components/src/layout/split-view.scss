@@ -1,4 +1,4 @@
-@use "@tntfx/theme" as *;
+@use "@tntfx/theme";
 
 .split-view {
   position: relative;
@@ -20,7 +20,7 @@
     height: 100%;
     flex: 1;
     flex-flow: column nowrap;
-    padding-left: size(sm);
+    padding-left: theme.$spacing-sm;
     background-color: var(--color-element);
     color: var(--color-element-text);
   }

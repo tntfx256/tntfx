@@ -4,7 +4,8 @@
   "display": "react",
   "extends": "./base.json",
   "compilerOptions": {
-    "jsx": "preserve",
-    "lib": ["DOM", "DOM.Iterable", "ESNext"]
+    "jsx": "react-jsx",
+    "lib": ["ES2015", "DOM"],
+    "module": "ESNext"
   }
 }

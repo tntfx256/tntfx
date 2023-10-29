@@ -1,46 +1,46 @@
-@use "@tntfx/theme" as *;
+@use "@tntfx/theme";
 
 .backdrop.box {
-  z-index: $layer-modal;
+  z-index: theme.$layer-modal;
   overflow: hidden;
   align-items: center;
   justify-content: center;
   background-color: transparent;
   pointer-events: all;
-  transition-timing-function: $animation-easing;
+  transition-timing-function: theme.$animation-ease;
 
   &.global {
     position: fixed !important;
   }
 
   &.overlay {
-    @include fill(absolute);
+    @include theme.fill(absolute);
   }
 
   &.zoom {
     border-radius: 10rem;
     transform: scale3d(0, 0, 0);
-    transition-duration: $animation-duration-xs;
+    transition-duration: theme.$duration-xs;
     transition-property: transform, border-radius;
   }
 
   &.slide-right {
     // transform: translate3d(-110%, 0, 0);
     width: 0;
-    transition-duration: $animation-duration-md;
+    transition-duration: theme.$duration-md;
     transition-property: width;
   }
 
   &.slide-up {
     // transform: translate3d(-110%, 0, 0);
     height: 0;
-    transition-duration: $animation-duration-md;
+    transition-duration: theme.$duration-md;
     transition-property: width;
   }
 
   &.open {
     &.bg-blur {
-      @include blur(0.25rem);
+      @include theme.blur(0.25rem);
     }
 
     &.bg-default {

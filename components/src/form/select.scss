@@ -1,14 +1,14 @@
-@import "@tntfx/theme";
+@use "@tntfx/theme";
 
 .select {
   .control-icon {
     position: absolute;
     top: 50%;
-    right: $border-radius-xs;
+    right: theme.$borderRadius-xs;
     height: 100%;
     pointer-events: none;
     transform: translateY(-50%);
-    transition: transform $animation-duration-sm;
+    transition: transform theme.$duration-sm;
   }
 
   &.is-open {
@@ -40,20 +40,20 @@
     color: var(--color-element-text);
 
     &-empty {
-      padding: size(md);
+      padding: theme.$spacing-md;
       text-align: center;
     }
 
     &.is-dropdown {
       border-top: 0;
-      border-bottom-left-radius: $border-radius-sm;
-      border-bottom-right-radius: $border-radius-sm;
+      border-bottom-left-radius: theme.$borderRadius-sm;
+      border-bottom-right-radius: theme.$borderRadius-sm;
     }
 
     &.is-dropup {
       border-bottom: 0;
-      border-top-left-radius: $border-radius-sm;
-      border-top-right-radius: $border-radius-sm;
+      border-top-left-radius: theme.$borderRadius-sm;
+      border-top-right-radius: theme.$borderRadius-sm;
     }
 
     &-input {
@@ -73,7 +73,7 @@
 .select-backdrop {
   // css precedence
   // &.backdrop.overlay {
-  //   @include fill(fixed);
+  //   @include theme.fill(fixed);
   // }
 
   .select-dropdown {
@@ -87,14 +87,14 @@
 
     &.is-dropdown {
       border-top: 0;
-      border-bottom-left-radius: $border-radius-sm;
-      border-bottom-right-radius: $border-radius-sm;
+      border-bottom-left-radius: theme.$borderRadius-sm;
+      border-bottom-right-radius: theme.$borderRadius-sm;
     }
 
     &.is-dropup {
       border-bottom: 0;
-      border-top-left-radius: $border-radius-sm;
-      border-top-right-radius: $border-radius-sm;
+      border-top-left-radius: theme.$borderRadius-sm;
+      border-top-right-radius: theme.$borderRadius-sm;
     }
 
     &-input {

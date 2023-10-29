@@ -2,9 +2,15 @@
 
 .button {
   @include theme.hover;
-  @include theme.active;
   @include theme.disabled;
   @include theme.unSelectable;
+
+  outline: 0;
+  -webkit-tap-highlight-color: rgb(0 0 0 / 0%);
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-appearance: none;
+  appearance: none;
 
   position: relative;
   display: flex;
@@ -15,64 +21,12 @@
   flex-flow: row nowrap;
   align-items: center;
   justify-content: center;
-  padding: 0 size(md);
+  padding: 0 theme.$spacing-md;
   border: 1px solid transparent;
-  border-radius: theme.$border-radius-sm;
+  border-radius: theme.$borderRadius-sm;
   color: var(--color-body-text);
-  font-size: theme.$font-size-sm;
-  font-weight: theme.$font-weight-sm;
+  font-size: theme.$fontSize-sm;
+  font-weight: theme.$fontWeight-sm;
   text-transform: uppercase;
   white-space: nowrap;
-
-  &.shape-outlined {
-    border: 1px solid var(--color-border);
-  }
-
-  &.shape-contained {
-    border-color: var(--color-border);
-    background-color: var(--color-element);
-    color: var(--color-element-text);
-  }
-
-  &.variant-primary {
-    color: var(--color-primary);
-
-    &.shape-contained {
-      border-color: var(--color-primary);
-      background-color: var(--color-primary);
-      color: var(--color-primary-text);
-    }
-
-    &.shape-outlined {
-      border-color: var(--color-primary);
-    }
-  }
-
-  &.variant-secondary {
-    color: var(--color-secondary);
-
-    &.shape-contained {
-      border-color: var(--color-secondary);
-      background-color: var(--color-secondary);
-      color: var(--color-secondary-text);
-    }
-
-    &.shape-outlined {
-      border-color: var(--color-secondary);
-    }
-  }
-
-  &.variant-destructive {
-    color: var(--color-error);
-
-    &.shape-contained {
-      border-color: var(--color-error);
-      background-color: var(--color-error);
-      color: var(--color-error-text);
-    }
-
-    &.shape-outlined {
-      border-color: var(--color-error);
-    }
-  }
 }

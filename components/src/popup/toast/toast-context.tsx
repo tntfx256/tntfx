@@ -21,7 +21,7 @@ export function ToastProvider(props: PropsWithChildren) {
   );
 }
 
-const ToastContainer: React.FC<PropsWithChildren> = function ToastContainer() {
+function ToastContainer() {
   const [{ toasts }] = useStore();
 
   return (
@@ -31,6 +31,6 @@ const ToastContainer: React.FC<PropsWithChildren> = function ToastContainer() {
       ))}
     </div>
   );
-};
+}
 
 export { useStore };

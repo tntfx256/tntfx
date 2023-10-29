@@ -1,9 +1,23 @@
 import { useEffect, useRef, useState } from "react";
 import type { Any, BoundingRect, Dimension, Nullable } from "@tntfx/core";
-import { dimensionToBoundingRect, getEventCoords, getMinDimension } from "@tntfx/core";
+import {
+  dimensionToBoundingRect,
+  getEventCoords,
+  getMinDimension,
+  isClient,
+} from "@tntfx/core";
 import "./use-resize.scss";
 
-const resizeKeys = ["top", "right", "bottom", "left", "top-left", "top-right", "bottom-left", "bottom-right"] as const;
+const resizeKeys = [
+  "top",
+  "right",
+  "bottom",
+  "left",
+  "top-left",
+  "top-right",
+  "bottom-left",
+  "bottom-right",
+] as const;
 type ResizeKeys = (typeof resizeKeys)[number];
 
 type ResizeInitialState = {
@@ -20,23 +34,30 @@ export type UseResizeConfig = {
   onResizeEnd?: (dimension: Dimension) => void;
 };
 
-export function useResize<T extends HTMLElement = HTMLElement>(element: Nullable<T>, config?: UseResizeConfig) {
+export function useResize<T extends HTMLElement = HTMLElement>(
+  element: Nullable<T>,
+  config?: UseResizeConfig
+) {
   const { resizable = true, onResizeStart, onResizeEnd } = config || {};
 
   const initial = useRef<ResizeInitialState>({} as ResizeInitialState);
   const areResizeHandlesAdded = useRef<boolean>(false);
 
-  const [resizeHandles] = useState<HTMLDivElement[]>(() =>
-    resizeKeys.map((key) => {
-      const resizer = document.createElement("div");
-      resizer.className = `resize resize-${key}`;
-      resizer.setAttribute("data-t", key);
-      return resizer;
-    }),
-  );
+  const [resizeHandles, setResizeHandles] = useState<HTMLDivElement[]>([]);
 
   useEffect(() => {
-    if (!element || !resizable) return;
+    setResizeHandles(
+      resizeKeys.map((key) => {
+        const resizer = document.createElement("div");
+        resizer.className = `resize resize-${key}`;
+        resizer.setAttribute("data-t", key);
+        return resizer;
+      })
+    );
+  }, []);
+
+  useEffect(() => {
+    if (!element || !resizable || !resizeHandles.length) return;
 
     function handleDragStart(e: MouseEvent | TouchEvent) {
       if (!element) {
@@ -111,7 +132,11 @@ export function useResize<T extends HTMLElement = HTMLElement>(element: Nullable
   }, [config?.boundingRect, element, onResizeEnd, resizable, resizeHandles]);
 }
 
-function getResizedDimension(initial: ResizeInitialState, x2: number, y2: number): Partial<Dimension> {
+function getResizedDimension(
+  initial: ResizeInitialState,
+  x2: number,
+  y2: number
+): Partial<Dimension> {
   const { pointerPosition, type, boundingRect, dimension } = initial;
   const dx = x2 - pointerPosition.x;
   const dy = y2 - pointerPosition.y;
@@ -156,7 +181,10 @@ function getResizedDimension(initial: ResizeInitialState, x2: number, y2: number
         }
         break;
       case "bottom":
-        if (dimension.bottom + dy < bottom && dimension.height + dy >= minHeight) {
+        if (
+          dimension.bottom + dy < bottom &&
+          dimension.height + dy >= minHeight
+        ) {
           result.height = dimension.height + dy;
         }
         break;

@@ -1,4 +1,10 @@
-import type { Actions, ClassAndChildren, IconName, MessageType, OnAction } from "@tntfx/core";
+import type {
+  Actions,
+  ClassAndChildren,
+  IconName,
+  MessageType,
+  OnAction,
+} from "@tntfx/core";
 import { classNames } from "@tntfx/theme";
 import { ActionBar } from "./layout";
 import { Box } from "./layout/box";
@@ -16,7 +22,16 @@ export type AlertProps = {
 };
 
 export function Alert(props: ClassAndChildren<AlertProps>) {
-  const { className, children, title, message, actions, onAction, type = "info", icon } = props;
+  const {
+    className,
+    children,
+    title,
+    message,
+    actions,
+    onAction,
+    type = "info",
+    icon,
+  } = props;
 
   return (
     <Box horizontal className={classNames("alert", className, `type-${type}`)}>
@@ -25,7 +40,7 @@ export function Alert(props: ClassAndChildren<AlertProps>) {
         <Text className="alert-title">{title}</Text>
 
         {message && (
-          <Text className="alert-desc" size="small">
+          <Text className="alert-desc" size="sm">
             {message}
           </Text>
         )}

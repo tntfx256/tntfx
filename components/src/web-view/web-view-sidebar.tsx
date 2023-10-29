@@ -1,5 +1,5 @@
 import { useWebView } from "./web-view-provider";
-import { MenuList } from "../menu/menu-list";
+import { Menu } from "../menu";
 
 export function WebViewSidebar() {
   const { onLinkClick, links, history } = useWebView();
@@ -8,5 +8,11 @@ export function WebViewSidebar() {
     onLinkClick(link);
   }
 
-  return <MenuList items={links} selected={history.activeItem} onClick={handleLinkClick} />;
+  return (
+    <Menu
+      items={links}
+      selected={history.activeItem}
+      onClick={handleLinkClick}
+    />
+  );
 }

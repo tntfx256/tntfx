@@ -1,19 +1,19 @@
-@use "@tntfx/theme" as *;
+@use "@tntfx/theme";
 
 .text-input {
   border: 1px solid var(--color-border);
-  border-radius: $border-radius-sm;
+  border-radius: theme.$borderRadius-sm;
 
   .control {
     position: relative;
     width: 100%;
-    height: $layout-height-element-md;
-    padding: size(sm);
+    height: theme.$layout-height-element;
+    padding: theme.$spacing-sm;
     border: 0;
     caret-color: inherit;
     color: inherit;
-    font-size: $font-size-md;
-    line-height: $line-height-md;
+    font-size: theme.$fontSize-md;
+    line-height: theme.$lineHeight-md;
   }
 
   &::after {
@@ -25,7 +25,7 @@
     background-color: var(--color-primary);
     content: "";
     transform: scale3d(0, 1, 1);
-    transition: transform $animation-duration-sm $animation-easing;
+    transition: transform theme.$duration-sm theme.$animation-ease;
   }
 
   &.focused:not(.disabled) {

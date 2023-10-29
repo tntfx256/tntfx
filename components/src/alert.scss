@@ -1,17 +1,17 @@
-@use "@tntfx/theme" as *;
+@use "@tntfx/theme";
 
 .alert {
-  @include blur;
-  min-width: var(--layout-width-element-3xl);
-  padding: size(sm);
+  @include theme.blur;
+  min-width: theme.$elementWidth-xl;
+  padding: theme.$spacing-sm;
 
   border: 1px solid transparent;
-  border-radius: $border-radius-sm;
+  border-radius: theme.$borderRadius-sm;
 
   &-icon {
-    width: size(xl);
-    height: size(xl);
-    margin-right: size(md);
+    width: theme.$size-xl;
+    height: theme.$size-xl;
+    margin-right: theme.$spacing-md;
   }
 
   &-title {

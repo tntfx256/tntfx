@@ -1,43 +1,43 @@
-@import "@tntfx/theme";
+@use "@tntfx/theme";
 
 .form-element {
-  @include disabled;
-  @include hover;
+  @include theme.disabled;
+  @include theme.hover;
 
   position: relative;
   display: flex;
-  min-width: var(--layout-width-element-xl);
-  height: $layout-height-element-md;
+  min-width: theme.$elementWidth-xl;
+  height: theme.$layout-height-element;
   flex-flow: column nowrap;
   align-items: flex-start;
   justify-content: flex-start;
   border: 1px solid var(--color-border);
-  border-radius: $border-radius-sm;
+  border-radius: theme.$borderRadius-sm;
 
   /* for label animation, error and help texts */
-  margin: size(lg);
+  margin: theme.$spacing-lg;
   // background-color: var(--color-element-alpha);
   color: var(--color-element-alpha-text);
-  // transition: background-color $animation-duration-sm) var(--animation-easing;
+  // transition: background-color $animation-duration-sm) theme.$animation-ease;
 
   .label {
     position: absolute;
     top: 50%;
-    left: size(md);
+    left: theme.$spacing-md;
     color: var(--color-element-alpha-text);
     filter: opacity(0.25);
-    font-size: $font-size-md;
-    font-weight: $font-weight-md;
+    font-size: theme.$fontSize-md;
+    font-weight: theme.$fontWeight-md;
     transform: translate3d(0, -50%, 0);
-    transition-duration: $animation-duration-sm;
+    transition-duration: theme.$duration-sm;
     transition-property: top, left, transform;
-    transition-timing-function: var(--animation-easing);
+    transition-timing-function: theme.$animation-ease;
   }
 
   .hint {
     position: absolute;
     top: -2px;
-    right: $border-radius-xs;
+    right: theme.$borderRadius-xs;
     color: var(--color-info);
     transform: translate3d(0, -100%, 0);
   }
@@ -55,7 +55,7 @@
   &:not(.pristine) {
     .label {
       top: -2px;
-      left: $border-radius-xs;
+      left: theme.$borderRadius-xs;
       filter: opacity(0.75);
       transform: translate3d(-5px, -90%, 0) scale3d(0.9, 0.9, 1);
     }

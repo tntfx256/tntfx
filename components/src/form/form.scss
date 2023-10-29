@@ -1,21 +1,21 @@
-@use "@tntfx/theme" as *;
+@use "@tntfx/theme";
 
 .form {
   display: block;
   width: 100%;
 
   .legend {
-    padding-left: size(2xs);
+    padding-left: theme.$spacing-xs;
   }
 
   > form {
     display: flex;
     flex-direction: column;
-    padding: size(md);
-    border-radius: $border-radius-sm;
+    padding: theme.$spacing-md;
+    border-radius: theme.$borderRadius-sm;
 
     .form {
-      padding-left: size(md);
+      padding-left: theme.$spacing-md;
     }
   }
 

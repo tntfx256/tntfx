@@ -1,19 +1,23 @@
-@use "@tntfx/theme" as *;
+@use "@tntfx/theme";
 
 .dialog.frame {
   &._active {
-    z-index: $layer-popup !important;
+    z-index: theme.$layer-popup !important;
   }
   // width: 90%;
-  // min-width: $breakpoint-xs;
-  // min-width: min(90%, $breakpoint-xs);
-  // max-width: 90%;
-  // max-width: min(90%, var(--breakpoint-sm));
+  min-width: theme.$breakpoint-xs;
+  min-width: min(90%, theme.$breakpoint-xs);
+  max-width: 90%;
+  max-width: min(90%, theme.$breakpoint-sm);
   // min-height: 30vh;
   // max-height: 90%;
   // height: 90%;
 
   .dialog-body {
-    padding: size(md);
+    padding: theme.$spacing-md;
+  }
+
+  .dialog-footer {
+    justify-content: flex-end;
   }
 }

@@ -1,18 +1,22 @@
-@import "@tntfx/theme";
+@use "@tntfx/theme";
 
 %menu-item {
   position: relative;
   display: flex;
   width: 100%;
-  height: $layout-height-element;
-  min-height: $layout-height-element;
-  flex-direction: row;
+  height: theme.$layout-height-element;
+  min-height: theme.$layout-height-element;
+  flex-flow: row nowrap;
   align-items: center;
   justify-content: flex-start;
-  padding: 0 size(md);
+  padding: 0 theme.$spacing-sm;
   border: 1px solid transparent;
-  border-radius: $border-radius-2xs;
+  border-radius: theme.$borderRadius-xs;
   text-align: start;
+
+  &._has-icon {
+    padding-left: 0;
+  }
 
   > .link {
     display: flex;
@@ -20,40 +24,35 @@
 
   &::after {
     position: absolute;
-    bottom: 15%;
-    left: 0;
-    width: 2px;
-    height: 70%;
+    bottom: 0;
+    left: 15%;
+    width: 90%;
+    height: 2px;
     border-radius: 1px;
     background-color: var(--color-primary);
     content: "";
     transform: scale3d(0, 1, 1);
-    transition: transform $animation-duration-sm $animation-easing;
+    transition: transform theme.$duration-sm theme.$animation-ease;
   }
 
   &.clickable {
-    @include hover;
+    @include theme.hover;
     cursor: pointer;
-    transition-duration: $animation-duration-sm;
+    transition-duration: theme.$duration-sm;
     transition-property: background-color, color;
-    transition-timing-function: var(--animation-easing);
-
-    // &:hover:not(.disabled, .selected) {
-    //   background-color: var(--color-hover);
-    //   color: var(--color-hover-text);
-    // }
+    transition-timing-function: theme.$animation-ease;
   }
 
-  &.layout-horizontal {
-    flex-direction: column;
+  &.horizontal {
+    flex-flow: row nowrap;
     justify-content: center;
     text-align: center;
 
     &::after {
-      bottom: 0;
-      left: 15%;
-      width: 70%;
-      height: 2px;
+      bottom: 15%;
+      left: 0;
+      width: 2px;
+      height: 70%;
     }
   }
 
@@ -65,6 +64,13 @@
 }
 
 .menu-item {
-  @extend %menu-item;
-  @include disabled;
+  flex-direction: column;
+
+  &__item {
+    @extend %menu-item;
+    @include theme.disabled;
+  }
+  &__children {
+    padding-left: theme.$spacing-md;
+  }
 }

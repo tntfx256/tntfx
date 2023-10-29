@@ -1,27 +1,31 @@
-@use "@tntfx/theme" as *;
+@use "@tntfx/theme";
 
 .toolbar {
-  @include unSelectable;
-  z-index: $layer-window;
+  @include theme.unSelectable;
+  z-index: theme.$layer-window;
   overflow: visible;
   width: 100%;
-  min-height: $layout-height-footer;
-  max-height: $layout-height-header;
+  min-height: theme.$layout-height-footer;
+  max-height: theme.$layout-height-header;
   border-radius: inherit;
   white-space: nowrap;
 
   &._as-header {
-    height: $layout-height-header;
-    min-height: $layout-height-header;
+    height: theme.$layout-height-header;
+    min-height: theme.$layout-height-header;
+
+    > .toolbar-section {
+      &:last-of-type:not(:first-of-type) {
+        justify-content: flex-end;
+      }
+    }
   }
 
   &._as-footer {
-    height: $layout-height-footer;
-    max-height: $layout-height-footer;
-  }
+    height: theme.$layout-height-footer;
+    max-height: theme.$layout-height-footer;
 
-  & > &-section {
-    &:last-of-type:not(:first-of-type) {
+    > .toolbar-section {
       justify-content: flex-end;
     }
   }

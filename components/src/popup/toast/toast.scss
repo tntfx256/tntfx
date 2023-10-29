@@ -1,8 +1,7 @@
-@use "@tntfx/theme" as *;
+@use "@tntfx/theme";
 
 .toast {
-  @include boxShadow(md);
-  z-index: $layer-toast;
+  z-index: theme.$layer-toast;
   border: 1px solid var(--color-border);
   background-color: rgba(var(--color-element) / 0.15);
   color: var(--color-element-text);

@@ -1,6 +1,7 @@
-@use "./units" as *;
+@use "sass:map";
+@use "./utils";
 
-$font-family:
+$fontFamily:
   system-ui,
   -apple-system,
   Segoe UI,
@@ -16,7 +17,7 @@ $font-family:
   Noto Sans,
   sans-serif;
 
-$font-family-mono:
+$fontFamily-mono:
   Dank Mono,
   Operator Mono,
   Inconsolata,
@@ -28,29 +29,29 @@ $font-family-mono:
   Source Code Pro,
   monospace;
 
-$font-size-2xs: toRem(8);
-$font-size-xs: toRem(10);
-$font-size-sm: toRem(13);
-$font-size-md: toRem(16);
-$font-size-lg: toRem(20);
-$font-size-xl: toRem(24);
-$font-size-2xl: toRem(36);
-$font-size-3xl: toRem(48);
+$fontSize-2xs: utils.toRem(8);
+$fontSize-xs: utils.toRem(10);
+$fontSize-sm: utils.toRem(13);
+$fontSize-md: utils.toRem(16);
+$fontSize-lg: utils.toRem(20);
+$fontSize-xl: utils.toRem(24);
+$fontSize-2xl: utils.toRem(36);
+$fontSize-3xl: utils.toRem(48);
 
-$line-height-2xs: toRem(14);
-$line-height-xs: toRem(16);
-$line-height-sm: toRem(20);
-$line-height-md: toRem(24);
-$line-height-lg: toRem(28);
-$line-height-xl: toRem(32);
-$line-height-2xl: toRem(48);
-$line-height-3xl: toRem(56);
+$lineHeight-2xs: utils.toRem(14);
+$lineHeight-xs: utils.toRem(16);
+$lineHeight-sm: utils.toRem(20);
+$lineHeight-md: utils.toRem(24);
+$lineHeight-lg: utils.toRem(28);
+$lineHeight-xl: utils.toRem(32);
+$lineHeight-2xl: utils.toRem(48);
+$lineHeight-3xl: utils.toRem(56);
 
-$font-weight-2xs: 100;
-$font-weight-xs: 200;
-$font-weight-sm: 300;
-$font-weight-md: 300;
-$font-weight-lg: 400;
-$font-weight-xl: 500;
-$font-weight-2xl: 700;
-$font-weight-3xl: 900;
+$fontWeight-2xs: 100;
+$fontWeight-xs: 200;
+$fontWeight-sm: 300;
+$fontWeight-md: 300;
+$fontWeight-lg: 400;
+$fontWeight-xl: 500;
+$fontWeight-2xl: 700;
+$fontWeight-3xl: 900;

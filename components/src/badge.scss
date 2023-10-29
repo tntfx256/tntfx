@@ -8,8 +8,8 @@ $badge-offset: 0.25rem;
 
   .badge.box {
     position: absolute;
-    top: -$badge-offset;
-    right: -$badge-offset;
+    top: -1 * $badge-offset;
+    right: -1 * $badge-offset;
     overflow: hidden;
     width: $badge-size;
     height: $badge-size;

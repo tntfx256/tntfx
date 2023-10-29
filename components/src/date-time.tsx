@@ -19,14 +19,14 @@ export function DateTime(props: DateTimeProps) {
   useEffect(() => {
     timer.restart();
     setDate(getDate());
-  }, [timer]);
+  }, []);
 
   return (
     <Box className={classNames("date-time", className)}>
-      <Text className="date-time-time" size="xLarge">
+      <Text className="date-time__time" size="xl">
         {date.hour}:{date.minutes}
       </Text>
-      <Text className="date-time-date" size="medium">
+      <Text className="date-time__date" size="md">
         {date.weekDay} {date.day} {date.month}
       </Text>
     </Box>

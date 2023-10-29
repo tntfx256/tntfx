@@ -1,21 +1,12 @@
-@use "@tntfx/theme" as *;
+@use "@tntfx/theme";
 
 .loader {
   > .loader-circle {
-    width: $layout-height-element-md;
-    height: $layout-height-element-md;
+    width: theme.$size-md;
+    height: theme.$size-md;
     border: 2px solid rgba(0 0 0 / 15%);
     border-radius: 50%;
     border-top-color: var(--color-primary);
-
-    &.size-small {
-      width: $layout-height-element-sm;
-      height: $layout-height-element-sm;
-    }
-    &.size-large {
-      width: $layout-height-element-lg;
-      height: $layout-height-element-lg;
-    }
   }
 
   &.variant-primary {

@@ -1,11 +1,16 @@
-@use "@tntfx/theme" as *;
+@use "@tntfx/theme";
 
 .table-wrapper {
   overflow: hidden;
   border: 1px solid var(--color-border);
-  border-radius: $border-radius-sm;
+  border-radius: theme.$borderRadius-sm;
   background: var(--color-surface);
   color: var(--color-surface-text);
+
+  > .table-title {
+    padding: theme.$spacing-md;
+    border-bottom: 1px solid var(--color-border-alpha);
+  }
 
   > .table-pagination {
     width: 100%;
@@ -23,17 +28,17 @@
   .table-cell {
     position: relative;
     overflow: hidden;
-    padding: size(sm);
+    padding: theme.$spacing-md;
     cursor: default;
-    font-size: $font-size-sm;
-    font-weight: $font-weight-sm;
+    font-size: theme.$fontSize-sm;
+    font-weight: theme.$fontWeight-sm;
     text-align: center;
     vertical-align: middle;
     white-space: nowrap;
 
     &._header {
-      padding: size(md);
-      font-weight: $font-weight-md;
+      padding: theme.$spacing-md;
+      font-weight: theme.$fontWeight-md;
       text-transform: uppercase;
     }
     &._divider {
@@ -42,13 +47,13 @@
   }
 
   > tbody > .table-row {
-    @include hover;
+    @include theme.hover;
     background-color: var(--color-element);
     color: var(--color-element-text);
-    transition: background-color $animation-duration-md $animation-easing;
+    transition: background-color theme.$duration-md theme.$animation-ease();
   }
 
-  > tbody > .table-row._selected {
+  > tbody > .table-row.selected {
     background-color: var(--color-selected);
     color: var(--color-selected-text);
   }
@@ -66,12 +71,12 @@
 
     &._nested {
       > th {
-        padding-top: size(xs);
+        padding-top: theme.$spacing-xs;
       }
     }
   }
 
-  > tbody > .table-row._odd-row:not(._selected) {
+  > tbody > .table-row._odd-row:not(.selected) {
     background-color: var(--color-element-alt);
     color: var(--color-element-alt-text);
   }

@@ -1,9 +1,9 @@
 @use "sass:map";
-@use "@tntfx/theme" as *;
+@use "@tntfx/theme";
 
 .spacer {
   &:not(.horizontal) {
-    height: size(md);
+    height: theme.$size-md;
 
     // @each $key, $v in $sizeValues {
     //   &.size-#{$key} {
@@ -14,7 +14,7 @@
   }
 
   &.horizontal {
-    width: size(md);
+    width: theme.$size-md;
 
     // @each $key, $v in $sizeMap {
     //   &.size-#{$key} {

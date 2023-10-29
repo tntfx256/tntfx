@@ -2,6 +2,7 @@
   "name": "@tntfx/cli",
   "version": "0.0.0",
   "private": true,
+  "main": "./src/index.ts",
   "scripts": {
     "types": "tsc -p tsconfig.json --noEmit"
   },

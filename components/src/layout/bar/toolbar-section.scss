@@ -1,7 +1,7 @@
-@use "@tntfx/theme" as *;
+@use "@tntfx/theme";
 
 .toolbar-section {
-  @include unSelectable;
+  @include theme.unSelectable;
   position: relative;
   overflow: visible;
   height: 100%;
@@ -11,17 +11,17 @@
   white-space: nowrap;
 
   .svg {
-    width: size(md);
-    height: size(md);
+    width: theme.$size-md;
+    height: theme.$size-md;
   }
 
   .icon {
-    padding: size(xs);
+    padding: theme.$spacing-sm;
   }
 
   .button:not(.icon) {
-    min-width: $layout-width-element-md;
-    margin: 0 size(md);
+    // min-width: theme.$elementWidth-md;
+    margin: theme.$spacing-sm;
   }
 
   .form-element {
@@ -30,7 +30,7 @@
   }
 
   &-title.text {
-    font-size: $font-size-md;
-    font-weight: $font-weight-sm;
+    font-size: theme.$fontSize-md;
+    font-weight: theme.$fontWeight-sm;
   }
 }

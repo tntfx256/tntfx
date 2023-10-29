@@ -21,7 +21,11 @@ export function Table<T>(props: ClassAndChildren<TableProps<T>>) {
   return (
     <TableProvider {...values}>
       <Box className={classNames("table-wrapper", className)}>
-        {title && <Text size="large">{title}</Text>}
+        {title && (
+          <Text className="table-title" size="lg">
+            {title}
+          </Text>
+        )}
 
         <Box className="table-container">
           <table className="table" id={tableId} ref={tableRef}>
@@ -37,8 +41,8 @@ export function Table<T>(props: ClassAndChildren<TableProps<T>>) {
         <TablePagination />
 
         {caption && (
-          <caption>
-            <Text size="xSmall">{caption}</Text>
+          <caption className="table-caption">
+            <Text size="xs">{caption}</Text>
           </caption>
         )}
         <Loader background="blur" visible={props.isLoading} />

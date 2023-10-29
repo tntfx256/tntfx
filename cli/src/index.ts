@@ -26,7 +26,7 @@ export function ${componentName}(props: PropsWithChildren<${componentName}Props>
 }
 `;
 
-  const scssFileContent = `@import "@tntfx/theme";
+  const scssFileContent = `@use "@tntfx/theme";
 
 .${fileName} {
 }

@@ -1,10 +1,11 @@
-import type { CSSProperties } from "react";
+import type { CSSProperties, HTMLAttributes } from "react";
 import type { ClassAndChildren, Size, Variant } from "@tntfx/core";
 import { splitProperties } from "@tntfx/core";
-import { classNames } from "@tntfx/theme";
+import { classNames, useParseProps } from "@tntfx/theme";
 import "./text.scss";
 
-type TypingProps = {
+type Att = HTMLAttributes<HTMLHeadingElement | HTMLParagraphElement>;
+type TypingProps = Att & {
   color?: CSSProperties["color"];
   fontWeight?: CSSProperties["fontWeight"];
   textAlign?: CSSProperties["textAlign"];
@@ -14,29 +15,42 @@ type TypingProps = {
   as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span";
 };
 
-const pickProps = splitProperties("color", "fontWeight", "textAlign", "whiteSpace");
+const pickProps = splitProperties(
+  "color",
+  "fontWeight",
+  "textAlign",
+  "whiteSpace"
+);
 
 export function Text(props: ClassAndChildren<TypingProps>) {
-  const { className, children, size, variant, as, ...libProps } = props;
+  const { children, as, ...libProps } = props;
 
-  const [style, rest] = pickProps(libProps);
+  const result = useParseProps(libProps);
 
-  const Component = as || SizeMap[size || "medium"];
+  const Component = as || SizeMap[props.size || "md"];
 
   return (
-    <Component className={classNames("text", className, `size-${size}`, `variant-${variant}`)} style={style} {...rest}>
+    <Component
+      className={classNames("text", result.className)}
+      style={result.style}
+      {...result.props}
+    >
       {children}
     </Component>
   );
 }
 
 const SizeMap: Record<Size, keyof JSX.IntrinsicElements> = {
-  xxSmall: "p",
-  xSmall: "p",
-  small: "p",
-  medium: "p",
-  large: "h4",
-  xLarge: "h3",
-  xxLarge: "h2",
-  xxxLarge: "h1",
+  "3xs": "p",
+  "2xs": "p",
+  xs: "p",
+  sm: "p",
+  md: "p",
+  lg: "h4",
+  xl: "h3",
+  "2xl": "h2",
+  "3xl": "h2",
+  "4xl": "h1",
+  "5xl": "h1",
+  "6xl": "h1",
 };
