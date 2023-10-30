@@ -44,33 +44,33 @@
     --shadow-color: 220 3% 15%;
 
     --color-primary: #{$color-primary};
-    --color-primary-alpha: #{transparentize($color-primary, 0.2)};
+    --color-primary-alpha: #{color.scale($color-primary, $alpha: 20%)};
     --color-primary-text: #{$color-text};
     --color-secondary: #{$color-secondary};
     --color-secondary-text: #{$color-text};
     --color-body: #{$color-body};
     --color-body-text: #{$color-text};
-    --color-body-alpha: #{transparentize($color-body, 0.2)};
+    --color-body-alpha: #{color.scale($color-body, $alpha: 20%)};
     --color-body-alpha-text: #{$color-text};
     --color-surface: #{$color-surface};
     --color-surface-text: #{$color-text};
     --color-element: #{$color-element};
     --color-element-text: #{$color-text};
-    --color-element-alpha: #{transparentize($color-element, 0.4)};
+    --color-element-alpha: #{color.scale($color-element, $alpha: 40%)};
     --color-element-text: #{$color-text};
     --color-element-alt: #{$color-element-alt};
     --color-element-alt-text: #{$color-text};
-    --color-backdrop: #{transparentize($color-body, 0.3)};
+    --color-backdrop: #{color.scale($color-body, $alpha: 30%)};
     --color-info: #{$color-info};
     --color-info-text: #{$color-text};
     --color-success: #{$color-success};
     --color-success-text: #{$color-text};
     --color-warning: #{$color-warning};
-    --color-warning-text: var(--color-text-alt);
+    --color-warning-text: #{$color-text-alt};
     --color-error: #{$color-error};
-    --color-error-text: var(--color-text-alt);
+    --color-error-text: #{$color-text-alt};
     --color-border: #{$color-border};
-    --color-border-alpha: #{transparentize($color-border, 0.2)};
+    --color-border-alpha: #{color.scale($color-border, $alpha: 20%)};
   }
   // }
 
@@ -84,34 +84,34 @@
       --shadow-strength: 10%;
       --shadow-color: 220 40% 2%;
 
-      --color-primary: #{darken($color-primary, 0.1)};
-      --color-primary-alpha: #{transparentize($color-primary, 0.2)};
+      --color-primary: #{color.scale($color-primary, $blackness: 10%)};
+      --color-primary-alpha: #{color.scale($color-primary, $alpha: 20%)};
       --color-primary-text: #{$color-text};
-      --color-secondary: #{darken($color-secondary, 0.1)};
+      --color-secondary: #{color.scale($color-secondary, $blackness: 10%)};
       --color-secondary-text: #{$color-text};
-      --color-body: #{darken($color-body, 0.8)};
+      --color-body: #{color.scale($color-body, $blackness: 80%)};
       --color-body-text: #{$color-text};
-      --color-body-alpha: #{transparentize($color-body, 0.2)};
+      --color-body-alpha: #{color.scale($color-body, $alpha: 20%)};
       --color-body-alpha-text: #{$color-text};
-      --color-surface: #{darken($color-surface, 0.8)};
+      --color-surface: #{color.scale($color-surface, $blackness: 80%)};
       --color-surface-text: #{$color-text};
-      --color-element: #{darken($color-element, 0.7)};
+      --color-element: #{color.scale($color-element, $blackness: 70%)};
       --color-element-text: #{$color-text};
-      --color-element-alpha: #{transparentize($color-element, 0.4)};
+      --color-element-alpha: #{color.scale($color-element, $alpha: 40%)};
       --color-element-text: #{$color-text};
-      --color-element-alt: #{darken($color-element-alt, 0.8)};
+      --color-element-alt: #{color.scale($color-element-alt, $alpha: 80%)};
       --color-element-alt-text: #{$color-text};
-      --color-backdrop: #{transparentize($color-body, 0.3)};
-      --color-info: #{darken($color-info, 0.1)};
+      --color-backdrop: #{color.scale($color-body, $alpha: 30%)};
+      --color-info: #{color.scale($color-info, $blackness: 10%)};
       --color-info-text: #{$color-text};
-      --color-success: #{darken($color-success, 0.1)};
+      --color-success: #{color.scale($color-success, $blackness: 10%)};
       --color-success-text: #{$color-text};
-      --color-warning: #{darken($color-warning, 0.1)};
-      --color-warning-text: var(--color-text-alt);
-      --color-error: #{darken($color-error, 0.1)};
+      --color-warning: #{color.scale($color-warning, $blackness: 10%)};
+      --color-warning-text: #{$color-text-alt};
+      --color-error: #{color.scale($color-error, $blackness: 10%)};
       --color-error-text: #{$color-text};
-      --color-border: #{darken($color-border, 0.5)};
-      --color-border-alpha: #{transparentize($color-border, 0.5)};
+      --color-border: #{color.scale($color-border, $blackness: 50%)};
+      --color-border-alpha: #{color.scale($color-border, $alpha: 50%)};
     }
   }
 
