@@ -15,7 +15,11 @@ export function Avatar(props: ClassAndChildren<AvatarProps>) {
   const { src, alt, onClick, size = 64, children, className } = props;
 
   return (
-    <figure className={classNames("avatar", className)} style={{ height: size, width: size }} onClick={onClick}>
+    <figure
+      className={classNames("avatar", className, { clickable: onClick })}
+      style={{ height: size, width: size }}
+      onClick={onClick}
+    >
       {src && <img alt={alt || "Avatar"} src={src} />}
       {alt && <Text className="avatar-abbr">{getAbbr(alt)}</Text>}
       <div className="avatar-image" style={{ backgroundImage: `url(${src})` }} />

@@ -4,11 +4,15 @@
   display: flex;
   flex-flow: column nowrap;
 
-  &.horizontal {
-    flex-flow: row nowrap;
+  .menuItem {
+    padding: 0 theme.$spacing-xs;
   }
 
-  .menu-item {
-    padding: 0 theme.$spacing-xs;
+  &.--horizontal {
+    flex-flow: row nowrap;
+
+    .menuItem {
+      padding: theme.$spacing-xs 0;
+    }
   }
 }

@@ -19,26 +19,7 @@
     }
   }
 
-  &.size-xSmall {
-    width: theme.$size-xs;
-    height: theme.$size-xs;
-  }
-  &.size-small {
-    width: theme.$size-sm;
-    height: theme.$size-sm;
-  }
-
-  &.size-large {
-    width: theme.$size-lg;
-    height: theme.$size-lg;
-  }
-
-  &.size-xLarge {
-    width: theme.$size-xl;
-    height: theme.$size-xl;
-  }
-
-  // SPECIALS
+  // SPECIAL ICONS
   &.svg-maximize,
   &.svg-restoreMaximize {
     padding: 10% 4%;

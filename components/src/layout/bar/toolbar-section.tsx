@@ -1,17 +1,13 @@
-import type { ClassAndChildren } from "@tntfx/core";
-import { classNames } from "@tntfx/theme";
+import type { WithChildren } from "@tntfx/core";
+import { EnhancedProps, classNames, parseProps } from "@tntfx/theme";
 import type { BoxProps } from "../box";
 import { Box } from "../box";
 import "./toolbar-section.scss";
 
-export type ToolbarSectionProps = ClassAndChildren<BoxProps>;
+export type ToolbarSectionProps = WithChildren<BoxProps> & EnhancedProps;
 
 export function ToolbarSection(props: ToolbarSectionProps) {
-  const { className, children, ...box } = props;
+  const [className, boxProps] = parseProps(props);
 
-  return (
-    <Box horizontal className={classNames("toolbar-section", className)} {...box}>
-      {children}
-    </Box>
-  );
+  return <Box horizontal className={classNames("toolbarSection", className)} {...boxProps} />;
 }

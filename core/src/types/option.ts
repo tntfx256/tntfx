@@ -38,18 +38,25 @@ export class OptionModel extends Model<Option> {
   }
 }
 
-export type Action = "Cancel" | "Ok" | "Retry";
-export type ActionSet = "Ok" | "OkCancel" | "RetryCancel";
+export enum Action {
+  Cancel = "Cancel",
+  Ok = "Ok",
+  Retry = "Retry",
+}
+export enum ActionSet {
+  Ok = "Ok",
+  OkCancel = "OkCancel",
+  RetryCancel = "RetryCancel",
+}
 export type Actions<T extends string = string> = ActionSet | Option<T>[];
-export type OnAction<T extends string = string> = (
-  action: T extends Action ? Action : T
-) => MaybePromise<Any<boolean>>;
+export type OnAction<T extends string = string> = (action: T extends Action ? Action : T) => MaybePromise<Any<boolean>>;
 export type Actionable<T extends string = string> = {
   actions?: Actions<T>;
   onAction?: OnAction<T>;
 };
 
 export type ClassName<T = {}> = T & { className?: string };
+export type WithChildren<T = {}> = PropsWithChildren<T>;
 export type ClassAndChildren<T = {}> = PropsWithChildren<ClassName<T>>;
 
 // Next.js

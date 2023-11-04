@@ -1,0 +1,119 @@
+@import "./lib";
+
+:export {
+  breakpoint_xxs: $breakpoint-xxs;
+  breakpoint_xs: $breakpoint-xs;
+  breakpoint_sm: $breakpoint-sm;
+  breakpoint_md: $breakpoint-md;
+  breakpoint_lg: $breakpoint-lg;
+  breakpoint_xl: $breakpoint-xl;
+  breakpoint_xxl: $breakpoint-xxl;
+
+  font_family: $fontFamily;
+  font_family_mono: $fontFamily-mono;
+
+  font_size_xxs: $fontSize-xxs;
+  font_size_xs: $fontSize-xs;
+  font_size_sm: $fontSize-sm;
+  font_size_md: $fontSize-md;
+  font_size_lg: $fontSize-lg;
+  font_size_xl: $fontSize-xl;
+  font_size_xxl: $fontSize-xxl;
+  font_size_xxxl: $fontSize-xxxl;
+
+  line_height_xxs: $lineHeight-xxs;
+  line_height_xs: $lineHeight-xs;
+  line_height_sm: $lineHeight-sm;
+  line_height_md: $lineHeight-md;
+  line_height_lg: $lineHeight-lg;
+  line_height_xl: $lineHeight-xl;
+  line_height_xxl: $lineHeight-xxl;
+  line_height_xxxl: $lineHeight-xxxl;
+
+  font_weight_xxs: $fontWeight-xxs;
+  font_weight_xs: $fontWeight-xs;
+  font_weight_sm: $fontWeight-sm;
+  font_weight_md: $fontWeight-md;
+  font_weight_lg: $fontWeight-lg;
+  font_weight_xl: $fontWeight-xl;
+  font_weight_xxl: $fontWeight-xxl;
+  font_weight_xxxl: $fontWeight-xxxl;
+
+  color_text: var(--color-text);
+  color_text_alt: var(--color-text-alt);
+  color_primary: var(--color-primary);
+  color_primary_text: var(--color-primary-text);
+  color_secondary: var(--color-secondary);
+  color_secondary_text: var(--color-secondary-text);
+  color_info: var(--color-info);
+  color_info_text: var(--color-info-text);
+  color_success: var(--color-success);
+  color_success_text: var(--color-success-text);
+  color_warning: var(--color-warning);
+  color_warning_text: var(--color-warning-text);
+  color_error: var(--color-error);
+  color_error_text: var(--color-error-text);
+  color_body: var(--color-body);
+  color_body_text: var(--color-body-text);
+  color_surface: var(--color-surface);
+  color_surface_text: var(--color-surface-text);
+  color_element: var(--color-element);
+  color_element_text: var(--color-element-text);
+  color_element_alt: var(--color-element-alt);
+  color_element_alt_text: var(--color-element-alt-text);
+
+  shadow_xs: $shadow-xs;
+  shadow_sm: $shadow-sm;
+  shadow_md: $shadow-md;
+  shadow_lg: $shadow-lg;
+  shadow_xl: $shadow-xl;
+  shadow_xxl: $shadow-xxl;
+
+  size_xs: $size-xs;
+  size_sm: $size-sm;
+  size_md: $size-md;
+  size_lg: $size-lg;
+  size_xl: $size-xl;
+  size_xxl: $size-xxl;
+  size_xxxl: $size-xxxl;
+
+  spacing_xs: $spacing-xs;
+  spacing_sm: $spacing-sm;
+  spacing_md: $spacing-md;
+  spacing_lg: $spacing-lg;
+  spacing_xl: $spacing-xl;
+  spacing_xxl: $spacing-xxl;
+  spacing_xxxl: $spacing-xxxl;
+
+  element_width_xs: $elementWidth-xs;
+  element_width_sm: $elementWidth-sm;
+  element_width_md: $elementWidth-md;
+  element_width_lg: $elementWidth-lg;
+  element_width_xl: $elementWidth-xl;
+  element_width_xxl: $elementWidth-xxl;
+  element_width_xxxl: $elementWidth-xxxl;
+
+  layout_height_element_sm: $layout-height-element-sm;
+  layout_height_element: $layout-height-element;
+  layout_height_footer: $layout-height-footer;
+  layout_height_header: $layout-height-header;
+
+  border_radius_xs: $borderRadius-xs;
+  border_radius_sm: $borderRadius-sm;
+  border_radius_md: $borderRadius-md;
+  border_radius_lg: $borderRadius-lg;
+  border_radius_xl: $borderRadius-xl;
+  border_radius_xxl: $borderRadius-xxl;
+  border_radius_xxxl: $borderRadius-xxxl;
+
+  layer_base: $layer-base;
+  layer_window: $layer-window;
+  layer_window_active: $layer-window-active;
+  layer_element: $layer-element;
+  layer_sidebar: $layer-sidebar;
+  layer_modal: $layer-modal;
+  layer_popup: $layer-popup;
+  layer_dropdown: $layer-dropdown;
+  layer_toast: $layer-toast;
+  layer_context_menu: $layer-context-menu;
+}

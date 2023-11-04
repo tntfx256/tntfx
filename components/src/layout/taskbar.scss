@@ -6,34 +6,40 @@
   color: var(--color-element-text);
   overflow: hidden;
 
-  &-middle {
-    flex: 1;
-  }
-
   @include theme.belowMedium {
     // show at bottom
+    @include theme.row;
     top: unset;
     height: theme.$layout-height-header;
-    flex-flow: row nowrap;
     border-top: 1px solid var(--color-border);
 
-    &-section {
-      height: 100%;
+    &__start {
+      @include theme.row;
       margin: 0 theme.$spacing-sm;
-      justify-content: flex-start;
-      align-items: center;
-      flex-direction: row;
-
-      .date-time__time {
-        font-size: theme.$fontSize-md;
-      }
-      .date-time__date {
-        font-size: theme.$fontSize-sm;
-      }
     }
 
-    &-start {
-      margin-right: theme.$spacing-lg;
+    &__middle {
+      @include theme.row;
+      flex: 1;
+      justify-content: flex-start;
+    }
+
+    &__end {
+      @include theme.row;
+      margin: 0 theme.$spacing-sm;
+
+      .icon {
+        padding-right: theme.$spacing-md;
+      }
+
+      .dateTime {
+        &__time {
+          font-size: theme.$fontSize-lg;
+        }
+        &__date {
+          font-size: theme.$fontSize-md;
+        }
+      }
     }
   }
 
@@ -43,23 +49,28 @@
     width: calc(1.25 * theme.$layout-height-header);
     border-right: 1px solid var(--color-border);
 
-    &-section {
-      width: 100%;
-      flex-direction: column;
+    &__start {
       margin: theme.$spacing-sm 0;
-      justify-content: center;
-      align-items: center;
-
-      .date-time__time {
-        font-size: theme.$fontSize-sm;
-      }
-      .date-time__date {
-        font-size: theme.$fontSize-xs;
-      }
+      flex-direction: column !important;
     }
 
-    &-start {
-      margin-bottom: theme.$spacing-lg;
+    &__middle {
+      flex: 1;
+      justify-content: flex-start;
+    }
+
+    &__end {
+      margin: theme.$spacing-sm 0;
+      align-items: center;
+
+      .dateTime {
+        &__time {
+          font-size: theme.$fontSize-md;
+        }
+        &__date {
+          font-size: theme.$fontSize-sm;
+        }
+      }
     }
   }
 }

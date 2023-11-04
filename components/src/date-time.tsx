@@ -22,11 +22,11 @@ export function DateTime(props: DateTimeProps) {
   }, []);
 
   return (
-    <Box className={classNames("date-time", className)}>
-      <Text className="date-time__time" size="xl">
+    <Box className={classNames("dateTime", className)}>
+      <Text className="dateTime__time">
         {date.hour}:{date.minutes}
       </Text>
-      <Text className="date-time__date" size="md">
+      <Text className="dateTime__date">
         {date.weekDay} {date.day} {date.month}
       </Text>
     </Box>

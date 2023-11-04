@@ -1,23 +1,29 @@
 @use "./utils";
 
 @mixin hover {
-  &:is(:hover, .hover):not(:disabled, .disabled, .selected) {
+  &:is(.--clickable, .--hover):not(:disabled, .--disabled, .--selected) {
     filter: brightness(0.9);
+  }
+}
 
-    &.clickable {
-      cursor: pointer;
-    }
+@mixin clickable {
+  &:not(:disabled, .--disabled) {
+    @include mixins.hover;
+    cursor: pointer;
+    transition-duration: animation.$duration-sm;
+    transition-property: background-color, color;
+    transition-timing-function: animation.$animation-ease;
   }
 }
 
 @mixin selected {
-  &:is(.selected):not(:disabled, .disabled) {
+  &:is(.--selected):not(:disabled, .--disabled) {
     filter: brightness(0.8);
   }
 }
 
 @mixin disabled {
-  &:is(:disabled, .disabled) {
+  &:is(:disabled, .--disabled) {
     cursor: default;
     opacity: 55%;
   }
@@ -35,6 +41,14 @@
   left: 0;
 }
 
+@mixin row($justify: flex-start, $align: center) {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: $justify;
+  align-items: $align;
+  white-space: nowrap;
+}
+
 @mixin unSelectable {
   cursor: default;
   user-select: none;
@@ -42,8 +56,6 @@
 
 @mixin withTitlebarPadding($numberOfTitlebar: 1) {
   > *:first-child:not(.toolbar) {
-    padding-top: calc(
-      utils.size() + calc($numberOfTitlebar * $layout-height-header)
-    );
+    padding-top: calc(utils.size() + calc($numberOfTitlebar * $layout-height-header));
   }
 }

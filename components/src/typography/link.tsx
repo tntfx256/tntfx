@@ -1,36 +1,33 @@
-import type { CSSProperties, HTMLAttributes } from "react";
-import type { ClassAndChildren, Size } from "@tntfx/core";
-import { classNames } from "@tntfx/theme";
-import { Text } from "./text";
+import type { ClassAndChildren, IconName } from "@tntfx/core";
+import { EnhancedProps, classNames, parseProps } from "@tntfx/theme";
+import type { HTMLAttributes } from "react";
+import { Icon } from "../icon";
 import { Svg } from "../svg";
 import "./link.scss";
 
 type N = HTMLAttributes<HTMLAnchorElement>;
 
-type LinkProps = {
-  size?: Size;
+type LinkProps = Partial<EnhancedProps> & {
   href?: string;
   title?: string;
   external?: boolean;
-  whiteSpace?: CSSProperties["whiteSpace"];
+  icon?: IconName;
+
   onClick?: N["onClick"];
 };
 
 export function Link(props: ClassAndChildren<LinkProps>) {
-  const { className, children, external, title, size, whiteSpace, ...libProps } = props;
+  const [className, { children, external, title, icon, ...rest }] = parseProps(props);
 
   return (
     <a
       className={classNames("link", className)}
       title={title}
       {...(external ? { rel: "noreferrer", target: "_blank" } : null)}
-      {...libProps}
+      {...rest}
     >
-      {children || (
-        <Text size={size} whiteSpace={whiteSpace}>
-          {title}
-        </Text>
-      )}
+      {icon && <Icon name={icon} />}
+      {children || title}
       {external && <Svg name="linkExternal" />}
     </a>
   );

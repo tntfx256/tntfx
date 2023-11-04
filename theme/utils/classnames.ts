@@ -14,7 +14,7 @@ export function classNames(...names: ClassNames[]) {
     } else if (Array.isArray(name)) {
       splitBySpace(name[0]).forEach((n: string) => list.add(`${n}${name[1]}`));
     } else {
-      Object.entries(name).forEach(([k, v]) => (v ? list.add(k) : 0));
+      Object.entries(name).forEach(([k, v]) => v && list.add(k));
     }
   }
 

@@ -2,7 +2,7 @@
   align-items: center;
 
   // increasing specificty
-  &.box.horizontal {
+  &.box.--horizontal {
     justify-content: center;
   }
 }

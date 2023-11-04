@@ -1,28 +1,28 @@
 @use "@tntfx/theme";
 
 .loader {
-  > .loader-circle {
+  &__circle {
     width: theme.$size-md;
     height: theme.$size-md;
-    border: 2px solid rgba(0 0 0 / 15%);
+    border: 2px solid var(--color-border-alpha);
     border-radius: 50%;
     border-top-color: var(--color-primary);
   }
 
-  &.variant-primary {
-    > .loader-circle {
+  &.--primary {
+    .loader__circle {
       border-top-color: var(--color-primary);
     }
   }
 
-  &.variant-secondary {
-    > .loader-circle {
+  &.--secondary {
+    .loader__circle {
       border-top-color: var(--color-secondary);
     }
   }
 
-  &.variant-destructive {
-    > .loader-circle {
+  &.--destructive {
+    .loader__circle {
       border-top-color: var(--color-error);
     }
   }

@@ -1,21 +1,16 @@
-import type { ForwardedRef, HTMLAttributes } from "react";
-import { forwardRef } from "react";
 import type { ClassAndChildren } from "@tntfx/core";
 import type { EnhancedProps } from "@tntfx/theme";
-import { classNames, useParseProps } from "@tntfx/theme";
+import { classNames, parseProps } from "@tntfx/theme";
+import type { ForwardedRef, HTMLAttributes } from "react";
+import { forwardRef } from "react";
 import "./box.scss";
 
-export type BoxProps = HTMLAttributes<HTMLDivElement> & Partial<EnhancedProps>;
+export type BoxProps = HTMLAttributes<HTMLDivElement> & EnhancedProps;
 
 function BoxWithRefs(props: ClassAndChildren<BoxProps>, ref: ForwardedRef<HTMLDivElement>) {
-  const { children, ...libProps } = props;
-  const result = useParseProps(libProps);
+  const [className, libProps] = parseProps(props);
 
-  return (
-    <div className={classNames("box", result.className)} ref={ref} style={result.style} {...result.props}>
-      {children}
-    </div>
-  );
+  return <div className={classNames("box", className)} ref={ref} {...libProps} />;
 }
 
 export const Box = forwardRef(BoxWithRefs);

@@ -1,14 +1,12 @@
 @use "@tntfx/theme";
 
-.toolbar-section {
+.toolbarSection {
+  @include theme.row(center);
   @include theme.unSelectable;
+
   position: relative;
   overflow: visible;
   height: 100%;
-  flex-flow: row nowrap;
-  align-items: center;
-  justify-content: center;
-  white-space: nowrap;
 
   .svg {
     width: theme.$size-md;

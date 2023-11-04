@@ -1,6 +1,5 @@
-import type { CSSProperties } from "react";
 import type { ClassAndChildren, Size } from "@tntfx/core";
-import { classNames } from "@tntfx/theme";
+import { classNames, parseProps } from "@tntfx/theme";
 import "./spacer.scss";
 
 export type SpacerProps = {
@@ -12,12 +11,10 @@ export type SpacerProps = {
 };
 
 export function Spacer(props: ClassAndChildren<SpacerProps>) {
-  const { horizontal, flex, className, children, width, height, size } = props;
-
-  const style: CSSProperties = { width, height };
+  const [className, { children, ...rest }] = parseProps(props);
 
   return (
-    <div className={classNames("spacer", className, `size-${size}`, { flex, horizontal })} style={style}>
+    <div className={classNames("spacer", className)} {...rest}>
       {children}
     </div>
   );

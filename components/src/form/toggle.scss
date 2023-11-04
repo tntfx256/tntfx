@@ -9,14 +9,12 @@
   $indicatorOffset: calc(-1 * calc(calc($indicatorSize - $containerHeight) / 2));
 
   &.form-element {
+    @include theme.disabled;
     max-width: max-content;
     flex-flow: row nowrap;
     align-items: center;
     padding: 0 theme.$spacing-sm;
     border-color: transparent;
-
-    @include theme.hover;
-    @include theme.disabled;
 
     .label {
       position: relative !important;

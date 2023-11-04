@@ -1,7 +1,6 @@
 @use "@tntfx/theme";
 
 .button {
-  @include theme.hover;
   @include theme.disabled;
   @include theme.unSelectable;
 

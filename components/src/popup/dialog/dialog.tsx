@@ -15,26 +15,14 @@ export function Dialog(props: DialogProps) {
     persistent,
     onAction,
     onClose,
-    global = true,
+    global,
     background = "default",
     // type,
-    // boundary,
+    draggable = false,
+    resizable = false,
     ...frameProps
   } = props;
 
-  // const [container] = useState(() => {
-  //   // const id = generateId();
-
-  //   const container: Container = {
-  //     id,
-  //     dimension: calcInitialFrameDimension([]),
-  //     entity: { id, icon: "apps", name: "dialog", path: "/", type: "App" },
-  //     state: "active",
-  //     status: "normal",
-  //   };
-
-  //   return container;
-  // });
   const closeAction = getCloseAction(actions);
 
   const handleClose = useCallback(() => {
@@ -50,19 +38,21 @@ export function Dialog(props: DialogProps) {
       animation="zoom"
       background={background}
       className={classNames("dialog-backdrop", { [`${className}-dialog-backdrop`]: className })}
-      global={global}
+      global={global ?? !frameProps.boundary}
       isOpen={isOpen}
       persistent={persistent}
+      boundary={frameProps.boundary}
     >
       <Frame
+        isDialog
         className={classNames("dialog", className)}
         slots={{
           footer: actions || onAction ? <ActionBar actions={actions} onAction={onAction} /> : undefined,
         }}
-        {...frameProps}
-        isDialog
-        // onChange={handleChange}
         onClose={handleClose}
+        draggable={draggable}
+        resizable={resizable}
+        {...frameProps}
       />
     </Backdrop>
   ) : null;

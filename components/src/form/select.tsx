@@ -31,10 +31,7 @@ type State<T extends string = string> = {
 
 const initialState: State = { filteredOptions: [], text: "", displayValue: "" };
 
-type SelectProps<
-  T extends string = string,
-  M extends boolean = false,
-> = FormElementProps & {
+type SelectProps<T extends string = string, M extends boolean = false> = FormElementProps & {
   options: Option<T>[];
   searchable?: boolean;
   readOnly?: boolean;
@@ -44,9 +41,7 @@ type SelectProps<
   onChange?: (value: M extends true ? T[] : T, name: string) => void;
 };
 
-export function Select<T extends string = string, M extends boolean = false>(
-  props: ClassName<SelectProps<T, M>>
-) {
+export function Select<T extends string = string, M extends boolean = false>(props: ClassName<SelectProps<T, M>>) {
   const {
     name,
     label,
@@ -66,8 +61,7 @@ export function Select<T extends string = string, M extends boolean = false>(
   const [isOpen, showDropdown, hideDropdown] = useToggle();
   const listRef = useRef<Nullable<HTMLUListElement>>(null);
   const inputRef = useRef<Nullable<HTMLInputElement>>(null);
-  const [{ filteredOptions, text, dropdown, displayValue }, setState] =
-    useStateReducer(initialState as State<T>);
+  const [{ filteredOptions, text, dropdown, displayValue }, setState] = useStateReducer(initialState as State<T>);
 
   const handleItemSelect = useCallback(
     (id: T) => {
@@ -117,10 +111,7 @@ export function Select<T extends string = string, M extends boolean = false>(
     (id: T) => {
       const currentValue = assertMultiValue<T>(value);
       if (currentValue.includes(id)) {
-        onChange?.(
-          currentValue.filter((item) => item !== id) as Any,
-          name || ""
-        );
+        onChange?.(currentValue.filter((item) => item !== id) as Any, name || "");
       } else {
         onChange?.([...currentValue, id] as Any, name || "");
       }
@@ -132,8 +123,7 @@ export function Select<T extends string = string, M extends boolean = false>(
   useEffect(() => {
     if (!isOpen || !inputRef.current) return;
 
-    const { bottom, left, top, width } =
-      inputRef.current.getBoundingClientRect() || {};
+    const { bottom, left, top, width } = inputRef.current.getBoundingClientRect() || {};
     const maxUpHeight = top - OFFSET;
     const maxDownHeight = window.innerHeight - bottom - OFFSET;
 
@@ -197,7 +187,7 @@ export function Select<T extends string = string, M extends boolean = false>(
         "is-open": shouldShowDropdown,
         pristine: !value,
       })}
-      disabled={disabled}
+      disabled={disabled || isEmpty}
       error={error}
       isLoading={isLoading}
       label={label}
@@ -213,16 +203,10 @@ export function Select<T extends string = string, M extends boolean = false>(
         onClick={handleShowDropdown}
         onFocus={handleShowDropdown}
       />
-      <Svg className="control-icon" name="down" size="sm" />
+      <Svg className="control-icon" name="down" fontSize="sm" />
 
       {shouldShowDropdown && (
-        <Backdrop
-          global
-          isOpen
-          background="transparent"
-          className="select-backdrop"
-          onClick={hideDropdown}
-        >
+        <Backdrop global isOpen background="transparent" className="select-backdrop" onClick={hideDropdown}>
           <div
             className={classNames("select-dropdown", dirClassName)}
             style={{
@@ -244,33 +228,26 @@ export function Select<T extends string = string, M extends boolean = false>(
               />
             )}
 
-            {isEmpty ? (
-              <Text className="select-dropdown-empty">Empty</Text>
-            ) : (
-              <Menu<T>
-                className="select-dropdown-list"
-                items={filteredOptions}
-                ref={listRef}
-                render={(item) => {
-                  return (
-                    <Text key={item.id}>
-                      {multi ? (
-                        <Icon
-                          name={
-                            multiValues.includes(item.id)
-                              ? "checkSquare"
-                              : "square"
-                          }
-                          onClick={() => toggleMultiselectItem(item.id)}
-                        />
-                      ) : null}
-                      {item.title}
-                    </Text>
-                  );
-                }}
-                onClick={handleItemSelect}
-              />
-            )}
+            <Menu<T>
+              className="select-dropdown-list"
+              role="listbox"
+              items={filteredOptions}
+              ref={listRef}
+              onClick={handleItemSelect}
+              render={(item) => {
+                return (
+                  <Text key={item.id}>
+                    {multi ? (
+                      <Icon
+                        name={multiValues.includes(item.id) ? "checkSquare" : "square"}
+                        onClick={() => toggleMultiselectItem(item.id)}
+                      />
+                    ) : null}
+                    {item.title}
+                  </Text>
+                );
+              }}
+            />
           </div>
         </Backdrop>
       )}

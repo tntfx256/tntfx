@@ -1,52 +1,52 @@
 @use "@tntfx/theme";
 
-$sidebarMinWidth: theme.$breakpoint-2xs;
+$sidebarMinWidth: theme.$breakpoint-xxs;
 $sidebarMaxWidth: theme.$breakpoint-sm;
 
-.sidebar-backdrop.box.backdrop {
-  z-index: theme.$layer-sidebar;
-  min-height: 100%;
-  max-height: 100%;
-  flex-direction: row;
-  align-items: stretch;
+.sidebar {
+  display: flex;
+  width: fit-content;
+  min-width: $sidebarMinWidth;
+  max-width: $sidebarMaxWidth;
+  height: 100%;
+  flex: 1;
+  flex-flow: column nowrap;
   justify-content: flex-start;
+  background-color: var(--color-body);
+  color: var(--color-body-text);
 
-  &.open:not(.overlay) {
-    width: fit-content;
-    min-width: $sidebarMinWidth;
-    max-width: $sidebarMaxWidth;
-    background-color: transparent;
+  &.blur {
+    @include theme.blur(2rem);
+    background-color: var(--color-body-alpha);
+    color: var(--color-body-alpha-text);
   }
 
-  &.__with-body {
-    background: var(--color-element);
-
-    &.open:not(.overlay) {
-      width: 100%;
-      max-width: none;
-    }
-  }
-
-  .sidebar {
-    display: flex;
-    width: fit-content;
-    min-width: $sidebarMinWidth;
-    max-width: $sidebarMaxWidth;
-    height: 100%;
-    flex: 1;
-    flex-flow: column nowrap;
+  &__backdrop {
+    z-index: theme.$layer-sidebar;
+    min-height: 100%;
+    max-height: 100%;
+    flex-direction: row;
+    align-items: stretch;
     justify-content: flex-start;
-    background-color: var(--color-body);
-    color: var(--color-body-text);
 
-    &.blur {
-      @include theme.blur(2rem);
-      background-color: var(--color-body-alpha);
-      color: var(--color-body-alpha-text);
+    &.--visible.--no-overlay {
+      width: fit-content;
+      min-width: $sidebarMinWidth;
+      max-width: $sidebarMaxWidth;
+      background-color: transparent;
+    }
+
+    &.__with-body {
+      background: var(--color-element);
+
+      &.open:not(.overlay) {
+        width: 100%;
+        max-width: none;
+      }
     }
   }
 
-  .sidebar-body {
+  &__body {
     flex: 1;
     border-radius: theme.$borderRadius-md;
     margin: theme.$spacing-md;

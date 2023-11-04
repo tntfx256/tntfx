@@ -2,7 +2,7 @@
 @use "@tntfx/theme";
 
 .spacer {
-  &:not(.horizontal) {
+  &:not(.--horizontal) {
     height: theme.$size-md;
 
     // @each $key, $v in $sizeValues {
@@ -13,7 +13,7 @@
     // }
   }
 
-  &.horizontal {
+  &.--horizontal {
     width: theme.$size-md;
 
     // @each $key, $v in $sizeMap {

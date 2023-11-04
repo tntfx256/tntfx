@@ -1,46 +1,30 @@
-import type {
-  Actions,
-  ClassAndChildren,
-  IconName,
-  MessageType,
-  OnAction,
-} from "@tntfx/core";
-import { classNames } from "@tntfx/theme";
+import type { Actions, IconName, OnAction, WithChildren } from "@tntfx/core";
+import { EnhancedProps, classNames } from "@tntfx/theme";
 import { ActionBar } from "./layout";
 import { Box } from "./layout/box";
 import { Svg } from "./svg";
 import { Text } from "./typography/text";
 import "./alert.scss";
 
-export type AlertProps = {
+export type AlertProps = EnhancedProps & {
   icon?: IconName;
-  type?: MessageType;
   title?: string;
   message?: string;
   actions?: Actions;
   onAction?: OnAction;
 };
 
-export function Alert(props: ClassAndChildren<AlertProps>) {
-  const {
-    className,
-    children,
-    title,
-    message,
-    actions,
-    onAction,
-    type = "info",
-    icon,
-  } = props;
+export function Alert(props: WithChildren<AlertProps>) {
+  const { children, className, icon, title, message, actions, onAction, ...boxProps } = props;
 
   return (
-    <Box horizontal className={classNames("alert", className, `type-${type}`)}>
+    <Box horizontal className={classNames("alert", className)} {...boxProps}>
       {icon && <Svg className="alert-icon" name={icon} />}
       <Box>
         <Text className="alert-title">{title}</Text>
 
         {message && (
-          <Text className="alert-desc" size="sm">
+          <Text className="alert-desc" fontSize="sm">
             {message}
           </Text>
         )}

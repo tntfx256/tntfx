@@ -1,23 +1,9 @@
-import { useEffect, useRef, useState } from "react";
 import type { Any, BoundingRect, Dimension, Nullable } from "@tntfx/core";
-import {
-  dimensionToBoundingRect,
-  getEventCoords,
-  getMinDimension,
-  isClient,
-} from "@tntfx/core";
+import { getEventCoords, getMinDimension, toBoundingRect } from "@tntfx/core";
+import { useEffect, useRef, useState } from "react";
 import "./use-resize.scss";
 
-const resizeKeys = [
-  "top",
-  "right",
-  "bottom",
-  "left",
-  "top-left",
-  "top-right",
-  "bottom-left",
-  "bottom-right",
-] as const;
+const resizeKeys = ["top", "right", "bottom", "left", "top-left", "top-right", "bottom-left", "bottom-right"] as const;
 type ResizeKeys = (typeof resizeKeys)[number];
 
 type ResizeInitialState = {
@@ -34,10 +20,7 @@ export type UseResizeConfig = {
   onResizeEnd?: (dimension: Dimension) => void;
 };
 
-export function useResize<T extends HTMLElement = HTMLElement>(
-  element: Nullable<T>,
-  config?: UseResizeConfig
-) {
+export function useResize<T extends HTMLElement = HTMLElement>(element: Nullable<T>, config?: UseResizeConfig) {
   const { resizable = true, onResizeStart, onResizeEnd } = config || {};
 
   const initial = useRef<ResizeInitialState>({} as ResizeInitialState);
@@ -70,17 +53,10 @@ export function useResize<T extends HTMLElement = HTMLElement>(
       const type = (target as Any).getAttribute("data-t");
       if (!resizeKeys.includes(type)) return;
 
-      const boundingRect: Dimension = config?.boundingRect || {
-        top: 0,
-        left: 0,
-        width: window.innerWidth,
-        height: window.innerHeight,
-      };
       initial.current = {
         type,
-        // isDialog: !!config?.isDialog,
         dimension: element.getBoundingClientRect(),
-        boundingRect: dimensionToBoundingRect(boundingRect),
+        boundingRect: toBoundingRect(toBoundingRect(config?.boundingRect)),
         pointerPosition: { x: clientX, y: clientY },
       };
 
@@ -132,17 +108,13 @@ export function useResize<T extends HTMLElement = HTMLElement>(
   }, [config?.boundingRect, element, onResizeEnd, resizable, resizeHandles]);
 }
 
-function getResizedDimension(
-  initial: ResizeInitialState,
-  x2: number,
-  y2: number
-): Partial<Dimension> {
+function getResizedDimension(initial: ResizeInitialState, x2: number, y2: number): Partial<Dimension> {
   const { pointerPosition, type, boundingRect, dimension } = initial;
   const dx = x2 - pointerPosition.x;
   const dy = y2 - pointerPosition.y;
 
-  const { width: minWidth, height: minHeight } = getMinDimension();
-  const { top, right, bottom, left } = dimensionToBoundingRect(boundingRect);
+  const { minWidth, minHeight } = getMinDimension();
+  const { top, right, bottom, left } = toBoundingRect(boundingRect);
 
   const result: Partial<Dimension> = {};
 
@@ -181,10 +153,7 @@ function getResizedDimension(
         }
         break;
       case "bottom":
-        if (
-          dimension.bottom + dy < bottom &&
-          dimension.height + dy >= minHeight
-        ) {
+        if (dimension.bottom + dy < bottom && dimension.height + dy >= minHeight) {
           result.height = dimension.height + dy;
         }
         break;

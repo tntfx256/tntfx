@@ -1,7 +1,8 @@
 import { ClassAndChildren, OnAction, Option } from "@tntfx/core";
-import { classNames } from "@tntfx/theme";
+import { classNames, parseProps } from "@tntfx/theme";
 import { DateTime } from "../date-time";
-import { ActionBar } from "./bar";
+import { Icon } from "../icon";
+import { useActions } from "./bar/utils";
 import { Box } from "./box";
 import "./taskbar.scss";
 
@@ -13,19 +14,22 @@ const taskbarActions: Option<TaskbarAction>[] = [
 
 export type TaskbarProps = {
   onAction?: OnAction<TaskbarAction>;
+  onLogout?: () => void;
 };
 
 export function Taskbar(props: ClassAndChildren<TaskbarProps>) {
-  const { className, children, onAction } = props;
+  const [className, { children, onAction, onLogout, ...rest }] = parseProps(props);
+
+  const actionableItems = useActions(taskbarActions, onAction);
 
   return (
-    <Box className={classNames("taskbar", className)}>
-      <Box className="taskbar-section taskbar-start">
-        <ActionBar onAction={onAction} actions={taskbarActions} />
-      </Box>
+    <Box className={classNames("taskbar", className)} {...rest}>
+      <Box className="taskbar__start">{actionableItems}</Box>
 
-      <Box className="taskbar-section taskbar-middle">{children}</Box>
-      <Box className="taskbar-section taskbar-end">
+      <Box className="taskbar__middle">{children}</Box>
+
+      <Box className="taskbar__end">
+        {onLogout && <Icon name="power" onClick={onLogout} />}
         <DateTime />
       </Box>
     </Box>

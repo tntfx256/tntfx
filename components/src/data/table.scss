@@ -11,13 +11,6 @@
     padding: theme.$spacing-md;
     border-bottom: 1px solid var(--color-border-alpha);
   }
-
-  > .table-pagination {
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    border-top: 0.5px solid var(--color-border-alpha);
-  }
 }
 
 .table {
@@ -36,18 +29,17 @@
     vertical-align: middle;
     white-space: nowrap;
 
-    &._header {
+    &.header {
       padding: theme.$spacing-md;
-      font-weight: theme.$fontWeight-md;
+      font-weight: theme.$fontWeight-lg;
       text-transform: uppercase;
     }
-    &._divider {
+    &.divider {
       border-left: 1px solid var(--color-border);
     }
   }
 
   > tbody > .table-row {
-    @include theme.hover;
     background-color: var(--color-element);
     color: var(--color-element-text);
     transition: background-color theme.$duration-md theme.$animation-ease();

@@ -1,6 +1,6 @@
 import type { CSSProperties, MouseEvent } from "react";
 import { memo } from "react";
-import type { Animation, ClassAndChildren, Dimension } from "@tntfx/core";
+import type { Animation, Boundary, ClassAndChildren, Dimension } from "@tntfx/core";
 import { classNames } from "@tntfx/theme";
 import { Box } from "./layout/box";
 import { Portal } from "./portal";
@@ -14,14 +14,11 @@ export type BackdropProps = {
   isOpen?: boolean;
   background?: "blur" | "transparent" | "default";
   animation?: Animation;
-  wrapper?: HTMLElement;
-  boundary?: Dimension;
+  boundary?: Boundary | Dimension;
   onClick?: () => void;
 };
 
-export const Backdrop = memo(function Backdrop(
-  props: ClassAndChildren<BackdropProps>
-) {
+export const Backdrop = memo(function Backdrop(props: ClassAndChildren<BackdropProps>) {
   const {
     children,
     className,
@@ -42,20 +39,18 @@ export const Backdrop = memo(function Backdrop(
   }
 
   let style: CSSProperties = {};
-  if (boundary) {
-    style = { ...boundary };
-  }
+  // if (boundary) {
+  //   style = { ...boundary };
+  // }
 
   const backdrop = (
     <Box
       role="presentation"
-      className={classNames(
-        "backdrop",
-        className,
-        animation,
-        `bg-${background}`,
-        { overlay, open: isOpen, global }
-      )}
+      className={classNames("backdrop", className, `animation--${animation}`, `--bg-${background}`, {
+        "--no-overlay": !overlay,
+        "--visible": isOpen,
+        "--global": global,
+      })}
       style={style}
       onClick={handleClick}
     >

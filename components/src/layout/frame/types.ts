@@ -1,22 +1,21 @@
-import type { Boundary, Dimension, IconName } from "@tntfx/core";
+import type { Dimension, IconName } from "@tntfx/core";
+import { Dispatch, ReactNode, SetStateAction } from "react";
 import { BoxProps } from "../box";
-import { ReactNode } from "react";
 
 export enum FrameStatus {
   Normal = "normal",
   Maximized = "maximized",
 }
 
-export type SetDimension = (dimension: Dimension) => void;
+export type SetDimension = Dispatch<SetStateAction<Dimension | undefined>>;
 
 export interface FrameProps extends Omit<BoxProps, "id"> {
   id: string;
-  // isSidebarOpen?: boolean;
   draggable?: boolean;
   resizable?: boolean;
   title?: string;
   icon?: IconName;
-  boundary?: Boundary;
+  boundary?: Dimension;
   isDialog?: boolean;
   isStatic?: boolean;
   isActive?: boolean;
@@ -28,12 +27,7 @@ export interface FrameProps extends Omit<BoxProps, "id"> {
     sidebar?: ReactNode;
     footer?: ReactNode;
   };
+
+  // events
   onClose?: () => void;
-  // headerSlot?: ReactNode;
-  // titlebarSlot?: ReactNode;
-  // sidebarSlot?: ReactNode;
-  // footerSlot?: ReactNode;
-  //
-  // onChange: (event: FrameEvent) => void;
-  // onSidebarToggle?: () => void;
 }

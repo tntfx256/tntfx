@@ -1,10 +1,10 @@
+import { Action, ActionSet, MessageType, type Nullable, type TError } from "@tntfx/core";
 import { useId } from "react";
-import type { Nullable, TError } from "@tntfx/core";
-import { useStore } from "./dialog-context";
 import { ErrorContent } from "../../layout/error-content";
 import type { DialogPayload } from "../types";
+import { useStore } from "./dialog-context";
 
-type ConfirmPayload = Pick<DialogPayload, "title" | "children">;
+type ConfirmPayload = Pick<DialogPayload, "title" | "children" | "boundary">;
 
 export function useDialog() {
   const id = useId();
@@ -31,7 +31,7 @@ export function useDialog() {
       isOpen: true,
       children: payload?.children || <ErrorContent error={error} />,
       title: payload?.title || (error ? "An error ocurred" : ""),
-      type: payload?.type || (error ? "error" : "info"),
+      type: payload?.type || (error ? MessageType.Error : MessageType.Info),
     };
 
     setState({ dialogs: [...dialogs, newDialog] });
@@ -41,10 +41,11 @@ export function useDialog() {
     return new Promise<boolean>((resolve) => {
       showMessageBox({
         ...payload,
-        type: "question",
-        actions: "OkCancel",
+        resizable: false,
+        type: MessageType.Question,
+        actions: ActionSet.OkCancel,
         onAction(action) {
-          resolve(action === "Ok");
+          resolve(action === Action.Ok);
           close();
         },
       });

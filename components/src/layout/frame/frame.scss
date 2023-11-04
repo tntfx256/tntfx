@@ -6,10 +6,6 @@
   right: 0;
   left: 0;
   color: var(--color-body-alpha-text);
-
-  * {
-    background: transparent;
-  }
 }
 
 .frame {
@@ -22,8 +18,12 @@
   box-shadow: var(--shadow-lg);
   color: var(--color-body-text);
 
+  &.static {
+    box-shadow: none !important;
+  }
+
   &.active {
-    box-shadow: var(--shadow-2xl);
+    box-shadow: var(--shadow-xxl);
     z-index: theme.$layer-window-active;
     border: 1px solid var(--color-border);
   }
@@ -85,13 +85,17 @@
     border-top-left-radius: inherit;
     border-top-right-radius: inherit;
     background-color: var(--color-element-alpha);
+
+    * {
+      background: transparent;
+    }
   }
 
   &-sidebar {
     border-right: 1px solid var(--color-border);
   }
 
-  &-footer.box.horizontal {
+  &-footer.box.--horizontal {
     @extend %sticky;
     bottom: 0;
     border-top: 1px solid var(--color-border);

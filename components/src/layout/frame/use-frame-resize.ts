@@ -1,34 +1,25 @@
 import type { Boundary, Nullable } from "@tntfx/core";
-import { boundaryToBoundingRect } from "@tntfx/core";
+import { toBoundingRect } from "@tntfx/core";
 import { useResize, useRuntime } from "@tntfx/hooks";
-import type { FrameStatus, SetDimension } from "./types";
+import type { SetDimension } from "./types";
 
-interface UseFrameResizeConfig {
-  id: string;
-  // isDialog?: boolean;
-  frameStatus?: FrameStatus;
-  resizable: boolean | undefined;
-  frameElement: Nullable<HTMLDivElement>;
-  boundary?: Boundary;
-  setDimension: SetDimension;
-}
-
-export function useFrameResize(config: UseFrameResizeConfig) {
-  const { id, resizable, boundary, frameElement, setDimension, frameStatus } =
-    config;
-
+export function useFrameResize(
+  id: string,
+  setDimension: SetDimension,
+  resizable: boolean | undefined,
+  frame: Nullable<HTMLDivElement>,
+  boundary?: Boundary
+) {
   const runtime = useRuntime();
 
-  useResize(frameElement, {
-    resizable: resizable && (!frameStatus || frameStatus === "normal"),
-    boundingRect: boundaryToBoundingRect(boundary || {}),
+  useResize(frame, {
+    resizable,
+    boundingRect: toBoundingRect(boundary || {}),
     onResizeStart() {
       runtime.activate(id);
-      // onChange({ id, type: "activate", isDialog });
     },
-    onResizeEnd(dimension) {
-      // onChange({ id, type: "drag", dimension });
-      setDimension(dimension);
+    onResizeEnd({ top, left, width, height }) {
+      setDimension((current) => ({ ...current, top, left, width, height }));
     },
   });
 }

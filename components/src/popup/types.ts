@@ -1,4 +1,4 @@
-import type { Actionable, Boundary, ClassAndChildren, IconName, MessageType, Second } from "@tntfx/core";
+import type { Actionable, Boundary, ClassAndChildren, Dimension, IconName, MessageType, Second } from "@tntfx/core";
 import type { BackdropProps } from "../backdrop";
 
 export enum PopupType {
@@ -31,7 +31,7 @@ export interface DialogProps extends CommonPopupProps {
   persistent?: boolean;
   isBlocking?: boolean;
   background?: BackdropProps["background"];
-  boundary?: Boundary;
+  boundary?: Dimension;
 }
 export interface DialogPayload extends DialogProps {
   id: string;

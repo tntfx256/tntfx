@@ -19,14 +19,14 @@
     color: var(--color-error);
   }
 
-  &.size-2xSmall {
-    font-size: theme.$fontSize-2xs;
-    font-weight: theme.$fontWeight-2xs;
-    line-height: theme.$lineHeight-2xs;
+  &.size-xxsmall {
+    font-size: theme.$fontSize-xxs;
+    font-weight: theme.$fontWeight-xxs;
+    line-height: theme.$lineHeight-xxs;
   }
   &.size-xSmall {
     font-size: theme.$fontSize-xs;
-    font-weight: theme.$fontWeight-2xs;
+    font-weight: theme.$fontWeight-xxs;
     line-height: theme.$lineHeight-xs;
   }
 
@@ -54,15 +54,15 @@
     line-height: theme.$lineHeight-xl;
   }
 
-  &.size-2xLarge {
-    font-size: theme.$fontSize-2xl;
+  &.size-xxlarge {
+    font-size: theme.$fontSize-xxl;
     font-weight: theme.$fontWeight-xl;
-    line-height: theme.$lineHeight-2xl;
+    line-height: theme.$lineHeight-xxl;
   }
 
-  &.size-3xLarge {
-    font-size: theme.$fontSize-3xl;
-    font-weight: theme.$fontWeight-2xl;
-    line-height: theme.$lineHeight-3xl;
+  &.size-xxxlarge {
+    font-size: theme.$fontSize-xxxl;
+    font-weight: theme.$fontWeight-xxl;
+    line-height: theme.$lineHeight-xxxl;
   }
 }

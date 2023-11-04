@@ -21,7 +21,7 @@ export function Badge(props: ClassAndChildren<BadgeProps>) {
       {children}
       {Boolean(count) && (
         <Box className={classNames("badge", className, `variant-${variant}`)}>
-          <Text fontWeight="bold" size="xs">
+          <Text fontWeight="md" fontSize="xs">
             {count}
           </Text>
         </Box>

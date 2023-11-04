@@ -4,6 +4,7 @@ import { classNames } from "@tntfx/theme";
 import { useTable } from "./table-provider";
 import { Box } from "../layout/box";
 import { Pagination as PaginationComponent } from "../pagination";
+import "./table-pagination.scss";
 
 export function TablePagination(props: ClassName) {
   const { className } = props;
@@ -18,7 +19,7 @@ export function TablePagination(props: ClassName) {
   if (!pager.hasPagination) return null;
 
   return (
-    <Box horizontal className={classNames("table-pagination", className)}>
+    <Box horizontal className={classNames("tablePagination", className)}>
       <PaginationComponent limit={pager.limit} page={pager.page} total={pager.total} onPageChange={handlePageChange} />
     </Box>
   );

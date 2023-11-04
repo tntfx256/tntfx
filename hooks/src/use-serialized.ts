@@ -4,8 +4,10 @@ import type { DependencyList, EffectCallback } from "react";
 import { useEffect, useMemo, useRef } from "react";
 
 type Destructor = ReturnType<EffectCallback> | void;
+type Fn = () => unknown;
+type ExcludeVoidFn<T extends Fn = Fn> = (() => void) extends T ? never : T;
 
-export function useSerializedMemo<T>(factory: () => Exclude<T, void>, deps: DependencyList): T {
+export function useSerializedMemo<T>(factory: ExcludeVoidFn, deps: DependencyList): T {
   const serializedDeps = deps.map(serialize);
 
   return useMemo<T>(factory, serializedDeps);

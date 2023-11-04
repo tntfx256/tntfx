@@ -1,0 +1,107 @@
+@use "@tntfx/theme";
+
+:root {
+  color-scheme: light;
+
+  --shadow-strength: 1%;
+  --shadow-color: 220 3% 15%;
+
+  // palette
+  --color-text: #434454;
+  --color-text-alt: #f5f7fa;
+  //
+  --color-primary: #007bff;
+  --color-primary-text: var(--color-text-alt);
+  --color-secondary: #6c757d;
+  --color-secondary-text: var(--color-text);
+
+  --color-info: #17a2b8;
+  --color-info-text: var(--color-text);
+  --color-success: #28a745;
+  --color-success-text: var(--color-text);
+  --color-warning: #ffc107;
+  --color-warning-text: var(--color-text-alt);
+  --color-error: #dc3545;
+  --color-error-text: var(--color-text-alt);
+
+  --color-body: #f5f7fa;
+  --color-body-text: var(--color-text);
+  --color-surface: #e6e9ed;
+  --color-surface-text: var(--color-text);
+  --color-element: #ccd1d9;
+  --color-element-text: var(--color-text);
+  --color-element-alt: #aab2bd;
+  --color-element-alt-text: var(--color-text-alt);
+
+  --color-border: #dadada;
+}
+
+// DARK MODE
+@media (prefers-color-scheme: dark) {
+  // :root[data-color-schema="dark"] {
+  :root {
+    color-scheme: dark;
+
+    --shadow-strength: 10%;
+    --shadow-color: 220 40% 2%;
+
+    // palette
+    --color-text: #434454;
+    --color-text-alt: #f5f7fa;
+    //
+    --color-primary: #007bff;
+    --color-primary-text: var(--color-text-alt);
+    --color-secondary: #6c757d;
+    --color-secondary-text: var(--color-text);
+
+    --color-info: #17a2b8;
+    --color-info-text: var(--color-text);
+    --color-success: #28a745;
+    --color-success-text: var(--color-text);
+    --color-warning: #ffc107;
+    --color-warning-text: var(--color-text-alt);
+    --color-error: #dc3545;
+    --color-error-text: var(--color-text-alt);
+
+    --color-body: #f5f7fa;
+    --color-body-text: var(--color-text);
+    --color-surface: #e6e9ed;
+    --color-surface-text: var(--color-text);
+    --color-element: #ccd1d9;
+    --color-element-text: var(--color-text);
+    --color-element-alt: #aab2bd;
+    --color-element-alt-text: var(--color-text-alt);
+
+    --color-border: #dadada;
+  }
+}
+
+:root {
+  --shadow-xs: 0 1px 2px -1px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 9%));
+  --shadow-sm: 0 3px 5px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 3%)),
+    0 7px 14px -5px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 5%));
+  --shadow-md: 0 -1px 3px 0 hsl(var(--shadow-color) / calc(var(--shadow-strength) + 2%)),
+    0 1px 2px -5px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 2%)),
+    0 2px 5px -5px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 4%)),
+    0 4px 12px -5px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 5%)),
+    0 12px 15px -5px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 7%));
+  --shadow-lg: 0 -2px 5px 0 hsl(var(--shadow-color) / calc(var(--shadow-strength) + 2%)),
+    0 1px 1px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 3%)),
+    0 2px 2px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 3%)),
+    0 5px 5px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 4%)),
+    0 9px 9px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 5%)),
+    0 16px 16px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 6%));
+  --shadow-xl: 0 -1px 2px 0 hsl(var(--shadow-color) / calc(var(--shadow-strength) + 2%)),
+    0 2px 1px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 3%)),
+    0 5px 5px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 3%)),
+    0 10px 10px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 4%)),
+    0 20px 20px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 5%)),
+    0 40px 40px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 7%));
+  --shadow-xxl: 0 -1px 2px 0 hsl(var(--shadow-color) / calc(var(--shadow-strength) + 2%)),
+    0 3px 2px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 3%)),
+    0 7px 5px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 3%)),
+    0 12px 10px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 4%)),
+    0 22px 18px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 5%)),
+    0 41px 33px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 6%)),
+    0 100px 80px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 7%));
+}

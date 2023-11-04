@@ -10,22 +10,26 @@
   border-radius: inherit;
   white-space: nowrap;
 
-  &._as-header {
+  &__title {
+    padding-left: theme.$spacing-md;
+  }
+
+  &.--as-header {
     height: theme.$layout-height-header;
     min-height: theme.$layout-height-header;
 
-    > .toolbar-section {
+    > .toolbarSection {
       &:last-of-type:not(:first-of-type) {
         justify-content: flex-end;
       }
     }
   }
 
-  &._as-footer {
+  &.--as-footer {
     height: theme.$layout-height-footer;
     max-height: theme.$layout-height-footer;
 
-    > .toolbar-section {
+    > .toolbarSection {
       justify-content: flex-end;
     }
   }

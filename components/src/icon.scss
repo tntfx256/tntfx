@@ -10,13 +10,8 @@
   flex-flow: column nowrap;
   align-items: center;
   justify-content: center;
-  padding: theme.$spacing-sm;
   border: 1px solid transparent;
   border-radius: theme.$borderRadius-sm;
-
-  &.clickable {
-    cursor: pointer;
-  }
 
   .text {
     margin: $textOffset 0 0 0;
@@ -25,7 +20,7 @@
     white-space: nowrap;
   }
 
-  &.layout-horizontal {
+  &.--horizontal {
     flex-flow: row nowrap;
 
     .text {

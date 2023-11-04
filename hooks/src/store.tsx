@@ -47,7 +47,7 @@ export function initStore<S>(config: StoreConfig) {
         store[1](state as S);
       },
       [state],
-      true,
+      true
     );
 
     return <StoreContext.Provider value={store}>{children}</StoreContext.Provider>;

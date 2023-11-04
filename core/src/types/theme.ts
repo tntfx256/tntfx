@@ -1,21 +1,52 @@
-export type Status = "Error" | "Idle" | "Loading" | "Success";
+export enum Status {
+  Error = "error",
+  Idle = "idle",
+  Loading = "loading",
+  Success = "success",
+}
+export const statuses = Object.values(Status) as Status[];
 
-export type Layout = "grid" | "horizontal" | "vertical";
-export type MessageType = "error" | "info" | "question" | "success" | "warning";
-export type Variant = "default" | "primary" | "secondary" | "destructive";
-export type Shape = "contained" | "outlined" | "void";
-export type Size =
-  | "3xs"
-  | "2xs"
-  | "xs"
-  | "sm"
-  | "md"
-  | "lg"
-  | "xl"
-  | "2xl"
-  | "3xl"
-  | "4xl"
-  | "5xl"
-  | "6xl";
+export enum Layout {
+  Grid = "grid",
+  Horizontal = "horizontal",
+  Vertical = "vertical",
+}
+export const layouts = Object.values(Layout) as Layout[];
+
+export enum MessageType {
+  Error = "error",
+  Info = "info",
+  Question = "question",
+  Success = "success",
+  Warning = "warning",
+}
+export const messageTypes = Object.values(MessageType) as MessageType[];
+
+export enum Variant {
+  Default = "default",
+  Primary = "primary",
+  Secondary = "secondary",
+  Destructive = "destructive",
+}
+export const variants = Object.values(Variant) as Variant[];
+
+export enum Shape {
+  Contained = "contained",
+  Outlined = "outlined",
+  Void = "void",
+}
+export const shapes = Object.values(Shape) as Shape[];
+
+export enum Size {
+  "xxs" = "xxs",
+  "xs" = "xs",
+  "sm" = "sm",
+  "md" = "md",
+  "lg" = "lg",
+  "xl" = "xl",
+  "xxl" = "xxl",
+  "xxxl" = "xxxl",
+}
+export const sizes = Object.values(Size) as Size[];
 
 export type Animation = "slide-right" | "zoom" | "slide-up";

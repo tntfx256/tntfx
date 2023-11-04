@@ -22,7 +22,7 @@ export function Table<T>(props: ClassAndChildren<TableProps<T>>) {
     <TableProvider {...values}>
       <Box className={classNames("table-wrapper", className)}>
         {title && (
-          <Text className="table-title" size="lg">
+          <Text className="table-title" fontSize="lg" as="h1" variant="primary">
             {title}
           </Text>
         )}
@@ -42,7 +42,7 @@ export function Table<T>(props: ClassAndChildren<TableProps<T>>) {
 
         {caption && (
           <caption className="table-caption">
-            <Text size="xs">{caption}</Text>
+            <Text fontSize="xs">{caption}</Text>
           </caption>
         )}
         <Loader background="blur" visible={props.isLoading} />

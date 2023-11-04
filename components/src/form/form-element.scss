@@ -2,7 +2,6 @@
 
 .form-element {
   @include theme.disabled;
-  @include theme.hover;
 
   position: relative;
   display: flex;

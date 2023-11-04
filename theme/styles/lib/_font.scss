@@ -29,29 +29,29 @@ $fontFamily-mono:
   Source Code Pro,
   monospace;
 
-$fontSize-2xs: utils.toRem(8);
+$fontSize-xxs: utils.toRem(8);
 $fontSize-xs: utils.toRem(10);
 $fontSize-sm: utils.toRem(13);
 $fontSize-md: utils.toRem(16);
 $fontSize-lg: utils.toRem(20);
 $fontSize-xl: utils.toRem(24);
-$fontSize-2xl: utils.toRem(36);
-$fontSize-3xl: utils.toRem(48);
+$fontSize-xxl: utils.toRem(36);
+$fontSize-xxxl: utils.toRem(48);
 
-$lineHeight-2xs: utils.toRem(14);
+$lineHeight-xxs: utils.toRem(14);
 $lineHeight-xs: utils.toRem(16);
 $lineHeight-sm: utils.toRem(20);
 $lineHeight-md: utils.toRem(24);
 $lineHeight-lg: utils.toRem(28);
 $lineHeight-xl: utils.toRem(32);
-$lineHeight-2xl: utils.toRem(48);
-$lineHeight-3xl: utils.toRem(56);
+$lineHeight-xxl: utils.toRem(48);
+$lineHeight-xxxl: utils.toRem(56);
 
-$fontWeight-2xs: 100;
+$fontWeight-xxs: 100;
 $fontWeight-xs: 200;
 $fontWeight-sm: 300;
 $fontWeight-md: 300;
 $fontWeight-lg: 400;
 $fontWeight-xl: 500;
-$fontWeight-2xl: 700;
-$fontWeight-3xl: 900;
+$fontWeight-xxl: 700;
+$fontWeight-xxxl: 900;

@@ -24,7 +24,7 @@ export function Sidebar(props: ClassAndChildren<SidebarProps>) {
     <Backdrop
       animation="slide-right"
       background="blur"
-      className={classNames("sidebar-backdrop", { "__with-body": hasBody }, [className, "-backdrop"])}
+      className={classNames("sidebar__backdrop", { "__with-body": hasBody }, [className, "-backdrop"])}
       isOpen={hasBody || isOpen}
       overlay={hasBody ? false : overlay}
       onClick={hasBody ? undefined : onClickOutside}

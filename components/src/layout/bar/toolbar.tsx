@@ -1,7 +1,5 @@
 import type { Actions, IconName, OnAction } from "@tntfx/core";
-import { classNames } from "@tntfx/theme";
-import type { ForwardedRef } from "react";
-import { forwardRef } from "react";
+import { classNames, parseProps } from "@tntfx/theme";
 import { Icon } from "../../icon";
 import { Text } from "../../typography";
 import type { BoxProps } from "../box";
@@ -23,37 +21,17 @@ type ToolbarProps = Omit<BoxProps, "horizontal"> & {
   onAction?: OnAction;
 };
 
-function ToolbarWithRef(
-  props: ToolbarProps,
-  ref: ForwardedRef<HTMLDivElement>
-) {
-  const {
-    actions,
-    onAction,
-    className,
-    children,
-    as,
-    icon = "",
-    onIconClick,
-    title,
-
-    ...boxProps
-  } = props;
+export function Toolbar(props: ToolbarProps) {
+  const [className, { actions, onAction, children, as, icon, onIconClick, title, ...boxProps }] = parseProps(props);
 
   const hasTitlebar = Boolean(icon || title);
 
   return (
-    <Box
-      horizontal
-      className={classNames("toolbar", `_as-${as}`, className)}
-      ref={ref}
-      role="toolbar"
-      {...boxProps}
-    >
+    <Box horizontal className={classNames("toolbar", `--as-${as}`, className)} role="toolbar" {...boxProps}>
       {hasTitlebar && (
-        <ToolbarSection className="toolbar-title">
-          <Icon size="lg" name={icon} onClick={onIconClick} />
-          <Text as="h1" role="heading">
+        <ToolbarSection className="toolbar__title">
+          {icon && <Icon size="md" name={icon} onClick={onIconClick} />}
+          <Text as="h1" fontSize="lg" role="heading">
             {title}
           </Text>
         </ToolbarSection>
@@ -65,5 +43,3 @@ function ToolbarWithRef(
     </Box>
   );
 }
-
-export const Toolbar = forwardRef(ToolbarWithRef);

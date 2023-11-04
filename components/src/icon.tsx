@@ -1,23 +1,19 @@
+import type { MaybePromise, WithChildren } from "@tntfx/core";
+import { classNames, parseProps } from "@tntfx/theme";
 import type { MouseEvent } from "react";
-import { memo, useCallback } from "react";
-import type { ClassAndChildren, Layout, MaybePromise, Variant } from "@tntfx/core";
-import { classNames } from "@tntfx/theme";
+import { useCallback } from "react";
+import "./icon.scss";
 import type { SvgProps } from "./svg";
 import { Svg } from "./svg";
 import { Text } from "./typography/text";
-import "./icon.scss";
 
 type IconProps = SvgProps & {
-  color?: string;
-  layout?: Layout;
   title?: string;
-  disabled?: boolean;
-  variant?: Variant;
   onClick?: () => MaybePromise<void>;
 };
 
-export const Icon = memo(function Icon(props: ClassAndChildren<IconProps>) {
-  const { className, name, disabled, onClick, title, color, size = "medium", layout = "vertical", variant } = props;
+export function Icon(props: WithChildren<IconProps>) {
+  const [className, { name, disabled, onClick, title, ...btnProps }] = parseProps(props);
 
   const handleClick = useCallback(
     (e: MouseEvent) => {
@@ -33,14 +29,15 @@ export const Icon = memo(function Icon(props: ClassAndChildren<IconProps>) {
     [onClick, disabled]
   );
 
-  const classes = classNames("icon", className, `icon-${name}`, `layout-${layout}`, `variant-${variant}`, {
-    clickable: onClick && !disabled,
-  });
-
   return (
-    <button className={classes} disabled={disabled} style={{ color }} onClick={handleClick}>
-      <Svg name={name} size={size} />
-      {title && <Text size={size}>{title}</Text>}
+    <button
+      className={classNames("icon", className, `icon-${name}`)}
+      disabled={disabled}
+      onClick={handleClick}
+      {...btnProps}
+    >
+      <Svg name={name} size={props.size || "md"} color={props.color} />
+      {title && <Text>{title}</Text>}
     </button>
   );
-});
+}

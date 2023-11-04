@@ -1,49 +1,41 @@
-import { useEffect, useState } from "react";
-import type { Boundary, Nullable } from "@tntfx/core";
-import { boundaryToBoundingRect } from "@tntfx/core";
+import type { Boundary, Dimension, Nullable } from "@tntfx/core";
+import { toBoundingRect } from "@tntfx/core";
 import { useDrag, useRuntime } from "@tntfx/hooks";
+import { useEffect, useState } from "react";
 import type { SetDimension } from "./types";
-import { FrameStatus } from "./types";
 
-interface UseFrameDragConfig {
-  id: string;
-  // isDialog?: boolean;
-  frameStatus?: FrameStatus;
-  draggable: boolean | undefined;
-  frameElement: Nullable<HTMLDivElement>;
-  boundary?: Boundary;
-  setDimension: SetDimension;
-}
-
-export function useFrameDrag(config: UseFrameDragConfig) {
-  const { id, frameElement, frameStatus, draggable, boundary, setDimension } =
-    config;
-
+export function useFrameDrag(
+  id: string,
+  setDimension: SetDimension,
+  draggable: boolean | undefined,
+  frame: Nullable<HTMLDivElement>,
+  boundary?: Boundary
+) {
   const runtime = useRuntime();
-  const [headerElement, setHeaderElement] =
-    useState<Nullable<HTMLDivElement>>(null);
+  const [headerElement, setHeaderElement] = useState<Nullable<HTMLDivElement>>(null);
 
   useDrag(headerElement, {
-    boundingRect: boundaryToBoundingRect(boundary || {}),
-    target: frameElement,
-    draggable:
-      draggable && (!frameStatus || frameStatus === FrameStatus.Normal),
+    draggable,
+    boundingRect: toBoundingRect(boundary || {}),
     onDragStart() {
       runtime.activate(id);
-      // onChange({ id, type: "activate", isDialog });
     },
-    onDragEnd(dimension) {
-      // onChange({ id, type: "drag", dimension, isDialog });
-      setDimension(dimension);
+    onDragging({ top, left }) {
+      if (frame) {
+        frame.style.top = `${top}px`;
+        frame.style.left = `${left}px`;
+      }
+    },
+    onDragEnd({ top, left }) {
+      setDimension((current) => ({ ...current, top, left }) as Dimension);
     },
   });
 
   useEffect(() => {
-    if (headerElement || !frameElement) {
+    if (headerElement || !frame) {
       return;
     }
-    setHeaderElement(
-      frameElement.querySelector<HTMLDivElement>(".frame-header")
-    );
-  }, [frameElement, headerElement]);
+
+    setHeaderElement(frame.querySelector<HTMLDivElement>(".frame-header"));
+  }, [frame, headerElement]);
 }

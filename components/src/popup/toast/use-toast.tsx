@@ -1,5 +1,5 @@
 import { useId } from "react";
-import type { Nullable, SerializableError } from "@tntfx/core";
+import { MessageType, type Nullable, type SerializableError } from "@tntfx/core";
 import { useStore } from "./toast-context";
 import type { ToastPayload } from "../types";
 
@@ -20,7 +20,7 @@ export function useToast() {
       onClose: payload?.onClose || hide,
       title: payload?.title || (error ? error.name : "An error ocurred"),
       children: payload?.children || (error ? error.message : ""),
-      type: payload?.type || (error ? "error" : "info"),
+      type: payload?.type || (error ? MessageType.Error : MessageType.Info),
     };
     setState({ toasts: [...toasts, toast] });
   }

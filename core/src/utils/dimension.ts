@@ -1,21 +1,29 @@
+import type { BoundingRect, Dimension } from "../types";
 import { isServer } from "./etc";
-import type { Boundary, BoundingRect, Dimension } from "../types";
 
-const MinFrameSize = 420;
-const MinDialogSize = 360;
-const Columns = 28;
-const MaxFrameWidth = 768;
+export const Breakpoints = {
+  xxs: 240,
+  xs: 360,
+  sm: 480,
+  md: 768,
+  lg: 1024,
+  xl: 1440,
+  xxl: 1920,
+};
 
-function calcOffset(boundingRect: Dimension) {
-  const Rows = Math.ceil(Columns * (boundingRect.height / boundingRect.width));
-  return { X: Math.ceil(boundingRect.width / Columns), Y: Math.ceil(boundingRect.height / Rows) };
-}
+const MinFrameWidth = Breakpoints.sm;
+const MaxFrameWidth = Breakpoints.md;
+
+const MinDialogWidth = Breakpoints.xxs;
+const MaxDialogWidth = Breakpoints.xs;
+
+const RATIO = 1.6;
 
 export function getScreenDimension() {
   if (isServer()) {
     return {
-      desktop: { top: 0, left: 0, height: 768, width: 1024 },
-      screen: { top: 0, left: 0, height: 768, width: 1024 },
+      desktop: { top: 0, left: 0, height: Breakpoints.md, width: Breakpoints.lg },
+      screen: { top: 0, left: 0, height: Breakpoints.md, width: Breakpoints.lg },
     };
   }
 
@@ -26,67 +34,62 @@ export function getScreenDimension() {
   };
 }
 
-export function dimensionToBoundingRect(dimension: Dimension): BoundingRect {
-  return { ...dimension, right: dimension.left + dimension.width, bottom: dimension.top + dimension.height };
-}
-
-export function boundaryToBoundingRect(boundary: Partial<Dimension>): BoundingRect {
+export function toBoundingRect(boundary: Partial<BoundingRect> = {}): BoundingRect {
   const { desktop } = getScreenDimension();
   const { top = 0, left = 0, width = desktop.width, height = desktop.height } = boundary;
 
   return { top, left, width, height, right: left + width, bottom: top + height };
 }
 
-export function getMinDimension(isDialog = false): Dimension {
+export function getMinDimension(isDialog = false, boundary?: Dimension) {
+  boundary = boundary || getScreenDimension().desktop;
+
+  // making sure that width and heigh are not bigger than the boundary
   return {
-    top: 0,
-    left: 0,
-    width: isDialog ? MinDialogSize : MinFrameSize,
-    height: isDialog ? MinDialogSize : MinFrameSize,
+    minWidth: Math.min(isDialog ? MinDialogWidth : MinFrameWidth, boundary.width),
+    minHeight: Math.min(isDialog ? MinDialogWidth / RATIO : MinFrameWidth / RATIO, boundary.height),
+
+    maxWidth: Math.min(isDialog ? MaxDialogWidth : MaxFrameWidth, boundary.width),
+    maxHeight: Math.min(isDialog ? MaxDialogWidth / RATIO : MaxFrameWidth / RATIO),
   };
 }
 
-export function calcInitialFrameDimension(
-  boundary?: Boundary
-  // initialDimension?: Dimension
-): Dimension {
-  const { desktop } = getScreenDimension();
-  const hasBoundingRect = Boolean(boundary);
+export function calcInitialFrameDimension(isDialog = false, boundary?: Dimension): Dimension {
+  const { minWidth, minHeight, maxWidth, maxHeight } = getMinDimension(isDialog, boundary);
+  const boundingRect = toBoundingRect(boundary);
 
-  const boundingRect = boundary ? boundaryToBoundingRect(boundary) : dimensionToBoundingRect(desktop);
+  const width = boundingRect.width * 0.8;
+  const height = width / RATIO;
+  const dimension: Dimension = {
+    width: Math.floor(width),
+    height: Math.floor(height),
+    top: boundingRect.top + (boundingRect.height - height) / 2,
+    left: boundingRect.left + (boundingRect.width - width) / 2,
+  };
 
-  const offset = calcOffset(boundingRect);
-
-  // initialDimension = initialDimension || getMinDimension();
-
-  let width = Math.min(
-    Math.ceil(Math.min(boundingRect.width / 1.25, boundingRect.width - 2 * offset.X)), // initialDimension.width
-    MaxFrameWidth
-  );
-  let height = Math.ceil(Math.min(boundingRect.height / 1.25, boundingRect.height - 2 * offset.Y)); // initialDimension.height
-
-  let left = offset.X;
-  let top = offset.Y;
-
-  if (hasBoundingRect) {
-    // put the popup in the middle
-    left = Math.ceil(boundingRect.left + (boundingRect.width - width) / 2);
-    top = Math.ceil(boundingRect.top + (boundingRect.height - height) / 2);
+  if (dimension.width < minWidth) {
+    dimension.width = minWidth;
+  } else if (dimension.width > maxWidth) {
+    dimension.width = maxWidth;
   }
-  // else {
-  // check overlap with other frames
-  // while (otherFrames.some((frame) => frame.top === top || frame.left === left)) {
-  //   if (
-  //     left + width + offset.X <= boundingRect.left + boundingRect.width &&
-  //     top + height + offset.Y <= boundingRect.top + boundingRect.height
-  //   ) {
-  //     left += offset.X;
-  //     top += offset.Y;
-  //   } else {
-  //     break;
-  //   }
-  // }
-  // }
 
-  return { height, left, top, width };
+  if (dimension.height < minHeight) {
+    dimension.height = minHeight;
+  } else if (dimension.height > maxHeight) {
+    dimension.height = maxHeight;
+  }
+
+  dimension.top = Math.floor((boundingRect.height - dimension.height) / 2);
+  dimension.left = Math.floor((boundingRect.width - dimension.width) / 2);
+
+  return dimension;
+}
+
+export function isInBoundary(boundary: BoundingRect, x: number, y: number, padding = 0) {
+  return (
+    x >= boundary.left + padding &&
+    x <= boundary.right - padding &&
+    y >= boundary.top + padding &&
+    y <= boundary.bottom - padding
+  );
 }

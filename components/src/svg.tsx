@@ -1,42 +1,36 @@
-import type { MouseEvent } from "react";
-import { memo, useCallback } from "react";
-import type { ClassName, IconName, Size } from "@tntfx/core";
+import type { IconName } from "@tntfx/core";
 import { IconsMap } from "@tntfx/core";
-import { classNames } from "@tntfx/theme";
+import { EnhancedProps, classNames, parseProps } from "@tntfx/theme";
+import type { MouseEvent } from "react";
+import { useCallback } from "react";
 import "./svg.scss";
 
-export type SvgProps = {
+export type SvgProps = Partial<EnhancedProps> & {
   name: IconName;
-  color?: string;
-  size?: Size;
-  disabled?: boolean;
   onClick?: () => void;
 };
 
-export const Svg = memo(function Svg(props: ClassName<SvgProps>) {
-  const { name, className, size, color, disabled, onClick } = props;
+export function Svg(props: SvgProps) {
+  const [className, svgProps] = parseProps(props);
 
-  const handleClick = useCallback(
-    (e: MouseEvent) => {
-      if (onClick) {
-        e.preventDefault();
-        e.stopPropagation();
+  const handleClick = useCallback((e: MouseEvent) => {
+    if (props.onClick) {
+      e.preventDefault();
+      e.stopPropagation();
 
-        if (!disabled) {
-          onClick();
-        }
+      if (!props.disabled) {
+        props.onClick();
       }
-    },
-    [disabled, onClick]
-  );
+    }
+  }, []);
 
-  return name ? (
+  return props.name ? (
     <>
-      {IconsMap[name]?.({
-        className: classNames("svg", className, `svg-${name}`, `size-${size}`, { disabled }),
-        style: { color },
+      {IconsMap[props.name]?.({
+        className: classNames("svg", `svg-${props.name}`, className),
         onClick: handleClick,
-      }) || `[${name}]`}
+        ...svgProps,
+      }) || `[${props.name}]`}
     </>
   ) : null;
-});
+}

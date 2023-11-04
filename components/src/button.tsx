@@ -1,25 +1,22 @@
+import type { Any, IconName, MaybePromise, WithChildren } from "@tntfx/core";
+import { useToggle } from "@tntfx/hooks";
+import { EnhancedProps, classNames, parseProps } from "@tntfx/theme";
 import type { MouseEvent } from "react";
 import { useCallback } from "react";
-import type { Any, ClassAndChildren, IconName, MaybePromise, Shape, Variant } from "@tntfx/core";
-import { useToggle } from "@tntfx/hooks";
-import { classNames } from "@tntfx/theme";
 import { Loader } from "./loader";
 import { Svg } from "./svg";
 import "./button.scss";
 
-export interface ButtonProps {
+export interface ButtonProps extends WithChildren, EnhancedProps {
   title?: string;
   isLoading?: boolean;
-  disabled?: boolean;
-  variant?: Variant;
-  shape?: Shape;
   onClick?: () => MaybePromise<Any>;
   startIcon?: IconName;
   endIcon?: IconName;
 }
 
-export function Button(props: ClassAndChildren<ButtonProps>) {
-  const { children, title, className, isLoading, onClick, disabled, shape, variant, startIcon, endIcon } = props;
+export function Button(props: ButtonProps) {
+  const [className, { children, title, isLoading, onClick, disabled, startIcon, endIcon, ...rest }] = parseProps(props);
 
   const [isInnerLoading, showInnerLoader, hideInnerLoader] = useToggle();
 
@@ -37,16 +34,17 @@ export function Button(props: ClassAndChildren<ButtonProps>) {
         hideInnerLoader();
       }
     },
-    [disabled, hideInnerLoader, isLoading, onClick, showInnerLoader],
+    [disabled, hideInnerLoader, isLoading, onClick, showInnerLoader]
   );
 
   const showLoader = isInnerLoading || isLoading;
 
   return (
     <button
-      className={classNames("button", className, `variant-${variant}`, `shape-${shape}`, { loading: isLoading })}
       disabled={disabled}
+      className={classNames("button", className, { loading: isLoading })}
       onClick={handleClick}
+      {...rest}
     >
       {startIcon && <Svg name={startIcon} />}
       {title}

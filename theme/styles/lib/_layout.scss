@@ -6,53 +6,27 @@ $size-sm: utils.toRem(24);
 $size-md: utils.toRem(32);
 $size-lg: utils.toRem(40);
 $size-xl: utils.toRem(48);
-$size-2xl: utils.toRem(56);
-$size-3xl: utils.toRem(64);
-$size-4xl: utils.toRem(72);
-
-$sizes: (
-  xs: $size-xs,
-  sm: $size-sm,
-  md: $size-md,
-  lg: $size-lg,
-  xl: $size-xl,
-  2xl: $size-2xl,
-  3xl: $size-3xl,
-  4xl: $size-4xl,
-);
+$size-xxl: utils.toRem(56);
+$size-xxxl: utils.toRem(64);
 
 $spacing-xs: utils.toRem(2);
 $spacing-sm: utils.toRem(4);
 $spacing-md: utils.toRem(8);
 $spacing-lg: utils.toRem(12);
 $spacing-xl: utils.toRem(16);
-$spacing-2xl: utils.toRem(24);
-$spacing-3xl: utils.toRem(32);
-$spacing-4xl: utils.toRem(48);
-
-$spacing: (
-  xs: $spacing-xs,
-  sm: $spacing-sm,
-  md: $spacing-md,
-  lg: $spacing-lg,
-  xl: $spacing-xl,
-  2xl: $spacing-2xl,
-  3xl: $spacing-3xl,
-  4xl: $spacing-4xl,
-);
+$spacing-xxl: utils.toRem(24);
+$spacing-xxxl: utils.toRem(32);
 
 $elementWidth-xs: utils.toRem(24);
 $elementWidth-sm: utils.toRem(32);
 $elementWidth-md: utils.toRem(64);
 $elementWidth-lg: utils.toRem(96);
 $elementWidth-xl: utils.toRem(128);
-$elementWidth-2xl: utils.toRem(160);
-$elementWidth-3xl: utils.toRem(192);
-$elementWidth-4xl: utils.toRem(224);
+$elementWidth-xxl: utils.toRem(160);
+$elementWidth-xxxl: utils.toRem(192);
 
 $layout-height-element-sm: utils.toRem(32);
 $layout-height-element: utils.toRem(38);
+// $layout-height-element-lg: utils.toRem(48);;
 $layout-height-footer: utils.toRem(44);
 $layout-height-header: utils.toRem(50);
-
-// $layout-height-element-lg: 48;

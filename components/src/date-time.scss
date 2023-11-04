@@ -1,6 +1,6 @@
 @use "@tntfx/theme";
 
-.date-time {
+.dateTime {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,6 +8,12 @@
   padding: theme.$spacing-md 0;
 
   &__time {
-    font-weight: theme.$fontWeight-sm;
+    @include theme.row(center);
+    font-size: var(--fontSize-xl);
+  }
+
+  &__date {
+    @include theme.row(center);
+    font-size: var(--fontSize-md);
   }
 }

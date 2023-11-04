@@ -1,13 +1,12 @@
 @use "@tntfx/theme";
 
-.toolbar-controls {
+.frameControls {
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
 
   .icon {
-    @include theme.hover;
     align-self: flex-start;
     border-radius: 0;
     padding: theme.$spacing-xs;
