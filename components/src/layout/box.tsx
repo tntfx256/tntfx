@@ -1,8 +1,8 @@
+import type { ForwardedRef, HTMLAttributes } from "react";
+import { forwardRef } from "react";
 import type { ClassAndChildren } from "@tntfx/core";
 import type { EnhancedProps } from "@tntfx/theme";
 import { classNames, parseProps } from "@tntfx/theme";
-import type { ForwardedRef, HTMLAttributes } from "react";
-import { forwardRef } from "react";
 import "./box.scss";
 
 export type BoxProps = HTMLAttributes<HTMLDivElement> & EnhancedProps;

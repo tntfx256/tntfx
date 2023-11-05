@@ -8,8 +8,8 @@
 
   .icon {
     align-self: flex-start;
-    border-radius: 0;
     padding: theme.$spacing-xs;
+    border-radius: 0;
 
     &-cross:not(:disabled) {
       &:hover {

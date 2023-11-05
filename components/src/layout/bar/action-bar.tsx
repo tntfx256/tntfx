@@ -1,4 +1,4 @@
-import { Actionable, ClassAndChildren } from "@tntfx/core";
+import type { Actionable, ClassAndChildren } from "@tntfx/core";
 import { classNames, parseProps } from "@tntfx/theme";
 import type { ToolbarSectionProps } from "./toolbar-section";
 import { ToolbarSection } from "./toolbar-section";

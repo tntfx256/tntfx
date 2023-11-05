@@ -17,7 +17,7 @@ export function assertValue<T = Any>(value: T, ...fields: string[]): asserts val
 
   if (fields.length) {
     const missingFields = fields.filter(
-      (field) => assertObject(value) && field in (value as Any) && !EmptyValues.includes((value as Any)[field]),
+      (field) => assertObject(value) && field in (value as Any) && !EmptyValues.includes((value as Any)[field])
     );
     if (missingFields.length) {
       throw Err(Err.Name.VALIDATION, Err.Message.VALUE_REQUIRED, `MISSING_FIELDS ${missingFields}`);

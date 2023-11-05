@@ -44,8 +44,8 @@
 @mixin row($justify: flex-start, $align: center) {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: $justify;
   align-items: $align;
+  justify-content: $justify;
   white-space: nowrap;
 }
 

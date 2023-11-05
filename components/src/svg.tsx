@@ -1,8 +1,9 @@
-import type { IconName } from "@tntfx/core";
-import { IconsMap } from "@tntfx/core";
-import { EnhancedProps, classNames, parseProps } from "@tntfx/theme";
 import type { MouseEvent } from "react";
 import { useCallback } from "react";
+import type { IconName } from "@tntfx/core";
+import { IconsMap } from "@tntfx/core";
+import type { EnhancedProps } from "@tntfx/theme";
+import { classNames, parseProps } from "@tntfx/theme";
 import "./svg.scss";
 
 export type SvgProps = Partial<EnhancedProps> & {

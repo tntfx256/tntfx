@@ -47,7 +47,7 @@ const rulesValidationOrder: (keyof FieldProps)[] = [
 export class Field<N extends string = string> {
   constructor(
     public name: N,
-    public props: FieldProps = { type: "String" },
+    public props: FieldProps = { type: "String" }
   ) {}
 
   validate(value: Any): Nullable<FieldValidationResult> {

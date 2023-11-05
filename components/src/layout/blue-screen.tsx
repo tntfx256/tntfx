@@ -16,8 +16,7 @@ export function BlueScreen(props: BlueScreenProps) {
   const { error: rawError, reset } = props;
 
   const [isErrorDetailVisible, showDetails, hideDetails] = useToggle();
-  const { name, message, description, originalName, code, stack, status } =
-    finalizeError(rawError);
+  const { name, message, description, originalName, code, stack, status } = finalizeError(rawError);
 
   return (
     <div style={wrapperStyle}>

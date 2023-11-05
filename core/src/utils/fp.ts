@@ -11,5 +11,5 @@ export const splitProperties =
     Object.entries(value).reduce(
       ([picked, rest], [k, v]) =>
         keysToPick.includes(k as Any) ? [{ ...picked, [k]: v }, rest] : [picked, { ...rest, [k]: v }],
-      [{} as Pick<V, K>, {} as Omit<V, K>],
+      [{} as Pick<V, K>, {} as Omit<V, K>]
     );

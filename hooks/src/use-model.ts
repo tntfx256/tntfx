@@ -20,7 +20,7 @@ export function useModel<I extends TObject = TObject>(builder: ModelConstructor<
       model.setValues({ [name]: value } as Any);
       setValues(model.getValues());
     },
-    [model],
+    [model]
   );
 
   const handleModelValueChange = useCallback(
@@ -28,7 +28,7 @@ export function useModel<I extends TObject = TObject>(builder: ModelConstructor<
       model.setValues(values);
       setValues(model.getValues());
     },
-    [model],
+    [model]
   );
 
   const handleResponse = useCallback(
@@ -54,7 +54,7 @@ export function useModel<I extends TObject = TObject>(builder: ModelConstructor<
       return result;
     },
 
-    [model.fieldNames],
+    [model.fieldNames]
   );
 
   const validate = useCallback(
@@ -69,7 +69,7 @@ export function useModel<I extends TObject = TObject>(builder: ModelConstructor<
       }
       return !!violations;
     },
-    [model],
+    [model]
   );
 
   return useMemo(
@@ -81,7 +81,7 @@ export function useModel<I extends TObject = TObject>(builder: ModelConstructor<
       validate,
       values,
     }),
-    [handleModelValueChange, handleResponse, handleValueChange, validate, values, violations],
+    [handleModelValueChange, handleResponse, handleValueChange, validate, values, violations]
   );
 }
 

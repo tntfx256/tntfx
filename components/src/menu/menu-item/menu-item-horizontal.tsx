@@ -1,6 +1,6 @@
-import { ContextMenu } from "../context-menu";
-import { MenuItemProps } from "./menu-item";
+import type { MenuItemProps } from "./menu-item";
 import { MenuItemBase } from "./menu-item-base";
+import { ContextMenu } from "../context-menu";
 import "./menu-item-horizontal.scss";
 
 export function MenuItemHorizontal<T extends string = string>(props: MenuItemProps<T>) {

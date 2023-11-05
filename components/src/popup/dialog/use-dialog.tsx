@@ -1,8 +1,8 @@
-import { Action, ActionSet, MessageType, type Nullable, type TError } from "@tntfx/core";
 import { useId } from "react";
+import { Action, ActionSet, MessageType, type Nullable, type TError } from "@tntfx/core";
+import { useStore } from "./dialog-context";
 import { ErrorContent } from "../../layout/error-content";
 import type { DialogPayload } from "../types";
-import { useStore } from "./dialog-context";
 
 type ConfirmPayload = Pick<DialogPayload, "title" | "children" | "boundary">;
 

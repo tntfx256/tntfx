@@ -1,9 +1,9 @@
 @use "@tntfx/theme";
 
 .tableRow {
+  border: 0;
+  border-bottom: 1px solid var(--color-border);
   background-color: var(--color-element);
   color: var(--color-element-text);
   transition: background-color theme.$duration-md theme.$animation-ease();
-  border: 0;
-  border-bottom: 1px solid var(--color-border);
 }

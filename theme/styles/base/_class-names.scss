@@ -60,8 +60,8 @@ $variants: (primary, secondary, destructive, success, warning, info, error);
 .--disabled,
 :disabled {
   cursor: default;
-  pointer-events: none;
   filter: opacity(55%) grayscale(100%);
+  pointer-events: none;
 }
 
 .--hover:hover:not(:disabled, .--disabled, .--selected) {

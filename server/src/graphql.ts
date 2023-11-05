@@ -6,7 +6,7 @@ type TContext = {};
 
 export function createGraphQLHandler(
   typeDefs: IExecutableSchemaDefinition<TContext>["typeDefs"],
-  resolvers: IExecutableSchemaDefinition<TContext>["resolvers"],
+  resolvers: IExecutableSchemaDefinition<TContext>["resolvers"]
 ) {
   const server = new ApolloServer({ resolvers, typeDefs });
 

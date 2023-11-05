@@ -1,5 +1,5 @@
-import type { BoundingRect, Dimension } from "../types";
 import { isServer } from "./etc";
+import type { BoundingRect, Dimension } from "../types";
 
 export const Breakpoints = {
   xxs: 240,

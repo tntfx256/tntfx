@@ -7,26 +7,18 @@ export function useCollection<T>(comparator?: Comparator<T>) {
 
   const add = useCallback((item: T) => {
     setCollection((collection) => [
-      ...collection.filter((cItem) =>
-        comparator ? !comparator(cItem, item) : cItem !== item
-      ),
+      ...collection.filter((cItem) => (comparator ? !comparator(cItem, item) : cItem !== item)),
       item,
     ]);
   }, []);
   const remove = useCallback((item: T) => {
     setCollection((collection) =>
-      collection.filter((colItem) =>
-        comparator ? !comparator(colItem, item) : colItem !== item
-      )
+      collection.filter((colItem) => (comparator ? !comparator(colItem, item) : colItem !== item))
     );
   }, []);
   const has = useCallback(
     (item: T) => {
-      return (
-        collection.findIndex((colItem) =>
-          comparator ? comparator(colItem, item) : colItem === item
-        ) !== -1
-      );
+      return collection.findIndex((colItem) => (comparator ? comparator(colItem, item) : colItem === item)) !== -1;
     },
     [collection]
   );

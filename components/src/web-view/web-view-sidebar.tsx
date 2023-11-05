@@ -8,11 +8,5 @@ export function WebViewSidebar() {
     onLinkClick(link);
   }
 
-  return (
-    <Menu
-      items={links}
-      selected={history.activeItem}
-      onClick={handleLinkClick}
-    />
-  );
+  return <Menu items={links} selected={history.activeItem} onClick={handleLinkClick} />;
 }

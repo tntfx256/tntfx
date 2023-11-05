@@ -9,7 +9,6 @@
   background-color: transparent;
   pointer-events: all;
   transition-timing-function: theme.$animation-ease;
-  overflow: hidden;
 
   &.--bg-blur {
     @include theme.blur(0.25rem);

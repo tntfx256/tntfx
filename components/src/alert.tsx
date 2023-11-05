@@ -1,5 +1,6 @@
 import type { Actions, IconName, OnAction, WithChildren } from "@tntfx/core";
-import { EnhancedProps, classNames } from "@tntfx/theme";
+import type { EnhancedProps } from "@tntfx/theme";
+import { classNames } from "@tntfx/theme";
 import { ActionBar } from "./layout";
 import { Box } from "./layout/box";
 import { Svg } from "./svg";

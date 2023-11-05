@@ -1,17 +1,18 @@
+import { useCallback, useEffect, useState } from "react";
 import { calcInitialFrameDimension, type Dimension } from "@tntfx/core";
 import { useRefState, useToggle } from "@tntfx/hooks";
 import { classNames, parseProps } from "@tntfx/theme";
-import { useCallback, useEffect, useState } from "react";
+import { FrameControls } from "./frame-controls";
+import { FrameProvider } from "./frame-provider";
+import type { FrameProps } from "./types";
+import { FrameStatus } from "./types";
+import { useFrameDimensions } from "./use-frame-dimensions";
+import { useFrameDrag } from "./use-frame-drag";
+import { useFrameResize } from "./use-frame-resize";
 import { Sidebar } from "../../menu";
 import { DialogProvider } from "../../popup/dialog/dialog-context";
 import { Toolbar } from "../bar";
 import { Box } from "../box";
-import { FrameControls } from "./frame-controls";
-import { FrameProvider } from "./frame-provider";
-import { FrameProps, FrameStatus } from "./types";
-import { useFrameDimensions } from "./use-frame-dimensions";
-import { useFrameDrag } from "./use-frame-drag";
-import { useFrameResize } from "./use-frame-resize";
 import "./frame.scss";
 
 export function Frame(props: FrameProps) {
@@ -64,8 +65,8 @@ export function Frame(props: FrameProps) {
   return (
     <FrameProvider dimension={dimension}>
       <Box
-        ref={frameRefHandler}
         className={classNames("frame", `status-${status}`, className, { active: isActive, static: isStatic })}
+        ref={frameRefHandler}
         style={
           dimension
             ? {
@@ -97,8 +98,8 @@ export function Frame(props: FrameProps) {
                   <Toolbar
                     as="header"
                     icon={slots.sidebar ? "sidebar" : icon}
-                    onIconClick={slots.sidebar ? toggleSidebar : undefined}
                     title={title}
+                    onIconClick={slots.sidebar ? toggleSidebar : undefined}
                   >
                     {slots.titlebar}
                     {!isStatic && (

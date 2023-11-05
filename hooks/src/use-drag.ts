@@ -1,6 +1,6 @@
-import type { BoundingRect, Dimension, Nullable } from "@tntfx/core";
-import { toBoundingRect, disableEvent, getEventCoords, isInBoundary } from "@tntfx/core";
 import { useEffect, useRef } from "react";
+import type { BoundingRect, Dimension, Nullable } from "@tntfx/core";
+import { disableEvent, getEventCoords, isInBoundary, toBoundingRect } from "@tntfx/core";
 
 const DRAG_DELAY = 150;
 

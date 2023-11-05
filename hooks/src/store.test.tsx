@@ -1,6 +1,6 @@
+import type { PropsWithChildren } from "react";
 import type { Any, Nullable } from "@tntfx/core";
 import { act, fireEvent, render, screen } from "@tntfx/test";
-import type { PropsWithChildren } from "react";
 import { initStore } from "./store";
 
 type Location = {

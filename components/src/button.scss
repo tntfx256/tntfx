@@ -1,13 +1,6 @@
 @use "@tntfx/theme";
 
 .button {
-  outline: 0;
-  -webkit-tap-highlight-color: rgb(0 0 0 / 0%);
-  -webkit-tap-highlight-color: transparent;
-  -webkit-touch-callout: none;
-  -webkit-appearance: none;
-  appearance: none;
-
   position: relative;
   display: flex;
   overflow: hidden;
@@ -20,9 +13,15 @@
   padding: 0 theme.$spacing-md;
   border: 1px solid transparent;
   border-radius: theme.$borderRadius-sm;
+  -webkit-appearance: none;
+  appearance: none;
   color: var(--color-body-text);
   font-size: theme.$fontSize-sm;
   font-weight: theme.$fontWeight-sm;
+  outline: 0;
+  -webkit-tap-highlight-color: rgb(0 0 0 / 0%);
+  -webkit-tap-highlight-color: transparent;
   text-transform: uppercase;
+  -webkit-touch-callout: none;
   white-space: nowrap;
 }

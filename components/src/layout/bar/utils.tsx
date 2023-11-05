@@ -1,6 +1,7 @@
-import { Action, ActionSet, Actions, Any, Nullable, OnAction, logger } from "@tntfx/core";
 import type { ReactNode } from "react";
 import { useMemo } from "react";
+import type { Actions, Any, Nullable, OnAction } from "@tntfx/core";
+import { Action, ActionSet, logger } from "@tntfx/core";
 import { Button } from "../../button";
 
 export function getActions<T extends string = string>(handleClick?: OnAction<T>, actionSet?: Actions<T>): ReactNode[] {

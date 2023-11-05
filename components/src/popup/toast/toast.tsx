@@ -22,7 +22,7 @@ export function Toast(props: ToastPayload) {
         if (result === false) return;
       }
     },
-    [onAction],
+    [onAction]
   );
 
   useEffect(() => {

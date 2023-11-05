@@ -1,6 +1,8 @@
 import type { Theme } from "@tntfx/theme/components/types";
 import "../styles/base/index.scss";
-import vars from "../styles/export.module.scss";
+import moduleVars from "../styles/export.module.scss";
+
+const vars: any = moduleVars;
 
 export const theme: Theme = {
   breakpoint: {

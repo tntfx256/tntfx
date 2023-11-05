@@ -37,21 +37,21 @@ export function Dialog(props: DialogProps) {
     <Backdrop
       animation="zoom"
       background={background}
+      boundary={frameProps.boundary}
       className={classNames("dialog-backdrop", { [`${className}-dialog-backdrop`]: className })}
       global={global ?? !frameProps.boundary}
       isOpen={isOpen}
       persistent={persistent}
-      boundary={frameProps.boundary}
     >
       <Frame
         isDialog
         className={classNames("dialog", className)}
+        draggable={draggable}
+        resizable={resizable}
         slots={{
           footer: actions || onAction ? <ActionBar actions={actions} onAction={onAction} /> : undefined,
         }}
         onClose={handleClose}
-        draggable={draggable}
-        resizable={resizable}
         {...frameProps}
       />
     </Backdrop>

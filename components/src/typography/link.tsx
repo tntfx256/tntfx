@@ -1,6 +1,7 @@
-import type { ClassAndChildren, IconName } from "@tntfx/core";
-import { EnhancedProps, classNames, parseProps } from "@tntfx/theme";
 import type { HTMLAttributes } from "react";
+import type { ClassAndChildren, IconName } from "@tntfx/core";
+import type { EnhancedProps } from "@tntfx/theme";
+import { classNames, parseProps } from "@tntfx/theme";
 import { Icon } from "../icon";
 import { Svg } from "../svg";
 import "./link.scss";

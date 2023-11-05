@@ -1,9 +1,9 @@
+import { type ReactNode } from "react";
 import type { Actionable, IconName } from "@tntfx/core";
 import { classNames, parseProps } from "@tntfx/theme";
-import { type ReactNode } from "react";
 import { ActionBar } from "./bar/action-bar";
 import { Frame } from "./frame";
-import { FrameProps } from "./frame/types";
+import type { FrameProps } from "./frame/types";
 import "./card.scss";
 
 export type CardProps<T extends string = string> = FrameProps &
@@ -19,9 +19,9 @@ export function Card<T extends string = string>(props: CardProps<T>) {
   return (
     <Frame
       isStatic
+      className={classNames("card", className)}
       draggable={false}
       resizable={false}
-      className={classNames("card", className)}
       {...rest}
       slots={{
         header: headerSlot,

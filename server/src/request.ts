@@ -11,7 +11,7 @@ interface HandlerConfig {
 
 export type RequestHandler = <T extends SessionType = SessionType>(
   req: Request,
-  session: Session<T>,
+  session: Session<T>
 ) => MaybePromise<unknown>;
 
 async function checkAccess(config: HandlerConfig = {}) {

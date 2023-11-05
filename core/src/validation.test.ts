@@ -63,7 +63,7 @@ describe("Validation", () => {
     for (const [type, tests] of Object.entries(testCases)) {
       for (const [value, result, props] of tests) {
         expect(TypeValidator[type as FieldType](value, new Field("name", { type: type as FieldType, ...props }))).toBe(
-          result,
+          result
         );
       }
     }

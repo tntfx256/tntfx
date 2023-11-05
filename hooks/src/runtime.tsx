@@ -1,10 +1,5 @@
-import {
-  PropsWithChildren,
-  createContext,
-  useCallback,
-  useContext,
-  useState,
-} from "react";
+import type { PropsWithChildren } from "react";
+import { createContext, useCallback, useContext, useState } from "react";
 
 type App = {
   id: string;
@@ -50,21 +45,14 @@ export function Runtime({ children }: PropsWithChildren) {
 
   const open = useCallback((id: string) => {
     const app = { id, isActive: true };
-    setApps((apps) => [
-      ...apps.map((app) => ({ ...app, isActive: false })),
-      app,
-    ]);
+    setApps((apps) => [...apps.map((app) => ({ ...app, isActive: false })), app]);
   }, []);
 
   const close = useCallback((id: string) => {
     setApps((apps) => apps.filter((app) => app.id !== id));
   }, []);
 
-  return (
-    <runtime.Provider value={{ activate, isActive, isOpen, open, close }}>
-      {children}
-    </runtime.Provider>
-  );
+  return <runtime.Provider value={{ activate, isActive, isOpen, open, close }}>{children}</runtime.Provider>;
 }
 
 export const useRuntime = () => useContext(runtime);

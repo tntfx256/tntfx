@@ -58,7 +58,7 @@ export function createSlots<T extends string>(name: string, slots: ReadonlyArray
           }
         }
       },
-      [isMounted, render],
+      [isMounted, render]
     );
 
     const removeSlot = useCallback((name: N, id: string) => {

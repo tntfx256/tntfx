@@ -1,6 +1,7 @@
-import type { ClassAndChildren } from "@tntfx/core";
-import { EnhancedProps, classNames, parseProps } from "@tntfx/theme";
 import type { HTMLAttributes } from "react";
+import type { ClassAndChildren } from "@tntfx/core";
+import type { EnhancedProps } from "@tntfx/theme";
+import { classNames, parseProps } from "@tntfx/theme";
 import "./text.scss";
 
 type Att = HTMLAttributes<HTMLHeadingElement | HTMLParagraphElement> & Partial<EnhancedProps>;

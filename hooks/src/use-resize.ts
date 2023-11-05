@@ -1,6 +1,6 @@
+import { useEffect, useRef, useState } from "react";
 import type { Any, BoundingRect, Dimension, Nullable } from "@tntfx/core";
 import { getEventCoords, getMinDimension, toBoundingRect } from "@tntfx/core";
-import { useEffect, useRef, useState } from "react";
 import "./use-resize.scss";
 
 const resizeKeys = ["top", "right", "bottom", "left", "top-left", "top-right", "bottom-left", "bottom-right"] as const;

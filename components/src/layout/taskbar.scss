@@ -2,9 +2,9 @@
 
 .taskbar {
   @include theme.fill;
+  overflow: hidden;
   background-color: var(--color-element);
   color: var(--color-element-text);
-  overflow: hidden;
 
   @include theme.belowMedium {
     // show at bottom
@@ -50,8 +50,8 @@
     border-right: 1px solid var(--color-border);
 
     &__start {
-      margin: theme.$spacing-sm 0;
       flex-direction: column !important;
+      margin: theme.$spacing-sm 0;
     }
 
     &__middle {
@@ -60,8 +60,8 @@
     }
 
     &__end {
-      margin: theme.$spacing-sm 0;
       align-items: center;
+      margin: theme.$spacing-sm 0;
 
       .dateTime {
         &__time {

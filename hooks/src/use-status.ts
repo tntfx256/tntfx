@@ -52,7 +52,7 @@ export function useStatusRef<T extends string>(statuses: readonly (T & string)[]
         ref.current = status;
       },
     }),
-    [],
+    []
   );
 }
 
@@ -67,14 +67,14 @@ export function useAsyncOperation<T>() {
     (error: TError) => {
       setState(createErrorState(error));
     },
-    [setState],
+    [setState]
   );
 
   const setSuccess = useCallback(
     (data: T) => {
       setState(createSuccessState(data));
     },
-    [setState],
+    [setState]
   );
 
   return {

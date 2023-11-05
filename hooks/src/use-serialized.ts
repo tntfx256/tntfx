@@ -1,7 +1,7 @@
-import type { Nullable } from "@tntfx/core";
-import { serialize } from "@tntfx/core";
 import type { DependencyList, EffectCallback } from "react";
 import { useEffect, useMemo, useRef } from "react";
+import type { Nullable } from "@tntfx/core";
+import { serialize } from "@tntfx/core";
 
 type Destructor = ReturnType<EffectCallback> | void;
 type Fn = () => unknown;

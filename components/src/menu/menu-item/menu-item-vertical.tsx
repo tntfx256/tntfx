@@ -1,7 +1,7 @@
 import { useToggle } from "@tntfx/hooks";
-import { Menu } from "../menu";
-import { MenuItemProps } from "./menu-item";
+import type { MenuItemProps } from "./menu-item";
 import { MenuItemBase } from "./menu-item-base";
+import { Menu } from "../menu";
 import "./menu-item-vertical.scss";
 
 export function MenuItemVertical<T extends string = string>(props: MenuItemProps<T>) {

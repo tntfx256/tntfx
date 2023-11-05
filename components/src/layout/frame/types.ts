@@ -1,6 +1,6 @@
+import type { Dispatch, ReactNode, SetStateAction } from "react";
 import type { Dimension, IconName } from "@tntfx/core";
-import { Dispatch, ReactNode, SetStateAction } from "react";
-import { BoxProps } from "../box";
+import type { BoxProps } from "../box";
 
 export enum FrameStatus {
   Normal = "normal",

@@ -1,5 +1,5 @@
-import type { Any, Nullable } from "@tntfx/core";
 import { useEffect, useRef, useState } from "react";
+import type { Any, Nullable } from "@tntfx/core";
 
 export function useTimer(timeout?: number, fn?: Function) {
   const timer = useLazyTimer(timeout, fn);

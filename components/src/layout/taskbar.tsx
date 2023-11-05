@@ -1,9 +1,9 @@
-import { ClassAndChildren, OnAction, Option } from "@tntfx/core";
+import type { ClassAndChildren, OnAction, Option } from "@tntfx/core";
 import { classNames, parseProps } from "@tntfx/theme";
-import { DateTime } from "../date-time";
-import { Icon } from "../icon";
 import { useActions } from "./bar/utils";
 import { Box } from "./box";
+import { DateTime } from "../date-time";
+import { Icon } from "../icon";
 import "./taskbar.scss";
 
 export type TaskbarAction = "start" | "settings";

@@ -183,16 +183,16 @@ export function Select<T extends string = string, M extends boolean = false>(pro
 
   return (
     <FormElement
-      className={classNames("select", className, dirClassName, {
-        "is-open": shouldShowDropdown,
-        pristine: !value,
-      })}
       disabled={disabled || isEmpty}
       error={error}
       isLoading={isLoading}
       label={label}
       name={name}
       ref={inputRef}
+      className={classNames("select", className, dirClassName, {
+        "is-open": shouldShowDropdown,
+        pristine: !value,
+      })}
     >
       <BaseInput
         readOnly
@@ -203,7 +203,7 @@ export function Select<T extends string = string, M extends boolean = false>(pro
         onClick={handleShowDropdown}
         onFocus={handleShowDropdown}
       />
-      <Svg className="control-icon" name="down" fontSize="sm" />
+      <Svg className="control-icon" fontSize="sm" name="down" />
 
       {shouldShowDropdown && (
         <Backdrop global isOpen background="transparent" className="select-backdrop" onClick={hideDropdown}>
@@ -230,10 +230,9 @@ export function Select<T extends string = string, M extends boolean = false>(pro
 
             <Menu<T>
               className="select-dropdown-list"
-              role="listbox"
               items={filteredOptions}
               ref={listRef}
-              onClick={handleItemSelect}
+              role="listbox"
               render={(item) => {
                 return (
                   <Text key={item.id}>
@@ -247,6 +246,7 @@ export function Select<T extends string = string, M extends boolean = false>(pro
                   </Text>
                 );
               }}
+              onClick={handleItemSelect}
             />
           </div>
         </Backdrop>

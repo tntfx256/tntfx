@@ -29,7 +29,7 @@ export const BaseInput = forwardRef(function BaseInput(props: BaseInputProps, re
       const text = e.target.value;
       onChange?.(text, name || "");
     },
-    [onChange, name],
+    [onChange, name]
   );
 
   return (

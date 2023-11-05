@@ -1,7 +1,7 @@
+import type { PropsWithChildren } from "react";
 import { useRuntime } from "@tntfx/hooks";
-import { PropsWithChildren } from "react";
-import { FrameProps } from "./types";
 import { Frame } from "./frame";
+import type { FrameProps } from "./types";
 
 type AppProps = FrameProps;
 
@@ -18,8 +18,8 @@ export function App(props: PropsWithChildren<AppProps>) {
     <Frame
       id={id}
       isActive={runtime.isActive(id)}
-      onClose={() => runtime.close(id)}
       onClick={() => runtime.activate(id)}
+      onClose={() => runtime.close(id)}
       {...frameProps}
     />
   );

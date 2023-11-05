@@ -1,11 +1,11 @@
-import type { MaybePromise, WithChildren } from "@tntfx/core";
-import { classNames, parseProps } from "@tntfx/theme";
 import type { MouseEvent } from "react";
 import { useCallback } from "react";
-import "./icon.scss";
+import type { MaybePromise, WithChildren } from "@tntfx/core";
+import { classNames, parseProps } from "@tntfx/theme";
 import type { SvgProps } from "./svg";
 import { Svg } from "./svg";
 import { Text } from "./typography/text";
+import "./icon.scss";
 
 type IconProps = SvgProps & {
   title?: string;
@@ -36,7 +36,7 @@ export function Icon(props: WithChildren<IconProps>) {
       onClick={handleClick}
       {...btnProps}
     >
-      <Svg name={name} size={props.size || "md"} color={props.color} />
+      <Svg color={props.color} name={name} size={props.size || "md"} />
       {title && <Text>{title}</Text>}
     </button>
   );

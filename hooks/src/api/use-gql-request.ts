@@ -6,7 +6,7 @@ import type { GqlRequestConfig, GqlRequestOptions, GqlResult, RequestState, UseG
 import { useStateReducer } from "../use-reducer";
 
 export function useGqlRequest<T, U extends V = V, K extends keyof T | undefined = undefined>(
-  config: GqlRequestConfig<T, U, K>,
+  config: GqlRequestConfig<T, U, K>
 ): UseGqlRequest<T, U, K> {
   const { document, key, ...requestConfig } = config;
   const { base, gql, prepareHeaders } = useApiConfig();

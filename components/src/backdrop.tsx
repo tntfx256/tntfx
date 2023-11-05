@@ -46,12 +46,12 @@ export const Backdrop = memo(function Backdrop(props: ClassAndChildren<BackdropP
   const backdrop = (
     <Box
       role="presentation"
+      style={style}
       className={classNames("backdrop", className, `animation--${animation}`, `--bg-${background}`, {
         "--no-overlay": !overlay,
         "--visible": isOpen,
         "--global": global,
       })}
-      style={style}
       onClick={handleClick}
     >
       {isOpen || persistent ? children : null}

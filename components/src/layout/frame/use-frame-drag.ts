@@ -1,7 +1,7 @@
+import { useEffect, useState } from "react";
 import type { Boundary, Dimension, Nullable } from "@tntfx/core";
 import { toBoundingRect } from "@tntfx/core";
 import { useDrag, useRuntime } from "@tntfx/hooks";
-import { useEffect, useState } from "react";
 import type { SetDimension } from "./types";
 
 export function useFrameDrag(
