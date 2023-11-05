@@ -66,7 +66,7 @@ function HeaderTableParent({ mergedParents }: { mergedParents: ReturnType<typeof
 
 function getParentMap<T>(columns: Column<T>[]) {
   const parents = columns.map(({ parent }) => parent || "");
-  const mergedParents = [];
+  const mergedParents: Array<{ count: number; title: string }> = [];
 
   let prev = { count: 1, title: parents[0] };
   for (let i = 1, il = parents.length; i < il; ++i) {
