@@ -1,16 +1,16 @@
-import type { ClassName, StringKeys } from "@tntfx/core";
-import { classNames } from "@tntfx/theme";
 import type { MouseEvent } from "react";
 import { useCallback } from "react";
-import { Icon } from "../icon";
+import type { ClassName, StringKeys } from "@tntfx/core";
+import { classNames } from "@tntfx/theme";
 import { TableCell } from "./table-cell";
 import { useTable } from "./table-provider";
 import type { TableRowProps } from "./types";
+import { Icon } from "../icon";
 
 export function TableRow<T>(props: ClassName<TableRowProps<T>>) {
-  const { record, className, selected, index } = props;
+  const { record, className, selected, render } = props;
 
-  const { onRowSelect, selectedRow, id, columns, rowOperation, onRowOperation } = useTable<T>();
+  const { onRowSelect, selectedRow, idKey, columns, rowOperations, onRowOperation } = useTable<T>();
 
   const handleRowClick = useCallback(
     (e: MouseEvent) => {
@@ -21,28 +21,36 @@ export function TableRow<T>(props: ClassName<TableRowProps<T>>) {
     [onRowSelect, record]
   );
 
-  const isSelected = selected || (record && selectedRow === record?.[id]);
-  let stripeClass = "";
-  if (index != undefined) {
-    stripeClass = index % 2 ? "_even-row" : "_odd-row";
-  }
+  const isSelected = selected || (record && selectedRow === record?.[idKey]);
 
   return (
-    <tr className={classNames("table-row", className, stripeClass, { selected: isSelected })} onClick={handleRowClick}>
-      {columns.map(({ name, renderDataCell, renderHeaderCell, ...props }) => {
-        return record ? (
-          <TableCell key={name}>
-            {renderDataCell ? renderDataCell(record, !!selected) : (record[name as StringKeys<T>] as string) || "-"}
-          </TableCell>
-        ) : null;
+    <tr
+      className={classNames("tableRow", className, {
+        "--hover": onRowSelect,
+        "--selected": isSelected,
       })}
-
-      {rowOperation && (
-        <TableCell key="operations">
-          {rowOperation.map((operation) => (
-            <Icon key={operation.id} name={operation.icon!} onClick={() => onRowOperation?.(record!, operation.id)} />
-          ))}
-        </TableCell>
+      onClick={handleRowClick}
+    >
+      {render ? (
+        render(record)
+      ) : (
+        <>
+          {columns.map((column, columnIndex) => {
+            const { name, renderDataCell, ...cellProps } = column;
+            return (
+              <TableCell key={name} className="tableRow__cell" {...cellProps}>
+                {renderDataCell ? renderDataCell(record, columnIndex) : (record[name as StringKeys<T>] as string) || "-"}
+              </TableCell>
+            );
+          })}
+          {rowOperations && (
+            <TableCell key="operations" className="tableRow__cell tableRow__cell--operations">
+              {rowOperations.map((operation) => (
+                <Icon key={operation.id} name={operation.icon!} onClick={() => onRowOperation?.(record!, operation.id)} />
+              ))}
+            </TableCell>
+          )}
+        </>
       )}
     </tr>
   );

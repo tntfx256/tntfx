@@ -10,13 +10,15 @@
 
   width: $width;
   min-width: min(90%, $width);
-  max-width: max(90%, $width);
+  &:not(.status-maximized) {
+    max-width: max(90%, $width);
+  }
 
   height: $height;
   min-height: min(90%, $height);
-  max-height: max(90%, $height);
-
-  border: 2px solid red;
+  &:not(.status-maximized) {
+    max-height: max(90%, $height);
+  }
 
   .dialog-body {
     padding: theme.$spacing-md;

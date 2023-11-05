@@ -57,10 +57,17 @@
   color_body_text: var(--color-body-text);
   color_surface: var(--color-surface);
   color_surface_text: var(--color-surface-text);
+  color_surface_alt: var(--color-surface-alt);
+  color_surface_alt_text: var(--color-surface-alt-text);
   color_element: var(--color-element);
   color_element_text: var(--color-element-text);
+  color_element_alpha: var(--color-element-alpha);
+  color_element_alpha_text: var(--color-element-alpha-text);
   color_element_alt: var(--color-element-alt);
   color_element_alt_text: var(--color-element-alt-text);
+  color_selected: var(--color-selected);
+  color_selected_text: var(--color-selected-text);
+  color_border: var(--color-border);
 
   shadow_xs: $shadow-xs;
   shadow_sm: $shadow-sm;
@@ -93,10 +100,12 @@
   element_width_xxl: $elementWidth-xxl;
   element_width_xxxl: $elementWidth-xxxl;
 
-  layout_height_element_sm: $layout-height-element-sm;
-  layout_height_element: $layout-height-element;
-  layout_height_footer: $layout-height-footer;
-  layout_height_header: $layout-height-header;
+  element_height_xs: $elementHeight-xs;
+  element_height_sm: $elementHeight-sm;
+  element_height_md: $elementHeight-md;
+  element_height_lg: $elementHeight-lg;
+  element_height_xl: $elementHeight-xl;
+  element_height_xxl: $elementHeight-xxl;
 
   border_radius_xs: $borderRadius-xs;
   border_radius_sm: $borderRadius-sm;

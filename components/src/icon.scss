@@ -3,7 +3,6 @@
 .icon {
   $textOffset: 2px;
 
-  @include theme.disabled;
   display: inline-flex;
   width: theme.$size-md;
   height: theme.$size-md;

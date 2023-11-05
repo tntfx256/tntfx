@@ -11,6 +11,7 @@ export * from "./use-reducer";
 export * from "./use-ref";
 export * from "./use-render";
 export * from "./use-resize";
+export * from "./use-scroll";
 export * from "./use-serialized";
 export * from "./use-status";
 export * from "./use-storage";

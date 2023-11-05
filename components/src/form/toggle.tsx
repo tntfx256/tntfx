@@ -1,5 +1,5 @@
 import type { ClassName } from "@tntfx/core";
-import { classNames } from "@tntfx/theme";
+import { classNames, parseProps } from "@tntfx/theme";
 import { FormElement } from "./form-element";
 import "./toggle.scss";
 
@@ -13,25 +13,25 @@ export type ToggleProps = {
 };
 
 export function Toggle(props: ClassName<ToggleProps>) {
-  const { disabled, label, value, name, onChange, error, className } = props;
+  const [className, { label, value, name, onChange, error }] = parseProps(props);
 
   function handleCheckChange() {
-    if (!disabled) {
+    if (!props.disabled) {
       onChange(!value, name);
     }
   }
 
   return (
     <FormElement
-      className={classNames("toggle", className, { _checked: value })}
+      className={classNames("toggle", className, { "toggle--checked": value })}
       error={error}
       label={label}
       name={name}
       onClick={handleCheckChange}
     >
-      <div className="toggle-container">
-        <input checked={value} className="toggle-checkbox" disabled={disabled} name={name} type="checkbox" />
-        <div className="toggle-indicator" />
+      <div className="toggle__container">
+        <input checked={value} className="toggle__checkbox" disabled={props.disabled} name={name} type="checkbox" />
+        <div className="toggle__indicator" />
       </div>
     </FormElement>
   );

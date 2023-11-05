@@ -1,33 +1,33 @@
 @use "./utils";
 
-@mixin hover {
-  &:is(.--clickable, .--hover):not(:disabled, .--disabled, .--selected) {
-    filter: brightness(0.9);
-  }
-}
+// @mixin hover {
+//   &:is(.--clickable, .--hover):not(:disabled, .--disabled, .--selected) {
+//     filter: brightness(0.9);
+//   }
+// }
 
-@mixin clickable {
-  &:not(:disabled, .--disabled) {
-    @include mixins.hover;
-    cursor: pointer;
-    transition-duration: animation.$duration-sm;
-    transition-property: background-color, color;
-    transition-timing-function: animation.$animation-ease;
-  }
-}
+// @mixin clickable {
+//   &:not(:disabled, .--disabled) {
+//     @include mixins.hover;
+//     cursor: pointer;
+//     transition-duration: animation.$duration-sm;
+//     transition-property: background-color, color;
+//     transition-timing-function: animation.$animation-ease;
+//   }
+// }
 
-@mixin selected {
-  &:is(.--selected):not(:disabled, .--disabled) {
-    filter: brightness(0.8);
-  }
-}
+// @mixin selected {
+//   &:is(.--selected):not(:disabled, .--disabled) {
+//     filter: brightness(0.8);
+//   }
+// }
 
-@mixin disabled {
-  &:is(:disabled, .--disabled) {
-    cursor: default;
-    opacity: 55%;
-  }
-}
+// @mixin disabled {
+//   &:is(:disabled, .--disabled) {
+//     cursor: default;
+//     opacity: 55%;
+//   }
+// }
 
 @mixin blur($size: 0.5rem) {
   backdrop-filter: blur($size);
@@ -49,10 +49,10 @@
   white-space: nowrap;
 }
 
-@mixin unSelectable {
-  cursor: default;
-  user-select: none;
-}
+// @mixin unSelectable {
+//   cursor: default;
+//   user-select: none;
+// }
 
 @mixin withTitlebarPadding($numberOfTitlebar: 1) {
   > *:first-child:not(.toolbar) {

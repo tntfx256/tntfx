@@ -1,6 +1,6 @@
+import type { Theme } from "@tntfx/theme/components/types";
 import "../styles/base/index.scss";
 import vars from "../styles/export.module.scss";
-import { Theme } from "@tntfx/theme/components/types";
 
 export const theme: Theme = {
   breakpoint: {
@@ -68,10 +68,15 @@ export const theme: Theme = {
     bodyText: vars.colorBodyText,
     surface: vars.colorSurface,
     surfaceText: vars.colorSurfaceText,
+    surfaceAlt: vars.colorSurface,
+    surfaceAltText: vars.colorSurfaceText,
     element: vars.colorElement,
     elementText: vars.colorElementText,
+    elementAlpha: vars.colorElement,
+    elementAlphaText: vars.colorElementText,
     elementAlt: vars.colorElementAlt,
     elementAltText: vars.colorElementAltText,
+    border: vars.colorBorder,
   },
 
   shadow: {
@@ -114,10 +119,12 @@ export const theme: Theme = {
   },
 
   elementHeight: {
-    sm: vars.layout_height_element_sm,
-    md: vars.layout_height_element,
-    footer: vars.layout_height_footer,
-    header: vars.layout_height_header,
+    xs: vars.element_height_xs,
+    sm: vars.element_height_sm,
+    md: vars.element_height_md,
+    lg: vars.element_height_lg,
+    xl: vars.element_height_xl,
+    xxl: vars.element_height_xxl,
   },
 
   borderRadius: {

@@ -1,5 +1,5 @@
-import type { ReactNode } from "react";
-import type { Any, Nullable, Option, PaginalData, StringKeys } from "@tntfx/core";
+import type { CSSProperties, ReactNode } from "react";
+import type { Any, Nullable, Option, PaginalData, Size, StringKeys } from "@tntfx/core";
 
 export type Column<T> = {
   // StringKeys<T> | a unique name for that column
@@ -9,41 +9,41 @@ export type Column<T> = {
   align?: "start" | "center" | "end";
   vAlign?: "top" | "middle" | "bottom";
   colSpan?: number;
+  widths?: Array<CSSProperties["width"] | Size>;
   renderHeaderCell?: () => ReactNode;
-  renderDataCell?: (record: T, isSelected: boolean) => ReactNode;
+  renderDataCell?: (record: T, columnIndex: number) => ReactNode;
 };
 
 export type TableContext<T = Any> = {
   data: T[];
   tableId: string;
-  id: StringKeys<T>;
+  idKey: StringKeys<T>;
   columns: Column<T>[];
 
   isLoading?: boolean;
   selectedRow?: Nullable<string>;
-  rowOperation?: Option[];
+  rowOperations?: Option[];
   pagination?: PaginalData;
 
-  onRowSelect?: (record?: T) => void;
-  onRowOperation?: (record: Nullable<T>, operation: string) => void;
+  onRowSelect?: (record: T) => void;
+  onRowOperation?: (record: T, operation: string) => void;
   onPagination?: (page: number, limit?: number) => void;
 };
 
-export type TableProps<T> = Omit<TableContext<T>, "tableId"> & {
+type OptionalsProps = "tableId" | "rowIdRef" | "idKey";
+export type TableProps<T> = Omit<TableContext<T>, OptionalsProps> & {
+  idKey?: StringKeys<T>;
   title?: string;
   caption?: string;
-  columnWidths?: Nullable<number[]>;
+  renderRow?: (record: T) => ReactNode;
+  render?: (records: T[]) => ReactNode;
 };
-
-export type TableBodyProps<T> = {
-  render?: (record: T, rowIndex: number) => ReactNode;
-};
+export type TableProviderProps<T> = TableProps<T>;
 
 export type TableRowProps<T> = {
-  record?: T;
+  record: T;
   selected?: boolean;
-  render?: (record?: T) => ReactNode;
-  index?: number;
+  render?: (record: T) => ReactNode;
 };
 
 export type TableCellProps = {

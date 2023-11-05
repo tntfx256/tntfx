@@ -10,7 +10,7 @@
     // show at bottom
     @include theme.row;
     top: unset;
-    height: theme.$layout-height-header;
+    height: theme.$elementHeight-xl;
     border-top: 1px solid var(--color-border);
 
     &__start {
@@ -46,7 +46,7 @@
   @include theme.aboveMedium {
     // show at left
     right: unset;
-    width: calc(1.25 * theme.$layout-height-header);
+    width: calc(1.25 * theme.$elementHeight-xl);
     border-right: 1px solid var(--color-border);
 
     &__start {

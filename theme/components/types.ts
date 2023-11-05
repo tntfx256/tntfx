@@ -67,10 +67,15 @@ export interface Theme {
     bodyText: string;
     surface: string;
     surfaceText: string;
+    surfaceAlt: string;
+    surfaceAltText: string;
     element: string;
     elementText: string;
+    elementAlpha: string;
+    elementAlphaText: string;
     elementAlt: string;
     elementAltText: string;
+    border: string;
   };
 
   shadow: {
@@ -116,10 +121,12 @@ export interface Theme {
   };
 
   elementHeight: {
+    xs: string;
     sm: string;
     md: string;
-    footer: string;
-    header: string;
+    lg: string;
+    xl: string;
+    xxl: string;
   };
   borderRadius: {
     xs: string;

@@ -9,8 +9,6 @@
   }
 
   &.--horizontal {
-    flex-flow: row nowrap;
-
     .menuItem {
       padding: theme.$spacing-xs 0;
     }

@@ -25,8 +25,9 @@ $elementWidth-xl: utils.toRem(128);
 $elementWidth-xxl: utils.toRem(160);
 $elementWidth-xxxl: utils.toRem(192);
 
-$layout-height-element-sm: utils.toRem(32);
-$layout-height-element: utils.toRem(38);
-// $layout-height-element-lg: utils.toRem(48);;
-$layout-height-footer: utils.toRem(44);
-$layout-height-header: utils.toRem(50);
+$elementHeight-xs: utils.toRem(24);
+$elementHeight-sm: utils.toRem(32);
+$elementHeight-md: utils.toRem(38);
+$elementHeight-lg: utils.toRem(42); // footer
+$elementHeight-xl: utils.toRem(48); // header
+$elementHeight-xxl: utils.toRem(52);

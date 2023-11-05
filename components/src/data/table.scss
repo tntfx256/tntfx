@@ -1,85 +1,41 @@
 @use "@tntfx/theme";
 
-.table-wrapper {
+.table {
+  $self: &;
+
   overflow: hidden;
   border: 1px solid var(--color-border);
   border-radius: theme.$borderRadius-sm;
   background: var(--color-surface);
   color: var(--color-surface-text);
 
-  > .table-title {
+  &__title {
     padding: theme.$spacing-md;
     border-bottom: 1px solid var(--color-border-alpha);
+    width: 100%;
   }
-}
 
-.table {
-  min-width: 100%;
-  border: 0;
-  column-span: none;
-
-  .table-cell {
+  &__container {
     position: relative;
-    overflow: hidden;
-    padding: theme.$spacing-md;
-    cursor: default;
-    font-size: theme.$fontSize-sm;
-    font-weight: theme.$fontWeight-sm;
-    text-align: center;
-    vertical-align: middle;
-    white-space: nowrap;
-
-    &.header {
-      padding: theme.$spacing-md;
-      font-weight: theme.$fontWeight-lg;
-      text-transform: uppercase;
-    }
-    &.divider {
-      border-left: 1px solid var(--color-border);
-    }
+    overflow: auto;
+    width: 100%;
   }
 
-  > tbody > .table-row {
-    background-color: var(--color-element);
-    color: var(--color-element-text);
-    transition: background-color theme.$duration-md theme.$animation-ease();
-  }
-
-  > tbody > .table-row.selected {
-    background-color: var(--color-selected);
-    color: var(--color-selected-text);
-  }
-
-  > thead > .table-row {
-    border-bottom: 1px solid var(--color-border);
-
-    &._parent-row {
-      border-bottom-color: transparent;
-
-      > th {
-        padding-bottom: 0;
-      }
-    }
-
-    &._nested {
-      > th {
-        padding-top: theme.$spacing-xs;
-      }
-    }
-  }
-
-  > tbody > .table-row._odd-row:not(.selected) {
-    background-color: var(--color-element-alt);
-    color: var(--color-element-alt-text);
-  }
-}
-
-.table-container {
-  position: relative;
-  overflow: auto;
-  width: 100%;
-
-  > .table {
+  &__element {
     min-width: 100%;
+    border: 0;
+    column-span: none;
+
+    &__body {
+      .tableRow:nth-child(2n + 1):not(.--selected) {
+        background-color: var(--color-element-alt);
+        color: var(--color-element-alt-text);
+      }
+    }
+  }
+
+  &__caption {
+    text-align: center;
+    width: 100%;
   }
 }

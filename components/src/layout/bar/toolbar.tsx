@@ -1,11 +1,11 @@
 import type { Actions, IconName, OnAction } from "@tntfx/core";
 import { classNames, parseProps } from "@tntfx/theme";
+import { ActionBar } from "./action-bar";
+import { ToolbarSection } from "./toolbar-section";
 import { Icon } from "../../icon";
 import { Text } from "../../typography";
 import type { BoxProps } from "../box";
 import { Box } from "../box";
-import { ActionBar } from "./action-bar";
-import { ToolbarSection } from "./toolbar-section";
 import "./toolbar.scss";
 
 type ToolbarProps = Omit<BoxProps, "horizontal"> & {
@@ -27,10 +27,10 @@ export function Toolbar(props: ToolbarProps) {
   const hasTitlebar = Boolean(icon || title);
 
   return (
-    <Box horizontal className={classNames("toolbar", `--as-${as}`, className)} role="toolbar" {...boxProps}>
+    <Box horizontal className={classNames("toolbar --noUserSelect", `--as-${as}`, className)} role="toolbar" {...boxProps}>
       {hasTitlebar && (
         <ToolbarSection className="toolbar__title">
-          {icon && <Icon size="md" name={icon} onClick={onIconClick} />}
+          {icon && <Icon name={icon} size="md" onClick={onIconClick} />}
           <Text as="h1" fontSize="lg" role="heading">
             {title}
           </Text>

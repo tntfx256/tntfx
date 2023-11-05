@@ -1,8 +1,9 @@
-import type { Any, IconName, MaybePromise, WithChildren } from "@tntfx/core";
-import { useToggle } from "@tntfx/hooks";
-import { EnhancedProps, classNames, parseProps } from "@tntfx/theme";
 import type { MouseEvent } from "react";
 import { useCallback } from "react";
+import type { Any, IconName, MaybePromise, WithChildren } from "@tntfx/core";
+import { useToggle } from "@tntfx/hooks";
+import type { EnhancedProps } from "@tntfx/theme";
+import { classNames, parseProps } from "@tntfx/theme";
 import { Loader } from "./loader";
 import { Svg } from "./svg";
 import "./button.scss";
@@ -41,8 +42,8 @@ export function Button(props: ButtonProps) {
 
   return (
     <button
+      className={classNames("button --noUserSelect --hover", className, { loading: isLoading })}
       disabled={disabled}
-      className={classNames("button", className, { loading: isLoading })}
       onClick={handleClick}
       {...rest}
     >

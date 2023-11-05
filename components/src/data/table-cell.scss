@@ -1,0 +1,19 @@
+@use "@tntfx/theme";
+
+.tableCell {
+  position: relative;
+  overflow: hidden;
+  padding: theme.$spacing-md;
+  cursor: default;
+  font-size: theme.$fontSize-sm;
+  font-weight: theme.$fontWeight-sm;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+
+  &--header {
+    padding: theme.$spacing-md;
+    font-weight: theme.$fontWeight-lg;
+    text-transform: uppercase;
+  }
+}

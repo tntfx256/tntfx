@@ -1,15 +1,15 @@
 import type { PropsWithChildren } from "react";
-import { createContext, useContext, useMemo, useState } from "react";
-import { generateId } from "@tntfx/core";
-import type { TableContext } from "./types";
+import { createContext, useContext, useId, useMemo } from "react";
+import type { TableContext, TableProviderProps } from "./types";
 
 export const tableContext = createContext<TableContext>({} as TableContext);
 
-export function TableProvider<T>(props: PropsWithChildren<Omit<TableContext<T>, "tableId">>) {
-  const { children, ...values } = props;
-  const [tableId] = useState(() => `table-${generateId()}`);
+export function TableProvider<T>(props: PropsWithChildren<TableProviderProps<T>>) {
+  const { children, idKey = "id", ...values } = props;
 
-  const contextValue = useMemo(() => ({ ...values, tableId }), [tableId, values]);
+  const tableId = `table-${useId()}`;
+
+  const contextValue = useMemo(() => ({ ...values, tableId, idKey }), [idKey, tableId, values]);
 
   return <tableContext.Provider value={contextValue}>{children}</tableContext.Provider>;
 }

@@ -1,12 +1,11 @@
 @use "@tntfx/theme";
 
 .toolbar {
-  @include theme.unSelectable;
   z-index: theme.$layer-window;
   overflow: visible;
   width: 100%;
-  min-height: theme.$layout-height-footer;
-  max-height: theme.$layout-height-header;
+  min-height: theme.$elementHeight-lg;
+  max-height: theme.$elementHeight-xl;
   border-radius: inherit;
   white-space: nowrap;
 
@@ -15,8 +14,8 @@
   }
 
   &.--as-header {
-    height: theme.$layout-height-header;
-    min-height: theme.$layout-height-header;
+    height: theme.$elementHeight-xl;
+    min-height: theme.$elementHeight-xl;
 
     > .toolbarSection {
       &:last-of-type:not(:first-of-type) {
@@ -26,8 +25,8 @@
   }
 
   &.--as-footer {
-    height: theme.$layout-height-footer;
-    max-height: theme.$layout-height-footer;
+    height: theme.$elementHeight-lg;
+    max-height: theme.$elementHeight-lg;
 
     > .toolbarSection {
       justify-content: flex-end;

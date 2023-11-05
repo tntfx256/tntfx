@@ -1,16 +1,11 @@
 @use "@tntfx/theme";
 
-$indicator-offset: 5%;
-$indicator-size: calc(100% - 2 * $indicator-offset);
-
 .menuItemBase {
-  @include theme.disabled;
-
   position: relative;
   display: flex;
   width: 100%;
-  height: theme.$layout-height-element;
-  min-height: theme.$layout-height-element;
+  height: theme.$elementHeight-md;
+  min-height: theme.$elementHeight-md;
   flex-flow: row nowrap;
   align-items: center;
   justify-content: flex-start;
@@ -18,36 +13,6 @@ $indicator-size: calc(100% - 2 * $indicator-offset);
   border: 1px solid transparent;
   border-radius: theme.$borderRadius-xs;
   text-align: start;
-
-  &.--selected:not(.--disabled) {
-    &::after {
-      transform: scale3d(1, 1, 1);
-    }
-  }
-
-  // vertical menu, indicator on the left
-  &::after {
-    position: absolute;
-    bottom: $indicator-offset;
-    left: 0;
-    width: 2px;
-    height: $indicator-size;
-    border-radius: 1px;
-    background-color: var(--color-primary);
-    content: "";
-    transform: scale3d(0, 1, 1);
-    transition: transform theme.$duration-sm theme.$animation-ease;
-  }
-
-  &.--horizontal {
-    // horizontal menu, indicator on the right
-    &::after {
-      bottom: 0;
-      left: $indicator-offset;
-      width: $indicator-size;
-      height: 2px;
-    }
-  }
 
   > .icon {
     padding-right: theme.$spacing-sm;

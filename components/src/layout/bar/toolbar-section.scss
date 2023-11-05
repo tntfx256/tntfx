@@ -2,7 +2,6 @@
 
 .toolbarSection {
   @include theme.row(center);
-  @include theme.unSelectable;
 
   position: relative;
   overflow: visible;

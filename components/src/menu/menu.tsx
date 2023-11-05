@@ -1,7 +1,9 @@
-import { forwardRef, type ForwardedRef, type PropsWithChildren, HTMLAttributes } from "react";
+import type { ForwardedRef, HTMLAttributes, PropsWithChildren } from "react";
+import { forwardRef } from "react";
 import type { Any, Option } from "@tntfx/core";
-import { classNames } from "@tntfx/theme";
-import { MenuItem, MenuItemProps } from "./menu-item";
+import { classNames, parseProps } from "@tntfx/theme";
+import type { MenuItemProps } from "./menu-item";
+import { MenuItem } from "./menu-item";
 import "./menu.scss";
 
 type UL = Omit<HTMLAttributes<HTMLUListElement>, "onClick">;
@@ -19,19 +21,19 @@ function MenuWithRef<T extends string = string>(
   props: PropsWithChildren<MenubarProps<T>>,
   ref: ForwardedRef<HTMLUListElement>
 ) {
-  const { className, items, horizontal, onClick, children, selected, render, ...libProps } = props;
+  const [className, { items, onClick, children, selected, render, ...libProps }] = parseProps(props);
 
   const hasItems = items && items.length > 0;
 
   return (
-    <ul ref={ref} role="menubar" className={classNames("menu", className, { "--horizontal": horizontal })} {...libProps}>
+    <ul className={classNames("menu", className)} ref={ref} role="menubar" {...libProps}>
       {hasItems &&
-        items.map((item) => (
+        items.map((item: Option<T>) => (
           <MenuItem<T>
-            horizontal={horizontal}
-            render={render}
             key={item.id}
+            horizontal={props.horizontal}
             item={item}
+            render={render}
             selected={item.id === selected}
             onClick={onClick}
           />

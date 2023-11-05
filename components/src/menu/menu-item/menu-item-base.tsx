@@ -1,35 +1,27 @@
-import { classNames } from "@tntfx/theme";
 import { useCallback } from "react";
+import { classNames, parseProps } from "@tntfx/theme";
+import type { MenuItemProps } from "./menu-item";
 import { Icon } from "../../icon";
 import { Box } from "../../layout";
 import { Link, Text } from "../../typography";
-import { MenuItemProps } from "./menu-item";
 import "./menu-item-base.scss";
 
 export function MenuItemBase<T extends string = string>(props: MenuItemProps<T>) {
-  const { onClick, item, horizontal, selected, className, render } = props;
+  const [className, { onClick, item, selected, render }] = parseProps(props);
 
   const clickHandler = useCallback(() => {
     onClick?.(item.id);
-  }, [onClick]);
+  }, [item.id, onClick]);
 
   return (
-    <Box
-      className={classNames("menuItemBase", className, {
-        "--horizontal": horizontal,
-        "--selected": selected,
-        "--disabled": item.disabled,
-        "--clickable": !item.disabled && onClick,
-      })}
-      onClick={clickHandler}
-    >
+    <Box className={classNames("menuItemBase", className)} onClick={clickHandler}>
       {render ? (
         render(item, selected)
       ) : (
         <>
           {item.icon && <Icon name={item.icon} size="sm" />}
           {item.href ? (
-            <Link external={item.external} icon={item.icon} href={item.href} fontSize="sm">
+            <Link external={item.external} fontSize="sm" href={item.href} icon={item.icon}>
               {item.title}
             </Link>
           ) : (

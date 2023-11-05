@@ -3,6 +3,7 @@ import { classNames } from "@tntfx/theme";
 import { TableCell } from "./table-cell";
 import { useTable } from "./table-provider";
 import type { Column } from "./types";
+import "./table-header.scss";
 
 export function TableHeader<T>(props: ClassName) {
   const { className } = props;
@@ -14,9 +15,9 @@ export function TableHeader<T>(props: ClassName) {
   let parentCounter = mergedParents ? mergedParents[parentIndex].count : -1;
 
   return (
-    <thead className={className}>
+    <thead className={classNames("tableHeader", className)}>
       <HeaderTableParent mergedParents={mergedParents} />
-      <tr className={classNames("table-row", { _nested: mergedParents })}>
+      <tr className={classNames("tableRow", { "tableHeader--nested": mergedParents })}>
         {columns.map((column, i) => {
           const { name } = column;
 
@@ -32,7 +33,12 @@ export function TableHeader<T>(props: ClassName) {
           }
 
           return (
-            <TableCell key={name} header className={classNames({ _divider: isDivider })} colSpan={column.colSpan}>
+            <TableCell
+              key={name}
+              header
+              className={classNames({ "tableHeader--divider": isDivider })}
+              colSpan={column.colSpan}
+            >
               {TableCell.getHeaderTitle<T>(column)}
             </TableCell>
           );
@@ -46,10 +52,10 @@ function HeaderTableParent({ mergedParents }: { mergedParents: ReturnType<typeof
   if (!mergedParents) return null;
 
   return (
-    <tr className="table-row _parent-row">
+    <tr className="tableRow tableHeader--parentRow">
       {mergedParents.map(({ title, count }, i) => {
         return (
-          <TableCell key={i} header className={classNames({ _divider: title })} colSpan={count}>
+          <TableCell key={i} header className={classNames({ "tableHeader--divider": title })} colSpan={count}>
             {title}
           </TableCell>
         );

@@ -46,12 +46,43 @@ $variants: (primary, secondary, destructive, success, warning, info, error);
   color: var(--color-element-text);
 }
 
+// Status
+.--selected:not(:disabled, .--disabled) {
+  background-color: var(--color-selected);
+  color: var(--color-selected-text);
+}
+
+// :active:not(:disabled, .--disabled) {
+//   background-color: var(--color-active);
+//   color: var(--color-active-text);
+// }
+
+.--disabled,
+:disabled {
+  cursor: default;
+  pointer-events: none;
+  filter: opacity(55%) grayscale(100%);
+}
+
+.--hover:hover:not(:disabled, .--disabled, .--selected) {
+  cursor: pointer;
+  filter: sepia(80%);
+
+  // transition-property: filter;
+  // transition-duration: animation.$duration-sm;
+  // transition-timing-function: animation.$animation-ease;
+}
+
+.--noUserSelect {
+  cursor: default;
+  user-select: none;
+}
+
 // ANIMATION
 @keyframes rotate {
   from {
     transform: rotate(0deg);
   }
-
   to {
     transform: rotate(360deg);
   }

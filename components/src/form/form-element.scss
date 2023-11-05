@@ -1,12 +1,10 @@
 @use "@tntfx/theme";
 
 .form-element {
-  @include theme.disabled;
-
   position: relative;
   display: flex;
   min-width: theme.$elementWidth-xl;
-  height: theme.$layout-height-element;
+  height: theme.$elementHeight-md;
   flex-flow: column nowrap;
   align-items: flex-start;
   justify-content: flex-start;

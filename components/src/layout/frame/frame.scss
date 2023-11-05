@@ -52,10 +52,10 @@
 
       .has-taskbar & {
         @include theme.belowMedium {
-          bottom: theme.$layout-height-header !important;
+          bottom: theme.$elementHeight-xl !important;
         }
         @include theme.aboveMedium {
-          left: calc(1.25 * theme.$layout-height-header) !important;
+          left: calc(1.25 * theme.$elementHeight-xl) !important;
         }
       }
     }
@@ -79,7 +79,7 @@
     @extend %sticky;
     position: absolute;
     top: 0;
-    min-height: theme.$layout-height-header;
+    min-height: theme.$elementHeight-xl;
     border-bottom: 1px solid var(--color-border);
     border-radius: 0;
     border-top-left-radius: inherit;

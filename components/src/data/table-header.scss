@@ -1,0 +1,21 @@
+@use "@tntfx/theme";
+
+.tableHeader {
+  &--parent-row {
+    border-bottom-color: transparent;
+
+    > th {
+      padding-bottom: 0;
+    }
+  }
+
+  &--nested {
+    > th {
+      padding-top: theme.$spacing-xs;
+    }
+  }
+
+  &--divider {
+    border-left: 1px solid var(--color-border);
+  }
+}

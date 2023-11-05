@@ -20,12 +20,12 @@ export function FrameControls(props: FrameControlsProps) {
       {children}
       {onToggleMaximize && (
         <Icon
-          size="md"
           name={frameStatus === FrameStatus.Normal ? "maximize" : "restoreMaximize"}
+          size="md"
           onClick={onToggleMaximize}
         />
       )}
-      <Icon size="md" name="cross" onClick={onClose} disabled={!onClose} />
+      <Icon disabled={!onClose} name="cross" size="md" onClick={onClose} />
     </Box>
   );
 }

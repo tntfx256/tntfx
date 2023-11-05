@@ -1,9 +1,6 @@
 @use "@tntfx/theme";
 
 .button {
-  @include theme.disabled;
-  @include theme.unSelectable;
-
   outline: 0;
   -webkit-tap-highlight-color: rgb(0 0 0 / 0%);
   -webkit-tap-highlight-color: transparent;
@@ -15,8 +12,8 @@
   display: flex;
   overflow: hidden;
   min-width: fit-content;
-  height: theme.$layout-height-element;
-  min-height: theme.$layout-height-element;
+  height: theme.$elementHeight-md;
+  min-height: theme.$elementHeight-md;
   flex-flow: row nowrap;
   align-items: center;
   justify-content: center;

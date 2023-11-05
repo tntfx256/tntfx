@@ -51,7 +51,7 @@ export function Image(props: ImageProps) {
   }, []);
 
   return (
-    <figure className={classNames("image", className)} ref={ref}>
+    <figure className={classNames("image --noUserSelect", className)} ref={ref}>
       <Conditional
         error={error}
         fallback={
