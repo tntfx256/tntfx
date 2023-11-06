@@ -121,7 +121,7 @@ export function Frame(props: FrameProps) {
                 </Box>
               )}
 
-              <Box className={classNames("frame__body", [className, "__body"])}>
+              <Box className={classNames("frame__body")}>
                 {hasHeader && <div style={{ minHeight: headerHeight }} />}
                 {children}
                 {hasFooter && <div style={{ minHeight: footerHeight }} />}

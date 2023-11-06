@@ -24,13 +24,13 @@ export function Sidebar(props: ClassAndChildren<SidebarProps>) {
     <Backdrop
       animation="slide-right"
       background="blur"
-      className={classNames("sidebar__backdrop", { "__with-body": hasBody }, [className, "-backdrop"])}
+      className={classNames("sidebar__backdrop", { "__with-body": hasBody })}
       isOpen={hasBody || isOpen}
       overlay={hasBody ? false : overlay}
       onClick={hasBody ? undefined : onClickOutside}
     >
       <aside className={classNames("sidebar", className, { blur })}>{isOpen || persistent ? children : null}</aside>
-      {hasBody && <main className={classNames("sidebar-body", [className, "-body"])}>{slots.body}</main>}
+      {hasBody && <main className={classNames("sidebar-body")}>{slots.body}</main>}
     </Backdrop>
   );
 }

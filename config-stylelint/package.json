@@ -5,14 +5,11 @@
   "scripts": {},
   "dependencies": {
     "postcss": "^8.4.31",
+    "stylelint": "^15.10.3",
     "stylelint-config-idiomatic-order": "^9.0.0",
     "stylelint-config-recommended-scss": "^13.1.0",
     "stylelint-order": "^6.0.3"
   },
-  "devDependencies": {
-    "stylelint": "^15.10.3"
-  },
-  "peerDependencies": {
-    "stylelint": "^15.10.3"
-  }
+  "devDependencies": {},
+  "peerDependencies": {}
 }

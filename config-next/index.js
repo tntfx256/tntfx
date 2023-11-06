@@ -1,5 +1,3 @@
-/* eslint-disable turbo/no-undeclared-env-vars -- config file */
-
 const { version } = require("./package.json");
 
 const shouldAnalyze = process.env.ANALYZE === "true";

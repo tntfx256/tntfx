@@ -12,7 +12,7 @@
   white-space: nowrap;
 
   &--header {
-    padding: theme.$spacing-md;
+    padding: theme.$spacing-md theme.$spacing-lg;
     font-weight: theme.$fontWeight-lg;
     text-transform: uppercase;
   }

@@ -65,8 +65,8 @@ $variants: primary, secondary, destructive, success, warning, info, error;
 }
 
 .--hover:hover:not(:disabled, .--disabled, .--selected) {
-  background-color: var(--color-hover);
-  color: var(--color-hover-text);
+  background-color: var(--color-hover) !important;
+  color: var(--color-hover-text) !important;
   cursor: pointer;
   transition-duration: lib.$duration-sm;
   transition-property: color, background-color;

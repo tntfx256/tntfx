@@ -1,7 +1,7 @@
 import type { Any, TObject } from "@tntfx/core";
 import { splitBySpace } from "./utils";
 
-type ClassNames = undefined | string | TObject<Any> | [baseClassNames: string | undefined, postfix: string];
+type ClassNames = undefined | string | TObject<Any>; // | [baseClassNames: string | undefined, postfix: string];
 export function classNames(...names: ClassNames[]) {
   const list = new Set<string>();
 
@@ -11,10 +11,12 @@ export function classNames(...names: ClassNames[]) {
     }
     if (typeof name === "string") {
       splitBySpace(name).forEach((n: string) => list.add(n));
-    } else if (Array.isArray(name)) {
-      splitBySpace(name[0]).forEach((n: string) => list.add(`${n}${name[1]}`));
-    } else {
-      Object.entries(name).forEach(([k, v]) => v && list.add(k));
+    }
+    // else if (Array.isArray(name)) {
+    //   splitBySpace(name[0]).forEach((n: string) => list.add(`${n}${name[1]}`));
+    // }
+    else {
+      Object.keys(name).forEach((k) => !!name[k] && list.add(k));
     }
   }
 
