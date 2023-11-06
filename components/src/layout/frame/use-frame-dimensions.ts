@@ -35,13 +35,13 @@ export function useFrameDimensions(frame: Nullable<HTMLDivElement>) {
     }
 
     const observer = new MutationObserver(getDimensions);
-    const header = frame.querySelector<HTMLDivElement>(".frame-header");
+    const header = frame.querySelector<HTMLDivElement>(".frame__header");
     if (header) {
       headerRef.current = header;
       observer.observe(header, { childList: true });
     }
 
-    const footer = frame.querySelector<HTMLDivElement>(".frame-footer");
+    const footer = frame.querySelector<HTMLDivElement>(".frame__footer");
     if (footer) {
       footerRef.current = footer;
       observer.observe(footer, { childList: true });

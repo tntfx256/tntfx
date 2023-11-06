@@ -37,9 +37,9 @@
     width: $containerWidth;
     min-width: theme.$elementWidth-sm;
     height: $containerHeight;
-    border: 1px solid var(--color-border-alpha);
+    border: 1px solid theme.$color-border;
     border-radius: $containerBorderRadius;
-    background-color: var(--color-element);
+    background-color: theme.$color-element;
   }
 
   &__indicator {
@@ -50,23 +50,23 @@
     overflow: hidden;
     width: $indicatorSize;
     height: $indicatorSize;
-    border: 1px solid var(--color-border-alpha);
+    border: 1px solid theme.$color-border;
     border-radius: 50%;
-    background-color: var(--color-element);
+    background-color: theme.$color-element;
     transition-duration: theme.$duration-sm;
     transition-property: right, left, background-color;
   }
 
   &--checked {
     .toggle__container {
-      background-color: var(--color-element-alt);
+      background-color: theme.$color-element-alt;
     }
 
     .toggle__indicator {
       right: -1px;
       left: $size;
-      border-color: var(--color-primary);
-      background-color: var(--color-primary);
+      border-color: theme.$color-primary;
+      background-color: theme.$color-primary;
     }
   }
 }

@@ -1,33 +1,33 @@
 @use "@tntfx/theme";
 
-.dialog.frame {
-  $width: theme.$breakpoint-xs;
-  $height: theme.ratio($width);
+.dialog {
+  // width and height are calculated at frame level
 
-  &._active {
+  &.frame--active {
     z-index: theme.$layer-popup !important;
   }
 
-  width: $width;
-  min-width: min(90%, $width);
-  &:not(.status-maximized) {
-    max-width: max(90%, $width);
-  }
+  // width: $width;
+  // min-width: min(90%, $width);
+  // &:not(.status-maximized) {
+  //   max-width: max(90%, $width);
+  // }
 
-  height: $height;
-  min-height: min(90%, $height);
-  &:not(.status-maximized) {
-    max-height: max(90%, $height);
-  }
+  // height: $height;
+  // min-height: min(90%, $height);
+  // &:not(.status-maximized) {
+  //   max-height: max(90%, $height);
+  // }
 
-  .dialog-body {
+  &__body {
+    justify-content: center;
     padding: theme.$spacing-md;
   }
 
-  .dialog-footer {
-    justify-content: flex-end;
-    .button:not(.icon) {
-      min-width: theme.$elementWidth-md;
-    }
-  }
+  // &__footer {
+  //   justify-content: flex-end;
+  //   .button:not(.icon) {
+  //     min-width: theme.$elementWidth-md;
+  //   }
+  // }
 }

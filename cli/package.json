@@ -3,16 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "main": "./src/index.ts",
-  "scripts": {
-    "types": "tsc -p tsconfig.json --noEmit"
-  },
+  "scripts": {},
   "dependencies": {
     "@tntfx/core": "*",
     "@tntfx/theme": "*"
   },
   "devDependencies": {
     "@tntfx/tsconfig": "*",
-    "@types/node": "^20.8.5",
+    "@types/node": "^20.8.10",
     "typescript": "^5.2.2"
   }
 }

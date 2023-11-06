@@ -38,7 +38,7 @@ export function useDrag<T extends HTMLElement = HTMLElement>(element: Nullable<T
       if (!element) {
         return;
       }
-      console.log("handleDragStart");
+
       isReleased = false;
       isDrag = false;
       window.addEventListener("mouseup", handleDragEnd);
@@ -48,7 +48,7 @@ export function useDrag<T extends HTMLElement = HTMLElement>(element: Nullable<T
         if (isReleased) {
           return;
         }
-        // e.preventDefault();
+
         e.stopPropagation();
         isDrag = true;
 

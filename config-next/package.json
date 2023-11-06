@@ -2,14 +2,13 @@
   "name": "@tntfx/next-config",
   "version": "0.0.0",
   "private": true,
-  "main": "src/index.js",
+  "main": "index.js",
+  "scripts": {},
   "dependencies": {
-    "@next/bundle-analyzer": "^13.5.6",
-    "next": "^13.5.6",
-    "next-pwa": "^5.6.0"
+    "@next/bundle-analyzer": "^14.0.1",
+    "next": "^14.0.1"
   },
   "devDependencies": {
-    "@types/next-pwa": "^5.6.6",
-    "@types/node": "^20.8.5"
+    "@types/node": "^20.8.10"
   }
 }

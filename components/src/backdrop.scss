@@ -15,7 +15,7 @@
   }
 
   &.--bg-default {
-    background-color: var(--color-backdrop);
+    background-color: theme.$color-backdrop;
   }
 
   &.--global {

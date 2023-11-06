@@ -4,7 +4,7 @@ import type { EnhancedProps } from "@tntfx/theme";
 import { classNames, parseProps } from "@tntfx/theme";
 import "./text.scss";
 
-type Att = HTMLAttributes<HTMLHeadingElement | HTMLParagraphElement> & Partial<EnhancedProps>;
+type Att = Omit<HTMLAttributes<HTMLHeadingElement | HTMLParagraphElement>, "contentEditable"> & Partial<EnhancedProps>;
 type TypingProps = Att & {
   as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span";
 };

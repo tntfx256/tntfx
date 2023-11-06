@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
-import { calcInitialFrameDimension, type Dimension } from "@tntfx/core";
+import { useCallback, useLayoutEffect, useState } from "react";
+import { type Dimension } from "@tntfx/core";
 import { useRefState, useToggle } from "@tntfx/hooks";
 import { classNames, parseProps } from "@tntfx/theme";
 import { FrameControls } from "./frame-controls";
@@ -53,20 +53,31 @@ export function Frame(props: FrameProps) {
     setStatus((status) => (status === FrameStatus.Maximized ? FrameStatus.Normal : FrameStatus.Maximized));
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (frame && !dimension && !isStatic) {
-      const dimension = calcInitialFrameDimension(isDialog, boundary);
-      setDimension(dimension);
+      let { left, top, width, height } = frame.getBoundingClientRect();
+      if (boundary) {
+        left -= boundary.left;
+        top -= boundary.top;
+      }
+      setDimension({ left, top, width, height });
     }
   }, [boundary, dimension, frame, isStatic]);
 
   const hasHeader = Boolean(slots.titlebar || slots.header || title || onClose);
+  const hasFooter = Boolean(slots.footer);
 
   return (
     <FrameProvider dimension={dimension}>
       <Box
-        className={classNames("frame", `status-${status}`, className, { active: isActive, static: isStatic })}
         ref={frameRefHandler}
+        className={classNames("frame", className, {
+          [`frame--${status}`]: status,
+          "frame--initialized": Boolean(dimension),
+          "frame--dialog": isDialog,
+          "frame--active": isActive,
+          "frame--static": isStatic,
+        })}
         style={
           dimension
             ? {
@@ -81,22 +92,18 @@ export function Frame(props: FrameProps) {
         {...boxProps}
       >
         <DialogProvider>
-          <Box className="frame-wrapper">
+          <Box className="frame__wrapper">
             {slots.sidebar && (
-              <Sidebar
-                className={classNames("frame-sidebar", [className, "-sidebar"])}
-                isOpen={isSidebarOpen}
-                overlay={false}
-              >
-                <div className="frame-sidebar-placeholder" style={{ minHeight: headerHeight }} />
+              <Sidebar className={classNames("frame__sidebar")} isOpen={isSidebarOpen} overlay={false}>
+                {hasHeader && <div style={{ minHeight: headerHeight }} />}
                 {slots.sidebar}
+                {hasFooter && <div style={{ minHeight: footerHeight }} />}
               </Sidebar>
             )}
-            <Box className="frame-content">
+            <Box className="frame__content">
               {hasHeader && (
-                <Box className={classNames("frame-header")}>
+                <Box className={classNames("frame__header")}>
                   <Toolbar
-                    as="header"
                     icon={slots.sidebar ? "sidebar" : icon}
                     title={title}
                     onIconClick={slots.sidebar ? toggleSidebar : undefined}
@@ -114,16 +121,13 @@ export function Frame(props: FrameProps) {
                 </Box>
               )}
 
-              <Box className={classNames("frame-body", [className, "-body"])}>
-                <div style={{ minHeight: headerHeight }} />
+              <Box className={classNames("frame__body", [className, "__body"])}>
+                {hasHeader && <div style={{ minHeight: headerHeight }} />}
                 {children}
+                {hasFooter && <div style={{ minHeight: footerHeight }} />}
               </Box>
 
-              {slots.footer && (
-                <Toolbar as="footer" className={classNames("frame-footer", [className, "-footer"])}>
-                  {slots.footer}
-                </Toolbar>
-              )}
+              {hasFooter && <Toolbar className={classNames("frame__footer")}>{slots.footer}</Toolbar>}
             </Box>
           </Box>
         </DialogProvider>

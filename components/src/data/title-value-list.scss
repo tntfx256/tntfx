@@ -2,15 +2,15 @@
 
 .tvl {
   padding: theme.$spacing-sm;
-  background-color: var(--color-element);
-  color: var(--color-element-text);
+  background-color: theme.$color-element;
+  color: theme.$color-element-text;
 
   &-item {
     padding: theme.$spacing-sm;
 
     &-title {
       display: block;
-      color: var(--color-primary);
+      color: theme.$color-primary;
     }
 
     &-value {

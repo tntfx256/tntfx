@@ -6,14 +6,14 @@ import type { MenuItemProps } from "./menu-item";
 import { MenuItem } from "./menu-item";
 import "./menu.scss";
 
-type UL = Omit<HTMLAttributes<HTMLUListElement>, "onClick">;
+type UL = Omit<HTMLAttributes<HTMLUListElement>, "onClick" | "contentEditable">;
 
 export type MenubarProps<T extends string = string> = UL & {
   horizontal?: boolean;
   items: Option<T>[];
   className?: string;
   onClick?: (id: T) => void;
-  selected?: T;
+  selectedItem?: T;
   render?: MenuItemProps<T>["render"];
 };
 
@@ -21,7 +21,7 @@ function MenuWithRef<T extends string = string>(
   props: PropsWithChildren<MenubarProps<T>>,
   ref: ForwardedRef<HTMLUListElement>
 ) {
-  const [className, { items, onClick, children, selected, render, ...libProps }] = parseProps(props);
+  const [className, { items, onClick, children, selectedItem, render, ...libProps }] = parseProps(props);
 
   const hasItems = items && items.length > 0;
 
@@ -34,7 +34,7 @@ function MenuWithRef<T extends string = string>(
             horizontal={props.horizontal}
             item={item}
             render={render}
-            selected={item.id === selected}
+            selectedItem={selectedItem}
             onClick={onClick}
           />
         ))}

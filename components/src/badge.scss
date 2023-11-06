@@ -1,7 +1,9 @@
-$badge-size: 1rem;
-$badge-offset: 0.25rem;
+@use "@tntfx/theme";
 
 .badge-wrapper.box {
+  $badge-size: 1rem;
+  $badge-offset: 0.25rem;
+
   overflow: visible;
   width: fit-content;
   height: fit-content;
@@ -16,7 +18,7 @@ $badge-offset: 0.25rem;
     align-items: center;
     justify-content: center;
     border-radius: $badge-size;
-    background-color: var(--color-error);
-    color: var(--color-error-text);
+    background-color: theme.$color-error;
+    color: theme.$color-error-text;
   }
 }

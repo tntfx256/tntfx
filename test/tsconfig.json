@@ -1,9 +1,0 @@
-{
-  "extends": "@tntfx/tsconfig/react.json",
-
-  "compilerOptions": {
-    "types": ["node", "jest", "@testing-library/jest-dom"]
-  },
-
-  "include": ["src"]
-}

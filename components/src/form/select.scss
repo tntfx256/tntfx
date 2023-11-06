@@ -12,8 +12,8 @@
   }
 
   &.is-open {
-    background-color: var(--color-element);
-    color: var(--color-element-text);
+    background-color: theme.$color-element;
+    color: theme.$color-element-text;
 
     &.is-dropdown {
       border-bottom-left-radius: 0;
@@ -35,9 +35,9 @@
     overflow: hidden;
     max-height: 30vh;
     flex-direction: column;
-    border: 1px solid var(--color-border);
-    background-color: var(--color-element);
-    color: var(--color-element-text);
+    border: 1px solid theme.$color-border;
+    background-color: theme.$color-element;
+    color: theme.$color-element-text;
 
     &-empty {
       padding: theme.$spacing-md;
@@ -82,8 +82,8 @@
     overflow: hidden;
     max-height: 30vh;
     flex-direction: column;
-    border: 1px solid var(--color-border);
-    background-color: var(--color-element);
+    border: 1px solid theme.$color-border;
+    background-color: theme.$color-element;
 
     &.is-dropdown {
       border-top: 0;
@@ -99,8 +99,8 @@
 
     &-input {
       &.focused {
-        background-color: var(--color-body);
-        color: var(--color-body-color);
+        background-color: theme.$color-body;
+        color: theme.$color-body;
       }
 
       &::after {

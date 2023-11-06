@@ -1,7 +1,7 @@
 @use "sass:map";
-@use "../lib/animation";
+@use "../lib";
 
-$sizes: (xxs, xs, sm, md, lg, xl, xxl, xxxl);
+$sizes: xxs, xs, sm, md, lg, xl, xxl, xxxl;
 
 @each $size in $sizes {
   .elevation-#{$size} {
@@ -14,7 +14,7 @@ $sizes: (xxs, xs, sm, md, lg, xl, xxl, xxxl);
 }
 
 // Variants
-$variants: (primary, secondary, destructive, success, warning, info, error);
+$variants: primary, secondary, destructive, success, warning, info, error;
 
 @mixin withVariant($variant) {
   color: var(--color-#{$variant});
@@ -65,12 +65,12 @@ $variants: (primary, secondary, destructive, success, warning, info, error);
 }
 
 .--hover:hover:not(:disabled, .--disabled, .--selected) {
+  background-color: var(--color-hover);
+  color: var(--color-hover-text);
   cursor: pointer;
-  filter: sepia(80%);
-
-  // transition-property: filter;
-  // transition-duration: animation.$duration-sm;
-  // transition-timing-function: animation.$animation-ease;
+  transition-duration: lib.$duration-sm;
+  transition-property: color, background-color;
+  transition-timing-function: lib.$animation-ease;
 }
 
 .--noUserSelect {
@@ -90,7 +90,7 @@ $variants: (primary, secondary, destructive, success, warning, info, error);
 
 .animation {
   &--rotate {
-    animation-duration: calc(3 * animation.$duration-lg);
+    animation-duration: calc(3 * lib.$duration-lg);
     animation-iteration-count: infinite;
     animation-name: rotate;
     animation-timing-function: linear;

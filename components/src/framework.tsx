@@ -1,5 +1,8 @@
 import type { PropsWithChildren } from "react";
 import { createContext, useContext } from "react";
+import { Runtime } from "@tntfx/hooks";
+import { DialogProvider } from "./popup/dialog/dialog-context";
+import { ToastProvider } from "./popup/toast/toast-context";
 
 interface NavigateOptions {
   scroll?: boolean;
@@ -29,7 +32,15 @@ const fwContext = createContext<FrameworkProps>({} as FrameworkProps);
 
 export function FrameworkProvider(props: PropsWithChildren<FrameworkProps>) {
   const { children, ...context } = props;
-  return <fwContext.Provider value={context}>{children}</fwContext.Provider>;
+  return (
+    <fwContext.Provider value={context}>
+      <Runtime>
+        <ToastProvider>
+          <DialogProvider>{children}</DialogProvider>
+        </ToastProvider>
+      </Runtime>
+    </fwContext.Provider>
+  );
 }
 
 export const useFramework = () => useContext(fwContext);

@@ -1,9 +1,7 @@
 @use "@tntfx/theme";
 
 .toolbarSection {
-  @include theme.row(center);
-
-  position: relative;
+  @include theme.row;
   overflow: visible;
   height: 100%;
 
@@ -17,17 +15,12 @@
   }
 
   .button:not(.icon) {
-    // min-width: theme.$elementWidth-md;
+    min-width: theme.$elementWidth-md;
     margin: theme.$spacing-sm;
   }
 
   .form-element {
     flex: 1;
     margin: 0;
-  }
-
-  &-title.text {
-    font-size: theme.$fontSize-md;
-    font-weight: theme.$fontWeight-sm;
   }
 }

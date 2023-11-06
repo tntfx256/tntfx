@@ -12,13 +12,13 @@ $sidebarMaxWidth: theme.$breakpoint-xs;
   flex: 1;
   flex-flow: column nowrap;
   justify-content: flex-start;
-  background-color: var(--color-body);
-  color: var(--color-body-text);
+  background-color: theme.$color-body;
+  color: theme.$color-body-text;
 
   &.blur {
     @include theme.blur(2rem);
-    background-color: var(--color-body-alpha);
-    color: var(--color-body-alpha-text);
+    background-color: theme.$color-body;
+    color: theme.$color-body-text;
   }
 
   &__backdrop {
@@ -37,7 +37,7 @@ $sidebarMaxWidth: theme.$breakpoint-xs;
     }
 
     &.__with-body {
-      background: var(--color-element);
+      background: theme.$color-element;
 
       &.open:not(.overlay) {
         width: 100%;

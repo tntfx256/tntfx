@@ -7,14 +7,21 @@
   bottom: 0;
 
   .icon {
+    width: auto !important;
     align-self: flex-start;
-    padding: theme.$spacing-xs;
+    padding: 0 theme.$spacing-sm;
     border-radius: 0;
+    border-bottom: 1px solid theme.$color-border;
+    border-left: 1px solid theme.$color-border;
 
-    &-cross:not(:disabled) {
+    &-cross:not(:disabled, .--disabled) {
+      // .frame--active & {
+      //   color: theme.$color-error;
+      // }
+
       &:hover {
-        background-color: var(--color-error);
-        color: var(--color-error-text);
+        background-color: theme.$color-error;
+        color: theme.$color-error-text;
       }
     }
   }

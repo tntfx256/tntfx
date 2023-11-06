@@ -9,11 +9,11 @@
 
   &__time {
     @include theme.row(center);
-    font-size: var(--fontSize-xl);
+    font-size: theme.$fontSize-xl;
   }
 
   &__date {
     @include theme.row(center);
-    font-size: var(--fontSize-md);
+    font-size: theme.$fontSize-md;
   }
 }

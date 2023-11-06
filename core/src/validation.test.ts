@@ -1,10 +1,17 @@
-import { FriendModel } from "./__mocks__/model";
 import { Err } from "./error";
 import type { FieldProps, FieldType } from "./field";
 import { Field } from "./field";
+import { Model } from "./model";
 import type { Any } from "./types";
 import type { ValidationResult } from "./validation";
 import { TypeValidator, Validator } from "./validation";
+
+class FriendModel extends Model {
+  static fields = {
+    heros: new Field("heros", { listType: "String", type: "List" }),
+    name: new Field("name", { maxLength: 8, minLength: 2, required: true, type: "String" }),
+  };
+}
 
 describe("Validation", () => {
   it("should validate types", () => {

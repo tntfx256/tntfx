@@ -7,14 +7,15 @@ import "./menu-item.scss";
 
 export type MenuItemProps<T extends string = string> = ClassName & {
   item: Option<T>;
-  selected?: boolean;
+  selectedItem?: T;
   horizontal?: boolean;
   onClick?: (id: T) => void;
   render?: (item: Option<T>, selected?: boolean) => ReactNode;
 };
 
 export function MenuItem<T extends string = string>(props: MenuItemProps<T>) {
-  const [className, { item, onClick, horizontal }] = parseProps(props);
+  const { horizontal } = props;
+  const [className, { item, onClick }] = parseProps(props);
 
   function clickHandler(e: MouseEvent) {
     e.stopPropagation();
@@ -22,12 +23,13 @@ export function MenuItem<T extends string = string>(props: MenuItemProps<T>) {
   }
 
   const { disabled, children } = item;
+  const isSelected = props.selectedItem === item.id;
   const hasChildren = children && children.length > 0;
 
   return item.hidden ? null : (
     <li
       aria-disabled={item.disabled}
-      className={classNames("menuItem --hover", { "--disabled": disabled }, className)}
+      className={classNames("menuItem --hover", { "--disabled": disabled, "--selected": isSelected }, className)}
       role="menuitem"
       value={item.id}
       onClick={item.disabled || hasChildren ? undefined : clickHandler}

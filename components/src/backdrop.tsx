@@ -23,7 +23,7 @@ export const Backdrop = memo(function Backdrop(props: ClassAndChildren<BackdropP
     children,
     className,
     persistent = true,
-    background = "default",
+    background = "transparent",
     isOpen,
     animation = "zoom",
     overlay = true,

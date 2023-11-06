@@ -16,6 +16,6 @@
   }
 
   &--divider {
-    border-left: 1px solid var(--color-border);
+    border-left: 1px solid theme.$color-border;
   }
 }

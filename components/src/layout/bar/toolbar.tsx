@@ -9,8 +9,6 @@ import { Box } from "../box";
 import "./toolbar.scss";
 
 type ToolbarProps = Omit<BoxProps, "horizontal"> & {
-  as?: "header" | "footer";
-
   icon?: IconName;
   onIconClick?: () => void;
   title?: string;
@@ -22,12 +20,12 @@ type ToolbarProps = Omit<BoxProps, "horizontal"> & {
 };
 
 export function Toolbar(props: ToolbarProps) {
-  const [className, { actions, onAction, children, as, icon, onIconClick, title, ...boxProps }] = parseProps(props);
+  const [className, { actions, onAction, children, icon, onIconClick, title, ...boxProps }] = parseProps(props);
 
   const hasTitlebar = Boolean(icon || title);
 
   return (
-    <Box horizontal className={classNames("toolbar --noUserSelect", `--as-${as}`, className)} role="toolbar" {...boxProps}>
+    <Box horizontal className={classNames("toolbar --noUserSelect", className)} role="toolbar" {...boxProps}>
       {hasTitlebar && (
         <ToolbarSection className="toolbar__title">
           {icon && <Icon name={icon} size="md" onClick={onIconClick} />}

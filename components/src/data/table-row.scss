@@ -2,8 +2,8 @@
 
 .tableRow {
   border: 0;
-  border-bottom: 1px solid var(--color-border);
-  background-color: var(--color-element);
-  color: var(--color-element-text);
+  border-bottom: 1px solid theme.$color-border;
+  background-color: theme.$color-element;
+  color: theme.$color-element-text;
   transition: background-color theme.$duration-md theme.$animation-ease();
 }

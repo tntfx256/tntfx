@@ -7,9 +7,7 @@
   "files": [
     "./index.scss"
   ],
-  "scripts": {
-    "types": "tsc -p tsconfig.json --noEmit"
-  },
+  "scripts": {},
   "dependencies": {
     "@tntfx/core": "*",
     "@tntfx/hooks": "*",

@@ -49,7 +49,9 @@ export enum ActionSet {
   RetryCancel = "RetryCancel",
 }
 export type Actions<T extends string = string> = ActionSet | `${ActionSet}` | Option<T>[];
-export type OnAction<T extends string = string> = (action: T extends Action ? Action : T) => MaybePromise<Any<boolean>>;
+export type OnAction<T extends string = string> = (
+  action: T extends Action ? Action : T
+) => void | MaybePromise<Any<boolean>>;
 export type Actionable<T extends string = string> = {
   actions?: Actions<T>;
   onAction?: OnAction<T>;

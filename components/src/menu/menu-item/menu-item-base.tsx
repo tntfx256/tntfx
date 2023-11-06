@@ -7,7 +7,7 @@ import { Link, Text } from "../../typography";
 import "./menu-item-base.scss";
 
 export function MenuItemBase<T extends string = string>(props: MenuItemProps<T>) {
-  const [className, { onClick, item, selected, render }] = parseProps(props);
+  const [className, { onClick, item, selectedItem, render }] = parseProps(props);
 
   const clickHandler = useCallback(() => {
     onClick?.(item.id);
@@ -16,7 +16,7 @@ export function MenuItemBase<T extends string = string>(props: MenuItemProps<T>)
   return (
     <Box className={classNames("menuItemBase", className)} onClick={clickHandler}>
       {render ? (
-        render(item, selected)
+        render(item, item.id === selectedItem)
       ) : (
         <>
           {item.icon && <Icon name={item.icon} size="sm" />}

@@ -63,6 +63,7 @@ export interface Theme {
     error: string;
     errorText: string;
 
+    border: string;
     body: string;
     bodyText: string;
     surface: string;
@@ -75,7 +76,13 @@ export interface Theme {
     elementAlphaText: string;
     elementAlt: string;
     elementAltText: string;
-    border: string;
+    backdrop: string;
+
+    selected: string;
+    selectedText: string;
+    hover: string;
+    hoverText: string;
+    activeText: string;
   };
 
   shadow: {

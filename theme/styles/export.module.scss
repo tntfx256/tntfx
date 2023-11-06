@@ -1,3 +1,5 @@
+/* stylelint-disable  */
+
 @import "./lib";
 
 :export {
@@ -16,36 +18,40 @@
   breakpoint_xs: $breakpoint-xs;
   breakpoint_xxl: $breakpoint-xxl;
   breakpoint_xxs: $breakpoint-xxs;
-  color_body: var(--color-body);
-  color_body_text: var(--color-body-text);
-  color_border: var(--color-border);
-  color_element: var(--color-element);
-  color_element_alpha: var(--color-element-alpha);
-  color_element_alpha_text: var(--color-element-alpha-text);
-  color_element_alt: var(--color-element-alt);
-  color_element_alt_text: var(--color-element-alt-text);
-  color_element_text: var(--color-element-text);
-  color_error: var(--color-error);
-  color_error_text: var(--color-error-text);
-  color_info: var(--color-info);
-  color_info_text: var(--color-info-text);
-  color_primary: var(--color-primary);
-  color_primary_text: var(--color-primary-text);
-  color_secondary: var(--color-secondary);
-  color_secondary_text: var(--color-secondary-text);
-  color_selected: var(--color-selected);
-  color_selected_text: var(--color-selected-text);
-  color_success: var(--color-success);
-  color_success_text: var(--color-success-text);
-  color_surface: var(--color-surface);
-  color_surface_alt: var(--color-surface-alt);
-  color_surface_alt_text: var(--color-surface-alt-text);
-  color_surface_text: var(--color-surface-text);
+  color_active_text: $color-active-text;
+  color_backdrop: $color-backdrop;
+  color_body: $color-body;
+  color_body_text: $color-body-text;
+  color_border: $color-border;
+  color_element: $color-element;
+  color_element_alpha: $color-element-alpha;
+  color_element_alpha_text: $color-element-alpha-text;
+  color_element_alt: $color-element-alt;
+  color_element_alt_text: $color-element-alt-text;
+  color_element_text: $color-element-text;
+  color_error: $color-error;
+  color_error_text: $color-error-text;
+  color_hover: $color-hover;
+  color_hover_text: $color-hover-text;
+  color_info: $color-info;
+  color_info_text: $color-info-text;
+  color_primary: $color-primary;
+  color_primary_text: $color-primary-text;
+  color_secondary: $color-secondary;
+  color_secondary_text: $color-secondary-text;
+  color_selected: $color-selected;
+  color_selected_text: $color-selected-text;
+  color_success: $color-success;
+  color_success_text: $color-success-text;
+  color_surface: $color-surface;
+  color_surface_alt: $color-surface-alt;
+  color_surface_alt_text: $color-surface-alt-text;
+  color_surface_text: $color-surface-text;
 
-  color_text: var(--color-text);
-  color_text_alt: var(--color-text-alt);
-  color_warning: var(--color-warning);
-  color_warning_text: var(--color-warning-text);
+  color_text: $color-text;
+  color_text_alt: $color-text-alt;
+  color_warning: $color-warning;
+  color_warning_text: $color-warning-text;
   element_height_lg: $elementHeight-lg;
   element_height_md: $elementHeight-md;
   element_height_sm: $elementHeight-sm;

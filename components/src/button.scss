@@ -15,7 +15,7 @@
   border-radius: theme.$borderRadius-sm;
   -webkit-appearance: none;
   appearance: none;
-  color: var(--color-body-text);
+  color: theme.$color-body-text;
   font-size: theme.$fontSize-sm;
   font-weight: theme.$fontWeight-sm;
   outline: 0;

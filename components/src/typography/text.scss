@@ -9,14 +9,14 @@
   text-align: inherit;
 
   &.variant-primary {
-    color: var(--color-primary);
+    color: theme.$color-primary;
   }
 
   &.variant-secondary {
-    color: var(--color-secondary);
+    color: theme.$color-secondary;
   }
   &.variant-destructive {
-    color: var(--color-error);
+    color: theme.$color-error;
   }
 
   &.size-xxsmall {

@@ -3,6 +3,6 @@
   @return ($size / 16) * 1rem;
 }
 
-@function ratio($width, $ratio: 1.6) {
+@function ratio($width: 100vw, $height: 100vh) {
   @return calc($width / $ratio);
 }

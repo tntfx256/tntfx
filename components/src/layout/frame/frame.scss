@@ -1,107 +1,129 @@
 @use "@tntfx/theme";
+$minFrameWidth: theme.$breakpoint-sm;
+$minFrameHeight: theme.$breakpoint-sm;
+$minDialogWidth: theme.$breakpoint-xs;
+$minDialogHeight: calc($minDialogWidth / 1.6);
 
-%sticky {
-  @include theme.blur;
+.frame {
+  $self: &;
+
+  position: absolute;
   z-index: theme.$layer-window;
   right: 0;
   left: 0;
-  color: var(--color-body-alpha-text);
-}
-
-.frame {
-  position: absolute;
-  z-index: theme.$layer-window;
   overflow: hidden;
-  border: 1px solid var(--color-border-alpha);
+  width: max-content;
+  min-width: $minFrameWidth;
+  max-width: 90%;
+  height: max-content;
+  min-height: $minFrameHeight;
+  max-height: 80%;
+  border: 1px solid theme.$color-border;
   border-radius: theme.$borderRadius-sm;
-  background-color: var(--color-body);
-  box-shadow: var(--shadow-lg);
-  color: var(--color-body-text);
+  margin: auto;
+  background-color: theme.$color-body;
+  box-shadow: theme.$shadow-lg;
+  color: theme.$color-body-text;
 
-  &.static {
+  &--initialized {
+    right: auto;
+    left: auto;
+    width: auto;
+    min-width: none;
+    max-width: none;
+    height: auto;
+    min-height: none;
+    max-height: none;
+  }
+
+  &--dialog {
+    min-width: $minDialogWidth;
+    min-height: $minDialogHeight;
+  }
+
+  &--static {
     box-shadow: none !important;
   }
 
-  &.active {
+  &--active {
     z-index: theme.$layer-window-active;
-    border: 1px solid var(--color-border);
-    box-shadow: var(--shadow-xxl);
+    border: 1px solid theme.$color-border;
+    box-shadow: theme.$shadow-xxl;
   }
 
-  .frame-wrapper {
+  &__wrapper {
     overflow: hidden;
     width: 100%;
     height: 100%;
+    flex: 1;
     flex-direction: row;
     border-radius: inherit;
   }
 
-  &.status {
-    transition-duration: theme.$duration-sm;
-    transition-property: top left width height transform;
+  &--maximized {
+    top: 0 !important;
+    right: 0;
+    bottom: 0;
+    left: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    border-radius: 0;
+    box-shadow: none;
 
-    &-maximized {
-      top: 0 !important;
-      right: 0;
-      bottom: 0;
-      left: 0 !important;
-      width: auto !important;
-      height: auto !important;
-      border-radius: 0;
-      box-shadow: none;
-
-      .has-taskbar & {
-        @include theme.belowMedium {
-          bottom: theme.$elementHeight-xl !important;
-        }
-        @include theme.aboveMedium {
-          left: calc(1.25 * theme.$elementHeight-xl) !important;
-        }
+    .with-taskbar & {
+      @include theme.belowMedium {
+        bottom: theme.$elementHeight-xl !important;
+      }
+      @include theme.aboveMedium {
+        left: calc(1.25 * theme.$elementHeight-xl) !important;
       }
     }
   }
 
-  &-content {
+  &__content {
     overflow: auto;
-    // min-height: 100%;
     flex: 1;
     border-radius: inherit;
   }
 
-  &-body {
+  &__body {
     overflow: auto;
     flex: 1;
-    background-color: var(--color-body);
-    color: var(--color-body-text);
+    background-color: theme.$color-body;
+    color: theme.$color-body-text;
   }
 
-  &-header.box {
-    @extend %sticky;
+  &__header {
+    @include theme.blur;
     position: absolute;
+    z-index: theme.$layer-window;
     top: 0;
+    right: 0;
+    left: 0;
     min-height: theme.$elementHeight-xl;
     border-radius: 0;
-    border-bottom: 1px solid var(--color-border);
-    background-color: var(--color-element-alpha);
+    border-bottom: 1px solid theme.$color-border;
+    background-color: theme.$color-element-alpha;
     border-top-left-radius: inherit;
     border-top-right-radius: inherit;
-
-    * {
-      background: transparent;
-    }
+    color: theme.$color-body-text;
   }
 
-  &-sidebar {
-    border-right: 1px solid var(--color-border);
+  &__sidebar {
+    border-right: 1px solid theme.$color-border;
   }
 
-  &-footer.box.--horizontal {
-    @extend %sticky;
+  &__footer {
+    @include theme.blur;
+    position: absolute;
+    z-index: theme.$layer-window;
+    right: 0;
     bottom: 0;
+    left: 0;
+    justify-content: flex-end;
     border-radius: 0;
-    border-top: 1px solid var(--color-border);
-    background-color: var(--color-element-alpha);
     border-bottom-left-radius: inherit;
     border-bottom-right-radius: inherit;
+    color: theme.$color-body-text;
   }
 }

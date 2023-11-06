@@ -1,15 +1,8 @@
-const withPwa = require("next-pwa");
+/* eslint-disable turbo/no-undeclared-env-vars -- config file */
 
-const { version } = require("../package.json");
+const { version } = require("./package.json");
 
-const isProduction = process.env.NODE_ENV === "production";
 const shouldAnalyze = process.env.ANALYZE === "true";
-
-/** @type {import('next-pwa').PWAConfig} */
-const defaultPwaConfig = {
-  dest: "public",
-  disable: !isProduction,
-};
 
 /** @type {import('next').NextConfig} */
 const defaultNextConfig = {
@@ -37,9 +30,8 @@ const defaultNextConfig = {
 /**
  *
  * @param {import('next').NextConfig} nextConfig
- * @param {[import('next-pwa').PWAConfig]} pwaConfig
  */
-function withSparrow(nextConfig, pwaConfig) {
+function withNext(nextConfig) {
   /** @type {import('next').NextConfig} */
   const finalNextConfig = {
     ...defaultNextConfig,
@@ -72,17 +64,13 @@ function withSparrow(nextConfig, pwaConfig) {
     },
   };
 
-  /** @type {import('next-pwa').PWAConfig} */
-  const finalPwaConfig = { ...defaultPwaConfig, ...pwaConfig };
-
   if (shouldAnalyze) {
     const withAnalyzer = require("@next/bundle-analyzer")({ enabled: true, openAnalyzer: true });
 
-    return withPwa(finalPwaConfig)(withAnalyzer(finalNextConfig));
+    return withAnalyzer(finalNextConfig);
   }
 
-  // @ts-ignore
-  return withPwa(finalPwaConfig)(finalNextConfig);
+  return finalNextConfig;
 }
 
-module.exports = withSparrow;
+module.exports = withNext;

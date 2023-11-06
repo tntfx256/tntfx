@@ -17,7 +17,8 @@ export interface ButtonProps extends WithChildren, EnhancedProps {
 }
 
 export function Button(props: ButtonProps) {
-  const [className, { children, title, isLoading, onClick, disabled, startIcon, endIcon, ...rest }] = parseProps(props);
+  const { disabled } = props;
+  const [className, { children, title, isLoading, onClick, startIcon, endIcon, ...rest }] = parseProps(props);
 
   const [isInnerLoading, showInnerLoader, hideInnerLoader] = useToggle();
 

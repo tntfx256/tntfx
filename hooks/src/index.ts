@@ -1,6 +1,5 @@
 export * from "./api";
 export * from "./debug";
-export * from "./fw-provider";
 export * from "./runtime";
 export * from "./store";
 export * from "./use-collection";

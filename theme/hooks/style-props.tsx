@@ -31,7 +31,7 @@ export const propsMap = {
   },
   color(value: WithVariant<Css["color"]>, style: Css) {
     if (variants.includes(value as Variant)) {
-      style.color = `var(--color-${value})`;
+      style.color = `theme.$color-${value}`;
     } else {
       style.color = value;
     }
@@ -69,10 +69,13 @@ export const propsMap = {
   height(value: WithSize<Css["height"]>, style: Css) {
     style.height = withSize(value, "size");
   },
-  horizontal(value: boolean, style: Css) {
+  horizontal(value: boolean, style: Css, classList: Set<string>) {
     if (value) {
       style.display = "flex";
       style.flexFlow = "row nowrap";
+      classList.add("--horizontal");
+    } else {
+      classList.add("--horizontal");
     }
   },
   horizontalMargin(value: WithSize<Css["marginLeft"]>, style: Css) {
@@ -147,13 +150,15 @@ export type EnhancedProps = {
 };
 
 const enhancedPropNames = Object.keys(propsMap) as PK[];
-type ReturnType = [className: string, restProps: any];
+
+type RemovedProps = Exclude<PK, "style">;
+type ReturnType<T extends TObject> = [className: string, props: Omit<T, RemovedProps>];
 
 /**
  *
  * @description it should remove the properties that are not valid for the underlying html element
  */
-export function parseProps<T extends TObject = TObject>(props: T): ReturnType {
+export function parseProps<T extends TObject = TObject>(props: T): ReturnType<T> {
   const styles: Css = {};
   const classes = new Set<string>();
   const validProps = {} as any;

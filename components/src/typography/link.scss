@@ -1,17 +1,14 @@
+@use "@tntfx/theme";
+
 .link {
   display: inline-flex;
   align-items: baseline;
   justify-content: flex-start;
   color: inherit;
   cursor: pointer;
-  text-decoration-color: var(--color-active);
+  text-decoration-color: theme.$color-active-text;
   text-decoration-skip-ink: none;
   text-decoration-thickness: 0.75px;
-
-  // &:hover {
-  //   color: var(--color-secondary);
-  //   text-decoration-color: var(--color-secondary);
-  // }
 
   .svg {
     width: 0.6rem;

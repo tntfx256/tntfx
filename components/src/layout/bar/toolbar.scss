@@ -1,35 +1,15 @@
 @use "@tntfx/theme";
 
 .toolbar {
+  @include theme.row;
   z-index: theme.$layer-window;
   overflow: visible;
-  width: 100%;
-  min-height: theme.$elementHeight-lg;
-  max-height: theme.$elementHeight-xl;
+  height: theme.$elementHeight-xl;
+  min-height: theme.$elementHeight-xl;
   border-radius: inherit;
   white-space: nowrap;
 
   &__title {
     padding-left: theme.$spacing-md;
-  }
-
-  &.--as-header {
-    height: theme.$elementHeight-xl;
-    min-height: theme.$elementHeight-xl;
-
-    > .toolbarSection {
-      &:last-of-type:not(:first-of-type) {
-        justify-content: flex-end;
-      }
-    }
-  }
-
-  &.--as-footer {
-    height: theme.$elementHeight-lg;
-    max-height: theme.$elementHeight-lg;
-
-    > .toolbarSection {
-      justify-content: flex-end;
-    }
   }
 }

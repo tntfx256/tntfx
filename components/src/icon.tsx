@@ -13,7 +13,8 @@ type IconProps = SvgProps & {
 };
 
 export function Icon(props: WithChildren<IconProps>) {
-  const [className, { name, disabled, onClick, title, ...btnProps }] = parseProps(props);
+  const { disabled } = props;
+  const [className, { name, onClick, title, ...btnProps }] = parseProps(props);
 
   const handleClick = useCallback(
     (e: MouseEvent) => {
@@ -31,7 +32,7 @@ export function Icon(props: WithChildren<IconProps>) {
 
   return (
     <button
-      className={classNames("icon", className, `icon-${name}`)}
+      className={classNames("icon", className, `icon-${name}`, { "--hover": !disabled && onClick })}
       disabled={disabled}
       onClick={handleClick}
       {...btnProps}

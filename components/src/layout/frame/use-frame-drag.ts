@@ -36,6 +36,6 @@ export function useFrameDrag(
       return;
     }
 
-    setHeaderElement(frame.querySelector<HTMLDivElement>(".frame-header"));
+    setHeaderElement(frame.querySelector<HTMLDivElement>(".frame__header"));
   }, [frame, headerElement]);
 }

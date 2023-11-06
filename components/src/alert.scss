@@ -19,10 +19,10 @@
   }
 
   &.type-error {
-    border-color: var(--color-error-alpha);
+    border-color: theme.$color-error;
 
     .alert-icon {
-      color: var(--color-error);
+      color: theme.$color-error;
     }
   }
 }

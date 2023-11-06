@@ -17,7 +17,7 @@ const MaxFrameWidth = Breakpoints.md;
 const MinDialogWidth = Breakpoints.xxs;
 const MaxDialogWidth = Breakpoints.xs;
 
-const RATIO = 1.6;
+// const GoldenRatio = 1.6;
 
 export function getScreenDimension() {
   if (isServer()) {
@@ -44,22 +44,25 @@ export function toBoundingRect(boundary: Partial<BoundingRect> = {}): BoundingRe
 export function getMinDimension(isDialog = false, boundary?: Dimension) {
   boundary = boundary || getScreenDimension().desktop;
 
+  const ratio = boundary.width / boundary.height;
+
   // making sure that width and heigh are not bigger than the boundary
   return {
     minWidth: Math.min(isDialog ? MinDialogWidth : MinFrameWidth, boundary.width),
-    minHeight: Math.min(isDialog ? MinDialogWidth / RATIO : MinFrameWidth / RATIO, boundary.height),
+    minHeight: Math.min(isDialog ? MinDialogWidth / ratio : MinFrameWidth / ratio, boundary.height),
 
     maxWidth: Math.min(isDialog ? MaxDialogWidth : MaxFrameWidth, boundary.width),
-    maxHeight: Math.min(isDialog ? MaxDialogWidth / RATIO : MaxFrameWidth / RATIO),
+    maxHeight: Math.min(isDialog ? MaxDialogWidth / ratio : MaxFrameWidth / ratio),
   };
 }
 
 export function calcInitialFrameDimension(isDialog = false, boundary?: Dimension): Dimension {
   const { minWidth, minHeight, maxWidth, maxHeight } = getMinDimension(isDialog, boundary);
   const boundingRect = toBoundingRect(boundary);
+  const ratio = boundingRect.width / boundingRect.height;
 
   const width = boundingRect.width * 0.8;
-  const height = width / RATIO;
+  const height = width / ratio;
   const dimension: Dimension = {
     width: Math.floor(width),
     height: Math.floor(height),

@@ -16,7 +16,7 @@ export function Dialog(props: DialogProps) {
     onAction,
     onClose,
     global,
-    background = "default",
+    background,
     // type,
     draggable = false,
     resizable = false,
