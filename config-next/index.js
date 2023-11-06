@@ -6,20 +6,14 @@ const shouldAnalyze = process.env.ANALYZE === "true";
 const defaultNextConfig = {
   compiler: {},
   experimental: {
+    webpackBuildWorker: true,
     // webVitalsAttribution: ["CLS", "FCP", "FID", "INP", "LCP", "TTFB"],
   },
   modularizeImports: {},
-
   productionBrowserSourceMaps: false,
-
-  publicRuntimeConfig: {
-    version,
-  },
-
+  publicRuntimeConfig: { version },
+  serverRuntimeConfig: { version },
   reactStrictMode: true,
-
-  serverRuntimeConfig: {},
-
   swcMinify: true,
 
   transpilePackages: ["@tntfx/components", "@tntfx/core", "@tntfx/hooks", "@tntfx/theme"],
@@ -29,22 +23,27 @@ const defaultNextConfig = {
  *
  * @param {import('next').NextConfig} nextConfig
  */
-function withNext(nextConfig) {
+function withNext(nextConfig = {}) {
   /** @type {import('next').NextConfig} */
   const finalNextConfig = {
     ...defaultNextConfig,
     ...nextConfig,
 
+    experimental: {
+      ...defaultNextConfig.experimental,
+      ...nextConfig.experimental,
+    },
+
     transpilePackages: [...(defaultNextConfig.transpilePackages || []), ...(nextConfig.transpilePackages || [])],
 
     publicRuntimeConfig: {
       ...defaultNextConfig.publicRuntimeConfig,
-      ...nextConfig?.publicRuntimeConfig,
+      ...nextConfig.publicRuntimeConfig,
     },
 
     serverRuntimeConfig: {
       ...defaultNextConfig.serverRuntimeConfig,
-      ...nextConfig?.serverRuntimeConfig,
+      ...nextConfig.serverRuntimeConfig,
     },
 
     webpack(config, options) {
