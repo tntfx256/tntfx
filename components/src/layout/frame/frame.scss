@@ -51,6 +51,13 @@ $minDialogHeight: calc($minDialogWidth / 1.6);
     box-shadow: theme.$shadow-xxl;
   }
 
+  &--sidebarOpen {
+    #{$self}__content {
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 0;
+    }
+  }
+
   &__wrapper {
     overflow: hidden;
     width: 100%;

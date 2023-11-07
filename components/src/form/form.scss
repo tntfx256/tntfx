@@ -4,8 +4,10 @@
   display: block;
   width: 100%;
 
-  .legend {
-    padding-left: theme.$spacing-xs;
+  &__legend {
+    padding: theme.$spacing-md;
+    color: theme.$color-secondary;
+    font-size: theme.$fontSize-lg;
   }
 
   > form {
@@ -14,12 +16,13 @@
     padding: theme.$spacing-md;
     border-radius: theme.$borderRadius-sm;
 
+    // nested form
     .form {
       padding-left: theme.$spacing-md;
     }
   }
 
-  &._bordered > form {
-    border: 1px solid theme.$color-border;
+  &__actions {
+    justify-content: flex-end;
   }
 }

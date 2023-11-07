@@ -3,6 +3,7 @@ import { Action, ActionSet, MessageType, type Nullable, type TError } from "@tnt
 import { useStore } from "./dialog-context";
 import { ErrorContent } from "../../layout/error-content";
 import type { DialogPayload } from "../types";
+import { Box } from "../../layout";
 
 type ConfirmPayload = Pick<DialogPayload, "title" | "children" | "boundary">;
 
@@ -29,7 +30,12 @@ export function useDialog() {
       id,
       onClose,
       isOpen: true,
-      children: payload?.children || <ErrorContent error={error} />,
+      draggable: true,
+      children: (
+        <Box flex={1} justifyContent="center" padding="md">
+          {payload?.children || <ErrorContent error={error} />}
+        </Box>
+      ),
       title: payload?.title || (error ? "An error ocurred" : ""),
       type: payload?.type || (error ? MessageType.Error : MessageType.Info),
     };

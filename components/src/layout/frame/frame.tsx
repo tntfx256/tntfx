@@ -77,6 +77,7 @@ export function Frame(props: FrameProps) {
           "frame--dialog": isDialog,
           "frame--active": isActive,
           "frame--static": isStatic,
+          "frame--sidebarOpen": isSidebarOpen,
         })}
         style={
           dimension

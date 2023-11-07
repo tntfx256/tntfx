@@ -1,10 +1,10 @@
 import type { ReactNode } from "react";
 import type { ClassAndChildren } from "@tntfx/core";
-import { classNames } from "@tntfx/theme";
+import { EnhancedProps, classNames, parseProps } from "@tntfx/theme";
 import { Backdrop } from "../../backdrop";
 import "./sidebar.scss";
 
-export type SidebarProps = {
+export type SidebarProps = EnhancedProps & {
   overlay?: boolean;
   blur?: boolean;
   persistent?: boolean;
@@ -16,7 +16,7 @@ export type SidebarProps = {
 };
 
 export function Sidebar(props: ClassAndChildren<SidebarProps>) {
-  const { className, onClickOutside, persistent = true, overlay, isOpen, children, blur, slots = {} } = props;
+  const [className, { onClickOutside, persistent = true, overlay, isOpen, children, blur, slots = {} }] = parseProps(props);
 
   const hasBody = !!slots.body;
 

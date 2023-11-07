@@ -2,6 +2,7 @@
 
 .frameControls {
   position: absolute;
+  z-index: theme.$layer-window;
   top: 0;
   right: 0;
   bottom: 0;
@@ -20,8 +21,8 @@
       // }
 
       &:hover {
-        background-color: theme.$color-error;
-        color: theme.$color-error-text;
+        background-color: theme.$color-error !important;
+        color: theme.$color-error-text !important;
       }
     }
   }

@@ -75,7 +75,7 @@ export const propsMap = {
       style.flexFlow = "row nowrap";
       classList.add("--horizontal");
     } else {
-      classList.add("--horizontal");
+      classList.delete("--horizontal");
     }
   },
   horizontalMargin(value: WithSize<Css["marginLeft"]>, style: Css) {

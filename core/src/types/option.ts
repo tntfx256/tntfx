@@ -1,6 +1,6 @@
 import type { PropsWithChildren, ReactElement, ReactNode } from "react";
 import type { Any, MaybePromise } from "./base";
-import type { Size, Variant } from "./theme";
+import type { Shape, Size, Variant } from "./theme";
 import { Field } from "../field";
 import type { IconName } from "../icon";
 import { Model } from "../model";
@@ -17,8 +17,9 @@ export type Option<T extends string = string> = {
   icon?: IconName;
   iconPosition?: "start" | "end";
   path?: string;
-  size?: Size;
-  variant?: Variant;
+  size?: Size | `${Size}`;
+  variant?: Variant | `${Variant}`;
+  shape?: Shape | `${Shape}`;
 };
 
 export class OptionModel extends Model<Option> {
