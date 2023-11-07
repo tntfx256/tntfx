@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import type { ClassAndChildren } from "@tntfx/core";
-import { EnhancedProps, classNames, parseProps } from "@tntfx/theme";
+import type { EnhancedProps } from "@tntfx/theme";
+import { classNames, parseProps } from "@tntfx/theme";
 import { Backdrop } from "../../backdrop";
 import "./sidebar.scss";
 

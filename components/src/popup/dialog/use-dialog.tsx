@@ -1,9 +1,9 @@
 import { useId } from "react";
 import { Action, ActionSet, MessageType, type Nullable, type TError } from "@tntfx/core";
 import { useStore } from "./dialog-context";
+import { Box } from "../../layout";
 import { ErrorContent } from "../../layout/error-content";
 import type { DialogPayload } from "../types";
-import { Box } from "../../layout";
 
 type ConfirmPayload = Pick<DialogPayload, "title" | "children" | "boundary">;
 

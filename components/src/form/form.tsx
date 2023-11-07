@@ -1,7 +1,8 @@
 import type { FormEvent } from "react";
 import { useCallback } from "react";
 import type { ClassAndChildren, Option } from "@tntfx/core";
-import { EnhancedProps, classNames, parseProps } from "@tntfx/theme";
+import type { EnhancedProps } from "@tntfx/theme";
+import { classNames, parseProps } from "@tntfx/theme";
 import { Box } from "../layout";
 import { ActionBar } from "../layout/bar/action-bar";
 import { Text } from "../typography/text";
@@ -33,7 +34,7 @@ export function Form(props: ClassAndChildren<FormProps>) {
       <form onSubmit={handleSubmit}>
         {children}
 
-        {actions && <ActionBar className="form__actions" actions={actions} />}
+        {actions && <ActionBar actions={actions} className="form__actions" />}
       </form>
     </Box>
   );
