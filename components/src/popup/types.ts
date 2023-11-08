@@ -1,4 +1,4 @@
-import type { Actionable, Boundary, ClassAndChildren, Dimension, IconName, MessageType, Second } from "@tntfx/core";
+import type { Actionable, ClassAndChildren, Dimension, IconName, MessageType, Second } from "@tntfx/core";
 import type { BackdropProps } from "../backdrop";
 
 export enum PopupType {

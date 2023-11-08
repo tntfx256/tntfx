@@ -11,10 +11,11 @@ export function getActions<T extends string = string>(handleClick?: OnAction<T>,
     return actionSet.map((action) => (
       <Button
         key={action.id}
+        color={action.color || "default"}
         endIcon={action.icon && action.iconPosition === "end" ? action.icon : undefined}
         startIcon={action.icon && action.iconPosition !== "end" ? action.icon : undefined}
         title={action.title}
-        variant={action.variant || "default"}
+        variant={action.variant || "void"}
         onClick={() => handleAction(action.id as Any)}
       />
     ));
@@ -23,25 +24,25 @@ export function getActions<T extends string = string>(handleClick?: OnAction<T>,
   switch (actionSet) {
     case ActionSet.OkCancel:
       return [
-        <Button key="cancel" title="Cancel" variant="secondary" onClick={() => handleAction(Action.Cancel as Any)} />,
-        <Button key="ok" shape="contained" title="Ok" variant="primary" onClick={() => handleAction(Action.Ok as Any)} />,
+        <Button key="cancel" color="secondary" title="Cancel" onClick={() => handleAction(Action.Cancel as Any)} />,
+        <Button key="ok" color="primary" title="Ok" variant="contained" onClick={() => handleAction(Action.Ok as Any)} />,
       ];
 
     case "RetryCancel":
       return [
-        <Button key="cancel" title="Cancel" variant="secondary" onClick={() => handleAction(Action.Cancel as Any)} />,
+        <Button key="cancel" color="secondary" title="Cancel" onClick={() => handleAction(Action.Cancel as Any)} />,
         <Button
           key="retry"
-          shape="contained"
+          color="primary"
           title="Retry"
-          variant="primary"
+          variant="contained"
           onClick={() => handleAction(Action.Retry as Any)}
         />,
       ];
   }
 
   // OK
-  return [<Button key="ok" shape="contained" title="Ok" variant="primary" onClick={() => handleAction(Action.Ok as Any)} />];
+  return [<Button key="ok" color="primary" title="Ok" variant="contained" onClick={() => handleAction(Action.Ok as Any)} />];
 }
 
 function ImplicitActionHandler(action: string) {

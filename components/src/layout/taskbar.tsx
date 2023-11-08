@@ -9,15 +9,16 @@ import "./taskbar.scss";
 export type TaskbarAction = "start" | "settings";
 
 export type TaskbarProps = {
+  position?: "left" | "bottom";
   onAction?: OnAction<TaskbarAction>;
   onLogout?: () => void;
 };
 
 export function Taskbar(props: ClassAndChildren<TaskbarProps>) {
-  const [className, { children, onAction, onLogout, ...rest }] = parseProps(props);
+  const [className, { children, onAction, onLogout, position = "bottom", ...rest }] = parseProps(props);
 
   return (
-    <Box className={classNames("taskbar", className)} {...rest}>
+    <Box className={classNames(`taskbar taskbar--${position}`, className)} {...rest}>
       <Box className="taskbar__start">
         {onLogout && <Icon color={theme.palette.error} name="power" onClick={onLogout} />}
         <Icon

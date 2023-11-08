@@ -1,16 +1,16 @@
-import type { ClassAndChildren, Variant } from "@tntfx/core";
-import { classNames } from "@tntfx/theme";
+import type { ClassAndChildren, Color } from "@tntfx/core";
+import { classNames, parseProps } from "@tntfx/theme";
 import { Box } from "./layout/box";
 import { Text } from "./typography";
 import "./badge.scss";
 
 type BadgeProps = {
   count: number | string;
-  variant?: Variant;
+  color?: Color;
 };
 
 export function Badge(props: ClassAndChildren<BadgeProps>) {
-  const { className, children, variant = "destructive", count } = props;
+  const [className, { children, count }] = parseProps(props);
 
   return (
     <Box
@@ -20,7 +20,7 @@ export function Badge(props: ClassAndChildren<BadgeProps>) {
     >
       {children}
       {Boolean(count) && (
-        <Box className={classNames("badge", className, `variant-${variant}`)}>
+        <Box className={classNames("badge", className)}>
           <Text fontSize="xs" fontWeight="md">
             {count}
           </Text>

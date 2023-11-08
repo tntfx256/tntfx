@@ -15,7 +15,7 @@ $fontFamily:
   Ubuntu,
   Cantarell,
   Noto Sans,
-  sans-serif;
+  sans-serif !default;
 
 $fontFamily-mono:
   Dank Mono,
@@ -27,7 +27,7 @@ $fontFamily-mono:
   Monaco,
   Droid Sans Mono,
   Source Code Pro,
-  monospace;
+  monospace !default;
 
 $fontSize-xxs: utils.toRem(10);
 $fontSize-xs: utils.toRem(12);

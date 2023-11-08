@@ -39,6 +39,7 @@ export function wrapRequest<T extends SessionType = SessionType>(handler: Reques
 
     try {
       await checkAccess(config);
+
       const result = await handler(req, session);
       if (result === RESPONSE_SENT) {
         return NextResponse;

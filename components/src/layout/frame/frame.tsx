@@ -1,5 +1,5 @@
 import { useCallback, useLayoutEffect, useState } from "react";
-import { type Dimension } from "@tntfx/core";
+import { calcInitialFrameDimension, type Dimension } from "@tntfx/core";
 import { useRefState, useToggle } from "@tntfx/hooks";
 import { classNames, parseProps } from "@tntfx/theme";
 import { FrameControls } from "./frame-controls";
@@ -31,12 +31,13 @@ export function Frame(props: FrameProps) {
       isStatic = false,
       isActive = true,
       slots = {},
+      slotProps = {},
       onClose,
       ...boxProps
     },
   ] = parseProps(props);
 
-  const [isSidebarOpen, , , toggleSidebar] = useToggle();
+  const [isSidebarOpen, , , toggleSidebar] = useToggle(slotProps.sidebar?.isInitiallyOpen);
   const [frame, frameRefHandler] = useRefState<HTMLDivElement>();
   const [dimension, setDimension] = useState<Dimension>();
   const [status, setStatus] = useState<FrameStatus>(FrameStatus.Normal);
@@ -55,14 +56,9 @@ export function Frame(props: FrameProps) {
 
   useLayoutEffect(() => {
     if (frame && !dimension && !isStatic) {
-      let { left, top, width, height } = frame.getBoundingClientRect();
-      if (boundary) {
-        left -= boundary.left;
-        top -= boundary.top;
-      }
-      setDimension({ left, top, width, height });
+      setDimension(calcInitialFrameDimension(frame, isDialog, boundary));
     }
-  }, [boundary, dimension, frame, isStatic]);
+  }, [boundary, dimension, frame, isDialog, isStatic]);
 
   const hasHeader = Boolean(slots.titlebar || slots.header || title || onClose);
   const hasFooter = Boolean(slots.footer);

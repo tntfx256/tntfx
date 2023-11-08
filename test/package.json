@@ -7,7 +7,7 @@
   "scripts": {},
   "dependencies": {
     "@testing-library/jest-dom": "^6.1.4",
-    "@testing-library/react": "^14.0.0",
+    "@testing-library/react": "^14.1.0",
     "@tntfx/core": "*",
     "jest-environment-jsdom": "^29.7.0"
   },

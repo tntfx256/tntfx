@@ -51,7 +51,7 @@
   &.focused,
   &:not(.pristine) {
     .label {
-      top: -2px;
+      top: 0;
       left: theme.$borderRadius-xs;
       filter: opacity(0.75);
       transform: translate3d(-5px, -90%, 0) scale3d(0.9, 0.9, 1);

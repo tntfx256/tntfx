@@ -10,6 +10,10 @@
     font-size: theme.$fontSize-lg;
   }
 
+  .form-element {
+    margin-bottom: theme.$spacing-xl;
+  }
+
   > form {
     display: flex;
     flex-direction: column;

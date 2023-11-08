@@ -2,8 +2,6 @@
   "name": "@tntfx/server",
   "version": "0.0.0",
   "private": true,
-  "main": "src/index.ts",
-  "types": "src/index.ts",
   "scripts": {},
   "dependencies": {
     "@apollo/server": "^4.9.5",

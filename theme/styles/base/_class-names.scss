@@ -13,30 +13,30 @@ $sizes: xxs, xs, sm, md, lg, xl, xxl, xxxl;
   }
 }
 
-// Variants
-$variants: primary, secondary, destructive, success, warning, info, error;
+// Accents
+$accents: primary, secondary, destructive, success, warning, info, error;
 
-@mixin withVariant($variant) {
-  color: var(--color-#{$variant});
+@mixin withAccent($accent) {
+  color: var(--color-#{$accent});
 
   &.--contained {
-    border-color: var(--color-#{$variant});
-    background-color: var(--color-#{$variant});
-    color: var(--color-#{$variant}-text);
+    border-color: var(--color-#{$accent});
+    background-color: var(--color-#{$accent});
+    color: var(--color-#{$accent}-text);
   }
 
   &.--outlined {
-    border-color: var(--color-#{$variant});
+    border-color: var(--color-#{$accent});
   }
 }
 
-@each $variant in $variants {
-  .--#{$variant} {
-    @include withVariant($variant);
+@each $accents in $accents {
+  .--#{$accents} {
+    @include withAccent($accents);
   }
 }
 
-// Shapes
+// Variants
 .--outlined {
   border: 1px solid var(--color-border);
 }

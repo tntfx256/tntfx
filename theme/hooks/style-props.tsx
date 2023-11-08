@@ -1,14 +1,13 @@
 import { type CSSProperties } from "react";
-import type { Any, Keys, Layout, MessageType, Shape, Size, TObject, Variant } from "@tntfx/core";
-import { sizes, variants } from "@tntfx/core";
+import type { Accent, Any, Color, Keys, Layout, MessageType, Size, TObject, Variant } from "@tntfx/core";
+import { accents, sizes } from "@tntfx/core";
 import type { Theme } from "../components";
 import { theme } from "../components";
 import { splitBySpace } from "../utils/utils";
 
 type Css = CSSProperties;
 type WithSize<T = string | number> = T | Size | `${Size}`;
-type WithVariant<T = string> = T | Variant | `${Variant}`;
-type WithShape = Shape | `${Shape}`;
+type WithVariant = Variant | `${Variant}`;
 type WithLayout = Layout | `${Layout}`;
 type WithType = MessageType | `${MessageType}`;
 
@@ -29,8 +28,8 @@ export const propsMap = {
       classList.add(v);
     });
   },
-  color(value: WithVariant<Css["color"]>, style: Css) {
-    if (variants.includes(value as Variant)) {
+  color(value: Color, style: Css) {
+    if (accents.includes(value as Accent)) {
       style.color = `theme.$color-${value}`;
     } else {
       style.color = value;
@@ -109,9 +108,6 @@ export const propsMap = {
   shadow(value: WithSize, _: Css, classList: Set<string>) {
     classList.add(`--shadow-${value}`);
   },
-  shape(value: WithShape, _: Css, classList: Set<string>) {
-    classList.add(`--${value}`);
-  },
   size(value: WithSize<Css["width"]>, style: Css) {
     style.width = withSize(value, "size");
     style.height = withSize(value, "size");
@@ -125,7 +121,7 @@ export const propsMap = {
   type(value: WithType, _: Css, classList: Set<string>) {
     classList.add(`--${value}`);
   },
-  variant(value: WithVariant<never>, _: Css, classList: Set<string>) {
+  variant(value: WithVariant, _: Css, classList: Set<string>) {
     classList.add(`--${value}`);
   },
   verticalMargin(value: WithSize<Css["marginTop"]>, style: Css) {

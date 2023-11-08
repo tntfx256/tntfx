@@ -77,7 +77,7 @@ $minDialogHeight: calc($minDialogWidth / 1.6);
     border-radius: 0;
     box-shadow: none;
 
-    .with-taskbar & {
+    desktop--with-taskbar & {
       @include theme.belowMedium {
         bottom: theme.$elementHeight-xl !important;
       }
@@ -101,7 +101,7 @@ $minDialogHeight: calc($minDialogWidth / 1.6);
   }
 
   &__header {
-    @include theme.blur;
+    @include theme.blur(1.5rem);
     position: absolute;
     z-index: theme.$layer-window;
     top: 0;

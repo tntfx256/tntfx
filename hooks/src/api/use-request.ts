@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useState } from "react";
 import type { Any } from "@tntfx/core";
 import { useApiConfig } from "./api-provider";
 import { request } from "./axios";
@@ -27,10 +27,12 @@ export function useRequest<T, U = undefined>(config?: RequestConfig<T>): UseRequ
     []
   );
 
-  return useMemo<[typeof execute, typeof state, AbortController]>(
-    () => [execute, state, controller],
-    [controller, execute, state]
-  );
+  // return useMemo<[typeof execute, typeof state, AbortController]>(
+  //   () => [execute, state, controller],
+  //   [controller, execute, state]
+  // );
+
+  return [execute, state, controller] as [typeof execute, typeof state, AbortController];
 }
 
 export type QueryOptionsBuilder<T, U> = Partial<RequestConfig<T>> & { query: (data: U) => RequestOptions<T, U> };

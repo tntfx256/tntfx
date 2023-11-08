@@ -28,6 +28,13 @@ export interface FrameProps extends Omit<BoxProps, "id"> {
     footer?: ReactNode;
   };
 
+  slotProps?: {
+    sidebar?: {
+      isInitiallyOpen?: boolean;
+      isAlwaysOpen?: boolean;
+    };
+  };
+
   // events
   onClose?: () => void;
 }

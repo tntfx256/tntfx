@@ -24,7 +24,7 @@ export function Table<T>(props: ClassName<TableProps<T>>) {
     <TableProvider {...values} data={data} idKey={idKey as StringKeys<T>}>
       <Box className={classNames("table", className)}>
         {title && (
-          <Text as="h1" className="table__title" fontSize="lg" variant="primary">
+          <Text as="h1" className="table__title" color="primary" fontSize="lg">
             {title}
           </Text>
         )}

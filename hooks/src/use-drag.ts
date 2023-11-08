@@ -2,8 +2,8 @@ import { useEffect, useRef } from "react";
 import type { BoundingRect, Dimension, Nullable } from "@tntfx/core";
 import { disableEvent, getEventCoords, isInBoundary, toBoundingRect } from "@tntfx/core";
 
+const MIN_DIFF = 1;
 const DRAG_DELAY = 150;
-
 const BOUNDING_OFFSET = 16;
 
 type DragInitialState = {
@@ -31,6 +31,16 @@ export function useDrag<T extends HTMLElement = HTMLElement>(element: Nullable<T
     if (!element || !draggable) {
       return;
     }
+
+    if (!initial.current.dimension) {
+      const dimension = element.getBoundingClientRect();
+      initial.current.dimension = dimension;
+      initial.current.boundingRect = toBoundingRect(config?.boundingRect || {});
+      initial.current.lastPosition = { left: dimension.left, top: dimension.top };
+
+      // console.log("initial", { left: dimension.left, top: dimension.top });
+    }
+
     let isReleased = true;
     let isDrag = false;
 
@@ -56,15 +66,8 @@ export function useDrag<T extends HTMLElement = HTMLElement>(element: Nullable<T
           return;
         }
 
-        const dimension = element.getBoundingClientRect();
-        const boundingRect = toBoundingRect(config?.boundingRect || {});
         const [clientX, clientY] = getEventCoords(e);
-        initial.current = {
-          dimension,
-          pointerPosition: { x: clientX, y: clientY },
-          lastPosition: { left: boundingRect.left, top: boundingRect.top },
-          boundingRect,
-        };
+        initial.current.pointerPosition = { x: clientX, y: clientY };
 
         element.addEventListener("click", disableEvent);
         window.addEventListener("mousemove", handleDragging);
@@ -104,8 +107,15 @@ export function useDrag<T extends HTMLElement = HTMLElement>(element: Nullable<T
       window.removeEventListener("mouseup", handleDragEnd);
       window.removeEventListener("touchend", handleDragEnd);
       if (isDrag) {
-        onDragEnd?.(initial.current.lastPosition);
+        const { lastPosition, dimension } = initial.current;
+        const dx = Math.abs(lastPosition.left - dimension.left);
+        const dy = Math.abs(lastPosition.top - dimension.top);
+        if (dx > MIN_DIFF || dy > MIN_DIFF) {
+          onDragEnd?.(initial.current.lastPosition);
+        }
       }
+
+      initial.current = {} as DragInitialState;
     }
 
     element.addEventListener("mousedown", handleDragStart);
@@ -115,5 +125,5 @@ export function useDrag<T extends HTMLElement = HTMLElement>(element: Nullable<T
       element.removeEventListener("mousedown", handleDragStart);
       element.removeEventListener("touchstart", handleDragStart);
     };
-  }, [config?.boundingRect, draggable, element, onDragEnd, onDragStart]);
+  }, [config?.boundingRect, draggable, element]);
 }

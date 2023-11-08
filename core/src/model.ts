@@ -1,4 +1,4 @@
-import type { Field } from "./field";
+import { Field } from "./field";
 import type { Any, StringKeys, TObject } from "./types";
 import type { Violations } from "./validation";
 
@@ -97,5 +97,27 @@ export class Model<I extends TObject = TObject> {
     }
 
     return hasViolation ? violations : null;
+  }
+}
+
+export class FreeModel<T extends TObject = TObject> extends Model<T> {
+  #addedFields: string[] = [];
+
+  static get fields() {
+    return {} as Fields;
+  }
+
+  setValues(values: TObject, reset?: boolean) {
+    const fieldsToBeAdded: Fields<T> = {} as Fields<T>;
+
+    for (const field of Object.keys(values)) {
+      if (!this.#addedFields.includes(field)) {
+        fieldsToBeAdded[field as StringKeys<T>] = new Field(field as StringKeys<T>, { type: "String" });
+        this.#addedFields.push(field);
+      }
+    }
+    this.extend(fieldsToBeAdded);
+
+    super.setValues(values, reset);
   }
 }

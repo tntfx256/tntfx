@@ -3,10 +3,6 @@
 .tableHeader {
   &--parent-row {
     border-bottom-color: transparent;
-
-    > th {
-      padding-bottom: theme.$spacing-xs;
-    }
   }
 
   &--nested {

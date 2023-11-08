@@ -14,7 +14,7 @@ export interface LoggerDriver {
 export class Logger {
   static #loggers: TObject<Logger> = {};
 
-  static getInstance(name = "name") {
+  static getInstance(name = "main") {
     if (!Logger.#loggers[name]) {
       Logger.#loggers[name] = new Logger();
     }

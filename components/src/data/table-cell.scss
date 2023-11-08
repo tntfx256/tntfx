@@ -3,7 +3,7 @@
 .tableCell {
   position: relative;
   overflow: hidden;
-  padding: theme.$spacing-md;
+  padding: theme.$spacing-sm theme.$spacing-md;
   cursor: default;
   font-size: theme.$fontSize-sm;
   font-weight: theme.$fontWeight-sm;
@@ -12,7 +12,7 @@
   white-space: nowrap;
 
   &--header {
-    padding: theme.$spacing-md theme.$spacing-lg;
+    padding-top: theme.$spacing-lg;
     font-weight: theme.$fontWeight-lg;
     text-transform: uppercase;
   }

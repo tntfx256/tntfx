@@ -1,5 +1,4 @@
 import { AiOutlineDelete } from "react-icons/ai";
-import { BiHelpCircle } from "react-icons/bi";
 import {
   FiAlertCircle,
   FiAlertTriangle,
@@ -24,6 +23,7 @@ import {
   FiGrid,
   FiHardDrive,
   FiHeart,
+  FiHelpCircle,
   FiHome,
   FiImage,
   FiInfo,
@@ -86,7 +86,7 @@ export const IconsMap = {
   github: FiGithub,
   globe: FiGlobe,
   heart: FiHeart,
-  help: BiHelpCircle,
+  help: FiHelpCircle,
   home: FiHome,
   image: FiImage,
   info: FiInfo,

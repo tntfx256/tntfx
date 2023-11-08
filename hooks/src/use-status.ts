@@ -19,7 +19,7 @@ export type OperationSuccess<T> = { isLoading: false; data: T; error: null };
 export type OperationError = { isLoading: false; data: null; error: SerializableError };
 export type AsyncOperation<T = Any> = OperationIdle | OperationLoading | OperationSuccess<T> | OperationError;
 
-export function useStatus<T extends string>(statuses: readonly (T & string)[]): UseStatusResult<T> {
+export function useStatus<T extends string = string>(statuses: readonly T[]): UseStatusResult<T> {
   const [status, setStatus] = useState<T>(statuses[0]);
 
   return {

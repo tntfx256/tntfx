@@ -1,7 +1,8 @@
+@use "sass:math";
 @use "@tntfx/theme";
 
-$sidebarMinWidth: theme.$breakpoint-xxs;
-$sidebarMaxWidth: theme.$breakpoint-xs;
+$sidebarMinWidth: math.floor(theme.$breakpoint-xxs * 0.75);
+$sidebarMaxWidth: theme.$breakpoint-xxs;
 
 .sidebar {
   display: flex;

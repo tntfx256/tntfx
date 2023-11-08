@@ -1,24 +1,28 @@
 @use "@tntfx/theme";
 
 .taskbar {
-  @include theme.fill;
-  overflow: hidden;
-  background-color: theme.$color-element;
-  color: theme.$color-element-text;
+  $self: &;
 
-  @include theme.belowMedium {
-    // show at bottom
+  @include theme.fill;
+  @include theme.blur(2rem);
+  overflow: hidden;
+  background-color: theme.$color-element-alpha;
+  color: theme.$color-element-alpha-text;
+
+  // show at bottom
+  // @include theme.belowMedium {
+  &--bottom {
     @include theme.row;
     top: unset;
     height: theme.$elementHeight-xl;
     border-top: 1px solid theme.$color-border;
 
-    &__divider {
+    #{$self}__divider {
       border: 1px dashed theme.$color-border;
       margin: 0 theme.$spacing-md;
     }
 
-    &__start {
+    #{$self}__start {
       @include theme.row;
 
       > .icon:not(:last-child) {
@@ -26,12 +30,12 @@
       }
     }
 
-    &__middle {
+    #{$self}__middle {
       @include theme.row(center);
       flex: 1;
     }
 
-    &__end {
+    #{$self}__end {
       @include theme.row;
       padding-right: theme.$spacing-sm;
 
@@ -47,22 +51,23 @@
     }
   }
 
-  @include theme.aboveMedium {
-    // show at left
+  // show at left
+  // @include theme.aboveMedium {
+  &--left {
     right: unset;
     width: calc(1.25 * theme.$elementHeight-xl);
     flex-flow: column-reverse nowrap;
     align-items: center;
     border-right: 1px solid theme.$color-border;
 
-    &__divider {
+    #{$self}__divider {
       width: theme.$size-md;
       height: 0 !important;
       border: 1px dashed theme.$color-border;
       margin: theme.$spacing-md 0;
     }
 
-    &__start {
+    #{$self}__start {
       flex-direction: column-reverse !important;
 
       > .icon:not(:last-child) {
@@ -70,12 +75,12 @@
       }
     }
 
-    &__middle {
+    #{$self}__middle {
       flex: 1;
       justify-content: center;
     }
 
-    &__end {
+    #{$self}__end {
       padding-top: theme.$spacing-sm;
 
       .dateTime {

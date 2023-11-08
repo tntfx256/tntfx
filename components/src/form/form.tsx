@@ -1,6 +1,6 @@
 import type { FormEvent } from "react";
 import { useCallback } from "react";
-import type { ClassAndChildren, Option } from "@tntfx/core";
+import { type ClassAndChildren, type Option, type TObject } from "@tntfx/core";
 import type { EnhancedProps } from "@tntfx/theme";
 import { classNames, parseProps } from "@tntfx/theme";
 import { Box } from "../layout";
@@ -11,11 +11,15 @@ import "./form.scss";
 export type FormProps = EnhancedProps & {
   legend?: string;
   actions?: Option[];
+  // Model?: ModelConstructor<T>;
+  // initialValues?: DeepPartial<T>;
   onSubmit?: () => void;
 };
 
-export function Form(props: ClassAndChildren<FormProps>) {
-  const [className, { actions, legend, children, onSubmit }] = parseProps(props);
+export function Form<T extends TObject = TObject>(props: ClassAndChildren<FormProps>) {
+  const [className, { actions, legend, children, onSubmit, ...libProps }] = parseProps(props);
+
+  // const {} = useModel<T>((Model || FreeModel) as ModelConstructor<T>, initialValues);
 
   const handleSubmit = useCallback(
     (e: FormEvent) => {
@@ -28,7 +32,7 @@ export function Form(props: ClassAndChildren<FormProps>) {
   );
 
   return (
-    <Box className={classNames("form", className)}>
+    <Box className={classNames("form", className)} {...libProps}>
       {legend && <Text className="form__legend">{legend}</Text>}
 
       <form onSubmit={handleSubmit}>
@@ -39,3 +43,9 @@ export function Form(props: ClassAndChildren<FormProps>) {
     </Box>
   );
 }
+
+// export function useForm<T extends TObject = TObject>() {
+//   const [state, setState] = useStore();
+
+//   return;
+// }

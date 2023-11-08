@@ -4,6 +4,7 @@
   @include theme.row;
   overflow: visible;
   height: 100%;
+  max-height: theme.$elementHeight-xl;
 
   .svg {
     width: theme.$size-md;

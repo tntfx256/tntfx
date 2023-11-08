@@ -8,17 +8,6 @@
   line-height: theme.$lineHeight-md;
   text-align: inherit;
 
-  &.variant-primary {
-    color: theme.$color-primary;
-  }
-
-  &.variant-secondary {
-    color: theme.$color-secondary;
-  }
-  &.variant-destructive {
-    color: theme.$color-error;
-  }
-
   &.size-xxsmall {
     font-size: theme.$fontSize-xxs;
     font-weight: theme.$fontWeight-xxs;

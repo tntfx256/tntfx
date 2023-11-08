@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react";
+
 export enum Status {
   Error = "error",
   Idle = "idle",
@@ -22,20 +24,25 @@ export enum MessageType {
 }
 export const messageTypes = Object.values(MessageType) as MessageType[];
 
-export enum Variant {
+export enum Accent {
   Default = "default",
   Primary = "primary",
   Secondary = "secondary",
   Destructive = "destructive",
+  Success = "success",
+  Warning = "warning",
+  Info = "info",
+  Error = "error",
 }
-export const variants = Object.values(Variant) as Variant[];
+export const accents = Object.values(Accent) as Accent[];
+export type Color = `${Accent}` | CSSProperties["color"];
 
-export enum Shape {
+export enum Variant {
   Contained = "contained",
   Outlined = "outlined",
   Void = "void",
 }
-export const shapes = Object.values(Shape) as Shape[];
+export const variants = Object.values(Variant) as Variant[];
 
 export enum Size {
   "xxs" = "xxs",
