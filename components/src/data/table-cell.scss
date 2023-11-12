@@ -3,6 +3,8 @@
 .tableCell {
   position: relative;
   overflow: hidden;
+  height: theme.$elementHeight-md;
+  min-height: theme.$elementHeight-md;
   padding: theme.$spacing-sm theme.$spacing-md;
   cursor: default;
   font-size: theme.$fontSize-sm;

@@ -29,11 +29,7 @@ export const propsMap = {
     });
   },
   color(value: Color, style: Css) {
-    if (accents.includes(value as Accent)) {
-      style.color = `theme.$color-${value}`;
-    } else {
-      style.color = value;
-    }
+    style.color = accents.includes(value as Accent) ? `var(--color-${value})` : value;
   },
   disabled(value: boolean, _: Css, classList: Set<string>) {
     if (value) {

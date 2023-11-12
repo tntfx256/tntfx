@@ -56,7 +56,12 @@ export function getMinDimension(isDialog = false, boundary?: Dimension) {
   };
 }
 
-export function calcInitialFrameDimension(frame: HTMLElement, isDialog = false, boundary?: Dimension): Dimension {
+export function calcInitialFrameDimension(
+  frame: HTMLElement,
+  isDialog = false,
+  boundary?: Dimension,
+  fitContent = false
+): Dimension {
   const { minWidth, minHeight, maxWidth, maxHeight } = getMinDimension(isDialog, boundary);
   const boundingRect = toBoundingRect(boundary);
 
@@ -71,14 +76,20 @@ export function calcInitialFrameDimension(frame: HTMLElement, isDialog = false, 
 
   if (dimension.width < minWidth) {
     dimension.width = minWidth;
-  } else if (dimension.width > maxWidth) {
+  } else if (dimension.width > maxWidth && !fitContent) {
     dimension.width = maxWidth;
+  }
+  if (dimension.width > boundingRect.width) {
+    dimension.width = boundingRect.width;
   }
 
   if (dimension.height < minHeight) {
     dimension.height = minHeight;
-  } else if (dimension.height > maxHeight) {
+  } else if (dimension.height > maxHeight && !fitContent) {
     dimension.height = maxHeight;
+  }
+  if (dimension.height > boundingRect.height) {
+    dimension.height = boundingRect.height;
   }
 
   const offset = isDialog ? 2 : (Math.floor(Math.random() * 100) % 6) + 2;

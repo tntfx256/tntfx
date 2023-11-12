@@ -30,6 +30,7 @@ export function Frame(props: FrameProps) {
       isDialog = false,
       isStatic = false,
       isActive = true,
+      fitContent = false,
       slots = {},
       slotProps = {},
       onClose,
@@ -56,7 +57,7 @@ export function Frame(props: FrameProps) {
 
   useLayoutEffect(() => {
     if (frame && !dimension && !isStatic) {
-      setDimension(calcInitialFrameDimension(frame, isDialog, boundary));
+      setDimension(calcInitialFrameDimension(frame, isDialog, boundary, fitContent));
     }
   }, [boundary, dimension, frame, isDialog, isStatic]);
 

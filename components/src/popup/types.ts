@@ -26,6 +26,7 @@ export interface ToastPayload extends ToastProps {
 
 export interface DialogProps extends CommonPopupProps {
   global?: boolean;
+  fitContent?: boolean;
   draggable?: boolean;
   resizable?: boolean;
   persistent?: boolean;
