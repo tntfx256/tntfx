@@ -8,3 +8,4 @@ export { TableRow } from "./table-row";
 export type { TitleValueListItem } from "./title-value-list";
 export { TitleValueList } from "./title-value-list";
 export type { Column } from "./types";
+export * from "./utils";

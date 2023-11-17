@@ -5,7 +5,7 @@ export type WithId<T extends TObject = TObject, K extends string = "id", KT = st
 export type FormValues<T> = T extends string | number
   ? T | ""
   : T extends (infer U)[]
-  ? FormValues<U>[]
-  : T extends object
-  ? { [K in keyof T]: FormValues<T[K]> }
-  : T;
+    ? FormValues<U>[]
+    : T extends object
+      ? { [K in keyof T]: FormValues<T[K]> }
+      : T;

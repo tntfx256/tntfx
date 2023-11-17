@@ -6,14 +6,17 @@ import type { BaseInputProps } from "./base-input";
 import { BaseInput } from "./base-input";
 import type { FormElementProps } from "./form-element";
 import { FormElement } from "./form-element";
+import { Icon } from "../icon";
+import { memoize } from "../memoize";
 import "./text-input.scss";
 
 export type TextInputProps = FormElementProps &
   BaseInputProps & {
     onEnter?: () => void;
+    onClear?: () => void;
   };
 
-export function TextInput(props: PropsWithChildren<TextInputProps>) {
+export const TextInput = memoize(function TextInput(props: PropsWithChildren<TextInputProps>) {
   const {
     className,
     onChange,
@@ -29,6 +32,7 @@ export function TextInput(props: PropsWithChildren<TextInputProps>) {
     value,
     children,
     isLoading,
+    onClear,
     ...libProps
   } = props;
 
@@ -60,9 +64,11 @@ export function TextInput(props: PropsWithChildren<TextInputProps>) {
     [lostFocused, onBlur]
   );
 
+  const showClearIcon = !readOnly && !disabled && value && !isLoading && onClear;
+
   return (
     <FormElement
-      className={classNames("text-input", className, { focused: hasFocus, pristine: !value })}
+      className={classNames("textInput", className, { focused: hasFocus, pristine: !value })}
       disabled={disabled}
       error={error}
       isLoading={isLoading}
@@ -71,7 +77,7 @@ export function TextInput(props: PropsWithChildren<TextInputProps>) {
       readOnly={readOnly}
     >
       <BaseInput
-        className="control"
+        className="textInput__control"
         disabled={disabled}
         id={name}
         name={name}
@@ -84,6 +90,7 @@ export function TextInput(props: PropsWithChildren<TextInputProps>) {
         {...libProps}
       />
       {children}
+      {showClearIcon && <Icon className="textInput__clearIcon" name="cross" onClick={onClear} />}
     </FormElement>
   );
-}
+});

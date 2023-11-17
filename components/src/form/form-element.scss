@@ -13,9 +13,9 @@
 
   /* for label animation, error and help texts */
   margin: theme.$spacing-lg;
-  // background-color: theme.$color-element-alpha;
+  background-color: theme.$color-element-alpha;
   color: theme.$color-element-alpha-text;
-  // transition: background-color $animation-duration-sm) theme.$animation-ease;
+  transition: background-color theme.$duration-sm theme.$animation-ease;
 
   .label {
     position: absolute;

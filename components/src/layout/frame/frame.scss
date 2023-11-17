@@ -126,6 +126,7 @@ $minDialogHeight: calc($minDialogWidth / 1.6);
     bottom: 0;
     left: 0;
     justify-content: flex-end;
+    padding: 0 theme.$spacing-sm;
     border-radius: 0;
     border-bottom-left-radius: inherit;
     border-bottom-right-radius: inherit;

@@ -1,6 +1,7 @@
 import type { ChangeEvent, ForwardedRef, InputHTMLAttributes } from "react";
 import { forwardRef, useCallback } from "react";
 import { classNames } from "@tntfx/theme";
+import { memoize } from "../memoize";
 import "./base-input.scss";
 
 type N = InputHTMLAttributes<HTMLInputElement>;
@@ -21,7 +22,7 @@ export type BaseInputProps = {
   onKeyUp?: N["onKeyUp"];
 };
 
-export const BaseInput = forwardRef(function BaseInput(props: BaseInputProps, ref: ForwardedRef<HTMLInputElement>) {
+function BaseInputWithRef(props: BaseInputProps, ref: ForwardedRef<HTMLInputElement>) {
   const { className, name, onChange, ...libProps } = props;
 
   const handleChange = useCallback(
@@ -42,4 +43,7 @@ export const BaseInput = forwardRef(function BaseInput(props: BaseInputProps, re
       {...libProps}
     />
   );
-});
+}
+
+export const BaseInput = memoize(forwardRef(BaseInputWithRef));
+BaseInput.displayName = "BaseInput";

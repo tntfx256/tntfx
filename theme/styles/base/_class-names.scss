@@ -22,7 +22,7 @@ $accents: primary, secondary, destructive, success, warning, info, error;
   &.--contained {
     border-color: var(--color-#{$accent});
     background-color: var(--color-#{$accent});
-    color: var(--color-#{$accent}-text);
+    color: var(--color-#{$accent}-text) !important;
   }
 
   &.--outlined {
@@ -30,9 +30,9 @@ $accents: primary, secondary, destructive, success, warning, info, error;
   }
 }
 
-@each $accents in $accents {
-  .--#{$accents} {
-    @include withAccent($accents);
+@each $accent in $accents {
+  .--#{$accent} {
+    @include withAccent($accent);
   }
 }
 

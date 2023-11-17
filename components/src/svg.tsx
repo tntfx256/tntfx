@@ -4,6 +4,7 @@ import type { IconName } from "@tntfx/core";
 import { IconsMap } from "@tntfx/core";
 import type { EnhancedProps } from "@tntfx/theme";
 import { classNames, parseProps } from "@tntfx/theme";
+import { memoize } from "./memoize";
 import "./svg.scss";
 
 export type SvgProps = Partial<EnhancedProps> & {
@@ -11,7 +12,7 @@ export type SvgProps = Partial<EnhancedProps> & {
   onClick?: () => void;
 };
 
-export function Svg(props: SvgProps) {
+export const Svg = memoize(function Svg(props: SvgProps) {
   const [className, svgProps] = parseProps(props);
 
   const handleClick = useCallback((e: MouseEvent) => {
@@ -34,4 +35,4 @@ export function Svg(props: SvgProps) {
       }) || `[${props.name}]`}
     </>
   ) : null;
-}
+});

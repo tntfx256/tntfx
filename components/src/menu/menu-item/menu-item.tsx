@@ -3,6 +3,7 @@ import type { ClassName, Option } from "@tntfx/core";
 import { classNames, parseProps } from "@tntfx/theme";
 import { MenuItemHorizontal } from "./menu-item-horizontal";
 import { MenuItemVertical } from "./menu-item-vertical";
+import { memoize } from "../../memoize";
 import "./menu-item.scss";
 
 export type MenuItemProps<T extends string = string> = ClassName & {
@@ -13,7 +14,7 @@ export type MenuItemProps<T extends string = string> = ClassName & {
   render?: (item: Option<T>, selected?: boolean) => ReactNode;
 };
 
-export function MenuItem<T extends string = string>(props: MenuItemProps<T>) {
+export const MenuItem = memoize(function MenuItem<T extends string = string>(props: MenuItemProps<T>) {
   const { horizontal } = props;
   const [className, { item, onClick }] = parseProps(props);
 
@@ -37,4 +38,4 @@ export function MenuItem<T extends string = string>(props: MenuItemProps<T>) {
       {horizontal ? <MenuItemHorizontal {...props} /> : <MenuItemVertical item={item} />}
     </li>
   );
-}
+}) as <T extends string = string>(props: MenuItemProps<T>) => JSX.Element;

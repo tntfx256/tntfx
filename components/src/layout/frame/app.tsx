@@ -2,10 +2,11 @@ import type { PropsWithChildren } from "react";
 import { useRuntime } from "@tntfx/hooks";
 import { Frame } from "./frame";
 import type { FrameProps } from "./types";
+import { memoize } from "../../memoize";
 
 type AppProps = FrameProps;
 
-export function App(props: PropsWithChildren<AppProps>) {
+export const App = memoize(function App(props: PropsWithChildren<AppProps>) {
   const { id, draggable = true, resizable = true, ...frameProps } = props;
 
   const runtime = useRuntime();
@@ -25,4 +26,4 @@ export function App(props: PropsWithChildren<AppProps>) {
       {...frameProps}
     />
   );
-}
+});

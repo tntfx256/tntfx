@@ -3,6 +3,7 @@ import { memo } from "react";
 import type { Animation, Boundary, ClassAndChildren, Dimension } from "@tntfx/core";
 import { classNames } from "@tntfx/theme";
 import { Box } from "./layout/box";
+import { memoize } from "./memoize";
 import { Portal } from "./portal";
 import "./backdrop.scss";
 
@@ -18,7 +19,7 @@ export type BackdropProps = {
   onClick?: () => void;
 };
 
-export const Backdrop = memo(function Backdrop(props: ClassAndChildren<BackdropProps>) {
+export const Backdrop = memoize(function Backdrop(props: ClassAndChildren<BackdropProps>) {
   const {
     children,
     className,

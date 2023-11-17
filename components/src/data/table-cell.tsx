@@ -1,10 +1,10 @@
-import type { ReactNode } from "react";
-import type { Any, ClassAndChildren } from "@tntfx/core";
+import type { ClassAndChildren } from "@tntfx/core";
 import { classNames } from "@tntfx/theme";
-import type { Column, TableCellProps } from "./types";
+import type { TableCellProps } from "./types";
+import { memoize } from "../memoize";
 import "./table-cell.scss";
 
-export function TableCell(props: ClassAndChildren<TableCellProps>) {
+export const TableCell = memoize(function TableCell(props: ClassAndChildren<TableCellProps>) {
   const { header, selected, children, className, align = "start", vAlign = "middle", colSpan } = props;
 
   const attributes = {
@@ -14,16 +14,4 @@ export function TableCell(props: ClassAndChildren<TableCellProps>) {
   };
 
   return header ? <th {...attributes}>{children}</th> : <td {...attributes}>{children}</td>;
-}
-
-TableCell.getHeaderTitle = function getHeaderTitle<T = Any>(column: Column<T>): ReactNode {
-  if (column.renderHeaderCell) {
-    return column.renderHeaderCell();
-  }
-
-  if ("title" in column) {
-    return column.title || "";
-  }
-
-  return column.name;
-};
+});

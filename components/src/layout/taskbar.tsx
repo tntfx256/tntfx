@@ -3,6 +3,7 @@ import { classNames, parseProps, theme } from "@tntfx/theme";
 import { Box } from "./box";
 import { DateTime } from "../date-time";
 import { Icon } from "../icon";
+import { memoize } from "../memoize";
 import { Spacer } from "../spacer";
 import "./taskbar.scss";
 
@@ -14,7 +15,7 @@ export type TaskbarProps = {
   onLogout?: () => void;
 };
 
-export function Taskbar(props: ClassAndChildren<TaskbarProps>) {
+export const Taskbar = memoize(function Taskbar(props: ClassAndChildren<TaskbarProps>) {
   const [className, { children, onAction, onLogout, position = "bottom", ...rest }] = parseProps(props);
 
   return (
@@ -40,4 +41,4 @@ export function Taskbar(props: ClassAndChildren<TaskbarProps>) {
       </Box>
     </Box>
   );
-}
+});

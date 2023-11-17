@@ -28,8 +28,13 @@ export const propsMap = {
       classList.add(v);
     });
   },
-  color(value: Color, style: Css) {
-    style.color = accents.includes(value as Accent) ? `var(--color-${value})` : value;
+  color(value: Color, style: Css, classList: Set<string>) {
+    if (accents.includes(value as Accent)) {
+      style.color = `var(--color-${value})`;
+      classList.add(`--${value}`);
+    } else {
+      style.color = value;
+    }
   },
   disabled(value: boolean, _: Css, classList: Set<string>) {
     if (value) {

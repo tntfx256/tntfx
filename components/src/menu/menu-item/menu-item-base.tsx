@@ -1,12 +1,13 @@
-import { useCallback } from "react";
+import { ReactNode, useCallback } from "react";
 import { classNames, parseProps } from "@tntfx/theme";
 import type { MenuItemProps } from "./menu-item";
 import { Icon } from "../../icon";
 import { Box } from "../../layout";
+import { memoize } from "../../memoize";
 import { Link, Text } from "../../typography";
 import "./menu-item-base.scss";
 
-export function MenuItemBase<T extends string = string>(props: MenuItemProps<T>) {
+export const MenuItemBase = memoize(function MenuItemBase<T extends string = string>(props: MenuItemProps<T>) {
   const [className, { onClick, item, selectedItem, render }] = parseProps(props);
 
   const clickHandler = useCallback(() => {
@@ -31,4 +32,4 @@ export function MenuItemBase<T extends string = string>(props: MenuItemProps<T>)
       )}
     </Box>
   );
-}
+}) as <T extends string = string>(props: MenuItemProps<T>) => JSX.Element;

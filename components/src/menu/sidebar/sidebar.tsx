@@ -3,6 +3,7 @@ import type { ClassAndChildren } from "@tntfx/core";
 import type { EnhancedProps } from "@tntfx/theme";
 import { classNames, parseProps } from "@tntfx/theme";
 import { Backdrop } from "../../backdrop";
+import { memoize } from "../../memoize";
 import "./sidebar.scss";
 
 export type SidebarProps = EnhancedProps & {
@@ -16,7 +17,7 @@ export type SidebarProps = EnhancedProps & {
   };
 };
 
-export function Sidebar(props: ClassAndChildren<SidebarProps>) {
+export const Sidebar = memoize(function Sidebar(props: ClassAndChildren<SidebarProps>) {
   const [className, { onClickOutside, persistent = true, overlay, isOpen, children, blur, slots = {} }] = parseProps(props);
 
   const hasBody = !!slots.body;
@@ -34,4 +35,4 @@ export function Sidebar(props: ClassAndChildren<SidebarProps>) {
       {hasBody && <main className={classNames("sidebar-body")}>{slots.body}</main>}
     </Backdrop>
   );
-}
+});

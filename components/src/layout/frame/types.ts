@@ -17,7 +17,6 @@ export interface FrameProps extends Omit<BoxProps, "id"> {
   icon?: IconName;
   boundary?: Dimension;
   isDialog?: boolean;
-  fitContent?: boolean;
   isStatic?: boolean;
   isActive?: boolean;
 

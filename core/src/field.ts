@@ -8,9 +8,9 @@ export type FieldType = StringKeys<Types>;
 
 type FieldValidationResult = [error: string, fieldName?: string];
 
-export type FieldProps = {
+export type FieldProps<T extends FieldType = FieldType> = {
+  type: T;
   required?: true;
-  type: FieldType;
   listType?: FieldType;
   listLength?: number;
   listMinLength?: number;
@@ -44,11 +44,14 @@ const rulesValidationOrder: (keyof FieldProps)[] = [
   "pattern",
 ];
 
-export class Field<N extends string = string> {
-  constructor(
-    public name: N,
-    public props: FieldProps = { type: "String" }
-  ) {}
+export class Field<N extends string = string, T extends FieldType = FieldType> {
+  name: N;
+  props: FieldProps<T>;
+
+  constructor(name: N, props: FieldProps<T>) {
+    this.name = name;
+    this.props = props;
+  }
 
   validate(value: Any): Nullable<FieldValidationResult> {
     return Field.validate(this, value);

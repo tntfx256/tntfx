@@ -3,6 +3,7 @@ import { classNames, parseProps } from "@tntfx/theme";
 import { ActionBar } from "./action-bar";
 import { ToolbarSection } from "./toolbar-section";
 import { Icon } from "../../icon";
+import { memoize } from "../../memoize";
 import { Text } from "../../typography";
 import type { BoxProps } from "../box";
 import { Box } from "../box";
@@ -19,7 +20,7 @@ type ToolbarProps = Omit<BoxProps, "horizontal"> & {
   onAction?: OnAction;
 };
 
-export function Toolbar(props: ToolbarProps) {
+export const Toolbar = memoize(function Toolbar(props: ToolbarProps) {
   const [className, { actions, onAction, children, icon, onIconClick, title, ...boxProps }] = parseProps(props);
 
   const hasTitlebar = Boolean(icon || title);
@@ -40,4 +41,4 @@ export function Toolbar(props: ToolbarProps) {
       <ActionBar actions={actions} onAction={onAction} />
     </Box>
   );
-}
+});

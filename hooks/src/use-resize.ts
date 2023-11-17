@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import type { Any, BoundingRect, Dimension, Nullable } from "@tntfx/core";
-import { getEventCoords, getMinDimension, toBoundingRect } from "@tntfx/core";
+import { getEventCoords, getMinMaxDimension, toBoundingRect } from "@tntfx/core";
 import "./use-resize.scss";
 
 const resizeKeys = ["top", "right", "bottom", "left", "top-left", "top-right", "bottom-left", "bottom-right"] as const;
@@ -113,7 +113,7 @@ function getResizedDimension(initial: ResizeInitialState, x2: number, y2: number
   const dx = x2 - pointerPosition.x;
   const dy = y2 - pointerPosition.y;
 
-  const { minWidth, minHeight } = getMinDimension();
+  const { minWidth, minHeight } = getMinMaxDimension();
   const { top, right, bottom, left } = toBoundingRect(boundingRect);
 
   const result: Partial<Dimension> = {};

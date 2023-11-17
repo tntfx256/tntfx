@@ -1,6 +1,7 @@
 import type { ClassName } from "@tntfx/core";
 import { classNames, parseProps } from "@tntfx/theme";
 import { FormElement } from "./form-element";
+import { memoize } from "../memoize";
 import "./toggle.scss";
 
 export type ToggleProps = {
@@ -12,7 +13,7 @@ export type ToggleProps = {
   onChange: (status: boolean, name: string) => void;
 };
 
-export function Toggle(props: ClassName<ToggleProps>) {
+export const Toggle = memoize(function Toggle(props: ClassName<ToggleProps>) {
   const [className, { label, value, name, onChange, error }] = parseProps(props);
 
   function handleCheckChange() {
@@ -35,4 +36,4 @@ export function Toggle(props: ClassName<ToggleProps>) {
       </div>
     </FormElement>
   );
-}
+});

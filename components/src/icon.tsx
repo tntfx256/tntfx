@@ -2,6 +2,7 @@ import type { MouseEvent } from "react";
 import { useCallback } from "react";
 import type { MaybePromise, WithChildren } from "@tntfx/core";
 import { classNames, parseProps } from "@tntfx/theme";
+import { memoize } from "./memoize";
 import type { SvgProps } from "./svg";
 import { Svg } from "./svg";
 import { Text } from "./typography/text";
@@ -12,7 +13,7 @@ type IconProps = SvgProps & {
   onClick?: () => MaybePromise<void>;
 };
 
-export function Icon(props: WithChildren<IconProps>) {
+export const Icon = memoize(function Icon(props: WithChildren<IconProps>) {
   const { disabled } = props;
   const [className, { name, onClick, title, ...btnProps }] = parseProps(props);
 
@@ -41,4 +42,4 @@ export function Icon(props: WithChildren<IconProps>) {
       {title && <Text>{title}</Text>}
     </button>
   );
-}
+});

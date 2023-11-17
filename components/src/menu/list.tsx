@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import type { ClassAndChildren, Option } from "@tntfx/core";
 import { classNames } from "@tntfx/theme";
 import { MenuItem } from "./menu-item";
+import { memoize } from "../memoize";
 import { Text } from "../typography/text";
 
 type ListProps<T> = {
@@ -10,7 +11,7 @@ type ListProps<T> = {
   render?: (item: T, index: number) => ReactNode;
 };
 
-export function List<T = Option>(props: ClassAndChildren<ListProps<T>>) {
+export const List = memoize(function List<T = Option>(props: ClassAndChildren<ListProps<T>>) {
   const { title, className, render, items, children } = props;
 
   return (
@@ -31,6 +32,4 @@ export function List<T = Option>(props: ClassAndChildren<ListProps<T>>) {
       </main>
     </section>
   );
-}
-
-List.Item = MenuItem;
+}) as <T = Option>(props: ClassAndChildren<ListProps<T>>) => JSX.Element;

@@ -19,6 +19,9 @@
     position: relative;
     overflow: auto;
     width: 100%;
+    // scrollbar
+    padding-right: theme.$spacing-lg;
+    padding-bottom: theme.$spacing-lg;
   }
 
   &__element {

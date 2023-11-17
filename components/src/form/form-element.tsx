@@ -1,8 +1,9 @@
 import type { ForwardedRef, MouseEvent } from "react";
 import { forwardRef, useCallback } from "react";
 import type { ClassAndChildren } from "@tntfx/core";
-import { classNames } from "@tntfx/theme";
+import { classNames, parseProps } from "@tntfx/theme";
 import { Loader } from "../loader";
+import { memoize } from "../memoize";
 import { Text } from "../typography/text";
 import "./form-element.scss";
 
@@ -19,11 +20,8 @@ export interface FormElementProps {
   onClick?: () => void;
 }
 
-export const FormElement = forwardRef(function FormElement(
-  props: ClassAndChildren<FormElementProps>,
-  ref: ForwardedRef<HTMLDivElement>
-) {
-  const { className, label, error, help, children, name, isLoading, disabled, onClick } = props;
+function FormElementWithRef(props: ClassAndChildren<FormElementProps>, ref: ForwardedRef<HTMLDivElement>) {
+  const [className, { label, error, help, children, name, isLoading, onClick }] = parseProps(props);
 
   const handleClick = useCallback(
     (e: MouseEvent) => {
@@ -53,4 +51,7 @@ export const FormElement = forwardRef(function FormElement(
       <Loader visible={isLoading} />
     </div>
   );
-});
+}
+
+export const FormElement = memoize(forwardRef(FormElementWithRef));
+FormElement.displayName = "FormElement";

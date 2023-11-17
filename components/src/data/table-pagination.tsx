@@ -3,10 +3,11 @@ import { Pagination } from "@tntfx/core";
 import { classNames } from "@tntfx/theme";
 import { useTable } from "./table-provider";
 import { Box } from "../layout/box";
+import { memoize } from "../memoize";
 import { Pagination as PaginationComponent } from "../pagination";
 import "./table-pagination.scss";
 
-export function TablePagination(props: ClassName) {
+export const TablePagination = memoize(function TablePagination(props: ClassName) {
   const { className } = props;
   const { pagination, onPagination } = useTable();
 
@@ -23,4 +24,4 @@ export function TablePagination(props: ClassName) {
       <PaginationComponent limit={pager.limit} page={pager.page} total={pager.total} onPageChange={handlePageChange} />
     </Box>
   );
-}
+});

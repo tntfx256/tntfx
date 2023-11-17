@@ -4,6 +4,7 @@ import { classNames, parseProps } from "@tntfx/theme";
 import { ActionBar } from "./bar/action-bar";
 import { Frame } from "./frame";
 import type { FrameProps } from "./frame/types";
+import { memoize } from "../memoize";
 import "./card.scss";
 
 export type CardProps<T extends string = string> = FrameProps &
@@ -13,7 +14,7 @@ export type CardProps<T extends string = string> = FrameProps &
     icon?: IconName;
   };
 
-export function Card<T extends string = string>(props: CardProps<T>) {
+export const Card = memoize(function Card<T extends string = string>(props: CardProps<T>) {
   const [className, { actions, headerSlot, onAction, ...rest }] = parseProps(props);
 
   return (
@@ -29,4 +30,4 @@ export function Card<T extends string = string>(props: CardProps<T>) {
       }}
     />
   );
-}
+}) as <T extends string = string>(props: CardProps<T>) => ReactNode;

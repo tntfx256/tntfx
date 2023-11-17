@@ -1,10 +1,10 @@
 @use "@tntfx/theme";
 
-.text-input {
+.textInput {
   border: 1px solid theme.$color-border;
   border-radius: theme.$borderRadius-sm;
 
-  .control {
+  &__control {
     position: relative;
     width: 100%;
     height: theme.$elementHeight-md;
@@ -14,6 +14,11 @@
     color: inherit;
     font-size: theme.$fontSize-md;
     line-height: theme.$lineHeight-md;
+  }
+
+  &__clearIcon {
+    position: absolute;
+    right: theme.$spacing-xs;
   }
 
   &::after {
@@ -28,7 +33,7 @@
     transition: transform theme.$duration-sm theme.$animation-ease;
   }
 
-  &.focused:not(.disabled) {
+  &:is(.focused, :focus):not(.disabled) {
     background-color: theme.$color-element;
     color: theme.$color-element-text;
 

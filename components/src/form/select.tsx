@@ -32,7 +32,7 @@ type State<T extends string = string> = {
 const initialState: State = { filteredOptions: [], text: "", displayValue: "" };
 
 type SelectProps<T extends string = string, M extends boolean = false> = FormElementProps & {
-  options: Option<T>[];
+  options?: Option<T>[];
   searchable?: boolean;
   readOnly?: boolean;
   value?: M extends true ? T[] : T;
@@ -47,7 +47,7 @@ export function Select<T extends string = string, M extends boolean = false>(pro
     label,
     error,
     value,
-    options,
+    options = [],
     onChange,
     placeholder,
     disabled,

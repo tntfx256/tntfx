@@ -8,7 +8,7 @@
   "dependencies": {
     "@tntfx/core": "*",
     "@tntfx/test": "*",
-    "axios": "^1.6.0",
+    "axios": "^1.6.2",
     "graphql-request": "^6.1.0",
     "immer": "^10.0.3"
   },

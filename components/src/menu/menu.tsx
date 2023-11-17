@@ -4,6 +4,7 @@ import type { Any, Option } from "@tntfx/core";
 import { classNames, parseProps } from "@tntfx/theme";
 import type { MenuItemProps } from "./menu-item";
 import { MenuItem } from "./menu-item";
+import { memoize } from "../memoize";
 import "./menu.scss";
 
 type UL = Omit<HTMLAttributes<HTMLUListElement>, "onClick" | "contentEditable">;
@@ -44,10 +45,13 @@ function MenuWithRef<T extends string = string>(
   );
 }
 
-export const Menu = forwardRef(MenuWithRef) as <T extends string = string>(
+export const Menu = memoize(forwardRef(MenuWithRef)) as <T extends string = string>(
   props: PropsWithChildren<MenubarProps<T>> & {
     ref?: ForwardedRef<HTMLUListElement>;
   }
 ) => JSX.Element;
+// as <T extends string = string>(
+//   props: PropsWithChildren<MenubarProps<T>>
+// ) => JSX.Element;
 
-(Menu as Any).displayName = "Menubar";
+(Menu as Any).displayName = "Menu";

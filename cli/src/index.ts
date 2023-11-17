@@ -1,4 +1,4 @@
-import { kebabCase, pascalCase } from "@tntfx/core";
+import { camelCase, kebabCase, pascalCase } from "@tntfx/core";
 import { existsSync, mkdirSync, writeFileSync } from "fs";
 import { join, parse } from "path";
 import { exec } from "./utils/cmd";
@@ -9,47 +9,52 @@ const [command, ...args] = process.argv.slice(2);
 if (command === "gen") {
   const [type, ...options] = args;
 
-  if (type === "component") {
-    genComponent(options);
-  } else if (type === "project") {
-    genWorkspaceProject(options);
-  } else {
-    console.error("Unknown command");
+  switch (type) {
+    case "component":
+      genComponent(options);
+      break;
+    case "project":
+      genWorkspaceProject(options);
+      break;
+    default:
+      throw new Error(`Unknown type ${type}`);
   }
+}
 
-  function genComponent(args: string[]) {
-    const [path, ...options] = args;
+function genComponent(args: string[]) {
+  const [path, ...options] = args;
 
-    const { name, dir } = parse(path);
-    const noStyle = options.includes("--no-style");
+  const { name, dir } = parse(path);
+  const noStyle = options.includes("--no-style");
 
-    const componentName = pascalCase(name);
-    const fileName = kebabCase(name);
+  const componentName = pascalCase(name);
+  const fileName = kebabCase(name);
+  const variableName = camelCase(name);
 
-    const styleImport = noStyle
-      ? ""
-      : `import "./${fileName}.scss";
+  const styleImport = noStyle
+    ? ""
+    : `import "./${fileName}.scss";
 `;
-    const componentFileContent = `import type { PropsWithChildren } from "react";
+  const componentFileContent = `import type { PropsWithChildren } from "react";
 ${styleImport}
 export type ${componentName}Props = {}
 
 export function ${componentName}(props: PropsWithChildren<${componentName}Props>) {
-  return <div className="${fileName}"></div>;
+return <div className="${variableName}"></div>;
 }
 `;
 
-    const scssFileContent = `@use "@tntfx/theme";
+  const scssFileContent = `@use "@tntfx/theme";
 
-.${fileName} {
+.${variableName} {
+  border: 1px solid theme.$color-border;
 }
 `;
 
-    const destination = join(process.cwd(), dir, fileName);
-    writeFileSync(`${destination}.tsx`, componentFileContent);
-    if (!noStyle) {
-      writeFileSync(`${destination}.scss`, scssFileContent);
-    }
+  const destination = join(process.cwd(), dir, fileName);
+  writeFileSync(`${destination}.tsx`, componentFileContent);
+  if (!noStyle) {
+    writeFileSync(`${destination}.scss`, scssFileContent);
   }
 }
 

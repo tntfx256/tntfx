@@ -11,13 +11,9 @@ export const Breakpoints = {
   xxl: 1920,
 };
 
+const OffsetRatio = 0.85;
 const MinFrameWidth = Breakpoints.sm;
-const MaxFrameWidth = Breakpoints.md;
-
 const MinDialogWidth = Breakpoints.xxs;
-const MaxDialogWidth = Breakpoints.xs;
-
-// const GoldenRatio = 1.6;
 
 export function getScreenDimension() {
   if (isServer()) {
@@ -41,28 +37,26 @@ export function toBoundingRect(boundary: Partial<BoundingRect> = {}): BoundingRe
   return { top, left, width, height, right: left + width, bottom: top + height };
 }
 
-export function getMinDimension(isDialog = false, boundary?: Dimension) {
+export function getMinMaxDimension(isDialog = false, boundary?: Dimension) {
   boundary = boundary || getScreenDimension().desktop;
 
   const ratio = boundary.width / boundary.height;
-
+  const minWidth = isDialog ? MinDialogWidth : MinFrameWidth;
+  const minHeight = Math.floor(isDialog ? MinDialogWidth / ratio : MinFrameWidth / ratio);
   // making sure that width and heigh are not bigger than the boundary
-  return {
-    minWidth: Math.min(isDialog ? MinDialogWidth : MinFrameWidth, boundary.width),
-    minHeight: Math.min(isDialog ? MinDialogWidth / ratio : MinFrameWidth / ratio, boundary.height),
+  const maxWidth = Math.floor(boundary.width * OffsetRatio);
+  const maxHeight = Math.floor(boundary.height * OffsetRatio);
 
-    maxWidth: Math.min(isDialog ? MaxDialogWidth : MaxFrameWidth, boundary.width),
-    maxHeight: Math.min(isDialog ? MaxDialogWidth / ratio : MaxFrameWidth / ratio),
+  return {
+    minWidth: Math.min(minWidth, maxWidth),
+    minHeight: Math.min(minHeight, maxHeight),
+    maxWidth,
+    maxHeight,
   };
 }
 
-export function calcInitialFrameDimension(
-  frame: HTMLElement,
-  isDialog = false,
-  boundary?: Dimension,
-  fitContent = false
-): Dimension {
-  const { minWidth, minHeight, maxWidth, maxHeight } = getMinDimension(isDialog, boundary);
+export function calcInitialFrameDimension(frame: HTMLElement, isDialog = false, boundary?: Dimension): Dimension {
+  const { minWidth, minHeight, maxWidth, maxHeight } = getMinMaxDimension(isDialog, boundary);
   const boundingRect = toBoundingRect(boundary);
 
   const { width, height } = frame.getBoundingClientRect();
@@ -76,20 +70,14 @@ export function calcInitialFrameDimension(
 
   if (dimension.width < minWidth) {
     dimension.width = minWidth;
-  } else if (dimension.width > maxWidth && !fitContent) {
+  } else if (dimension.width > maxWidth) {
     dimension.width = maxWidth;
-  }
-  if (dimension.width > boundingRect.width) {
-    dimension.width = boundingRect.width;
   }
 
   if (dimension.height < minHeight) {
     dimension.height = minHeight;
-  } else if (dimension.height > maxHeight && !fitContent) {
+  } else if (dimension.height > maxHeight) {
     dimension.height = maxHeight;
-  }
-  if (dimension.height > boundingRect.height) {
-    dimension.height = boundingRect.height;
   }
 
   const offset = isDialog ? 2 : (Math.floor(Math.random() * 100) % 6) + 2;

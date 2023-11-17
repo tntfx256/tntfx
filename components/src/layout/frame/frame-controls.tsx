@@ -1,6 +1,7 @@
 import type { ClassAndChildren } from "@tntfx/core";
 import { classNames, parseProps } from "@tntfx/theme";
 import { Icon } from "../../icon";
+import { memoize } from "../../memoize";
 import type { BoxProps } from "../box";
 import { Box } from "../box";
 import { FrameStatus } from "../frame/types";
@@ -12,7 +13,7 @@ export type FrameControlsProps = ClassAndChildren<BoxProps> & {
   frameStatus?: FrameStatus;
 };
 
-export function FrameControls(props: FrameControlsProps) {
+export const FrameControls = memoize(function FrameControls(props: FrameControlsProps) {
   const [className, { frameStatus, onToggleMaximize, onClose, children, ...rest }] = parseProps(props);
 
   return (
@@ -28,4 +29,4 @@ export function FrameControls(props: FrameControlsProps) {
       <Icon disabled={!onClose} name="cross" size="md" onClick={onClose} />
     </Box>
   );
-}
+});

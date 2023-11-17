@@ -3,9 +3,11 @@ import { classNames } from "@tntfx/theme";
 import { TableCell } from "./table-cell";
 import { useTable } from "./table-provider";
 import type { Column } from "./types";
+import { getHeaderTitle } from "./utils";
+import { memoize } from "../memoize";
 import "./table-header.scss";
 
-export function TableHeader<T>(props: ClassName) {
+export const TableHeader = memoize(function TableHeader<T>(props: ClassName) {
   const { className } = props;
 
   const { columns } = useTable<T>();
@@ -39,16 +41,17 @@ export function TableHeader<T>(props: ClassName) {
               className={classNames({ "tableHeader--divider": isDivider })}
               colSpan={column.colSpan}
             >
-              {TableCell.getHeaderTitle<T>(column)}
+              {getHeaderTitle<T>(column)}
             </TableCell>
           );
         })}
       </tr>
     </thead>
   );
-}
+});
 
-function HeaderTableParent({ mergedParents }: { mergedParents: ReturnType<typeof getParentMap> }) {
+type HeaderTableParentProps = { mergedParents: ReturnType<typeof getParentMap> };
+const HeaderTableParent = memoize(function HeaderTableParent({ mergedParents }: HeaderTableParentProps) {
   if (!mergedParents) return null;
 
   return (
@@ -62,7 +65,7 @@ function HeaderTableParent({ mergedParents }: { mergedParents: ReturnType<typeof
       })}
     </tr>
   );
-}
+});
 
 function getParentMap<T>(columns: Column<T>[]) {
   const parents = columns.map(({ parent }) => parent || "");

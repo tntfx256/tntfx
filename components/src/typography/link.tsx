@@ -3,6 +3,7 @@ import type { ClassAndChildren, IconName } from "@tntfx/core";
 import type { EnhancedProps } from "@tntfx/theme";
 import { classNames, parseProps } from "@tntfx/theme";
 import { Icon } from "../icon";
+import { memoize } from "../memoize";
 import { Svg } from "../svg";
 import "./link.scss";
 
@@ -17,7 +18,7 @@ type LinkProps = Partial<EnhancedProps> & {
   onClick?: N["onClick"];
 };
 
-export function Link(props: ClassAndChildren<LinkProps>) {
+export const Link = memoize(function Link(props: ClassAndChildren<LinkProps>) {
   const [className, { children, external, title, icon, ...rest }] = parseProps(props);
 
   return (
@@ -32,4 +33,4 @@ export function Link(props: ClassAndChildren<LinkProps>) {
       {external && <Svg name="linkExternal" />}
     </a>
   );
-}
+});

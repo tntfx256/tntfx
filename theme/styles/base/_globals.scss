@@ -106,4 +106,7 @@ code {
     0 22px 18px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 5%)),
     0 41px 33px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 6%)),
     0 100px 80px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 7%));
+
+  --color-destructive: var(--color-error);
+  --color-destructive-text: var(--color-error-text);
 }

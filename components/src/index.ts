@@ -12,6 +12,7 @@ export * from "./icon";
 export * from "./image";
 export * from "./layout";
 export * from "./loader";
+export * from "./memoize";
 export * from "./menu";
 export * from "./popup";
 export * from "./slot";

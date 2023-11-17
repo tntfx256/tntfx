@@ -5,6 +5,7 @@ import { useToggle } from "@tntfx/hooks";
 import { classNames } from "@tntfx/theme";
 import { Menu } from "./menu";
 import { Backdrop } from "../backdrop";
+import { memoize } from "../memoize";
 import { Portal } from "../portal";
 import "./context-menu.scss";
 
@@ -20,7 +21,9 @@ type ContextMenuProps<T extends string = string> = {
   onItemSelect?: (id: T) => void;
 };
 
-export function ContextMenu<T extends string = string>(props: ClassAndChildren<ContextMenuProps<T>>) {
+export const ContextMenu = memoize(function ContextMenu<T extends string = string>(
+  props: ClassAndChildren<ContextMenuProps<T>>
+) {
   const { children, className, items, onItemSelect, onClose, ...libProps } = props;
 
   const alignment = useRef<MenuAlignment>({
@@ -135,4 +138,4 @@ export function ContextMenu<T extends string = string>(props: ClassAndChildren<C
       )}
     </div>
   );
-}
+}) as <T extends string = string>(props: ClassAndChildren<ContextMenuProps<T>>) => JSX.Element;
