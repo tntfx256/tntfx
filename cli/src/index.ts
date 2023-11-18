@@ -59,7 +59,7 @@ return <div className="${variableName}"></div>;
 }
 
 function genWorkspaceProject(args: string[]) {
-  const [path, ...options] = args;
+  const [path] = args;
 
   let [basePath, packageName] = path.split("@");
   let scope = "";

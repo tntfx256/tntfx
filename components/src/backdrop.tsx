@@ -1,5 +1,4 @@
 import type { CSSProperties, MouseEvent } from "react";
-import { memo } from "react";
 import type { Animation, Boundary, ClassAndChildren, Dimension } from "@tntfx/core";
 import { classNames } from "@tntfx/theme";
 import { Box } from "./layout/box";

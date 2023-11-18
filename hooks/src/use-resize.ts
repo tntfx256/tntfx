@@ -105,7 +105,7 @@ export function useResize<T extends HTMLElement = HTMLElement>(element: Nullable
       element.removeEventListener("mousedown", handleDragStart);
       element.removeEventListener("touchstart", handleDragStart);
     };
-  }, [config?.boundingRect, element, onResizeEnd, resizable, resizeHandles]);
+  }, [config?.boundingRect, element, onResizeEnd, onResizeStart, resizable, resizeHandles]);
 }
 
 function getResizedDimension(initial: ResizeInitialState, x2: number, y2: number): Partial<Dimension> {

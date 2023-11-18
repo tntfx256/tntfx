@@ -1,18 +1,6 @@
-const { resolve, join } = require("node:path");
-const { existsSync } = require("node:fs");
-
-const cwd = process.cwd();
-
-let projectPath = join(cwd, "tsconfig.json");
-// tntfx/tsconfig.json
-if (!existsSync(projectPath)) {
-  projectPath = join(cwd, "../tsconfig.json");
-}
-
-const project = resolve(projectPath);
-
 /** @type {import('eslint').ESLint.ConfigData} */
 const esLintConfig = {
+  root: true,
   extends: ["next/core-web-vitals", "turbo", "prettier"],
   parser: "@typescript-eslint/parser",
   plugins: ["@typescript-eslint", "simple-import-sort"],
@@ -21,7 +9,7 @@ const esLintConfig = {
     React: true,
   },
   parserOptions: {
-    project,
+    // project,
     ecmaVersion: 2020,
     sourceType: "module",
     jsx: true,
@@ -30,7 +18,7 @@ const esLintConfig = {
   settings: {
     "import/resolver": {
       typescript: {
-        project,
+        // project,
       },
     },
     react: {

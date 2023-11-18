@@ -125,5 +125,5 @@ export function useDrag<T extends HTMLElement = HTMLElement>(element: Nullable<T
       element.removeEventListener("mousedown", handleDragStart);
       element.removeEventListener("touchstart", handleDragStart);
     };
-  }, [config?.boundingRect, draggable, element]);
+  }, [config?.boundingRect, draggable, element, onDragEnd, onDragStart, onDragging]);
 }

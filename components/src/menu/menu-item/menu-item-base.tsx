@@ -1,4 +1,4 @@
-import { ReactNode, useCallback } from "react";
+import { useCallback } from "react";
 import { classNames, parseProps } from "@tntfx/theme";
 import type { MenuItemProps } from "./menu-item";
 import { Icon } from "../../icon";

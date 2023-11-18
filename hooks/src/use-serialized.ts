@@ -1,17 +1,17 @@
 import type { DependencyList, EffectCallback } from "react";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useRef } from "react";
 import type { Nullable } from "@tntfx/core";
 import { serialize } from "@tntfx/core";
 
 type Destructor = ReturnType<EffectCallback> | void;
-type Fn = () => unknown;
-type ExcludeVoidFn<T extends Fn = Fn> = (() => void) extends T ? never : T;
+// type Fn = () => unknown;
+// type ExcludeVoidFn<T extends Fn = Fn> = (() => void) extends T ? never : T;
 
-export function useSerializedMemo<T>(factory: ExcludeVoidFn, deps: DependencyList): T {
-  const serializedDeps = deps.map(serialize);
+// export function useSerializedMemo<T>(factory: ExcludeVoidFn, deps: DependencyList): T {
+//   const serializedDeps = deps.map(serialize);
 
-  return useMemo<T>(factory, serializedDeps);
-}
+//   return useMemo<T>(factory, serializedDeps);
+// }
 
 export function useSerializedEffect(
   effect: (serializedDeps: string[]) => Destructor,

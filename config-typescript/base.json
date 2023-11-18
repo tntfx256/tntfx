@@ -30,7 +30,5 @@
     "preserveWatchOutput": true,
 
     "jsx": "preserve"
-  },
-
-  "exclude": ["node_modules", "build", ".turbo", ".swc", ".next"]
+  }
 }

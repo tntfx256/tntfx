@@ -1,11 +1,11 @@
 import type { Any } from "@tntfx/core";
 import { isParsedResponse, parseResponse } from "./utils";
 
-type UseResponseHandlerProps = {
-  // popupType?: PopupType;
-};
-
-export function useResponseHandler(props?: UseResponseHandlerProps) {
+// type UseResponseHandlerProps = {
+// popupType?: PopupType;
+// };
+// props?: UseResponseHandlerProps
+export function useResponseHandler() {
   // const popup = usePopup();
 
   return (response: Any, successCallback?: (data: Any) => void) => {

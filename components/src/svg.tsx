@@ -13,18 +13,22 @@ export type SvgProps = Partial<EnhancedProps> & {
 };
 
 export const Svg = memoize(function Svg(props: SvgProps) {
-  const [className, svgProps] = parseProps(props);
+  const { disabled } = props;
+  const [className, { onClick, ...svgProps }] = parseProps(props);
 
-  const handleClick = useCallback((e: MouseEvent) => {
-    if (props.onClick) {
-      e.preventDefault();
-      e.stopPropagation();
+  const handleClick = useCallback(
+    (e: MouseEvent) => {
+      if (onClick) {
+        e.preventDefault();
+        e.stopPropagation();
 
-      if (!props.disabled) {
-        props.onClick();
+        if (!disabled) {
+          onClick();
+        }
       }
-    }
-  }, []);
+    },
+    [disabled, onClick]
+  );
 
   return props.name ? (
     <>

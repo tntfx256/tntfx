@@ -19,6 +19,7 @@ export function DateTime(props: DateTimeProps) {
   useEffect(() => {
     timer.restart();
     setDate(getDate());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

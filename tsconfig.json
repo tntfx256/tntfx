@@ -1,5 +1,6 @@
 {
   "extends": "./config-typescript/react.json",
 
-  "include": ["."]
+  "include": ["**/*.ts", "**/*.tsx", "**/*.js"],
+  "exclude": ["node_modules", "build"]
 }

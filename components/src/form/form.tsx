@@ -1,6 +1,6 @@
 import type { FormEvent } from "react";
 import { useCallback } from "react";
-import { type ClassAndChildren, type Option, type TObject } from "@tntfx/core";
+import { type ClassAndChildren, type Option } from "@tntfx/core";
 import type { EnhancedProps } from "@tntfx/theme";
 import { classNames, parseProps } from "@tntfx/theme";
 import { Box } from "../layout";
@@ -16,7 +16,7 @@ export type FormProps = EnhancedProps & {
   onSubmit?: () => void;
 };
 
-export function Form<T extends TObject = TObject>(props: ClassAndChildren<FormProps>) {
+export function Form(props: ClassAndChildren<FormProps>) {
   const [className, { actions, legend, children, onSubmit, ...libProps }] = parseProps(props);
 
   // const {} = useModel<T>((Model || FreeModel) as ModelConstructor<T>, initialValues);
