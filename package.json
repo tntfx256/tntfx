@@ -9,7 +9,9 @@
     "lint:code": "eslint . --fix",
     "lint:prettier": "prettier . --write",
     "lint:style": "stylelint \"**/*.scss\" --fix",
-    "test": "jest"
+    "test": "jest",
+    "storybook": "yarn workspace @tntfx/components run storybook",
+    "build": "yarn workspace @tntfx/components run build-storybook"
   },
   "workspaces": [
     "*"
@@ -30,6 +32,5 @@
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
   },
-  "peerDependencies": {},
   "packageManager": "yarn@1.22.19"
 }

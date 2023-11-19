@@ -196,7 +196,7 @@ export function Select<T extends string = string, M extends boolean = false>(pro
     >
       <BaseInput
         readOnly
-        className={"select-input"}
+        className="select-input"
         disabled={disabled}
         placeholder={placeholder}
         value={displayValue}

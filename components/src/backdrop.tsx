@@ -29,7 +29,7 @@ export const Backdrop = memoize(function Backdrop(props: ClassAndChildren<Backdr
     overlay = true,
     global,
     onClick,
-    boundary,
+    // boundary,
   } = props;
 
   function handleClick(e: MouseEvent) {
@@ -47,14 +47,14 @@ export const Backdrop = memoize(function Backdrop(props: ClassAndChildren<Backdr
     <Box
       role="presentation"
       style={style}
-      className={classNames("backdrop", className, `animation--${animation}`, `--bg-${background}`, {
-        "--no-overlay": !overlay,
+      className={classNames("backdrop", className, `--animation-${animation}`, `--bg-${background}`, {
+        "--noOverlay": !overlay,
         "--visible": isOpen,
         "--global": global,
       })}
       onClick={handleClick}
     >
-      {isOpen || persistent ? children : null}
+      <Box className="backdrop__body">{isOpen || persistent ? children : null}</Box>
     </Box>
   );
 

@@ -9,7 +9,7 @@ import { memoize } from "../memoize";
 import { Portal } from "../portal";
 import "./context-menu.scss";
 
-const OFFSET = 10;
+const OFFSET = 2;
 interface MenuAlignment {
   horizontal: "left" | "center" | "right";
   vertical: "top" | "middle" | "bottom";
@@ -128,7 +128,7 @@ export const ContextMenu = memoize(function ContextMenu<T extends string = strin
             onClick={handleMenuClose}
           >
             <Menu
-              className={classNames(`_align-${alignment.current.vertical}`, `_align-${alignment.current.horizontal}`)}
+              className={classNames(`--align-${alignment.current.vertical}`, `--align-${alignment.current.horizontal}`)}
               items={items}
               ref={list}
               onClick={handleMenuItemClick}

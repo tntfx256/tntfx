@@ -20,11 +20,14 @@ export const MenuItem = memoize(function MenuItem<T extends string = string>(pro
 
   function clickHandler(e: MouseEvent) {
     e.stopPropagation();
-    onClick?.(item.id);
+    if (!item.children) {
+      onClick?.(item.id);
+    }
   }
 
   const { disabled, children } = item;
-  const isSelected = props.selectedItem === item.id;
+  const isSelected =
+    props.selectedItem === item.id || (horizontal && item.children?.some((child) => child.id === props.selectedItem));
   const hasChildren = children && children.length > 0;
 
   return item.hidden ? null : (
@@ -35,7 +38,7 @@ export const MenuItem = memoize(function MenuItem<T extends string = string>(pro
       value={item.id}
       onClick={item.disabled || hasChildren ? undefined : clickHandler}
     >
-      {horizontal ? <MenuItemHorizontal {...props} /> : <MenuItemVertical item={item} />}
+      {horizontal ? <MenuItemHorizontal {...props} /> : <MenuItemVertical {...props} />}
     </li>
   );
 }) as <T extends string = string>(props: MenuItemProps<T>) => JSX.Element;

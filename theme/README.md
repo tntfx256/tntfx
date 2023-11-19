@@ -1,9 +1,10 @@
 # `@tntfx/theme`
 
-## Adding new color
+## Developer
 
-1. `styles/base/_palette.scss`
-2. `styles/lib/_color.scss`
-3. `styles/components/type`
-4. `styles/components/theme.ts`
-5. `styles/export.module.ts`
+### Adding new variable
+
+1. `palettes/*.scss`
+2. `styles/lib/*.scss`
+3. `styles/components/theme.ts`
+4. `styles/export.module.ts`

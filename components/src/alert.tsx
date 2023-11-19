@@ -1,6 +1,6 @@
 import type { Actions, IconName, OnAction, WithChildren } from "@tntfx/core";
 import type { EnhancedProps } from "@tntfx/theme";
-import { classNames } from "@tntfx/theme";
+import { classNames, parseProps } from "@tntfx/theme";
 import { ActionBar } from "./layout";
 import { Box } from "./layout/box";
 import { Svg } from "./svg";
@@ -16,22 +16,20 @@ export type AlertProps = EnhancedProps & {
 };
 
 export function Alert(props: WithChildren<AlertProps>) {
-  const { children, className, icon, title, message, actions, onAction, ...boxProps } = props;
+  const [className, { children, icon, title, message, actions, onAction, ...boxProps }] = parseProps(props);
 
   return (
     <Box horizontal className={classNames("alert", className)} {...boxProps}>
-      {icon && <Svg className="alert-icon" name={icon} />}
-      <Box>
-        <Text className="alert-title">{title}</Text>
+      {icon && <Svg className="alert__icon" name={icon} />}
+      <Box className="alert__content">
+        <Text as="h1" className="alert__title">
+          {title}
+        </Text>
 
-        {message && (
-          <Text className="alert-desc" fontSize="sm">
-            {message}
-          </Text>
-        )}
+        {message && <Text className="alert__message">{message}</Text>}
         {children}
       </Box>
-      <ActionBar actions={actions} onAction={onAction} />
+      <ActionBar actions={actions} className="alert__actions" onAction={onAction} />
     </Box>
   );
 }

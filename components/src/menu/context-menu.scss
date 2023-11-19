@@ -13,8 +13,13 @@
       min-width: 120px;
       border: 1px solid theme.$color-border;
       border-radius: theme.$borderRadius-xs;
-      background-color: theme.$color-element-alpha;
+      // background-color: theme.$color-element-alpha;
       overflow-y: auto;
+
+      &.--align-bottom {
+        border-top-left-radius: theme.$borderRadius-xxs;
+        border-top-right-radius: theme.$borderRadius-xxs;
+      }
     }
   }
 }

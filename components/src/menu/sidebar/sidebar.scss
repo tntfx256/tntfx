@@ -30,17 +30,17 @@ $sidebarMaxWidth: theme.$breakpoint-xxs;
     align-items: stretch;
     justify-content: flex-start;
 
-    &.--visible.--no-overlay {
+    &.--visible.--noOverlay {
       width: fit-content;
       min-width: $sidebarMinWidth;
       max-width: $sidebarMaxWidth;
       background-color: transparent;
     }
 
-    &.__with-body {
+    &.--withBody {
       background: theme.$color-element;
 
-      &.open:not(.overlay) {
+      &.--visible.--noOverlay {
         width: 100%;
         max-width: none;
       }

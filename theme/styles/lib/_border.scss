@@ -1,6 +1,7 @@
 @use "sass:map";
 @use "./utils";
 
+$borderRadius-xxs: utils.toRem(2);
 $borderRadius-xs: utils.toRem(4);
 $borderRadius-sm: utils.toRem(8);
 $borderRadius-md: utils.toRem(12);

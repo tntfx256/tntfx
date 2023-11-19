@@ -10,6 +10,5 @@
     "stylelint-config-recommended-scss": "^13.1.0",
     "stylelint-order": "^6.0.3"
   },
-  "devDependencies": {},
-  "peerDependencies": {}
+  "devDependencies": {}
 }

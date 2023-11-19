@@ -25,7 +25,6 @@ const esLintConfig = {
       version: "detect",
     },
   },
-  ignorePatterns: ["node_modules/", ".next", ".swc", "dist/", ".eslintrc"],
   rules: {
     "@next/next/no-html-link-for-pages": "off",
 
@@ -42,6 +41,7 @@ const esLintConfig = {
     "react-hooks/exhaustive-deps": "warn",
     "no-unused-vars": "off",
 
+    "react/jsx-curly-brace-presence": "warn",
     "react/jsx-key": "warn",
     "react/jsx-sort-props": [
       "warn",

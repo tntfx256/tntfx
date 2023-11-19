@@ -2,5 +2,7 @@
 
 .menuItemVertical {
   &__submenu {
+    // border-left: 1px solid theme.$color-primary;
+    margin-left: theme.$spacing-lg;
   }
 }

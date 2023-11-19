@@ -1,23 +1,21 @@
 import { type Meta, type StoryObj } from "@storybook/react";
-import { variants } from "@tntfx/core";
 import { Alert } from "../src/alert";
 
 const meta: Meta<typeof Alert> = {
+  title: "Alert",
   component: Alert,
-  argTypes: {
-    color: variants,
-  },
 };
 
 export default meta;
 
 type Story = StoryObj<typeof Alert>;
 
-export const Default: Story = {
+export const Story: Story = {
   args: {
-    children: "Alert",
-    color: "destructive",
-    variant: "outlined",
-    type: "error",
+    icon: "info",
+    title: "Alert Title",
+    message:
+      "Lorem insum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies aliquam, nunc nisl aliquet nunc, quis aliquam nisl nunc ut nisi.",
+    actions: "OkCancel",
   },
 };

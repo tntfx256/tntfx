@@ -1,10 +1,9 @@
-import type { Theme } from "@tntfx/theme/components/types";
 import "../styles/base/index.scss";
 import moduleVars from "../styles/export.module.scss";
 
 const vars: any = moduleVars;
 
-export const theme: Theme = {
+export const theme = {
   breakpoint: {
     xxs: +vars.breakpoint_xxs,
     xs: +vars.breakpoint_xs,
@@ -137,6 +136,7 @@ export const theme: Theme = {
   },
 
   borderRadius: {
+    xxs: vars.border_radius_xxs,
     xs: vars.border_radius_xs,
     sm: vars.border_radius_sm,
     md: vars.border_radius_md,
@@ -159,3 +159,5 @@ export const theme: Theme = {
     contextMenu: +vars.layer_context_menu,
   },
 };
+
+export type Theme = typeof theme;

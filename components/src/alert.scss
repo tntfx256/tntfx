@@ -2,27 +2,33 @@
 
 .alert {
   @include theme.blur;
-  min-width: theme.$elementWidth-xl;
-  padding: theme.$spacing-sm;
-
+  min-width: min(100%, theme.$elementWidth-xl);
+  max-width: 100%;
+  padding: theme.$spacing-md;
   border: 1px solid transparent;
   border-radius: theme.$borderRadius-sm;
 
-  &-icon {
-    width: theme.$size-xl;
-    height: theme.$size-xl;
+  &__content {
+    flex: 1;
+  }
+
+  &__icon {
+    width: theme.$size-sm;
+    height: theme.$size-sm;
     margin-right: theme.$spacing-md;
   }
 
-  &-title {
+  &__title {
+    font-weight: theme.$fontWeight-xl;
     white-space: nowrap;
   }
 
-  &.type-error {
-    border-color: theme.$color-error;
+  &__message {
+    padding-left: theme.$spacing-md;
+    font-size: theme.$fontSize-sm;
+  }
 
-    .alert-icon {
-      color: theme.$color-error;
-    }
+  &__actions {
+    align-self: flex-end;
   }
 }

@@ -56,4 +56,4 @@ export enum Size {
 }
 export const sizes = Object.values(Size) as Size[];
 
-export type Animation = "slide-right" | "zoom" | "slide-up";
+export type Animation = "slideRight" | "zoom" | "slideUp";

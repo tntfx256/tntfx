@@ -15,11 +15,11 @@
   --color-secondary-text: var(--color-text);
 
   --color-info: #17a2b8;
-  --color-info-text: var(--color-text);
+  --color-info-text: var(--color-text-alt);
   --color-success: #28a745;
-  --color-success-text: var(--color-text);
+  --color-success-text: var(--color-text-alt);
   --color-warning: #ffc107;
-  --color-warning-text: var(--color-text-alt);
+  --color-warning-text: var(--color-text);
   --color-error: #dc3545;
   --color-error-text: var(--color-text-alt);
 
@@ -47,12 +47,16 @@
 
 // @media (prefers-color-scheme: dark) {
 //   :root {
-//     color-scheme: dark;
-
-//     --shadow-strength: 10%;
-//     --shadow-color: 220 3% 15%;
-
-//     --color-text: #f5f7fa;
-//     --color-text-alt: #434454;
+//     @extend %dark;
 //   }
 // }
+
+.--darkMode {
+  color-scheme: dark;
+
+  --shadow-strength: 10%;
+  --shadow-color: 220 3% 15%;
+
+  --color-text: #f5f7fa;
+  --color-text-alt: #434454;
+}

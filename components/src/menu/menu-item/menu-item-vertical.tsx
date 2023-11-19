@@ -6,13 +6,15 @@ import { Menu } from "../menu";
 import "./menu-item-vertical.scss";
 
 export const MenuItemVertical = memoize(function MenuItemVertical<T extends string = string>(props: MenuItemProps<T>) {
-  const { item } = props;
+  const { item, selectedItem, onClick } = props;
   const [visible, , , toggle] = useToggle();
 
   return (
     <>
       <MenuItemBase {...props} onClick={toggle} />
-      {visible && <Menu className="menuItemVertical__submenu" items={item.children!} />}
+      {visible && (
+        <Menu className="menuItemVertical__submenu" items={item.children!} selectedItem={selectedItem} onClick={onClick} />
+      )}
     </>
   );
 }) as <T extends string = string>(props: MenuItemProps<T>) => JSX.Element;

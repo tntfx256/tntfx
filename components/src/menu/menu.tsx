@@ -50,8 +50,5 @@ export const Menu = memoize(forwardRef(MenuWithRef)) as <T extends string = stri
     ref?: ForwardedRef<HTMLUListElement>;
   }
 ) => JSX.Element;
-// as <T extends string = string>(
-//   props: PropsWithChildren<MenubarProps<T>>
-// ) => JSX.Element;
 
 (Menu as Any).displayName = "Menu";
