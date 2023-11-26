@@ -48,6 +48,7 @@ export function Dialog(props: DialogProps) {
         className={classNames("dialog", className)}
         draggable={draggable}
         resizable={resizable}
+        role="dialog"
         slots={{
           footer: actions || onAction ? <ActionBar actions={actions} onAction={onAction} /> : undefined,
         }}

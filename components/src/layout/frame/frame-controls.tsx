@@ -1,23 +1,23 @@
-import type { ClassAndChildren } from "@tntfx/core";
-import { classNames, parseProps } from "@tntfx/theme";
-import { Icon } from "../../icon";
-import { memoize } from "../../memoize";
+import { memoize, type PropsAndChildren } from "@tntfx/core";
+import { Icon } from "@tntfx/icons";
+import { classNames, useParseProps } from "@tntfx/theme";
 import type { BoxProps } from "../box";
 import { Box } from "../box";
 import { FrameStatus } from "../frame/types";
 import "./frame-controls.scss";
 
-export type FrameControlsProps = ClassAndChildren<BoxProps> & {
+export interface FrameControlsProps extends PropsAndChildren, BoxProps {
   onClose?: () => void;
   onToggleMaximize?: () => void;
   frameStatus?: FrameStatus;
-};
+}
 
 export const FrameControls = memoize(function FrameControls(props: FrameControlsProps) {
-  const [className, { frameStatus, onToggleMaximize, onClose, children, ...rest }] = parseProps(props);
+  const { frameStatus, onToggleMaximize, onClose, children, ...styleProps } = props;
+  const { className, style } = useParseProps(styleProps);
 
   return (
-    <Box horizontal className={classNames("frameControls", className)} {...rest}>
+    <Box horizontal className={classNames("frameControls", className)} style={style}>
       {children}
       {onToggleMaximize && (
         <Icon

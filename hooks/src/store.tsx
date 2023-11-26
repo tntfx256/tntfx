@@ -1,7 +1,7 @@
 import type { PropsWithChildren } from "react";
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect, useRef } from "react";
+import { isEqual } from "@tntfx/core";
 import { createPatcherAction, createResetterAction, createSetterAction, useStateReducer } from "./use-reducer";
-import { useSerializedEffect } from "./use-serialized";
 
 export type Store<S> = ReturnType<typeof useStateReducer<S>>;
 
@@ -39,16 +39,14 @@ export function initStore<S>(config: StoreConfig) {
 
   function StoreProvider(props: StoreProviderProps<S>) {
     const { children, ...state } = props;
-
+    const stateRef = useRef(state);
     const store = useStateReducer<S>(state as S, persistReducerConfig);
 
-    useSerializedEffect(
-      () => {
+    useEffect(() => {
+      if (!isEqual(stateRef.current, state)) {
         store[1](state as S);
-      },
-      [state],
-      true
-    );
+      }
+    }, [state]);
 
     return <StoreContext.Provider value={store}>{children}</StoreContext.Provider>;
   }

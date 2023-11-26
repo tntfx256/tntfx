@@ -1,11 +1,10 @@
 import type { ReactNode } from "react";
-import type { ClassAndChildren } from "@tntfx/core";
-import { classNames, parseProps } from "@tntfx/theme";
+import { memoize, type PropsAndChildren } from "@tntfx/core";
+import { classNames, useParseProps } from "@tntfx/theme";
 import { Backdrop } from "../../backdrop";
-import { memoize } from "../../memoize";
 import "./sidebar.scss";
 
-export type SidebarProps = {
+export interface SidebarProps extends PropsAndChildren {
   overlay?: boolean;
   blur?: boolean;
   persistent?: boolean;
@@ -14,10 +13,11 @@ export type SidebarProps = {
   slots?: {
     body?: ReactNode;
   };
-};
+}
 
-export const Sidebar = memoize(function Sidebar(props: ClassAndChildren<SidebarProps>) {
-  const [className, { onClickOutside, persistent = true, overlay, isOpen, children, blur, slots = {} }] = parseProps(props);
+export const Sidebar = memoize(function Sidebar(props: SidebarProps) {
+  const { onClickOutside, persistent = true, overlay, isOpen, children, blur, slots = {}, ...styleProps } = props;
+  const { className, style } = useParseProps(styleProps);
 
   const hasBody = !!slots.body;
 
@@ -29,9 +29,12 @@ export const Sidebar = memoize(function Sidebar(props: ClassAndChildren<SidebarP
       isOpen={hasBody || isOpen}
       overlay={hasBody ? false : overlay}
       persistent={persistent}
+      style={style}
       onClick={hasBody ? undefined : onClickOutside}
     >
-      <aside className={classNames("sidebar", className, { blur })}>{isOpen || persistent ? children : null}</aside>
+      <aside className={classNames("sidebar", className, { blur })} role="navigation">
+        {isOpen || persistent ? children : null}
+      </aside>
       {hasBody && <main className={classNames("sidebar__body")}>{slots.body}</main>}
     </Backdrop>
   );

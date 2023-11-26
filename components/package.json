@@ -4,31 +4,19 @@
   "private": true,
   "main": "src/index.ts",
   "types": "src/index.ts",
-  "scripts": {
-    "storybook": "storybook dev",
-    "build-storybook": "storybook build"
-  },
+  "scripts": {},
   "dependencies": {
     "@tntfx/core": "*",
     "@tntfx/hooks": "*",
+    "@tntfx/icons": "*",
     "@tntfx/theme": "*",
     "focus-trap-react": "^10.2.3",
     "next": "^14.0.3",
-    "react-fast-compare": "^3.2.2",
-    "react-icons": "^4.12.0",
-    "react-markdown": "^9.0.1",
-    "sass": "^1.69.5"
+    "react-markdown": "^9.0.1"
   },
   "devDependencies": {
-    "@storybook/addon-essentials": "^7.5.3",
-    "@storybook/addon-interactions": "^7.5.3",
-    "@storybook/addon-styling-webpack": "^0.0.5",
-    "@storybook/blocks": "^7.5.3",
-    "@storybook/nextjs": "^7.5.3",
-    "@storybook/react": "^7.5.3",
-    "@storybook/testing-library": "^0.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "storybook": "^7.5.3"
+    "sass": "^1.69.5"
   }
 }

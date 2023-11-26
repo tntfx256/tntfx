@@ -1,37 +1,27 @@
 import type { MouseEvent } from "react";
-import { useCallback, useEffect, useRef } from "react";
-import type { Any, ClassName, Nullable, Option } from "@tntfx/core";
-import { useStateReducer, useToggle } from "@tntfx/hooks";
-import { classNames } from "@tntfx/theme";
+import { useCallback, useEffect } from "react";
+import type { Any, Nullable, Option, Props } from "@tntfx/core";
+import { useRefState, useStateReducer, useToggle } from "@tntfx/hooks";
+import { Icon } from "@tntfx/icons";
+import { classNames, useParseProps } from "@tntfx/theme";
 import { BaseInput } from "./base-input";
 import type { FormElementProps } from "./form-element";
 import { FormElement } from "./form-element";
 import { TextInput } from "./text-input";
-import { Backdrop } from "../backdrop";
-import { Icon } from "../icon";
+import { Box } from "../layout";
 import { Menu } from "../menu";
-import { Svg } from "../svg";
-import { Text } from "../typography/text";
+import { Text } from "../typography";
 import "./select.scss";
-
-const OFFSET = 32;
 
 type State<T extends string = string> = {
   filteredOptions: Option<T>[];
   text: string;
   displayValue: string;
-  dropdown?: {
-    direction: "up" | "down";
-    left: number;
-    maxHeight: number;
-    position: number;
-    width: number;
-  };
 };
 
 const initialState: State = { filteredOptions: [], text: "", displayValue: "" };
 
-type SelectProps<T extends string = string, M extends boolean = false> = FormElementProps & {
+export interface SelectProps<T extends string = string, M extends boolean = false> extends FormElementProps, Props {
   options?: Option<T>[];
   searchable?: boolean;
   readOnly?: boolean;
@@ -39,29 +29,15 @@ type SelectProps<T extends string = string, M extends boolean = false> = FormEle
   placeholder?: string;
   multi?: M;
   onChange?: (value: M extends true ? T[] : T, name: string) => void;
-};
+}
 
-export function Select<T extends string = string, M extends boolean = false>(props: ClassName<SelectProps<T, M>>) {
-  const {
-    name,
-    label,
-    error,
-    value,
-    options = [],
-    onChange,
-    placeholder,
-    disabled,
-    readOnly,
-    className,
-    searchable,
-    isLoading,
-    multi,
-  } = props;
+export function Select<T extends string = string, M extends boolean = false>(props: SelectProps<T, M>) {
+  const { name, value, options = [], onChange, placeholder, searchable, multi, ...styleProps } = props;
+  const { className, style } = useParseProps(styleProps);
 
-  const [isOpen, showDropdown, hideDropdown] = useToggle();
-  const listRef = useRef<Nullable<HTMLUListElement>>(null);
-  const inputRef = useRef<Nullable<HTMLInputElement>>(null);
-  const [{ filteredOptions, text, dropdown, displayValue }, setState] = useStateReducer(initialState as State<T>);
+  const [isOpen, , hideDropdown, toggleSubmenu] = useToggle();
+  const [target, targetRefHandler] = useRefState<Nullable<HTMLInputElement>>();
+  const [{ filteredOptions, text, displayValue }, setState] = useStateReducer(initialState as State<T>);
 
   const handleItemSelect = useCallback(
     (id: T) => {
@@ -97,18 +73,10 @@ export function Select<T extends string = string, M extends boolean = false>(pro
     [options, setState]
   );
 
-  const handleShowDropdown = useCallback(() => {
-    if (!readOnly) {
-      showDropdown();
-    }
-  }, [readOnly, showDropdown]);
-
-  function handleDropdownClick(e: MouseEvent) {
-    e.stopPropagation();
-  }
-
   const toggleMultiselectItem = useCallback(
-    (id: T) => {
+    (id: T, e: MouseEvent) => {
+      e.stopPropagation();
+
       const currentValue = assertMultiValue<T>(value);
       if (currentValue.includes(id)) {
         onChange?.(currentValue.filter((item) => item !== id) as Any, name || "");
@@ -118,37 +86,6 @@ export function Select<T extends string = string, M extends boolean = false>(pro
     },
     [name, onChange, value]
   );
-
-  // setting dropdown position
-  useEffect(() => {
-    if (!isOpen || !inputRef.current) return;
-
-    const { bottom, left, top, width } = inputRef.current.getBoundingClientRect() || {};
-    const maxUpHeight = top - OFFSET;
-    const maxDownHeight = window.innerHeight - bottom - OFFSET;
-
-    if (maxDownHeight >= maxUpHeight) {
-      setState({
-        dropdown: {
-          direction: "down",
-          maxHeight: maxDownHeight,
-          left,
-          width,
-          position: bottom,
-        },
-      });
-    } else {
-      setState({
-        dropdown: {
-          direction: "up",
-          maxHeight: maxUpHeight,
-          left,
-          width,
-          position: top,
-        },
-      });
-    }
-  }, [isOpen, setState]);
 
   // display value
   useEffect(() => {
@@ -176,81 +113,68 @@ export function Select<T extends string = string, M extends boolean = false>(pro
   }, [options, setState]);
 
   const isEmpty = options.length < 1;
-  const isDropup = dropdown?.direction === "up";
-  const shouldShowDropdown = Boolean(isOpen && !disabled && dropdown);
-  const dirClassName = isDropup ? "is-dropup" : "is-dropdown";
   const multiValues = multi ? assertMultiValue(value) : [];
 
   return (
     <FormElement
-      disabled={disabled || isEmpty}
-      error={error}
-      isLoading={isLoading}
-      label={label}
       name={name}
-      ref={inputRef}
-      className={classNames("select", className, dirClassName, {
-        "is-open": shouldShowDropdown,
-        pristine: !value,
+      ref={targetRefHandler}
+      role="combobox"
+      style={style}
+      className={classNames("select", className, {
+        "--isOpen": isOpen,
+        "--isEmpty": isEmpty,
+        "--pristine": !value,
       })}
     >
       <BaseInput
         readOnly
-        className="select-input"
-        disabled={disabled}
+        className="select__input"
         placeholder={placeholder}
+        slots={{ end: <Icon className="select__dorpdownIcon" name="down" /> }}
         value={displayValue}
-        onClick={handleShowDropdown}
-        onFocus={handleShowDropdown}
+        onClick={toggleSubmenu}
       />
-      <Svg className="control-icon" fontSize="sm" name="down" />
 
-      {shouldShowDropdown && (
-        <Backdrop global isOpen background="transparent" className="select-backdrop" onClick={hideDropdown}>
-          <div
-            className={classNames("select-dropdown", dirClassName)}
-            style={{
-              top: isDropup ? "unset" : dropdown?.position,
-              bottom: isDropup ? dropdown?.position : "unset",
-              left: dropdown?.left,
-              width: dropdown?.width,
-              maxHeight: dropdown?.maxHeight,
-            }}
-            onClick={handleDropdownClick}
-          >
-            {searchable && !isEmpty && (
-              <TextInput
-                className="select-dropdown-input"
-                name="text"
-                placeholder="Search"
-                value={text}
-                onChange={handleTextChange}
+      <Menu
+        switchSlotsBasedOnMenuPosition
+        className="select__menu"
+        isOpen={isOpen}
+        items={filteredOptions}
+        menuType="dropdown"
+        role="listbox"
+        target={target}
+        renderItem={(item) => (
+          <Box key={item.id} horizontal className="menuItem__body">
+            {multi ? (
+              <Icon
+                className="menuItem__Icon"
+                name={multiValues.includes(item.id) ? "checkSquare" : "square"}
+                onClick={(e) => toggleMultiselectItem(item.id, e)}
               />
-            )}
+            ) : null}
 
-            <Menu<T>
-              className="select-dropdown-list"
-              items={filteredOptions}
-              ref={listRef}
-              role="listbox"
-              render={(item) => {
-                return (
-                  <Text key={item.id}>
-                    {multi ? (
-                      <Icon
-                        name={multiValues.includes(item.id) ? "checkSquare" : "square"}
-                        onClick={() => toggleMultiselectItem(item.id)}
-                      />
-                    ) : null}
-                    {item.title}
-                  </Text>
-                );
-              }}
-              onClick={handleItemSelect}
+            {typeof item.icon === "string" ? <Icon className="menuItem__icon" name={item.icon} /> : item.icon}
+
+            <Text className="menuItem__title">{item.title}</Text>
+          </Box>
+        )}
+        slots={{
+          header: searchable ? (
+            <TextInput
+              className="select__searchInput"
+              name="text"
+              placeholder="Search"
+              readOnly={isEmpty}
+              role="searchbox"
+              value={text}
+              onChange={handleTextChange}
             />
-          </div>
-        </Backdrop>
-      )}
+          ) : undefined,
+        }}
+        onClick={handleItemSelect}
+        onClose={hideDropdown}
+      />
     </FormElement>
   );
 }

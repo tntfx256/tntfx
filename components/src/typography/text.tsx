@@ -1,22 +1,24 @@
 import type { HTMLAttributes } from "react";
-import type { ClassAndChildren } from "@tntfx/core";
+import { memoize, type PropsAndChildren } from "@tntfx/core";
 import type { EnhancedProps } from "@tntfx/theme";
-import { classNames, parseProps } from "@tntfx/theme";
-import { memoize } from "../memoize";
+import { classNames, useParseProps } from "@tntfx/theme";
 import "./text.scss";
 
+type TextElement = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span";
 type Att = Omit<HTMLAttributes<HTMLHeadingElement | HTMLParagraphElement>, "contentEditable"> & Partial<EnhancedProps>;
-type TypingProps = Att & {
-  as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span";
-};
 
-export const Text = memoize(function Text(props: ClassAndChildren<TypingProps>) {
-  const [className, { children, as, ...rest }] = parseProps(props);
+export interface TextProps extends PropsAndChildren, Att {
+  as?: TextElement;
+}
+
+export const Text = memoize(function Text(props: TextProps) {
+  const { children, as, ...rest } = props;
+  const { className, style } = useParseProps(rest);
 
   const Component = as || "p";
 
   return (
-    <Component className={classNames("text", className)} {...rest}>
+    <Component className={classNames("text", className)} style={style}>
       {children}
     </Component>
   );

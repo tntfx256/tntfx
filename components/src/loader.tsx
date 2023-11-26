@@ -1,25 +1,21 @@
-import { classNames, parseProps } from "@tntfx/theme";
+import type { Props } from "@tntfx/core";
+import { classNames, useParseProps } from "@tntfx/theme";
 import type { BackdropProps } from "./backdrop";
 import { Backdrop } from "./backdrop";
 import "./loader.scss";
 
-export type LoaderProps = {
+export interface LoaderProps extends Props {
   visible?: boolean;
   background?: BackdropProps["background"];
-};
+}
 
 export function Loader(props: LoaderProps) {
-  const [className, { visible, background, ...rest }] = parseProps(props);
+  const { visible, background, ...styleProps } = props;
+  const { className, style } = useParseProps(styleProps);
 
-  return (
-    <Backdrop
-      animation="zoom"
-      background={background}
-      className={classNames("loader", className)}
-      isOpen={visible}
-      {...rest}
-    >
+  return visible ? (
+    <Backdrop isOpen animation="zoom" background={background} className={classNames("loader", className)} style={style}>
       <div className="loader__circle animation--rotate" />
     </Backdrop>
-  );
+  ) : null;
 }

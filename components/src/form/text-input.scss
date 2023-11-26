@@ -4,28 +4,12 @@
   border: 1px solid theme.$color-border;
   border-radius: theme.$borderRadius-sm;
 
-  &__control {
-    position: relative;
-    width: 100%;
-    height: theme.$elementHeight-md;
-    padding: theme.$spacing-sm;
-    border: 0;
-    caret-color: inherit;
-    color: inherit;
-    font-size: theme.$fontSize-md;
-    line-height: theme.$lineHeight-md;
-  }
-
-  &__clearIcon {
-    position: absolute;
-    right: theme.$spacing-xs;
-  }
-
   &::after {
     position: absolute;
     z-index: 1;
-    bottom: 0;
-    width: 100%;
+    right: -1px;
+    bottom: -1px;
+    left: -1px;
     height: 1px;
     background-color: theme.$color-primary;
     content: "";
@@ -33,9 +17,12 @@
     transition: transform theme.$duration-sm theme.$animation-ease;
   }
 
-  &:is(.focused, :focus):not(.disabled) {
+  &:is(.--focused, :focus):not(.--disabled, .--readonly) {
     background-color: theme.$color-element;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
     color: theme.$color-element-text;
+    transition: border-radius theme.$duration-sm theme.$animation-ease;
 
     &::after {
       transform: scale3d(1, 1, 1);

@@ -1,13 +1,12 @@
-import type { ClassName } from "@tntfx/core";
-import { Pagination } from "@tntfx/core";
+import type { Props } from "@tntfx/core";
+import { memoize, Pagination } from "@tntfx/core";
 import { classNames } from "@tntfx/theme";
 import { useTable } from "./table-provider";
 import { Box } from "../layout/box";
-import { memoize } from "../memoize";
 import { Pagination as PaginationComponent } from "../pagination";
 import "./table-pagination.scss";
 
-export const TablePagination = memoize(function TablePagination(props: ClassName) {
+export const TablePagination = memoize(function TablePagination(props: Props) {
   const { className } = props;
   const { pagination, onPagination } = useTable();
 

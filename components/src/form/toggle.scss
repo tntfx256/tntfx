@@ -1,6 +1,7 @@
 @use "@tntfx/theme";
 
 .toggle {
+  $self: &;
   $size: calc(theme.$elementHeight-sm - theme.$spacing-sm);
   $indicatorSize: $size;
   $containerWidth: calc(2 * $size);
@@ -8,7 +9,7 @@
   $containerBorderRadius: calc($containerHeight / 2);
   $indicatorOffset: calc(-1 * calc(calc($indicatorSize - $containerHeight) / 2));
 
-  &.form-element {
+  &.formElement {
     max-width: max-content;
     flex-flow: row nowrap;
     align-items: center;
@@ -40,6 +41,9 @@
     border: 1px solid theme.$color-border;
     border-radius: $containerBorderRadius;
     background-color: theme.$color-element;
+    transition-duration: theme.$duration-sm;
+    transition-property: background-color, border-color;
+    transition-timing-function: theme.$animation-ease;
   }
 
   &__indicator {
@@ -54,19 +58,30 @@
     border-radius: 50%;
     background-color: theme.$color-element;
     transition-duration: theme.$duration-sm;
-    transition-property: right, left, background-color;
+    transition-property: right, left, background-color, border-color;
+    transition-timing-function: theme.$animation-ease;
   }
 
   &--checked {
-    .toggle__container {
+    #{$self}__container {
       background-color: theme.$color-element-alt;
     }
 
-    .toggle__indicator {
+    #{$self}__indicator {
       right: -1px;
       left: $size;
       border-color: theme.$color-primary;
       background-color: theme.$color-primary;
+    }
+  }
+
+  // variants
+  @each $accent in theme.$accents {
+    &--checked.--#{$accent} {
+      #{$self}__indicator {
+        border-color: var(--color-#{$accent});
+        background-color: var(--color-#{$accent});
+      }
     }
   }
 }

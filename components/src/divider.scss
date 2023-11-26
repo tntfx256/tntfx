@@ -1,0 +1,26 @@
+@use "sass:map";
+@use "@tntfx/theme";
+
+.divider {
+  &:not(.--horizontal) {
+    height: theme.$size-md;
+
+    // @each $key, $v in $sizeValues {
+    //   &.size-#{$key} {
+    //     height: map.get($sizeMap, $key);
+    //     min-height: map.get($sizeMap, $key);
+    //   }
+    // }
+  }
+
+  &.--horizontal {
+    width: theme.$size-md;
+
+    // @each $key, $v in $sizeMap {
+    //   &.size-#{$key} {
+    //     width: map.get($sizeMap, $key);
+    //     min-width: map.get($sizeMap, $key);
+    //   }
+    // }
+  }
+}

@@ -1,9 +1,8 @@
-import type { Actions, IconName, OnAction } from "@tntfx/core";
-import { classNames, parseProps } from "@tntfx/theme";
+import { type Actions, memoize, type OnAction } from "@tntfx/core";
+import { Icon, type IconName } from "@tntfx/icons";
+import { classNames, useParseProps } from "@tntfx/theme";
 import { ActionBar } from "./action-bar";
 import { ToolbarSection } from "./toolbar-section";
-import { Icon } from "../../icon";
-import { memoize } from "../../memoize";
 import { Text } from "../../typography";
 import type { BoxProps } from "../box";
 import { Box } from "../box";
@@ -21,12 +20,13 @@ type ToolbarProps = Omit<BoxProps, "horizontal"> & {
 };
 
 export const Toolbar = memoize(function Toolbar(props: ToolbarProps) {
-  const [className, { actions, onAction, children, icon, onIconClick, title, ...boxProps }] = parseProps(props);
+  const { actions, onAction, children, icon, onIconClick, title, ...styleProps } = props;
+  const { className, style } = useParseProps(styleProps);
 
   const hasTitlebar = Boolean(icon || title);
 
   return (
-    <Box horizontal className={classNames("toolbar --noUserSelect", className)} role="toolbar" {...boxProps}>
+    <Box horizontal className={classNames("toolbar --noUserSelect", className)} role="toolbar" style={style}>
       {hasTitlebar && (
         <ToolbarSection className="toolbar__title">
           {icon && <Icon name={icon} size="md" onClick={onIconClick} />}

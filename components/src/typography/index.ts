@@ -1,2 +1,3 @@
-export { Link } from "./link";
-export { Text } from "./text";
+export * from "./link";
+export * from "./text";
+export * from "./title";

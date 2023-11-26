@@ -1,5 +1,5 @@
 import { useId, useRef } from "react";
-import type { ClassName, Nullable, StringKeys } from "@tntfx/core";
+import type { Nullable, StringKeys } from "@tntfx/core";
 import { classNames } from "@tntfx/theme";
 import { TableHeader } from "./table-header";
 import { TablePagination } from "./table-pagination";
@@ -11,7 +11,7 @@ import { Loader } from "../loader";
 import { Text } from "../typography";
 import "./table.scss";
 
-export function Table<T>(props: ClassName<TableProps<T>>) {
+export function Table<T>(props: TableProps<T>) {
   const { className, title, caption, data = [], idKey = "id", renderRow, render, ...values } = props;
 
   // const [ref, refHandler] = useRefState<HTMLDivElement>();
@@ -22,9 +22,9 @@ export function Table<T>(props: ClassName<TableProps<T>>) {
 
   return (
     <TableProvider {...values} data={data} idKey={idKey as StringKeys<T>}>
-      <Box className={classNames("table", className)}>
+      <Box className={classNames("table", className)} role="table">
         {title && (
-          <Text as="h1" className="table__title" color="primary" fontSize="lg">
+          <Text accent="primary" as="h1" className="table__title" fontSize="lg">
             {title}
           </Text>
         )}

@@ -1,54 +1,100 @@
-import type { ForwardedRef, HTMLAttributes, PropsWithChildren } from "react";
-import { forwardRef } from "react";
-import type { Any, Option } from "@tntfx/core";
-import { classNames, parseProps } from "@tntfx/theme";
-import type { MenuItemProps } from "./menu-item";
+import type { ForwardedRef, FunctionComponent, PropsWithChildren, ReactNode } from "react";
+import { forwardRef, useImperativeHandle } from "react";
+import { memoize } from "@tntfx/core";
+import { useBlurObserver, useRefState } from "@tntfx/hooks";
+import { classNames, useParseProps } from "@tntfx/theme";
 import { MenuItem } from "./menu-item";
-import { memoize } from "../memoize";
+import type { MenuProps } from "./types";
+import { useMenuHandler } from "./utils";
+import { Portal } from "../portal";
 import "./menu.scss";
 
-type UL = Omit<HTMLAttributes<HTMLUListElement>, "onClick" | "contentEditable">;
+/**
+ *
+ * no type        : static  : isOpen will be ignored
+ * not horizontal : vertical
+ *
+ *
+ * static
+ *    subtype
+ *    no subtype  : horizontal ? dropdown : contextmenu
+ *
+ * dropdown
+ *    subtype
+ *    no subtype  : context
+ *
+ * context
+ *    subtype
+ *    no subtype  : context
+ */
 
-export type MenubarProps<T extends string = string> = UL & {
-  horizontal?: boolean;
-  items: Option<T>[];
-  className?: string;
-  onClick?: (id: T) => void;
-  selectedItem?: T;
-  render?: MenuItemProps<T>["render"];
-};
+function MenuWithRef<T extends string = string>(props: MenuProps<T>, ref: ForwardedRef<HTMLUListElement>) {
+  const {
+    isSubmenu,
+    items,
+    selectedItem,
+    renderItem,
+    role,
+    slots = {},
+    onClick,
+    menuType,
+    submenuType,
+    target,
+    isOpen = true,
+    onClose,
+    horizontal,
+    switchSlotsBasedOnMenuPosition,
+    ...styleProps
+  } = props;
+  const { className, style } = useParseProps(styleProps);
 
-function MenuWithRef<T extends string = string>(
-  props: PropsWithChildren<MenubarProps<T>>,
-  ref: ForwardedRef<HTMLUListElement>
-) {
-  const [className, { items, onClick, children, selectedItem, render, ...libProps }] = parseProps(props);
+  const [menu, menuRefHandler] = useRefState<HTMLUListElement>();
 
-  const hasItems = items && items.length > 0;
+  useImperativeHandle(ref, () => menu!, [menu]);
 
-  return (
-    <ul className={classNames("menu", className)} ref={ref} role="menubar" {...libProps}>
-      {hasItems &&
-        items.map((item: Option<T>) => (
+  useBlurObserver(menu, onClose, !isOpen);
+  const position = useMenuHandler({ menuType, target, menu, isOpen });
+  const isGlobal = menuType !== "static" || isSubmenu;
+
+  const isOnTop = position === "above";
+  let headerSlot = switchSlotsBasedOnMenuPosition ? (isOnTop ? slots.footer : slots.header) : slots.header;
+  let footerSlot = switchSlotsBasedOnMenuPosition ? (isOnTop ? slots.header : slots.footer) : slots.footer;
+
+  return isOpen ? (
+    <Portal disable={!isGlobal}>
+      <ul
+        ref={menuRefHandler}
+        role={role || "menubar"}
+        style={style}
+        className={classNames(`menu menu--${menuType}`, className, {
+          ["--horizontal"]: horizontal,
+          ["menu--submenu"]: isSubmenu,
+        })}
+      >
+        {headerSlot && <li className="menu__headerItem">{headerSlot}</li>}
+
+        {items?.map((item) => (
           <MenuItem<T>
             key={item.id}
-            horizontal={props.horizontal}
+            className="menu__item"
             item={item}
-            render={render}
+            menuType={menuType}
+            render={renderItem}
+            role={role === "combobox" ? "option" : "menuitem"}
             selectedItem={selectedItem}
+            submenuType={submenuType}
             onClick={onClick}
           />
         ))}
 
-      {children}
-    </ul>
-  );
+        {footerSlot && <li className="menu__footerItem">{footerSlot}</li>}
+      </ul>
+    </Portal>
+  ) : null;
 }
 
 export const Menu = memoize(forwardRef(MenuWithRef)) as <T extends string = string>(
-  props: PropsWithChildren<MenubarProps<T>> & {
-    ref?: ForwardedRef<HTMLUListElement>;
-  }
-) => JSX.Element;
+  props: PropsWithChildren<MenuProps<T>> & { ref?: ForwardedRef<HTMLUListElement> }
+) => ReactNode;
 
-(Menu as Any).displayName = "Menu";
+(Menu as FunctionComponent).displayName = "Menu";

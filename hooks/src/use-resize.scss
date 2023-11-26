@@ -8,7 +8,7 @@ $cornerOffset: -10px;
 .frame.box {
   .resize {
     position: absolute;
-    z-index: theme.$layer-window;
+    z-index: theme.$layer-surface;
     border: 1px solid transparent;
     background: transparent;
   }

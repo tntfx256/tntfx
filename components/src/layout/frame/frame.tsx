@@ -1,7 +1,7 @@
 import { useCallback, useLayoutEffect, useState } from "react";
-import { calcInitialFrameDimension, type Dimension } from "@tntfx/core";
+import { calcInitialFrameDimension, type Dimension, memoize } from "@tntfx/core";
 import { useRefState, useToggle } from "@tntfx/hooks";
-import { classNames, parseProps } from "@tntfx/theme";
+import { classNames, useParseProps } from "@tntfx/theme";
 import FocusTrap from "focus-trap-react";
 import { FrameControls } from "./frame-controls";
 import { FrameProvider } from "./frame-provider";
@@ -10,7 +10,6 @@ import { FrameStatus } from "./types";
 import { useFrameDimensions } from "./use-frame-dimensions";
 import { useFrameDrag } from "./use-frame-drag";
 import { useFrameResize } from "./use-frame-resize";
-import { memoize } from "../../memoize";
 import { Sidebar } from "../../menu";
 import { DialogProvider } from "../../popup/dialog/dialog-context";
 import { Toolbar } from "../bar";
@@ -18,26 +17,23 @@ import { Box } from "../box";
 import "./frame.scss";
 
 export const Frame = memoize(function Frame(props: FrameProps) {
-  const { draggable = true, resizable = true } = props;
-
-  const [
-    className,
-    {
-      id,
-      title,
-      icon,
-      children,
-      boundary,
-      style,
-      isDialog = false,
-      isStatic = false,
-      isActive = true,
-      slots = {},
-      slotProps = {},
-      onClose,
-      ...boxProps
-    },
-  ] = parseProps(props);
+  const {
+    id,
+    draggable = true,
+    resizable = true,
+    title,
+    icon,
+    children,
+    boundary,
+    isDialog = false,
+    isStatic = false,
+    isActive = true,
+    slots = {},
+    slotProps = {},
+    onClose,
+    ...styleProps
+  } = props;
+  const { className, style } = useParseProps(styleProps);
 
   const [isSidebarOpen, , , toggleSidebar] = useToggle(slotProps.sidebar?.isInitiallyOpen);
   const [frame, frameRefHandler] = useRefState<HTMLDivElement>();
@@ -91,7 +87,6 @@ export const Frame = memoize(function Frame(props: FrameProps) {
                 }
               : style
           }
-          {...boxProps}
         >
           <DialogProvider>
             <Box className="frame__wrapper">
