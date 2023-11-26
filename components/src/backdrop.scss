@@ -2,13 +2,13 @@
 
 .backdrop {
   @include theme.fill(absolute);
-  z-index: theme.$layer-modal;
+  z-index: theme.$layer-backdrop;
   overflow: hidden;
   align-items: center;
   justify-content: center;
-  transition-duration: theme.$duration-sm;
-  transition-property: width, height, top, transform;
-  transition-timing-function: theme.$animation-ease;
+  // transition-duration: theme.$duration-sm;
+  // transition-property: width, height, top, transform;
+  // transition-timing-function: theme.$animation-ease;
 
   &__body {
     @include theme.fill(absolute);

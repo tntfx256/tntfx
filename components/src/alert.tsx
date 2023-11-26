@@ -1,26 +1,27 @@
-import type { Actions, IconName, OnAction, WithChildren } from "@tntfx/core";
+import type { Actions, OnAction, PropsAndChildren } from "@tntfx/core";
+import { Icon, type IconName } from "@tntfx/icons";
 import type { EnhancedProps } from "@tntfx/theme";
-import { classNames, parseProps } from "@tntfx/theme";
+import { classNames, useParseProps } from "@tntfx/theme";
 import { ActionBar } from "./layout";
 import { Box } from "./layout/box";
-import { Svg } from "./svg";
 import { Text } from "./typography/text";
 import "./alert.scss";
 
-export type AlertProps = EnhancedProps & {
+export interface AlertProps extends EnhancedProps, PropsAndChildren {
   icon?: IconName;
   title?: string;
   message?: string;
   actions?: Actions;
   onAction?: OnAction;
-};
+}
 
-export function Alert(props: WithChildren<AlertProps>) {
-  const [className, { children, icon, title, message, actions, onAction, ...boxProps }] = parseProps(props);
+export function Alert(props: AlertProps) {
+  const { children, icon, title, message, actions, onAction, ...styleProps } = props;
+  const { className, style } = useParseProps(styleProps);
 
   return (
-    <Box horizontal className={classNames("alert", className)} {...boxProps}>
-      {icon && <Svg className="alert__icon" name={icon} />}
+    <Box horizontal className={classNames("alert", className)} style={style}>
+      {icon && <Icon className="alert__icon" name={icon} />}
       <Box className="alert__content">
         <Text as="h1" className="alert__title">
           {title}

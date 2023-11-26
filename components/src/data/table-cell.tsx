@@ -1,10 +1,9 @@
-import type { ClassAndChildren } from "@tntfx/core";
+import { memoize } from "@tntfx/core";
 import { classNames } from "@tntfx/theme";
 import type { TableCellProps } from "./types";
-import { memoize } from "../memoize";
 import "./table-cell.scss";
 
-export const TableCell = memoize(function TableCell(props: ClassAndChildren<TableCellProps>) {
+export const TableCell = memoize(function TableCell(props: TableCellProps) {
   const { header, selected, children, className, align = "start", vAlign = "middle", colSpan } = props;
 
   const attributes = {
@@ -13,5 +12,13 @@ export const TableCell = memoize(function TableCell(props: ClassAndChildren<Tabl
     colSpan,
   };
 
-  return header ? <th {...attributes}>{children}</th> : <td {...attributes}>{children}</td>;
+  return header ? (
+    <th role="cell" {...attributes}>
+      {children}
+    </th>
+  ) : (
+    <td role="cell" {...attributes}>
+      {children}
+    </td>
+  );
 });

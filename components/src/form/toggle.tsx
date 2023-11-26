@@ -1,20 +1,21 @@
-import type { ClassName } from "@tntfx/core";
-import { classNames, parseProps } from "@tntfx/theme";
+import { type Accent, memoize, type Props } from "@tntfx/core";
+import { classNames, useParseProps } from "@tntfx/theme";
 import { FormElement } from "./form-element";
-import { memoize } from "../memoize";
 import "./toggle.scss";
 
-export type ToggleProps = {
+export interface ToggleProps extends Props {
   disabled?: boolean;
   label?: string;
   value: boolean;
   name: string;
   error?: string;
+  accent?: Accent | `${Accent}`;
   onChange: (status: boolean, name: string) => void;
-};
+}
 
-export const Toggle = memoize(function Toggle(props: ClassName<ToggleProps>) {
-  const [className, { label, value, name, onChange, error }] = parseProps(props);
+export const Toggle = memoize(function Toggle(props: ToggleProps) {
+  const { label, value, name, onChange, error, ...styleProps } = props;
+  const { className, style } = useParseProps(styleProps);
 
   function handleCheckChange() {
     if (!props.disabled) {
@@ -28,6 +29,8 @@ export const Toggle = memoize(function Toggle(props: ClassName<ToggleProps>) {
       error={error}
       label={label}
       name={name}
+      role="switch"
+      style={style}
       onClick={handleCheckChange}
     >
       <div className="toggle__container">

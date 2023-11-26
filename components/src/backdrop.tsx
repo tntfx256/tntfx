@@ -1,13 +1,12 @@
 import type { CSSProperties, MouseEvent } from "react";
-import type { Animation, Boundary, ClassAndChildren, Dimension } from "@tntfx/core";
+import { type Animation, type Boundary, type Dimension, memoize, type PropsAndChildren } from "@tntfx/core";
 import { classNames } from "@tntfx/theme";
 import { Box } from "./layout/box";
-import { memoize } from "./memoize";
 import { Portal } from "./portal";
 import "./backdrop.scss";
 
-export type BackdropProps = {
-  /** @description when true, the children won't be removed when it's closed */
+export interface BackdropProps extends PropsAndChildren {
+  /** when true, the children won't be removed when it's closed */
   persistent?: boolean;
   overlay?: boolean;
   global?: boolean;
@@ -15,10 +14,11 @@ export type BackdropProps = {
   background?: "blur" | "transparent" | "default";
   animation?: Animation;
   boundary?: Boundary | Dimension;
+  style?: CSSProperties;
   onClick?: () => void;
-};
+}
 
-export const Backdrop = memoize(function Backdrop(props: ClassAndChildren<BackdropProps>) {
+export const Backdrop = memoize(function Backdrop(props: BackdropProps) {
   const {
     children,
     className,
@@ -38,15 +38,9 @@ export const Backdrop = memoize(function Backdrop(props: ClassAndChildren<Backdr
     onClick?.();
   }
 
-  let style: CSSProperties = {};
-  // if (boundary) {
-  //   style = { ...boundary };
-  // }
-
   const backdrop = (
     <Box
       role="presentation"
-      style={style}
       className={classNames("backdrop", className, `--animation-${animation}`, `--bg-${background}`, {
         "--noOverlay": !overlay,
         "--visible": isOpen,

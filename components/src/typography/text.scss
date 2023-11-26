@@ -8,6 +8,10 @@
   line-height: theme.$lineHeight-md;
   text-align: inherit;
 
+  &--title {
+    color: theme.$color-primary;
+  }
+
   &.size-xxsmall {
     font-size: theme.$fontSize-xxs;
     font-weight: theme.$fontWeight-xxs;

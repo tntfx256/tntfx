@@ -1,9 +1,9 @@
 import ReactMarkdown from "react-markdown";
-import type { ClassAndChildren } from "@tntfx/core";
+import type { PropsAndChildren } from "@tntfx/core";
 import { classNames } from "@tntfx/theme";
 import "./markdown.scss";
 
-export function Markdown(props: ClassAndChildren) {
+export function Markdown(props: PropsAndChildren) {
   const { className, children } = props;
 
   return <ReactMarkdown className={classNames("markdown", className)}>{children as string}</ReactMarkdown>;

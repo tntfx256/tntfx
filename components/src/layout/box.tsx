@@ -1,17 +1,24 @@
-import type { ForwardedRef, HTMLAttributes } from "react";
+import type { AriaRole, ForwardedRef, MouseEvent } from "react";
 import { forwardRef } from "react";
-import type { WithChildren } from "@tntfx/core";
+import { memoize, type PropsAndChildren } from "@tntfx/core";
 import type { EnhancedProps } from "@tntfx/theme";
-import { classNames, parseProps } from "@tntfx/theme";
-import { memoize } from "../memoize";
+import { classNames, useParseProps } from "@tntfx/theme";
 import "./box.scss";
 
-export type BoxProps = Omit<HTMLAttributes<HTMLDivElement>, "contentEditable"> & EnhancedProps;
+export interface BoxProps extends PropsAndChildren, EnhancedProps {
+  role?: AriaRole;
+  onClick?: (e: MouseEvent) => void;
+}
 
-function BoxWithRef(props: WithChildren<BoxProps>, ref: ForwardedRef<HTMLDivElement>) {
-  const [className, libProps] = parseProps(props);
+function BoxWithRef(props: BoxProps, ref: ForwardedRef<HTMLDivElement>) {
+  const { children, onClick, ...styleProps } = props;
+  const { className, style } = useParseProps(styleProps);
 
-  return <div className={classNames("box", className)} ref={ref} {...libProps} />;
+  return (
+    <div className={classNames("box", className)} ref={ref} style={style} onClick={onClick}>
+      {children}
+    </div>
+  );
 }
 
 export const Box = memoize(forwardRef(BoxWithRef));

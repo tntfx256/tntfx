@@ -1,4 +1,6 @@
-import type { Actionable, ClassAndChildren, Dimension, IconName, MessageType, Second } from "@tntfx/core";
+import type { AriaRole } from "react";
+import type { Actionable, Dimension, MessageType, PropsAndChildren, Second } from "@tntfx/core";
+import type { IconName } from "@tntfx/icons";
 import type { BackdropProps } from "../backdrop";
 
 export enum PopupType {
@@ -7,8 +9,9 @@ export enum PopupType {
   // Notification = "Notification"
 }
 
-interface CommonPopupProps extends ClassAndChildren, Actionable {
+interface CommonPopupProps extends PropsAndChildren, Actionable {
   id: string;
+  role?: AriaRole;
   title?: string;
   isOpen?: boolean;
   icon?: IconName;

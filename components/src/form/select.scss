@@ -1,117 +1,52 @@
 @use "@tntfx/theme";
 
 .select {
-  .control-icon {
+  $self: &;
+
+  &.--isOpen {
+    background-color: theme.$color-element;
+    color: theme.$color-element-text;
+  }
+
+  &__dorpdownIcon {
     position: absolute;
     top: 50%;
     right: theme.$borderRadius-xs;
-    height: 100%;
-    pointer-events: none;
-    transform: translateY(-50%);
-    transition: transform theme.$duration-sm;
-  }
-
-  &.is-open {
+    border-radius: 50%;
     background-color: theme.$color-element;
-    color: theme.$color-element-text;
+    pointer-events: none;
+    transform: translateY(-50%) rotate(0deg);
+    transition: transform theme.$duration-sm theme.$animation-ease;
 
-    &.is-dropdown {
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
+    #{$self}:is(.--disabled, :disabled) & {
+      display: none;
     }
 
-    &.is-dropup {
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
-    }
-    .control-icon {
+    #{$self}:is(.--isOpen) & {
       transform: translateY(-50%) rotate(180deg);
     }
   }
 
-  &-dropdown {
-    position: absolute;
-    display: flex;
+  &__menu {
     overflow: hidden;
-    max-height: 30vh;
-    flex-direction: column;
-    border: 1px solid theme.$color-border;
-    background-color: theme.$color-element;
-    color: theme.$color-element-text;
+    flex: 1;
+    overflow-y: auto;
 
-    &-empty {
-      padding: theme.$spacing-md;
-      text-align: center;
+    .menu__headerItem,
+    .menu__footerItem {
+      @include theme.blur;
+      position: sticky;
+      z-index: theme.$layer-dropdown;
+      top: 0;
     }
-
-    &.is-dropdown {
-      border-top: 0;
-      border-bottom-left-radius: theme.$borderRadius-sm;
-      border-bottom-right-radius: theme.$borderRadius-sm;
-    }
-
-    &.is-dropup {
-      border-bottom: 0;
-      border-top-left-radius: theme.$borderRadius-sm;
-      border-top-right-radius: theme.$borderRadius-sm;
-    }
-
-    &-input {
-      &::after {
-        display: none;
-      }
-    }
-
-    &-list {
-      overflow: hidden;
-      flex: 1;
-      overflow-y: auto;
+    .menu__footerItem {
+      top: auto;
+      bottom: 0;
     }
   }
-}
 
-.select-backdrop {
-  // css precedence
-  // &.backdrop.overlay {
-  //   @include theme.fill(fixed);
-  // }
-
-  .select-dropdown {
-    position: absolute;
-    display: flex;
-    overflow: hidden;
-    max-height: 30vh;
-    flex-direction: column;
-    border: 1px solid theme.$color-border;
-    background-color: theme.$color-element;
-
-    &.is-dropdown {
-      border-top: 0;
-      border-bottom-left-radius: theme.$borderRadius-sm;
-      border-bottom-right-radius: theme.$borderRadius-sm;
-    }
-
-    &.is-dropup {
-      border-bottom: 0;
-      border-top-left-radius: theme.$borderRadius-sm;
-      border-top-right-radius: theme.$borderRadius-sm;
-    }
-
-    &-input {
-      &.focused {
-        background-color: theme.$color-body;
-        color: theme.$color-body;
-      }
-
-      &::after {
-        display: none;
-      }
-    }
-
-    &-list {
-      overflow: hidden;
-      flex: 1;
-      overflow-y: auto;
-    }
+  &__searchInput {
+    min-width: auto;
+    margin: theme.$spacing-xs;
   }
 }

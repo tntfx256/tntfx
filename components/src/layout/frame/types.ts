@@ -1,5 +1,6 @@
 import type { Dispatch, ReactNode, SetStateAction } from "react";
-import type { Dimension, IconName } from "@tntfx/core";
+import type { Dimension } from "@tntfx/core";
+import type { IconName } from "@tntfx/icons";
 import type { BoxProps } from "../box";
 
 export enum FrameStatus {

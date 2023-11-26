@@ -1,23 +1,24 @@
 import type { FormEvent } from "react";
 import { useCallback } from "react";
-import { type ClassAndChildren, type Option } from "@tntfx/core";
+import { type Option, type PropsAndChildren } from "@tntfx/core";
 import type { EnhancedProps } from "@tntfx/theme";
-import { classNames, parseProps } from "@tntfx/theme";
+import { classNames, useParseProps } from "@tntfx/theme";
 import { Box } from "../layout";
 import { ActionBar } from "../layout/bar/action-bar";
 import { Text } from "../typography/text";
 import "./form.scss";
 
-export type FormProps = EnhancedProps & {
+export interface FormProps extends EnhancedProps, PropsAndChildren {
   legend?: string;
   actions?: Option[];
   // Model?: ModelConstructor<T>;
   // initialValues?: DeepPartial<T>;
   onSubmit?: () => void;
-};
+}
 
-export function Form(props: ClassAndChildren<FormProps>) {
-  const [className, { actions, legend, children, onSubmit, ...libProps }] = parseProps(props);
+export function Form(props: FormProps) {
+  const { actions, legend, children, onSubmit, ...styleProps } = props;
+  const { className, style } = useParseProps(styleProps);
 
   // const {} = useModel<T>((Model || FreeModel) as ModelConstructor<T>, initialValues);
 
@@ -32,7 +33,7 @@ export function Form(props: ClassAndChildren<FormProps>) {
   );
 
   return (
-    <Box className={classNames("form", className)} {...libProps}>
+    <Box className={classNames("form", className)} style={style}>
       {legend && <Text className="form__legend">{legend}</Text>}
 
       <form onSubmit={handleSubmit}>

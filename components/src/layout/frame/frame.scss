@@ -8,7 +8,7 @@ $minDialogHeight: calc($minDialogWidth / 1.6);
   $self: &;
 
   position: absolute;
-  z-index: theme.$layer-window;
+  z-index: theme.$layer-surface;
   right: 0;
   left: 0;
   overflow: hidden;
@@ -44,7 +44,7 @@ $minDialogHeight: calc($minDialogWidth / 1.6);
   }
 
   &--active {
-    z-index: theme.$layer-window-active;
+    z-index: theme.$layer-surfaceActive;
     border: 1px solid theme.$color-border;
     box-shadow: theme.$shadow-xxl;
   }
@@ -101,7 +101,7 @@ $minDialogHeight: calc($minDialogWidth / 1.6);
   &__header {
     @include theme.blur(1.5rem);
     position: absolute;
-    z-index: theme.$layer-window;
+    z-index: theme.$layer-surface;
     top: 0;
     right: 0;
     left: 0;
@@ -121,7 +121,7 @@ $minDialogHeight: calc($minDialogWidth / 1.6);
   &__footer {
     @include theme.blur;
     position: absolute;
-    z-index: theme.$layer-window;
+    z-index: theme.$layer-surface;
     right: 0;
     bottom: 0;
     left: 0;

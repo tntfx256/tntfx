@@ -1,13 +1,13 @@
 import type { MouseEvent } from "react";
 import { useCallback } from "react";
-import type { ClassName, StringKeys } from "@tntfx/core";
+import type { StringKeys } from "@tntfx/core";
+import { Icon } from "@tntfx/icons";
 import { classNames } from "@tntfx/theme";
 import { TableCell } from "./table-cell";
 import { useTable } from "./table-provider";
 import type { TableRowProps } from "./types";
-import { Icon } from "../icon";
 
-export function TableRow<T>(props: ClassName<TableRowProps<T>>) {
+export function TableRow<T>(props: TableRowProps<T>) {
   const { record, className, selected, render } = props;
 
   const { onRowSelect, selectedRow, idKey, columns, rowOperations, onRowOperation } = useTable<T>();
@@ -25,6 +25,7 @@ export function TableRow<T>(props: ClassName<TableRowProps<T>>) {
 
   return (
     <tr
+      role="row"
       className={classNames("tableRow", className, {
         "--hover": onRowSelect,
         "--selected": isSelected,

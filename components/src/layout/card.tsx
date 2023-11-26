@@ -1,10 +1,10 @@
 import { type ReactNode } from "react";
-import type { Actionable, IconName } from "@tntfx/core";
-import { classNames, parseProps } from "@tntfx/theme";
+import { type Actionable, memoize } from "@tntfx/core";
+import type { IconName } from "@tntfx/icons";
+import { classNames, useParseProps } from "@tntfx/theme";
 import { ActionBar } from "./bar/action-bar";
 import { Frame } from "./frame";
 import type { FrameProps } from "./frame/types";
-import { memoize } from "../memoize";
 import "./card.scss";
 
 export type CardProps<T extends string = string> = FrameProps &
@@ -15,15 +15,17 @@ export type CardProps<T extends string = string> = FrameProps &
   };
 
 export const Card = memoize(function Card<T extends string = string>(props: CardProps<T>) {
-  const [className, { actions, headerSlot, onAction, ...rest }] = parseProps(props);
+  const { actions, headerSlot, onAction, ...styleProps } = props;
+  const { className, style } = useParseProps(styleProps);
 
   return (
     <Frame
       isStatic
       className={classNames("card", className)}
       draggable={false}
+      id="card-frame"
       resizable={false}
-      {...rest}
+      style={style}
       slots={{
         header: headerSlot,
         footer: actions ? <ActionBar actions={actions} onAction={onAction} /> : undefined,

@@ -24,4 +24,24 @@
   text-transform: uppercase;
   -webkit-touch-callout: none;
   white-space: nowrap;
+
+  &__loader {
+    .loader__circle {
+      width: theme.$size-sm;
+      height: theme.$size-sm;
+    }
+  }
+
+  &__slot {
+    width: theme.$size-sm;
+    height: theme.$size-sm;
+
+    &--start {
+      margin-right: theme.$spacing-sm;
+    }
+
+    &--end {
+      margin-left: theme.$spacing-sm;
+    }
+  }
 }

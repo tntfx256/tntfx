@@ -1,0 +1,10 @@
+@use "@tntfx/theme";
+
+.portal {
+  @include theme.fill(fixed);
+  pointer-events: none;
+
+  > * {
+    pointer-events: all;
+  }
+}

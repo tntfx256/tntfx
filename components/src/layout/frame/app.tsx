@@ -1,8 +1,8 @@
 import type { PropsWithChildren } from "react";
+import { memoize } from "@tntfx/core";
 import { useRuntime } from "@tntfx/hooks";
 import { Frame } from "./frame";
 import type { FrameProps } from "./types";
-import { memoize } from "../../memoize";
 
 type AppProps = FrameProps;
 
@@ -21,6 +21,7 @@ export const App = memoize(function App(props: PropsWithChildren<AppProps>) {
       id={id}
       isActive={runtime.isActive(id)}
       resizable={resizable}
+      role="application"
       onClick={() => runtime.activate(id)}
       onClose={() => runtime.close(id)}
       {...frameProps}

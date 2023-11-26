@@ -2,7 +2,6 @@ build
 coverage
 node_modules
 out
-storybook-static
 
 .next
 .DS_Store

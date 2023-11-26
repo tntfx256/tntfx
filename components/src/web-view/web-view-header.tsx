@@ -1,7 +1,7 @@
 import { createWebViewLink } from "@tntfx/core";
+import { Icon } from "@tntfx/icons";
 import { useWebView } from "./web-view-provider";
 import { TextInput } from "../form/text-input";
-import { Icon } from "../icon";
 import { Toolbar } from "../layout/bar/toolbar";
 import { ToolbarSection } from "../layout/bar/toolbar-section";
 import "./web-view.scss";

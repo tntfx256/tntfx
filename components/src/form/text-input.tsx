@@ -1,13 +1,13 @@
 import type { FocusEvent, KeyboardEvent, PropsWithChildren } from "react";
 import { useCallback } from "react";
+import { memoize } from "@tntfx/core";
 import { useToggle } from "@tntfx/hooks";
+import { Icon } from "@tntfx/icons";
 import { classNames } from "@tntfx/theme";
 import type { BaseInputProps } from "./base-input";
 import { BaseInput } from "./base-input";
 import type { FormElementProps } from "./form-element";
 import { FormElement } from "./form-element";
-import { Icon } from "../icon";
-import { memoize } from "../memoize";
 import "./text-input.scss";
 
 export type TextInputProps = FormElementProps &
@@ -33,6 +33,10 @@ export const TextInput = memoize(function TextInput(props: PropsWithChildren<Tex
     children,
     isLoading,
     onClear,
+    help,
+    placeholder,
+    role = "textbox",
+    slots = {},
     ...libProps
   } = props;
 
@@ -68,19 +72,23 @@ export const TextInput = memoize(function TextInput(props: PropsWithChildren<Tex
 
   return (
     <FormElement
-      className={classNames("textInput", className, { focused: hasFocus, pristine: !value })}
+      className={classNames("textInput", className, { "--focused": hasFocus, "--pristine": !value })}
+      data-testid={`textInput-${name}`}
       disabled={disabled}
       error={error}
+      help={help}
       isLoading={isLoading}
       label={label}
       name={name}
       readOnly={readOnly}
+      role={role}
     >
       <BaseInput
         className="textInput__control"
         disabled={disabled}
         id={name}
         name={name}
+        placeholder={label && !hasFocus ? "" : placeholder}
         readOnly={readOnly}
         value={value || ""}
         onBlur={handleBlur}
@@ -88,9 +96,11 @@ export const TextInput = memoize(function TextInput(props: PropsWithChildren<Tex
         onFocus={handleFocus}
         onKeyUp={handleKeyUp}
         {...libProps}
+        slots={{
+          end: showClearIcon ? <Icon name="cross" onClick={onClear} /> : slots.end,
+        }}
       />
       {children}
-      {showClearIcon && <Icon className="textInput__clearIcon" name="cross" onClick={onClear} />}
     </FormElement>
   );
 });

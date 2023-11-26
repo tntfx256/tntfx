@@ -1,5 +1,3 @@
-import type { CSSProperties } from "react";
-
 export enum Status {
   Error = "error",
   Idle = "idle",
@@ -35,7 +33,6 @@ export enum Accent {
   Error = "error",
 }
 export const accents = Object.values(Accent) as Accent[];
-export type Color = `${Accent}` | CSSProperties["color"];
 
 export enum Variant {
   Contained = "contained",

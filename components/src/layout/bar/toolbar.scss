@@ -2,7 +2,7 @@
 
 .toolbar {
   @include theme.row;
-  z-index: theme.$layer-window;
+  z-index: theme.$layer-surface;
   overflow: visible;
   height: theme.$elementHeight-xl;
   min-height: theme.$elementHeight-xl;

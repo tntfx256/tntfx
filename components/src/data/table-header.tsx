@@ -1,13 +1,12 @@
-import type { ClassName } from "@tntfx/core";
+import { memoize, type Props } from "@tntfx/core";
 import { classNames } from "@tntfx/theme";
 import { TableCell } from "./table-cell";
 import { useTable } from "./table-provider";
 import type { Column } from "./types";
 import { getHeaderTitle } from "./utils";
-import { memoize } from "../memoize";
 import "./table-header.scss";
 
-export const TableHeader = memoize(function TableHeader<T>(props: ClassName) {
+export const TableHeader = memoize(function TableHeader<T>(props: Props) {
   const { className } = props;
 
   const { columns } = useTable<T>();

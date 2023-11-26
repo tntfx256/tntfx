@@ -1,19 +1,21 @@
-import type { ClassAndChildren, Color } from "@tntfx/core";
-import { classNames, parseProps } from "@tntfx/theme";
+import type { Accent, EnumString, PropsAndChildren } from "@tntfx/core";
+import { classNames, useParseProps } from "@tntfx/theme";
 import { Box } from "./layout/box";
 import { Text } from "./typography";
 import "./badge.scss";
 
-type BadgeProps = {
+export interface BadgeProps extends PropsAndChildren {
   count: number | string;
-  color?: Color;
-};
+  accent?: EnumString<Accent>;
+}
 
-export function Badge(props: ClassAndChildren<BadgeProps>) {
-  const [className, { children, count }] = parseProps(props);
+export function Badge(props: BadgeProps) {
+  const { children, count } = props;
+  const { className, style } = useParseProps(props);
 
   return (
     <Box
+      style={style}
       className={classNames("badge-wrapper", {
         [`${className}-badge-wrapper`]: className,
       })}

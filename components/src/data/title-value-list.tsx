@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { ClassName } from "@tntfx/core";
+import type { Props } from "@tntfx/core";
 import { classNames } from "@tntfx/theme";
 import { Text } from "../typography/text";
 import "./title-value-list.scss";
@@ -8,11 +8,11 @@ export type TitleValueListItem = {
   title: string;
   value: ReactNode;
 };
-export type TitleValueListProps = {
+export interface TitleValueListProps extends Props {
   items: TitleValueListItem[];
-};
+}
 
-export function TitleValueList(props: ClassName<TitleValueListProps>) {
+export function TitleValueList(props: TitleValueListProps) {
   const { className, items } = props;
 
   return (

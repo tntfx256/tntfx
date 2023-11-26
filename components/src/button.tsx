@@ -1,59 +1,63 @@
-import type { MouseEvent } from "react";
-import { useCallback } from "react";
-import type { Any, IconName, MaybePromise, WithChildren } from "@tntfx/core";
+import type { ForwardedRef, MouseEvent, ReactElement } from "react";
+import { forwardRef, useCallback } from "react";
+import { type Accent, type Any, type MaybePromise, memoize, type PropsAndChildren, type Variant } from "@tntfx/core";
 import { useToggle } from "@tntfx/hooks";
 import type { EnhancedProps } from "@tntfx/theme";
-import { classNames, parseProps } from "@tntfx/theme";
+import { classNames, useParseProps } from "@tntfx/theme";
 import { Loader } from "./loader";
-import { Svg } from "./svg";
 import "./button.scss";
 
-export interface ButtonProps extends WithChildren, EnhancedProps {
+export interface ButtonProps extends PropsAndChildren, EnhancedProps {
   title?: string;
   isLoading?: boolean;
-  onClick?: () => MaybePromise<Any>;
-  startIcon?: IconName;
-  endIcon?: IconName;
+  onClick?: (e: MouseEvent) => MaybePromise<Any>;
+  disabled?: boolean;
+  variant?: Variant | `${Variant}`;
+  accent?: Accent | `${Accent}`;
+  slots?: {
+    start?: ReactElement;
+    end?: ReactElement;
+  };
 }
 
-export function Button(props: ButtonProps) {
-  const { disabled } = props;
-  const [className, { children, title, isLoading, onClick, startIcon, endIcon, ...rest }] = parseProps(props);
+function ButtonWithRef(props: ButtonProps, ref: ForwardedRef<HTMLButtonElement>) {
+  const { children, title, isLoading, onClick, slots = {} } = props;
+  const { className, style } = useParseProps(props);
 
   const [isInnerLoading, showInnerLoader, hideInnerLoader] = useToggle();
 
   const handleClick = useCallback(
     async (e: MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
-      e.stopPropagation();
-
-      if (disabled || isLoading) return;
+      if (isLoading || isInnerLoading) return;
 
       try {
         showInnerLoader();
-        await onClick?.();
+        await onClick?.(e);
       } finally {
         hideInnerLoader();
       }
     },
-    [disabled, hideInnerLoader, isLoading, onClick, showInnerLoader]
+    [hideInnerLoader, isInnerLoading, isLoading, onClick, showInnerLoader]
   );
 
   const showLoader = isInnerLoading || isLoading;
+  console.log({ isLoading, isInnerLoading, showLoader });
 
   return (
     <button
-      className={classNames("button --noUserSelect --hover", className, { loading: isLoading })}
-      disabled={disabled}
+      className={classNames("button --noUserSelect --hover", className, { "--loading": isLoading })}
+      ref={ref}
+      style={style}
       onClick={handleClick}
-      {...rest}
     >
-      {startIcon && <Svg name={startIcon} />}
+      {slots.start && <span className="button__slot button__slot--start">{slots.start}</span>}
       {title}
       {children}
-      {endIcon && <Svg name={endIcon} />}
+      {slots.end && <span className="button__slot button__slot--end">{slots.end}</span>}
 
-      <Loader visible={showLoader} />
+      <Loader className="button__loader" visible={showLoader} />
     </button>
   );
 }
+
+export const Button = memoize(forwardRef(ButtonWithRef));

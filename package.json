@@ -3,15 +3,16 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "dev": "yarn workspace @tntfx/storybook run dev",
+    "build": "yarn workspace @tntfx/storybook run build",
     "prepare": "husky install",
     "lint": "yarn lint:types && yarn lint:code && yarn lint:prettier && yarn lint:style",
     "lint:types": "tsc -p tsconfig.json --noEmit",
-    "lint:code": "eslint . --fix",
+    "lint:code": "eslint . --fix --ignore-path .gitignore",
     "lint:prettier": "prettier . --write",
     "lint:style": "stylelint \"**/*.scss\" --fix",
     "test": "jest",
-    "storybook": "yarn workspace @tntfx/components run storybook",
-    "build": "yarn workspace @tntfx/components run build-storybook"
+    "gen": "ts-node cli/src/index.ts gen"
   },
   "workspaces": [
     "*"
@@ -19,6 +20,7 @@
   "dependencies": {},
   "devDependencies": {
     "@jest/types": "^29.6.3",
+    "@microsoft/tsdoc": "^0.14.2",
     "@types/jest": "^29.5.8",
     "@types/node": "^20.9.1",
     "@types/react": "^18.2.37",

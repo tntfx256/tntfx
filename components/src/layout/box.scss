@@ -1,3 +1,5 @@
+@use "@tntfx/theme";
+
 .box {
   position: relative;
   z-index: 0;
@@ -5,4 +7,12 @@
   flex-flow: column nowrap;
   align-items: stretch;
   justify-content: flex-start;
+
+  &__title.text {
+    color: theme.$color-primary;
+    font-size: theme.$fontSize-xl;
+    font-weight: theme.$fontWeight-md;
+    line-height: theme.$lineHeight-xl;
+    white-space: nowrap;
+  }
 }

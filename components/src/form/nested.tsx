@@ -1,9 +1,9 @@
 import { createContext, useContext } from "react";
-import type { ClassAndChildren, Violations } from "@tntfx/core";
+import type { PropsAndChildren, Violations } from "@tntfx/core";
 import { getNestedErrors } from "@tntfx/core";
 import { classNames } from "@tntfx/theme";
 
-export interface NestedFormProviderProps {
+export interface NestedFormProviderProps extends PropsAndChildren {
   label?: string;
   fieldName: string;
   errors?: Violations;
@@ -15,7 +15,7 @@ type NestedFormContext = {
 
 const nestedFormContext = createContext<NestedFormContext>({ getErrors: () => ({}) });
 
-export function NestedFormProvider(props: ClassAndChildren<NestedFormProviderProps>) {
+export function NestedFormProvider(props: NestedFormProviderProps) {
   const { fieldName, errors = {}, className, label, children } = props;
   const parentPrefix = `${fieldName}.`;
 

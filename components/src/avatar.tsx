@@ -1,17 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
-import type { ClassAndChildren } from "@tntfx/core";
+import type { PropsAndChildren } from "@tntfx/core";
 import { classNames } from "@tntfx/theme";
 import { Text } from "./typography/text";
 import "./avatar.scss";
 
-export type AvatarProps = {
+export interface AvatarProps extends PropsAndChildren {
   src: string;
   size?: number;
   alt?: string;
   onClick?: () => void;
-};
+}
 
-export function Avatar(props: ClassAndChildren<AvatarProps>) {
+export function Avatar(props: AvatarProps) {
   const { src, alt, onClick, size = 64, children, className } = props;
 
   return (

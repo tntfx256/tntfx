@@ -1,17 +1,16 @@
-import type { ReactNode } from "react";
-import type { ClassAndChildren, Option } from "@tntfx/core";
+import type { ReactElement, ReactNode } from "react";
+import { memoize, type Option, type PropsAndChildren } from "@tntfx/core";
 import { classNames } from "@tntfx/theme";
 import { MenuItem } from "./menu-item";
-import { memoize } from "../memoize";
 import { Text } from "../typography/text";
 
-type ListProps<T> = {
+export interface ListProps<T> extends PropsAndChildren {
   title?: string;
   items?: T[];
   render?: (item: T, index: number) => ReactNode;
-};
+}
 
-export const List = memoize(function List<T = Option>(props: ClassAndChildren<ListProps<T>>) {
+export const List = memoize(function List<T = Option>(props: ListProps<T>) {
   const { title, className, render, items, children } = props;
 
   return (
@@ -32,4 +31,4 @@ export const List = memoize(function List<T = Option>(props: ClassAndChildren<Li
       </main>
     </section>
   );
-}) as <T = Option>(props: ClassAndChildren<ListProps<T>>) => JSX.Element;
+}) as <T = Option>(props: ListProps<T>) => ReactElement;

@@ -1,8 +1,7 @@
-import type { PropsWithChildren, ReactElement, ReactNode } from "react";
-import type { Any, MaybePromise } from "./base";
-import type { Color, Size, Variant } from "./theme";
+import type { AriaRole, CSSProperties, PropsWithChildren, ReactNode } from "react";
+import type { Any, EnumString, MaybePromise } from "./base";
+import type { Accent, Size, Variant } from "./theme";
 import { Field } from "../field";
-import type { IconName } from "../icon";
 import { Model } from "../model";
 
 export type Option<T extends string = string> = {
@@ -14,12 +13,12 @@ export type Option<T extends string = string> = {
   external?: boolean;
   hidden?: boolean;
   href?: string;
-  icon?: IconName;
+  icon?: ReactNode;
   iconPosition?: "start" | "end";
   path?: string;
-  size?: Size | `${Size}`;
-  color?: Color;
-  variant?: Variant | `${Variant}`;
+  size?: EnumString<Size>;
+  accent?: EnumString<Accent>;
+  variant?: EnumString<Variant>;
 };
 
 export class OptionModel extends Model<Option> {
@@ -58,11 +57,9 @@ export type Actionable<T extends string = string> = {
   onAction?: OnAction<T>;
 };
 
-export type ClassName<T = {}> = T & { className?: string };
-export type WithChildren<T = {}> = PropsWithChildren<T>;
-export type ClassAndChildren<T = {}> = PropsWithChildren<ClassName<T>>;
-
-// Next.js
-export type WithLayout<T = unknown> = T & {
-  getLayout?: (page: ReactElement) => ReactNode;
-};
+export interface Props {
+  className?: string;
+  style?: CSSProperties;
+  role?: AriaRole;
+}
+export interface PropsAndChildren extends Props, PropsWithChildren {}

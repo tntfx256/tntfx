@@ -1,15 +1,15 @@
-import type { ClassAndChildren } from "@tntfx/core";
+import type { PropsAndChildren } from "@tntfx/core";
 import { classNames } from "@tntfx/theme";
 import { Sidebar } from "../menu/sidebar/sidebar";
 import "./split-view.scss";
 
-type SplitViewProps = {
+type SplitViewProps = PropsAndChildren & {
   className?: string;
-  sideContent: ClassAndChildren["children"];
+  sideContent: PropsAndChildren["children"];
   isSideVisible?: boolean;
 };
 
-export function SplitView(props: ClassAndChildren<SplitViewProps>) {
+export function SplitView(props: SplitViewProps) {
   const { className, children, isSideVisible, sideContent } = props;
 
   return (

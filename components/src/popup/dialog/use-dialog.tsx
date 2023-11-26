@@ -31,6 +31,7 @@ export function useDialog() {
       onClose,
       isOpen: true,
       draggable: true,
+      role: "alertdialog",
       children: (
         <Box flex={1} justifyContent="center" padding="md">
           {payload?.children || <ErrorContent error={error} />}
@@ -50,6 +51,7 @@ export function useDialog() {
         resizable: false,
         type: MessageType.Question,
         actions: ActionSet.OkCancel,
+        role: "alert",
         onAction(action) {
           resolve(action === Action.Ok);
           close();

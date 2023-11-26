@@ -1,5 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
-import type { Any, Nullable, Option, PaginalData, Size, StringKeys } from "@tntfx/core";
+import type { Any, Nullable, Option, PaginalData, Props, PropsAndChildren, Size, StringKeys } from "@tntfx/core";
 
 export type Column<T> = {
   // StringKeys<T> | a unique name for that column
@@ -31,25 +31,25 @@ export type TableContext<T = Any> = {
 };
 
 type OptionalsProps = "tableId" | "rowIdRef" | "idKey";
-export type TableProps<T> = Omit<TableContext<T>, OptionalsProps> & {
+export interface TableProps<T> extends Props, Omit<TableContext<T>, OptionalsProps> {
   idKey?: StringKeys<T>;
   title?: string;
   caption?: string;
   renderRow?: (record: T) => ReactNode;
   render?: (records: T[]) => ReactNode;
-};
+}
 export type TableProviderProps<T> = TableProps<T>;
 
-export type TableRowProps<T> = {
+export interface TableRowProps<T> extends Props {
   record: T;
   selected?: boolean;
   render?: (record: T) => ReactNode;
-};
+}
 
-export type TableCellProps = {
+export interface TableCellProps extends PropsAndChildren {
   align?: Column<unknown>["align"];
   vAlign?: Column<unknown>["vAlign"];
   header?: boolean;
   selected?: boolean;
   colSpan?: number;
-};
+}

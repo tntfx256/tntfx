@@ -1,0 +1,97 @@
+@use "sass:map";
+@use "../lib";
+
+@each $size in lib.$sizes {
+  .--elevation-#{$size} {
+    filter: drop-shadow(var(--shadow-#{$size}));
+  }
+
+  .--shadow-#{$size} {
+    box-shadow: var(--shadow-#{$size});
+  }
+}
+
+@mixin withAccent($accent) {
+  color: var(--color-#{$accent}) !important;
+
+  &.--contained {
+    border-color: var(--color-#{$accent});
+    background-color: var(--color-#{$accent});
+    color: var(--color-#{$accent}-text) !important;
+  }
+
+  &.--outlined {
+    border-color: var(--color-#{$accent});
+  }
+}
+
+@each $accent in lib.$accents {
+  .--#{$accent} {
+    @include withAccent($accent);
+  }
+}
+
+// Variants
+.--outlined {
+  border: 1px solid var(--color-border);
+}
+.--contained {
+  border-color: var(--color-border);
+  background-color: var(--color-element);
+  color: var(--color-element-text);
+}
+
+// Status
+.--selected:not(:disabled, .--disabled) {
+  background-color: var(--color-selected);
+  color: var(--color-selected-text);
+}
+
+// :active:not(:disabled, .--disabled) {
+//   background-color: var(--color-active);
+//   color: var(--color-active-text);
+// }
+
+.--disabled,
+:disabled {
+  cursor: default;
+  filter: opacity(55%) grayscale(100%);
+  pointer-events: none;
+}
+
+.--hover {
+  transition-duration: lib.$duration-sm;
+  transition-property: color, background-color;
+  transition-timing-function: lib.$animation-ease;
+
+  &:hover:not(:disabled, .--disabled, .--selected, :active) {
+    background-color: var(--color-hover) !important;
+    color: var(--color-hover-text) !important;
+    // cursor: pointer;
+  }
+}
+
+.--noUserSelect {
+  cursor: default;
+  user-select: none;
+}
+
+// ANIMATION
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animation {
+  &--rotate {
+    animation-duration: calc(3 * lib.$duration-lg);
+    animation-iteration-count: infinite;
+    animation-name: rotate;
+    animation-timing-function: linear;
+    transition-property: transform;
+  }
+}

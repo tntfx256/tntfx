@@ -5,6 +5,7 @@ export type MightThrow<T> = T | never;
 export type MightReject<T> = Promise<T | never>;
 export type Enumerable<T> = T | T[];
 export type Nullable<T> = T | null;
+export type EnumString<T extends string | number> = T | `${T}`;
 
 export type Index = string | number | symbol;
 export type Keys<T> = keyof T;

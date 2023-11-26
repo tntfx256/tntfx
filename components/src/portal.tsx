@@ -1,15 +1,21 @@
 import type { PropsWithChildren } from "react";
 import { createPortal } from "react-dom";
 import { isClient } from "@tntfx/core";
+import "./portal.scss";
 
 export const GLOBAL_PORTAL_ID = "root-portal";
 
 export type PortalProps = {
   id?: string;
+  disable?: boolean;
 };
 
 export function Portal(props: PropsWithChildren<PortalProps>) {
-  const { children, id = GLOBAL_PORTAL_ID } = props;
+  const { children, id = GLOBAL_PORTAL_ID, disable = false } = props;
+
+  if (disable) {
+    return children;
+  }
 
   if (isClient()) {
     let container = document.getElementById(id);
