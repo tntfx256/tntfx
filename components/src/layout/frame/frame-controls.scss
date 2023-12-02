@@ -7,7 +7,7 @@
   right: 0;
   bottom: 0;
 
-  .icon {
+  &__icon {
     width: auto !important;
     align-self: flex-start;
     padding: 0 theme.$spacing-sm;
@@ -15,7 +15,11 @@
     border-bottom: 1px solid theme.$color-border;
     border-left: 1px solid theme.$color-border;
 
-    &-cross:not(:disabled, .--disabled) {
+    &:first-of-type {
+      border-bottom-left-radius: theme.$borderRadius-xs;
+    }
+
+    &--cross:not(:disabled, .--disabled) {
       // .frame--active & {
       //   color: theme.$color-error;
       // }

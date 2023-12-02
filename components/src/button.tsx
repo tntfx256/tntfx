@@ -41,7 +41,6 @@ function ButtonWithRef(props: ButtonProps, ref: ForwardedRef<HTMLButtonElement>)
   );
 
   const showLoader = isInnerLoading || isLoading;
-  console.log({ isLoading, isInnerLoading, showLoader });
 
   return (
     <button

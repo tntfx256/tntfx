@@ -2,6 +2,7 @@
 
 .portal {
   @include theme.fill(fixed);
+  z-index: theme.$layer-portal;
   pointer-events: none;
 
   > * {

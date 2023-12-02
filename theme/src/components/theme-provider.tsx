@@ -1,7 +1,4 @@
-import { useEffect } from "react";
 import type { PropsAndChildren } from "@tntfx/core";
-import { isServer } from "@tntfx/core";
-import { useIsDarkMode } from "../hooks";
 import "../styles/base/index.scss";
 
 export enum ColorScheme {
@@ -15,24 +12,5 @@ interface ThemeProviderProps extends PropsAndChildren {
 }
 
 export function ThemeProvider(props: ThemeProviderProps) {
-  return isServer() ? <ServerSideThemeProvider {...props} /> : <ClientSideThemeProvider {...props} />;
-}
-
-export function ClientSideThemeProvider(props: ThemeProviderProps) {
-  const { mode = "system", children } = props;
-  const isDarkMode = useIsDarkMode();
-
-  useEffect(() => {
-    let colorScheme = mode;
-    if (mode === ColorScheme.System) {
-      colorScheme = isDarkMode ? ColorScheme.Dark : ColorScheme.Light;
-    }
-    document.body.classList.add(`--${colorScheme}Mode`);
-  }, [isDarkMode, mode]);
-
-  return <>{children}</>;
-}
-
-export function ServerSideThemeProvider(props: ThemeProviderProps) {
   return <>{props.children}</>;
 }

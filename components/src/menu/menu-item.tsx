@@ -35,6 +35,7 @@ export const MenuItem = memoize(function MenuItem<T extends string = string>(pro
 
   const clickHandler = useCallback(
     (e: MouseEvent) => {
+      e.stopPropagation();
       if (hasSubmenu) {
         toggleSubmenu();
       } else {
@@ -57,6 +58,7 @@ export const MenuItem = memoize(function MenuItem<T extends string = string>(pro
       className={classNames(`menuItem menuItem--${finalSubmenuType}`, className, {
         [`--selected`]: isSelected,
         [`--hover`]: onClick,
+        [`--disabled`]: disabled,
         [`menuItem--isSubmenuOpen`]: isSubmenuOpen,
       })}
       onClick={clickHandler}

@@ -1,6 +1,7 @@
-import { type CSSProperties, useEffect, useRef, useState } from "react";
+import type { CSSProperties } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Accent, Any, EnumString, Keys, Layout, MessageType, Size, TObject, Variant } from "@tntfx/core";
-import { accents, isEqual, sizes } from "@tntfx/core";
+import { accents, isEqual, messageTypes, sizes } from "@tntfx/core";
 import type { Theme } from "../theme";
 import { theme } from "../theme";
 import { splitBySpace } from "../utils/utils";
@@ -108,7 +109,9 @@ export const propsMap = {
     style.textAlign = value;
   },
   type(value: WithType, _: Css, classList: Set<string>) {
-    classList.add(`--${value}`);
+    if (messageTypes.includes(value as MessageType)) {
+      classList.add(`--${value}`);
+    }
   },
   variant(value: WithVariant, _: Css, classList: Set<string>) {
     classList.add(`--${value}`);

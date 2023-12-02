@@ -28,6 +28,7 @@ export const Link = memoize(function Link(props: LinkProps) {
       title={title}
       {...(external ? { rel: "noreferrer", target: "_blank" } : null)}
       style={style}
+      {...rest}
     >
       {icon && <Icon name={icon} />}
       {children || title}

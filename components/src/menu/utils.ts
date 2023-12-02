@@ -4,6 +4,7 @@ import { toBoundingRect } from "@tntfx/core";
 import { usePositionObserver, useResizeObserver } from "@tntfx/hooks";
 import type { MenuType } from "./types";
 
+const MIN_WIDTH = 128;
 const OFFSET = 8;
 
 function adjustMenuPosition(target: HTMLElement, menu: HTMLElement, isDropdown: boolean) {
@@ -18,7 +19,7 @@ function adjustMenuPosition(target: HTMLElement, menu: HTMLElement, isDropdown: 
   const spaceLeft = (isDropdown ? targetRect.right : targetRect.left) - OFFSET;
 
   let menuHeight = menuRect.height;
-  let menuWidth = Math.min(Math.max(targetRect.width, menuRect.width), boundingRect.width - 2 * OFFSET);
+  let menuWidth = Math.min(Math.max(targetRect.width, menuRect.width, MIN_WIDTH), boundingRect.width - 2 * OFFSET);
 
   // let position = "below";
   const dimenstion = { position: "below", top: 0, left: 0, width: menuWidth, height: menuHeight };

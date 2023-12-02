@@ -1,13 +1,13 @@
 @use "sass:map";
 @use "./utils";
 
-$size-xxs: utils.toRem(12);
-$size-xs: utils.toRem(16);
-$size-sm: utils.toRem(24);
+$size-xxs: utils.toRem(16);
+$size-xs: utils.toRem(24);
+$size-sm: utils.toRem(28);
 $size-md: utils.toRem(32);
-$size-lg: utils.toRem(40);
-$size-xl: utils.toRem(48);
-$size-xxl: utils.toRem(56);
+$size-lg: utils.toRem(38);
+$size-xl: utils.toRem(46);
+$size-xxl: utils.toRem(58);
 $size-xxxl: utils.toRem(64);
 
 $spacing-xxs: utils.toRem(1);

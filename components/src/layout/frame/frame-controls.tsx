@@ -21,12 +21,19 @@ export const FrameControls = memoize(function FrameControls(props: FrameControls
       {children}
       {onToggleMaximize && (
         <Icon
+          className="frameControls__icon"
           name={frameStatus === FrameStatus.Normal ? "maximize" : "restoreMaximize"}
           size="md"
           onClick={onToggleMaximize}
         />
       )}
-      <Icon disabled={!onClose} name="cross" size="md" onClick={onClose} />
+      <Icon
+        className="frameControls__icon frameControls__icon--close"
+        disabled={!onClose}
+        name="cross"
+        size="md"
+        onClick={onClose}
+      />
     </Box>
   );
 });

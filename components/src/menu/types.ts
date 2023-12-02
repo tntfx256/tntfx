@@ -1,5 +1,13 @@
-import type { MouseEvent, ReactElement, ReactNode } from "react";
-import type { Nullable, Option, Props } from "@tntfx/core";
+import type {
+  ForwardRefExoticComponent,
+  MouseEvent,
+  PropsWithoutRef,
+  PropsWithRef,
+  ReactElement,
+  ReactNode,
+  RefAttributes,
+} from "react";
+import type { Any, Nullable, Option, Props } from "@tntfx/core";
 
 export type MenuType = "static" | "context" | "dropdown";
 
@@ -29,6 +37,7 @@ export interface MenuProps<T extends string = string> extends CommonProps<T> {
   renderItem?: (item: Option<T>, selectedItem?: T) => ReactElement;
 
   slots?: {
+    trigger?: ReactElement<PropsWithRef<Any>>;
     header?: ReactElement;
     footer?: ReactElement;
   };

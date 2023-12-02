@@ -6,3 +6,14 @@
 @function ratio($width: 100vw, $height: 100vh) {
   @return calc($width / $ratio);
 }
+
+@function size($amount, $unit: 4) {
+  @return toRem($amount * $unit);
+}
+
+@function getValueByDirection($ltrValue, $rtlValue) {
+  @if ($direction == rtl) {
+    @return $rtlValue;
+  }
+  @return $ltrValue;
+}

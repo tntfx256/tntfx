@@ -3,6 +3,7 @@ export * from "./date-time";
 export * from "./dimension";
 export * from "./etc";
 export * from "./event";
+export * from "./file";
 export * from "./fp";
 export * from "./link";
 export * from "./memoize";

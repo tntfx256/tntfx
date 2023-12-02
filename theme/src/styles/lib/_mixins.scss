@@ -71,3 +71,11 @@ $sizes: xxs, xs, sm, md, lg, xl, xxl, xxxl;
     padding-top: calc(utils.size() + calc($numberOfTitlebar * $layout-height-header));
   }
 }
+
+@mixin rtl($prop, $value, $rtlValue) {
+  @if ($direction == ltr) {
+    #{$prop}: $value;
+  } @else {
+    #{$prop}: $rtlValue;
+  }
+}

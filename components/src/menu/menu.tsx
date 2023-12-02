@@ -1,7 +1,7 @@
-import type { ForwardedRef, FunctionComponent, PropsWithChildren, ReactNode } from "react";
-import { forwardRef, useImperativeHandle } from "react";
+import type { ForwardedRef, FunctionComponent, MouseEvent, PropsWithChildren, ReactNode } from "react";
+import { cloneElement, forwardRef, useCallback, useImperativeHandle } from "react";
 import { memoize } from "@tntfx/core";
-import { useBlurObserver, useRefState } from "@tntfx/hooks";
+import { useBlurObserver, useRefState, useToggle } from "@tntfx/hooks";
 import { classNames, useParseProps } from "@tntfx/theme";
 import { MenuItem } from "./menu-item";
 import type { MenuProps } from "./types";
@@ -30,67 +30,86 @@ import "./menu.scss";
 
 function MenuWithRef<T extends string = string>(props: MenuProps<T>, ref: ForwardedRef<HTMLUListElement>) {
   const {
-    isSubmenu,
+    slots = {},
+    isSubmenu = Boolean(slots.trigger),
     items,
     selectedItem,
     renderItem,
     role,
-    slots = {},
     onClick,
-    menuType,
+    menuType = slots.trigger ? "context" : "static",
     submenuType,
     target,
-    isOpen = true,
+    isOpen = slots.trigger ? false : true,
     onClose,
-    horizontal,
+    // horizontal,
     switchSlotsBasedOnMenuPosition,
     ...styleProps
   } = props;
   const { className, style } = useParseProps(styleProps);
 
+  const [isContextMenuOpen, , , toggleContextMenu] = useToggle();
+  const [trigger, triggerRefHandler] = useRefState<HTMLElement>();
   const [menu, menuRefHandler] = useRefState<HTMLUListElement>();
 
+  const handleMenuClose = useCallback(() => {
+    toggleContextMenu();
+    onClose?.();
+  }, [onClose, toggleContextMenu]);
+
+  const handleContextMenuTriggerClick = useCallback(
+    (e: MouseEvent) => {
+      slots.trigger?.props?.onClick?.(e);
+      toggleContextMenu();
+    },
+    [slots.trigger?.props, toggleContextMenu]
+  );
   useImperativeHandle(ref, () => menu!, [menu]);
 
-  useBlurObserver(menu, onClose, !isOpen);
-  const position = useMenuHandler({ menuType, target, menu, isOpen });
-  const isGlobal = menuType !== "static" || isSubmenu;
+  useBlurObserver(menu, handleMenuClose, !(isOpen || isContextMenuOpen));
+  const position = useMenuHandler({ menuType, target: target || trigger, menu, isOpen: isOpen || isContextMenuOpen });
+  const isGlobal = Boolean(menuType !== "static" || isSubmenu || slots.trigger);
 
   const isOnTop = position === "above";
   let headerSlot = switchSlotsBasedOnMenuPosition ? (isOnTop ? slots.footer : slots.header) : slots.header;
   let footerSlot = switchSlotsBasedOnMenuPosition ? (isOnTop ? slots.header : slots.footer) : slots.footer;
 
-  return isOpen ? (
-    <Portal disable={!isGlobal}>
-      <ul
-        ref={menuRefHandler}
-        role={role || "menubar"}
-        style={style}
-        className={classNames(`menu menu--${menuType}`, className, {
-          ["--horizontal"]: horizontal,
-          ["menu--submenu"]: isSubmenu,
-        })}
-      >
-        {headerSlot && <li className="menu__headerItem">{headerSlot}</li>}
+  return (
+    <>
+      {slots.trigger
+        ? cloneElement(slots.trigger, { ref: triggerRefHandler, onClick: handleContextMenuTriggerClick })
+        : null}
 
-        {items?.map((item) => (
-          <MenuItem<T>
-            key={item.id}
-            className="menu__item"
-            item={item}
-            menuType={menuType}
-            render={renderItem}
-            role={role === "combobox" ? "option" : "menuitem"}
-            selectedItem={selectedItem}
-            submenuType={submenuType}
-            onClick={onClick}
-          />
-        ))}
+      {isOpen || isContextMenuOpen ? (
+        <Portal disable={!isGlobal}>
+          <ul
+            className={classNames(`menu menu--${menuType}`, className, { ["menu--submenu"]: isSubmenu })}
+            ref={menuRefHandler}
+            role={role || "menubar"}
+            style={style}
+          >
+            {headerSlot && <li className="menu__headerItem">{headerSlot}</li>}
 
-        {footerSlot && <li className="menu__footerItem">{footerSlot}</li>}
-      </ul>
-    </Portal>
-  ) : null;
+            {items?.map((item) => (
+              <MenuItem<T>
+                key={item.id}
+                className="menu__item"
+                item={item}
+                menuType={menuType}
+                render={renderItem}
+                role={role === "combobox" ? "option" : "menuitem"}
+                selectedItem={selectedItem}
+                submenuType={submenuType}
+                onClick={onClick}
+              />
+            ))}
+
+            {footerSlot && <li className="menu__footerItem">{footerSlot}</li>}
+          </ul>
+        </Portal>
+      ) : null}
+    </>
+  );
 }
 
 export const Menu = memoize(forwardRef(MenuWithRef)) as <T extends string = string>(
