@@ -1,41 +1,28 @@
 import type { ReactNode } from "react";
-import { memoize, type PropsAndChildren } from "@tntfx/core";
-import { classNames, useParseProps } from "@tntfx/theme";
-import { Backdrop } from "../../backdrop";
-import "./sidebar.scss";
+import type { DrawerProps } from "@fluentui/react-components";
+import { Drawer, DrawerBody, DrawerFooter, DrawerHeader, DrawerHeaderTitle } from "@fluentui/react-components";
+import { memoize } from "@tntfx/core";
 
-export interface SidebarProps extends PropsAndChildren {
-  overlay?: boolean;
-  blur?: boolean;
-  persistent?: boolean;
-  isOpen?: boolean;
-  onClickOutside?: () => void;
-  slots?: {
-    body?: ReactNode;
-  };
-}
+export type SidebarProps = DrawerProps & {
+  slots?: { header?: ReactNode; footer?: ReactNode };
+};
 
 export const Sidebar = memoize(function Sidebar(props: SidebarProps) {
-  const { onClickOutside, persistent = true, overlay, isOpen, children, blur, slots = {}, ...styleProps } = props;
-  const { className, style } = useParseProps(styleProps);
-
-  const hasBody = !!slots.body;
+  const { children, slots = {}, ...libProps } = props;
 
   return (
-    <Backdrop
-      animation="slideRight"
-      background="blur"
-      className={classNames("sidebar__backdrop", { "--withBody": hasBody })}
-      isOpen={hasBody || isOpen}
-      overlay={hasBody ? false : overlay}
-      persistent={persistent}
-      style={style}
-      onClick={hasBody ? undefined : onClickOutside}
-    >
-      <aside className={classNames("sidebar", className, { blur })} role="navigation">
-        {isOpen || persistent ? children : null}
-      </aside>
-      {hasBody && <main className={classNames("sidebar__body")}>{slots.body}</main>}
-    </Backdrop>
+    <Drawer {...libProps}>
+      <DrawerHeader>
+        <DrawerHeaderTitle
+        // action={<Button appearance="subtle" aria-label="Close" icon={<Dismiss24Regular />} onClick={onClose} />}
+        >
+          {slots.header}
+        </DrawerHeaderTitle>
+      </DrawerHeader>
+
+      <DrawerBody>{children}</DrawerBody>
+
+      <DrawerFooter>{slots.footer}</DrawerFooter>
+    </Drawer>
   );
 });

@@ -1,5 +1,5 @@
-import type { Field } from "./field";
 import { logger } from "./logger";
+import type { Field } from "./schema/field";
 import type { Any, TError } from "./types";
 import type { ValidationRules, Violations } from "./validation";
 

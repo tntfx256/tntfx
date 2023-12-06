@@ -1,7 +1,7 @@
 import { Err } from "./error";
-import type { FieldProps, FieldType } from "./field";
-import { Field } from "./field";
-import { Model } from "./model";
+import type { FieldProps, FieldType } from "./schema/field";
+import { Field } from "./schema/field";
+import { Model } from "./schema/model";
 import type { Any } from "./types";
 import type { ValidationResult } from "./validation";
 import { TypeValidator, Validator } from "./validation";

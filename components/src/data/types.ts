@@ -1,18 +1,19 @@
-import type { CSSProperties, ReactNode } from "react";
-import type { Any, Nullable, Option, PaginalData, Props, PropsAndChildren, Size, StringKeys } from "@tntfx/core";
+import type { ReactNode } from "react";
+import type { TableColumnDefinition } from "@fluentui/react-components";
+import type { Any, Nullable, Option, PaginalData, Props, PropsAndChildren, StringKeys } from "@tntfx/core";
 
-export type Column<T> = {
+export interface Column<T> extends Partial<Omit<TableColumnDefinition<T>, "columnId">> {
   // StringKeys<T> | a unique name for that column
   name: string;
   title?: string;
   parent?: string;
   align?: "start" | "center" | "end";
-  vAlign?: "top" | "middle" | "bottom";
+  // vAlign?: "top" | "middle" | "bottom";
   colSpan?: number;
-  widths?: Array<CSSProperties["width"] | Size>;
-  renderHeaderCell?: () => ReactNode;
-  renderDataCell?: (record: T, columnIndex: number) => ReactNode;
-};
+  width?: number;
+  // renderHeaderCell?: () => ReactNode;
+  // renderDataCell?: (record: T, columnIndex: number) => ReactNode;
+}
 
 export type TableContext<T = Any> = {
   data: T[];
@@ -48,8 +49,8 @@ export interface TableRowProps<T> extends Props {
 
 export interface TableCellProps extends PropsAndChildren {
   align?: Column<unknown>["align"];
-  vAlign?: Column<unknown>["vAlign"];
-  header?: boolean;
+  // vAlign?: Column<unknown>["vAlign"];
+  // header?: boolean;
   selected?: boolean;
   colSpan?: number;
 }

@@ -2,10 +2,9 @@ import { useCallback, useEffect } from "react";
 import { useLazyTimer } from "@tntfx/hooks";
 import { Alert } from "../../alert";
 import type { ToastPayload } from "../types";
-import "./toast.scss";
 
 export function Toast(props: ToastPayload) {
-  const { title, children, timeout, actions: toastActions, type = "info", onAction, onClose, icon, description } = props;
+  const { title, children, timeout, actions: toastActions, onAction, onClose, icon, description } = props;
 
   const timer = useLazyTimer((timeout || 0) * 1000);
 
@@ -36,15 +35,7 @@ export function Toast(props: ToastPayload) {
   }, [handleCloseToast, timeout, timer]);
 
   return (
-    <Alert
-      actions={toastActions}
-      className="toast"
-      icon={icon}
-      message={description}
-      title={title}
-      type={type}
-      onAction={handleClick}
-    >
+    <Alert actions={toastActions} className="toast" icon={icon} message={description} title={title} onAction={handleClick}>
       {children}
     </Alert>
   );

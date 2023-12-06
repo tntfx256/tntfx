@@ -3,8 +3,7 @@ import { shortMonths } from "@tntfx/core";
 import { useLazyInterval } from "@tntfx/hooks";
 import { classNames } from "@tntfx/theme";
 import { Box } from "./layout/box";
-import { Text } from "./typography/text";
-import "./date-time.scss";
+import { Text } from "./text";
 
 type DateTimeData = ReturnType<typeof getDate>;
 

@@ -1,33 +1,27 @@
-import type { ForwardedRef, MouseEvent, ReactNode } from "react";
+import type { ForwardedRef } from "react";
 import { forwardRef } from "react";
-import { type MaybePromise, memoize, type PropsAndChildren } from "@tntfx/core";
-import type { EnhancedProps } from "@tntfx/theme";
-import { classNames, useParseProps } from "@tntfx/theme";
-import type { IconName, Icons } from "./icons-list";
+import { mergeClasses } from "@fluentui/react-components";
+import type { FluentIconsProps } from "@fluentui/react-icons";
+import { useStyles } from "./icon.style";
+import type { IconName } from "./icons-list";
 import { IconsMap } from "./icons-list";
-import "./icon.scss";
 
-interface IconProps extends Partial<EnhancedProps>, PropsAndChildren {
-  name: IconName | ReactNode;
-  onClick?: (e: MouseEvent) => MaybePromise<void>;
+interface IconProps extends FluentIconsProps {
+  name: IconName;
+  disabled?: boolean;
 }
 
-function IconWithRef(props: IconProps, ref: ForwardedRef<HTMLSpanElement>) {
-  const { name, onClick, ...styleProps } = props;
-  const { className, style } = useParseProps(styleProps);
+function IconWithRef(props: IconProps, ref: ForwardedRef<SVGSVGElement>) {
+  const { name, disabled, className, ...libProps } = props;
 
-  return (
-    <span
-      className={classNames("icon", className, `icon--${name}`, { "--hover": onClick })}
-      ref={ref}
-      style={style}
-      onClick={onClick}
-    >
-      {(name as Icons) in IconsMap ? IconsMap[props.name as Icons]?.({ className: "icon__svg" }) || `[${props.name}]` : name}
-    </span>
+  const classes = useStyles();
+  const Component = IconsMap[name];
+  return Component ? (
+    <Component aria-disabled={disabled} {...libProps} className={mergeClasses(classes.root, className)} ref={ref} />
+  ) : (
+    name
   );
 }
 
-export const Icon = memoize(forwardRef(IconWithRef));
-
+export const Icon = forwardRef(IconWithRef);
 Icon.displayName = "Icon";

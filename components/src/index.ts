@@ -15,6 +15,5 @@ export * from "./loader";
 export * from "./menu";
 export * from "./popup";
 export * from "./slot";
-export * from "./typography";
-export * from "./use-keyboard";
+export { Text, Title } from "./text";
 export * from "./web-view";

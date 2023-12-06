@@ -17,15 +17,15 @@ export function useBlurObserver(container: Nullable<HTMLElement>, handler?: UseB
     }
 
     function keyboardHandler(e: KeyboardEvent) {
-      if (!container?.contains(e.target as Any)) {
+      if (!container?.contains(e.target as Any) && e.key === "Escape") {
         handler?.("escape", e);
       }
     }
 
-    setTimeout(() => {
-      document.addEventListener("click", clickHandler);
-      document.addEventListener("keyup", keyboardHandler);
-    }, 500);
+    // setTimeout(() => {
+    document.addEventListener("click", clickHandler);
+    document.addEventListener("keyup", keyboardHandler);
+    // }, 500);
 
     return () => {
       document.removeEventListener("click", clickHandler);

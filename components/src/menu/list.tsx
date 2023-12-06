@@ -1,34 +1,34 @@
-import type { ReactElement, ReactNode } from "react";
-import { memoize, type Option, type PropsAndChildren } from "@tntfx/core";
-import { classNames } from "@tntfx/theme";
+import { type ReactElement, useCallback } from "react";
+import type { SelectTabData, SelectTabEvent, TabListProps } from "@fluentui/react-components";
+import { TabList } from "@fluentui/react-components";
+import type { Option } from "@tntfx/core";
+import { memoize } from "@tntfx/core";
 import { MenuItem } from "./menu-item";
-import { Text } from "../typography/text";
 
-export interface ListProps<T> extends PropsAndChildren {
-  title?: string;
-  items?: T[];
-  render?: (item: T, index: number) => ReactNode;
+export interface ListProps<T extends string = string> extends Omit<TabListProps, "onSelect" | "selectedValue"> {
+  items?: Option<T>[];
+  selectedItem?: T;
+  onSelect?: (id: T) => void;
 }
 
-export const List = memoize(function List<T = Option>(props: ListProps<T>) {
-  const { title, className, render, items, children } = props;
+export const List = memoize(function List<T extends string = string>(props: ListProps<T>) {
+  const { items = [], onSelect, selectedItem, ...libProps } = props;
+
+  const handleSelect = useCallback((_event: SelectTabEvent, data: SelectTabData) => {
+    onSelect?.(data.value as T);
+  }, []);
 
   return (
-    <section className={classNames("list", className)}>
-      {title && (
-        <header className="list-header">
-          <Text className="list-header-title" fontSize="xl">
-            {title}
-          </Text>
-        </header>
-      )}
-      <main className="list-body">
-        <ul className="list-items">
-          {items && render && items.map((item, index) => render(item, index))}
-          {items && !render && (items as Option[]).map((item) => <MenuItem key={item.id} item={item} />)}
-          {children}
-        </ul>
-      </main>
-    </section>
+    <TabList
+      appearance="subtle"
+      className="list-items"
+      selectedValue={selectedItem}
+      onTabSelect={handleSelect}
+      {...libProps}
+    >
+      {items.map((item) => (
+        <MenuItem key={item.id} item={item} selectedItem={selectedItem} value={item.id} />
+      ))}
+    </TabList>
   );
-}) as <T = Option>(props: ListProps<T>) => ReactElement;
+}) as <T extends string = string>(props: ListProps<T>) => ReactElement;

@@ -1,0 +1,37 @@
+import type { Locale } from "../locale";
+
+export const fallback: Locale = {
+  code: "en-US",
+  lang: "en",
+  country: "United States",
+  countryCode: "us",
+  phoneCode: 1,
+  dir: "ltr",
+  dateSep: "/",
+  dateTimeSep: " ",
+  timeSep: ":",
+  daysOfMonths: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+  eclipseMonthIndex: 1,
+  monthNames: [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "Octobor",
+    "November",
+    "December",
+  ],
+  monthNamesShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Octo", "Nov", "Dec"],
+  weekDays: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+  weekDaysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+  am_pm: ["AM", "PM"],
+  defaultDateFormat: "DD/MM/YYYY",
+  defaultDateTimeFormat: "DD/MM/YYYY hh:mm",
+
+  DateTime: Date,
+};

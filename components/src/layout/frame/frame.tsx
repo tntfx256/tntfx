@@ -1,19 +1,25 @@
-import { useCallback, useLayoutEffect, useState } from "react";
-import { calcInitialFrameDimension, type Dimension, memoize } from "@tntfx/core";
+import { useCallback, useState } from "react";
+import {
+  Dialog,
+  DialogActions,
+  DialogBody,
+  DialogContent,
+  DialogSurface,
+  DialogTitle,
+  DialogTrigger,
+} from "@fluentui/react-components";
+import { type Dimension, memoize } from "@tntfx/core";
 import { useRefState, useToggle } from "@tntfx/hooks";
-import { classNames, useParseProps } from "@tntfx/theme";
-import { FrameControls } from "./frame-controls";
+import { Icon } from "@tntfx/icons";
+import { classNames } from "@tntfx/theme";
+import { useStyle } from "./frame.style";
 import { FrameProvider } from "./frame-provider";
 import type { FrameProps } from "./types";
 import { FrameStatus } from "./types";
-import { useFrameDimensions } from "./use-frame-dimensions";
 import { useFrameDrag } from "./use-frame-drag";
 import { useFrameResize } from "./use-frame-resize";
-import { Sidebar } from "../../menu";
-import { DialogProvider } from "../../popup/dialog/dialog-context";
-import { Toolbar } from "../bar";
+import { Title } from "../../text";
 import { Box } from "../box";
-import "./frame.scss";
 
 export const Frame = memoize(function Frame(props: FrameProps) {
   const {
@@ -29,10 +35,11 @@ export const Frame = memoize(function Frame(props: FrameProps) {
     isActive = true,
     slots = {},
     slotProps = {},
+    className,
     onClose,
-    ...styleProps
+    ...libProps
   } = props;
-  const { className, style } = useParseProps(styleProps);
+  // const { className, style } = useParseProps(styleProps);
 
   const [isSidebarOpen, , , toggleSidebar] = useToggle(slotProps.sidebar?.isInitiallyOpen);
   const [frame, frameRefHandler] = useRefState<HTMLDivElement>();
@@ -45,88 +52,76 @@ export const Frame = memoize(function Frame(props: FrameProps) {
   useFrameDrag(id, setDimension, isDraggable, frame, boundary);
   useFrameResize(id, setDimension, isResizable, frame, boundary);
 
-  const { headerHeight, footerHeight } = useFrameDimensions(frame);
+  const classes = useStyle();
+  // const { headerHeight, footerHeight } = useFrameDimensions(frame);
 
   const toggleMaximize = useCallback(() => {
     setStatus((status) => (status === FrameStatus.Maximized ? FrameStatus.Normal : FrameStatus.Maximized));
   }, []);
 
-  useLayoutEffect(() => {
-    if (frame && !dimension && !isStatic) {
-      setTimeout(() => {
-        setDimension(calcInitialFrameDimension(frame, isDialog, boundary));
-      }, 5);
-    }
-  }, [boundary, dimension, frame, isDialog, isStatic]);
+  // useLayoutEffect(() => {
+  //   if (frame && !dimension && !isStatic) {
+  //     setTimeout(() => {
+  //       setDimension(calcInitialFrameDimension(frame, isDialog, boundary));
+  //     }, 5);
+  //   }
+  // }, [boundary, dimension, frame, isDialog, isStatic]);
 
-  const hasHeader = Boolean(slots.titlebar || slots.header || title || onClose);
-  const hasFooter = Boolean(slots.footer);
+  // const hasHeader = Boolean(slots.titlebar || slots.header || title || onClose);
+  // const hasFooter = Boolean(slots.footer);
+  // {
+  //   [`frame--${status}`]: status,
+  //   "frame--initialized": Boolean(dimension),
+  //   "frame--dialog": isDialog,
+  //   "frame--active": isActive,
+  //   "frame--static": isStatic,
+  //   "frame--sidebarOpen": isSidebarOpen,
+  // }
+  const hasTrigger = Boolean(slots.trigger);
 
   return (
     <FrameProvider dimension={dimension}>
-      <Box
-        ref={frameRefHandler}
-        className={classNames("frame", className, {
-          [`frame--${status}`]: status,
-          "frame--initialized": Boolean(dimension),
-          "frame--dialog": isDialog,
-          "frame--active": isActive,
-          "frame--static": isStatic,
-          "frame--sidebarOpen": isSidebarOpen,
-        })}
-        style={
-          dimension
-            ? {
-                top: dimension.top,
-                left: dimension.left,
-                width: dimension.width,
-                height: dimension.height,
-                ...style,
-              }
-            : style
-        }
-      >
-        <DialogProvider>
-          <Box className="frame__wrapper">
-            {slots.sidebar && (
-              <Sidebar className={classNames("frame__sidebar")} isOpen={isSidebarOpen} overlay={false}>
-                {hasHeader && <div style={{ minHeight: headerHeight }} />}
-                {slots.sidebar}
-                {hasFooter && <div style={{ minHeight: footerHeight }} />}
-              </Sidebar>
-            )}
-            <Box className="frame__content">
-              {hasHeader && (
-                <Box className={classNames("frame__header")}>
-                  <Toolbar
-                    icon={slots.sidebar ? "sidebar" : icon}
-                    title={title}
-                    onIconClick={slots.sidebar ? toggleSidebar : undefined}
-                  >
-                    {slots.titlebar}
-                    {!isStatic && (
-                      <FrameControls
-                        frameStatus={status}
-                        onClose={onClose}
-                        onToggleMaximize={resizable ? toggleMaximize : undefined}
-                      />
-                    )}
-                  </Toolbar>
-                  {slots.header}
-                </Box>
-              )}
+      <Dialog open={hasTrigger ? undefined : true}>
+        {/* {hasTrigger ? <DialogTrigger action="open">{slots.trigger}</DialogTrigger> : null} */}
 
-              <Box className={classNames("frame__body")}>
-                {hasHeader && <div style={{ minHeight: headerHeight }} />}
-                {children}
-                {hasFooter && <div style={{ minHeight: footerHeight }} />}
+        <DialogSurface className={classNames(classes.root, className)}>
+          <DialogBody>
+            <DialogTitle as="div" className={classes.titlebar}>
+              {icon && <Icon name={icon} />}
+              <Title className={classes.titlebarTitle} size="sm">
+                {title}
+              </Title>
+
+              {slots.titlebar}
+
+              <Box horizontal className={classes.titlebarControls} {...libProps}>
+                {toggleMaximize && (
+                  <Icon
+                    className={classes.titlebarControlsIcon}
+                    name={status === FrameStatus.Normal ? "FullScreenMaximize" : "FullScreenMinimize"}
+                    onClick={toggleMaximize}
+                  />
+                )}
+
+                {onClose && (
+                  <DialogTrigger disableButtonEnhancement action="close">
+                    <Icon className={classes.titlebarControlsIcon} disabled={!onClose} name="Dismiss" onClick={onClose} />
+                  </DialogTrigger>
+                )}
               </Box>
+            </DialogTitle>
 
-              {hasFooter && <Toolbar className={classNames("frame__footer")}>{slots.footer}</Toolbar>}
-            </Box>
-          </Box>
-        </DialogProvider>
-      </Box>
+            <DialogContent className={classes.body}>
+              <Box className={classes.headerPlaceholder} />
+              {children}
+            </DialogContent>
+
+            {slots.footer && <DialogActions>{slots.footer}</DialogActions>}
+          </DialogBody>
+        </DialogSurface>
+
+        {/* </DialogProvider> */}
+      </Dialog>
     </FrameProvider>
   );
 });

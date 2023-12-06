@@ -5,7 +5,6 @@ import { classNames, useParseProps } from "@tntfx/theme";
 import { ActionBar } from "./bar/action-bar";
 import { Frame } from "./frame";
 import type { FrameProps } from "./frame/types";
-import "./card.scss";
 
 export type CardProps<T extends string = string> = FrameProps &
   Actionable<T> & {

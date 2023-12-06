@@ -1,21 +1,32 @@
-import type { Props } from "@tntfx/core";
-import { classNames, useParseProps } from "@tntfx/theme";
-import type { BackdropProps } from "./backdrop";
-import { Backdrop } from "./backdrop";
-import "./loader.scss";
+import type { SpinnerProps } from "@fluentui/react-components";
+import { Spinner } from "@fluentui/react-components";
+import { classNames } from "@tntfx/theme";
+import { Box } from "./layout";
+import { useStyle } from "./loader.style";
+import { Portal } from "./portal";
 
-export interface LoaderProps extends Props {
+export interface LoaderProps extends SpinnerProps {
   visible?: boolean;
-  background?: BackdropProps["background"];
+  global?: boolean;
+  background?: "transparent" | "blur";
 }
 
 export function Loader(props: LoaderProps) {
-  const { visible, background, ...styleProps } = props;
-  const { className, style } = useParseProps(styleProps);
+  const { visible, background, global, className, ...libProps } = props;
+
+  const classes = useStyle();
 
   return visible ? (
-    <Backdrop isOpen animation="zoom" background={background} className={classNames("loader", className)} style={style}>
-      <div className="loader__circle animation--rotate" />
-    </Backdrop>
+    <Portal disable={!global}>
+      <Box
+        className={classNames(
+          classes.root,
+          background === "blur" && classes.blur,
+          background === "transparent" && classes.trnsparent
+        )}
+      >
+        <Spinner className={classNames(classes.spinner, className)} {...libProps} />
+      </Box>
+    </Portal>
   ) : null;
 }

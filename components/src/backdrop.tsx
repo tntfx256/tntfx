@@ -1,9 +1,7 @@
 import type { CSSProperties, MouseEvent } from "react";
 import { type Animation, type Boundary, type Dimension, memoize, type PropsAndChildren } from "@tntfx/core";
-import { classNames } from "@tntfx/theme";
 import { Box } from "./layout/box";
 import { Portal } from "./portal";
-import "./backdrop.scss";
 
 export interface BackdropProps extends PropsAndChildren {
   /** when true, the children won't be removed when it's closed */
@@ -39,15 +37,7 @@ export const Backdrop = memoize(function Backdrop(props: BackdropProps) {
   }
 
   const backdrop = (
-    <Box
-      role="presentation"
-      className={classNames("backdrop", className, `--animation-${animation}`, `--bg-${background}`, {
-        "--noOverlay": !overlay,
-        "--visible": isOpen,
-        "--global": global,
-      })}
-      onClick={handleClick}
-    >
+    <Box role="presentation" onClick={handleClick}>
       <Box className="backdrop__body">{isOpen || persistent ? children : null}</Box>
     </Box>
   );

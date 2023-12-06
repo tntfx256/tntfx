@@ -1,5 +1,5 @@
 import type { ErrorMessages } from "./error";
-import type { Field, FieldProps, FieldType } from "./field";
+import type { Field, FieldProps, FieldType } from "./schema/field";
 import type { Any, TObject } from "./types";
 import { getFirstPair } from "./utils/etc";
 

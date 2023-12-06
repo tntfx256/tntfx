@@ -1,8 +1,9 @@
-import type { AriaRole, CSSProperties, PropsWithChildren, ReactNode } from "react";
+import type { AriaRole, CSSProperties, PropsWithChildren } from "react";
+import type { IconName } from "@tntfx/icons";
 import type { Any, EnumString, MaybePromise } from "./base";
 import type { Accent, Size, Variant } from "./theme";
-import { Field } from "../field";
-import { Model } from "../model";
+import { Field } from "../schema/field";
+import { Model } from "../schema/model";
 
 export type Option<T extends string = string> = {
   id: T;
@@ -13,7 +14,7 @@ export type Option<T extends string = string> = {
   external?: boolean;
   hidden?: boolean;
   href?: string;
-  icon?: ReactNode;
+  icon?: IconName;
   iconPosition?: "start" | "end";
   path?: string;
   size?: EnumString<Size>;

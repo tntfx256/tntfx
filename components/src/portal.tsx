@@ -1,7 +1,6 @@
 import type { PropsWithChildren } from "react";
 import { createPortal } from "react-dom";
 import { isClient } from "@tntfx/core";
-import "./portal.scss";
 
 export const GLOBAL_PORTAL_ID = "root-portal";
 

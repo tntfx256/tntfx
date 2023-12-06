@@ -14,38 +14,20 @@ type Story = StoryObj<typeof Sidebar>;
 
 export const Default: Story = {
   args: {
-    isOpen: true,
+    open: true,
   },
   render: function Render(props) {
-    const [{ isOpen }, setArgs] = useArgs();
+    const [{ open }, setArgs] = useArgs();
 
     return (
       <Wrapper>
-        <Toolbar icon="sidebar" onIconClick={() => setArgs({ isOpen: !isOpen })}></Toolbar>
+        <Toolbar icon="PanelLeft" onIconClick={() => setArgs({ isOpen: !open })}></Toolbar>
         <Box horizontal>
-          <Sidebar {...props} onClickOutside={() => setArgs({ isOpen: false })}>
+          <Sidebar {...props} onOpenChange={() => setArgs({ open: false })}>
             <InlineContent />
           </Sidebar>
           <TextContent />
         </Box>
-      </Wrapper>
-    );
-  },
-};
-
-export const WithBody: Story = {
-  args: {
-    isOpen: true,
-    slots: {
-      body: <TextContent />,
-    },
-  },
-  render: function Render(props) {
-    return (
-      <Wrapper horizontal>
-        <Sidebar {...props}>
-          <InlineContent />
-        </Sidebar>
       </Wrapper>
     );
   },
