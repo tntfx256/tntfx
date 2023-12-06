@@ -1,9 +1,16 @@
-import type { PropsWithChildren } from "react";
-import { TextInput, type TextInputProps } from "./text-input";
-import "./date-input.scss";
+import type { FieldProps } from "@fluentui/react-components";
+import { Field } from "@fluentui/react-components";
+import type { DatePickerProps } from "@fluentui/react-datepicker-compat";
+import { DatePicker } from "@fluentui/react-datepicker-compat";
 
-export type DateInputProps = TextInputProps;
+export type DateInputProps = Partial<FieldProps & DatePickerProps>;
 
-export function DateInput(props: PropsWithChildren<DateInputProps>) {
-  return <TextInput className="dateInput" {...props} type="date" />;
+export function DateInput(props: DateInputProps) {
+  const { label, ...rest } = props;
+
+  return (
+    <Field label={label}>
+      <DatePicker {...rest} />
+    </Field>
+  );
 }

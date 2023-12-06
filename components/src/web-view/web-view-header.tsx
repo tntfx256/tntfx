@@ -4,7 +4,6 @@ import { useWebView } from "./web-view-provider";
 import { TextInput } from "../form/text-input";
 import { Toolbar } from "../layout/bar/toolbar";
 import { ToolbarSection } from "../layout/bar/toolbar-section";
-import "./web-view.scss";
 
 type WebViewHeaderProps = {
   onSidebarToggle?: () => void;
@@ -25,9 +24,9 @@ export function WebViewHeader(props: WebViewHeaderProps) {
   return (
     <Toolbar>
       <ToolbarSection>
-        <Icon name="sidebar" onClick={handleSidebarToggle} />
-        <Icon disabled={!history.canGoBack} name="back" onClick={history.goBack} />
-        <Icon disabled={!history.canGoForward} name="forward" onClick={history.goForward} />
+        <Icon name="PanelLeft" onClick={handleSidebarToggle} />
+        <Icon disabled={!history.canGoBack} name="Previous" onClick={history.goBack} />
+        <Icon disabled={!history.canGoForward} name="Next" onClick={history.goForward} />
         <TextInput
           className="header-address"
           name="searchText"

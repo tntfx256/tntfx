@@ -1,6 +1,5 @@
 import type { TError } from "@tntfx/core";
 import { finalizeError } from "@tntfx/core";
-import "./error-content.scss";
 
 export type ErrorContentProps = {
   error?: TError;

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { type Meta, type StoryObj } from "@storybook/react";
 import { Button, Menu } from "@tntfx/components";
-import { useRefState, useToggle } from "@tntfx/hooks";
 import { genOptions, Section, ViewValue, Wrapper } from "../components";
 
 const meta: Meta<typeof Menu> = {
@@ -57,28 +56,19 @@ const items = genOptions("", true);
 function ContextMenuStory() {
   const [selectedItem, setSelectedItem] = useState("");
 
-  const [isOpen, , hide, toggle] = useToggle();
-  const [ref, refHandler] = useRefState<HTMLElement>();
-
   function onClickItem(id: string) {
     setSelectedItem(id);
-    hide();
   }
 
   return (
     <Section title="Context Menu">
-      <Button ref={refHandler} onClick={toggle}>
-        Trigger
-      </Button>
-
       <Menu
-        isOpen={isOpen}
         items={items}
-        menuType="dropdown"
         selectedItem={selectedItem}
-        target={ref}
-        onClick={onClickItem}
-        onClose={hide}
+        slots={{
+          trigger: <Button>Trigger</Button>,
+        }}
+        onSelect={onClickItem}
       />
 
       <ViewValue value={{ selectedItem }} />

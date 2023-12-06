@@ -2,7 +2,6 @@ import type { PropsWithChildren } from "react";
 import { initStore } from "@tntfx/hooks";
 import { Toast } from "./toast";
 import type { ToastPayload } from "../types";
-import "./toast-context.scss";
 
 type ToastState = {
   toasts: ToastPayload[];

@@ -1,13 +1,14 @@
 import { cookies } from "next/headers";
 import type { Any, Nullable } from "@tntfx/core";
-import { type IronSessionOptions, sealData, unsealData } from "iron-session";
+import type { SessionOptions } from "iron-session";
+import { sealData, unsealData } from "iron-session";
 
 export interface SessionType {
   user?: Record<string, unknown>;
   [key: string]: Any;
 }
 
-const sessionOptions: IronSessionOptions = {
+const sessionOptions: SessionOptions = {
   password: process.env.SESSION_PASSWORD!,
   cookieName: "sparrow",
   cookieOptions: {

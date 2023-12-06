@@ -1,6 +1,10 @@
 import type { PropsWithChildren } from "react";
 import { createContext, useContext } from "react";
-import { Runtime } from "@tntfx/hooks";
+import { createDOMRenderer, RendererProvider, SSRProvider } from "@fluentui/react-components";
+import type { ApiConfig } from "@tntfx/hooks";
+import { ApiProvider, Runtime } from "@tntfx/hooks";
+import type { ColorScheme, Theme } from "@tntfx/theme";
+import { ThemeProvider } from "@tntfx/theme";
 import { PopupProvider } from "./popup";
 import { DialogProvider } from "./popup/dialog/dialog-context";
 
@@ -15,7 +19,7 @@ declare enum PrefetchKind {
 interface PrefetchOptions {
   kind: PrefetchKind;
 }
-interface Router {
+export interface Router {
   back(): void;
   forward(): void;
   refresh(): void;
@@ -24,22 +28,42 @@ interface Router {
   prefetch(href: string, options?: PrefetchOptions): void;
 }
 
-export type FrameworkProps = {
-  router: Router;
+export type FrameworkTheme<S extends ColorScheme = ColorScheme> = { colorScheme: S } & (S extends "dark"
+  ? { darkTheme: Theme }
+  : S extends "light"
+    ? { lightTheme: Theme }
+    : { lightTheme: Theme; darkTheme: Theme });
+
+type FrameWorkContext = { router: Router };
+
+const fwContext = createContext<FrameWorkContext>({} as FrameworkProps);
+
+export type FrameworkProps<S extends ColorScheme = ColorScheme> = FrameWorkContext & {
+  api?: ApiConfig;
+  theme?: FrameworkTheme<S>;
 };
 
-const fwContext = createContext<FrameworkProps>({} as FrameworkProps);
+const renderer = createDOMRenderer();
 
 export function FrameworkProvider(props: PropsWithChildren<FrameworkProps>) {
-  const { children, ...context } = props;
+  const { children, theme, api, ...context } = props;
+
   return (
-    <fwContext.Provider value={context}>
-      <Runtime>
-        <PopupProvider>
-          <DialogProvider>{children}</DialogProvider>
-        </PopupProvider>
-      </Runtime>
-    </fwContext.Provider>
+    <RendererProvider renderer={renderer}>
+      <SSRProvider>
+        <fwContext.Provider value={context}>
+          <ThemeProvider {...theme}>
+            <ApiProvider apiConfig={api || {}}>
+              <Runtime>
+                <PopupProvider>
+                  <DialogProvider>{children}</DialogProvider>
+                </PopupProvider>
+              </Runtime>
+            </ApiProvider>
+          </ThemeProvider>
+        </fwContext.Provider>
+      </SSRProvider>
+    </RendererProvider>
   );
 }
 

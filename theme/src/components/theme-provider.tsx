@@ -1,38 +1,41 @@
-import { useEffect } from "react";
-import type { PropsAndChildren } from "@tntfx/core";
-import { isServer } from "@tntfx/core";
+import { type PropsWithChildren, useEffect, useState } from "react";
+import type { Theme } from "@fluentui/react-components";
+import { FluentProvider } from "@fluentui/react-components";
+import { useGlobalStyle } from "./style-global";
+import { useResetStyle } from "./style-reset";
 import { useIsDarkMode } from "../hooks";
-import "../styles/base/index.scss";
 
-export enum ColorScheme {
-  Dark = "dark",
-  Light = "light",
-  System = "system",
-}
+export const colorSchemes = ["light", "dark", "system"] as const;
+export type ColorScheme = (typeof colorSchemes)[number];
 
-interface ThemeProviderProps extends PropsAndChildren {
-  mode?: ColorScheme;
-}
+type ApplicableScheme = Exclude<ColorScheme, "system">;
+
+type ThemeProviderProps = PropsWithChildren & {
+  scheme?: ColorScheme;
+  lightTheme?: Theme;
+  darkTheme?: Theme;
+};
 
 export function ThemeProvider(props: ThemeProviderProps) {
-  return isServer() ? <ServerSideThemeProvider {...props} /> : <ClientSideThemeProvider {...props} />;
-}
+  const { scheme = "system", children, darkTheme, lightTheme } = props;
 
-export function ClientSideThemeProvider(props: ThemeProviderProps) {
-  const { mode = "system", children } = props;
-  const isDarkMode = useIsDarkMode();
+  const isDark = useIsDarkMode();
+  const [mode, setMode] = useState<ApplicableScheme>(() => getApplicableScheme(scheme, isDark));
+
+  useResetStyle();
+  useGlobalStyle();
 
   useEffect(() => {
-    let colorScheme = mode;
-    if (mode === ColorScheme.System) {
-      colorScheme = isDarkMode ? ColorScheme.Dark : ColorScheme.Light;
-    }
-    document.body.classList.add(`--${colorScheme}Mode`);
-  }, [isDarkMode, mode]);
+    setMode(getApplicableScheme(scheme, isDark));
+  }, [isDark, scheme]);
 
-  return <>{children}</>;
+  return (
+    <FluentProvider className="appRoot" theme={mode === "dark" ? darkTheme || lightTheme : lightTheme || darkTheme}>
+      {children}
+    </FluentProvider>
+  );
 }
 
-export function ServerSideThemeProvider(props: ThemeProviderProps) {
-  return <>{props.children}</>;
+function getApplicableScheme(scheme: ColorScheme, isDark: boolean): ApplicableScheme {
+  return scheme === "system" ? (isDark ? "dark" : "light") : scheme;
 }

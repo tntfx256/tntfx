@@ -2,7 +2,6 @@ import type { PropsWithChildren } from "react";
 import { initStore } from "@tntfx/hooks";
 import { Dialog } from "./dialog";
 import type { DialogPayload } from "../types";
-import "./dialog-context.scss";
 
 type DialogState = {
   dialogs: DialogPayload[];

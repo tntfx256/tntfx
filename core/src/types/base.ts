@@ -1,10 +1,11 @@
-import type { Model } from "../model";
+import type { Model } from "../schema/model";
 
 export type MaybePromise<T> = Promise<T> | T;
 export type MightThrow<T> = T | never;
 export type MightReject<T> = Promise<T | never>;
 export type Enumerable<T> = T | T[];
 export type Nullable<T> = T | null;
+export type Defined<T> = T extends null | undefined ? never : T;
 export type EnumString<T extends string | number> = T | `${T}`;
 
 export type Index = string | number | symbol;

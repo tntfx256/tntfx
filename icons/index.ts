@@ -1,3 +1,2 @@
-export * from "./src/icon";
-export * from "./src/icon-switcher";
-export * from "./src/icons-list";
+export { Icon } from "./src/icon";
+export { type IconName } from "./src/icons-list";

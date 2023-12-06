@@ -37,8 +37,8 @@ export function InlineContent() {
         flexDirection: "column",
       }}
     >
-      <Text fontSize="xl">CONTENT</Text>
-      <Divider size="lg" />
+      <Text>CONTENT</Text>
+      <Divider />
       <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit.</Text>
     </Box>
   );
@@ -47,8 +47,8 @@ export function InlineContent() {
 export function ViewValue(props: { value: Any }) {
   return (
     <>
-      <Divider size="lg" />
-      <Box padding="md">
+      <Divider />
+      <Box>
         <pre>
           <code>{JSON.stringify(props.value, null, 2)}</code>
         </pre>
@@ -59,9 +59,14 @@ export function ViewValue(props: { value: Any }) {
 
 export function genOptions(idPrefix = "", nested = false): Option[] {
   return [
-    { id: `${idPrefix}home`, title: "Home", icon: "home" },
-    { id: `${idPrefix}about`, title: "About", icon: "user", children: nested ? genOptions(`${idPrefix}about-`) : undefined },
-    { id: `${idPrefix}contact`, title: "Contact", icon: "email" },
-    { id: `${idPrefix}news`, title: "News", icon: "rss", children: nested ? genOptions(`${idPrefix}news-`) : undefined },
+    { id: `${idPrefix}home`, title: "Home", icon: "Home" },
+    {
+      id: `${idPrefix}about`,
+      title: "About",
+      icon: "Airplane",
+      children: nested ? genOptions(`${idPrefix}about-`) : undefined,
+    },
+    { id: `${idPrefix}contact`, title: "Contact", icon: "Mail" },
+    { id: `${idPrefix}news`, title: "News", icon: "News", children: nested ? genOptions(`${idPrefix}news-`) : undefined },
   ];
 }

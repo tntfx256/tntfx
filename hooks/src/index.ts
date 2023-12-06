@@ -15,3 +15,4 @@ export * from "./use-scroll";
 export * from "./use-status";
 export * from "./use-storage";
 export * from "./use-timer";
+export { useIsSSR } from "@fluentui/react-components";

@@ -15,13 +15,12 @@ type Story = StoryObj<typeof Toggle>;
 export const Default: Story = {
   args: {
     name: "toggle",
-    value: true,
     label: "toggle label",
   },
   render: function Render(props) {
     const [, setArgs] = useArgs();
     return (
-      <Wrapper padding="xl" style={{ maxWidth: "360px" }}>
+      <Wrapper style={{ maxWidth: "360px" }}>
         <Toggle {...props} onChange={(value) => setArgs({ value })} />
       </Wrapper>
     );

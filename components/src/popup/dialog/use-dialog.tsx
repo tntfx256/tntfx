@@ -32,11 +32,7 @@ export function useDialog() {
       isOpen: true,
       draggable: true,
       role: "alertdialog",
-      children: (
-        <Box flex={1} justifyContent="center" padding="md">
-          {payload?.children || <ErrorContent error={error} />}
-        </Box>
-      ),
+      children: <Box>{payload?.children || <ErrorContent error={error} />}</Box>,
       title: payload?.title || (error ? "An error ocurred" : ""),
       type: payload?.type || (error ? MessageType.Error : MessageType.Info),
     };

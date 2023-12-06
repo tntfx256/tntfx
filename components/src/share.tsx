@@ -29,8 +29,8 @@ export function Share(props: ShareProps) {
   }
 
   if ("canShare" in navigator && navigator.canShare()) {
-    return <Icon className={classNames("share")} name="share" onClick={handleShare} />;
+    return <Icon className={classNames("share")} name="Share" onClick={handleShare} />;
   }
 
-  return <Icon className={classNames("share", { done: isCopied })} name="copy" onClick={handleCopyToClipboard} />;
+  return <Icon name={isCopied ? "Check" : "Copy"} onClick={handleCopyToClipboard} />;
 }

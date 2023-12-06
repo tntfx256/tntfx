@@ -6,13 +6,13 @@
     "dev": "yarn workspace @tntfx/storybook run dev",
     "build": "yarn workspace @tntfx/storybook run build",
     "prepare": "husky install",
-    "lint": "yarn lint:types && yarn lint:code && yarn lint:prettier && yarn lint:style",
+    "lint": "yarn lint:types && yarn lint:code && yarn lint:prettier",
     "lint:types": "tsc -p tsconfig.json --noEmit",
     "lint:code": "eslint . --fix --ignore-path .gitignore",
     "lint:prettier": "prettier . --write",
-    "lint:style": "stylelint \"**/*.scss\" --fix",
     "test": "jest",
-    "gen": "ts-node cli/src/index.ts gen"
+    "gen": "yarn workspace @tntfx/cli run gen",
+    "gen:icon": "yarn workspace @tntfx/icon run gen"
   },
   "workspaces": [
     "*"

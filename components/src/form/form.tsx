@@ -1,14 +1,12 @@
 import type { FormEvent } from "react";
 import { useCallback } from "react";
 import { type Option, type PropsAndChildren } from "@tntfx/core";
-import type { EnhancedProps } from "@tntfx/theme";
 import { classNames, useParseProps } from "@tntfx/theme";
 import { Box } from "../layout";
 import { ActionBar } from "../layout/bar/action-bar";
-import { Text } from "../typography/text";
-import "./form.scss";
+import { Text } from "../text";
 
-export interface FormProps extends EnhancedProps, PropsAndChildren {
+export interface FormProps extends PropsAndChildren {
   legend?: string;
   actions?: Option[];
   // Model?: ModelConstructor<T>;

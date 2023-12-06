@@ -7,7 +7,6 @@ import { useStateReducer } from "@tntfx/hooks";
 import { classNames } from "@tntfx/theme";
 import { Conditional } from "./conditional";
 import { Loader } from "./loader";
-import "./image.scss";
 
 type ImageState = {
   isLoading: boolean;

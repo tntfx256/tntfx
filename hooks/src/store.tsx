@@ -1,7 +1,7 @@
 import type { PropsWithChildren } from "react";
-import { createContext, useContext, useEffect, useRef } from "react";
-import { isEqual } from "@tntfx/core";
+import { createContext, useContext, useEffect } from "react";
 import { createPatcherAction, createResetterAction, createSetterAction, useStateReducer } from "./use-reducer";
+import { useCompare } from "./use-ref";
 
 export type Store<S> = ReturnType<typeof useStateReducer<S>>;
 
@@ -39,14 +39,14 @@ export function initStore<S>(config: StoreConfig) {
 
   function StoreProvider(props: StoreProviderProps<S>) {
     const { children, ...state } = props;
-    const stateRef = useRef(state);
+    const hasChanged = useCompare(state);
     const store = useStateReducer<S>(state as S, persistReducerConfig);
 
     useEffect(() => {
-      if (!isEqual(stateRef.current, state)) {
+      if (hasChanged(state)) {
         store[1](state as S);
       }
-    }, [state]);
+    }, [hasChanged, state, store]);
 
     return <StoreContext.Provider value={store}>{children}</StoreContext.Provider>;
   }

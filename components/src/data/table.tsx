@@ -1,59 +1,73 @@
-import { useId, useRef } from "react";
-import type { Nullable, StringKeys } from "@tntfx/core";
+import {
+  DataGrid,
+  DataGridBody,
+  DataGridCell,
+  DataGridHeader,
+  DataGridHeaderCell,
+  DataGridRow,
+} from "@fluentui/react-components";
+import { pick, type StringKeys } from "@tntfx/core";
 import { classNames } from "@tntfx/theme";
-import { TableHeader } from "./table-header";
+import { useStyle } from "./table.style";
 import { TablePagination } from "./table-pagination";
 import { TableProvider } from "./table-provider";
-import { TableRow } from "./table-row";
 import type { TableProps } from "./types";
+import { adaptors } from "./utils";
 import { Box } from "../layout/box";
 import { Loader } from "../loader";
-import { Text } from "../typography";
-import "./table.scss";
+import { Text } from "../text";
 
 export function Table<T>(props: TableProps<T>) {
-  const { className, title, caption, data = [], idKey = "id", renderRow, render, ...values } = props;
+  const { className, title, caption, data = [], idKey = "id", columns, ...context } = props;
 
-  // const [ref, refHandler] = useRefState<HTMLDivElement>();
-  // const scrollbar = useScrollbarDimension(ref);
-
-  const tableRef = useRef<Nullable<HTMLTableElement>>(null);
-  const tableId = `table-${useId()}`;
+  const classes = useStyle();
+  const dtColumns = adaptors.columns(columns);
+  const columnWidths = adaptors.columnsWidths(columns);
 
   return (
-    <TableProvider {...values} data={data} idKey={idKey as StringKeys<T>}>
-      <Box className={classNames("table", className)} role="table">
-        {title && (
-          <Text accent="primary" as="h1" className="table__title" fontSize="lg">
-            {title}
-          </Text>
-        )}
+    <TableProvider {...context} columns={columns} data={data} idKey={idKey as StringKeys<T>}>
+      <Box className={classNames(classes.root, className)}>
+        {title && <Text className={classes.title}>{title}</Text>}
 
-        <Box className="table__container">
-          <table className="table__element" id={tableId} ref={tableRef}>
-            <TableHeader />
-            <tbody className="table__element__body">
-              {render
-                ? render(data)
-                : data.map((record) =>
-                    renderRow ? (
-                      renderRow(record)
-                    ) : (
-                      <TableRow key={record[idKey as StringKeys<T>] as string} record={record} />
-                    )
+        <Box className={classes.container}>
+          <DataGrid
+            resizableColumns
+            className={classes.table}
+            columnSizingOptions={columnWidths}
+            columns={dtColumns}
+            getRowId={pick(idKey)}
+            items={data}
+          >
+            <DataGridHeader>
+              <DataGridRow>
+                {({ renderHeaderCell }) => (
+                  <DataGridHeaderCell className={classNames(classes.cell, classes.headerCell)}>
+                    {renderHeaderCell()}
+                  </DataGridHeaderCell>
+                )}
+              </DataGridRow>
+            </DataGridHeader>
+
+            <DataGridBody<T>>
+              {({ item, rowId }) => (
+                <DataGridRow<T> key={rowId}>
+                  {({ renderCell }) => (
+                    <DataGridCell className={classNames(classes.cell, classes.dataCell)}>{renderCell(item)}</DataGridCell>
                   )}
-            </tbody>
-          </table>
+                </DataGridRow>
+              )}
+            </DataGridBody>
+          </DataGrid>
         </Box>
 
         <TablePagination />
 
         {caption && (
-          <caption className="table__caption">
-            <Text fontSize="xs">{caption}</Text>
+          <caption className={classes.caption}>
+            <Text>{caption}</Text>
           </caption>
         )}
-        <Loader background="blur" visible={props.isLoading} />
+        <Loader visible={props.isLoading} />
       </Box>
     </TableProvider>
   );

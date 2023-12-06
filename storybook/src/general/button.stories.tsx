@@ -14,11 +14,9 @@ type Story = StoryObj<typeof Button>;
 export const Default: Story = {
   args: {
     title: "Button content",
-    variant: "outlined",
-    accent: "primary",
   },
   render: (props) => (
-    <Wrapper horizontal padding="xl">
+    <Wrapper horizontal>
       <Button {...props} />
     </Wrapper>
   ),

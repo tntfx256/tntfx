@@ -1,19 +1,18 @@
-import { memoize, type PropsAndChildren } from "@tntfx/core";
-import type { EnhancedProps } from "@tntfx/theme";
-import { classNames, useParseProps } from "@tntfx/theme";
-import type { BoxProps } from "../box";
-import { Box } from "../box";
-import "./toolbar-section.scss";
+import type { ToolbarGroupProps } from "@fluentui/react-components";
+import { ToolbarGroup } from "@fluentui/react-components";
+import { memoize } from "@tntfx/core";
+import { classNames } from "@tntfx/theme";
+import { useStyle } from "./toolbar-section.style";
 
-export interface ToolbarSectionProps extends PropsAndChildren, BoxProps, EnhancedProps {}
+export type ToolbarSectionProps = ToolbarGroupProps;
 
 export const ToolbarSection = memoize(function ToolbarSection(props: ToolbarSectionProps) {
-  const { children, ...styleProps } = props;
-  const { className, style } = useParseProps(styleProps);
+  const { children, className, ...libProps } = props;
+  const classes = useStyle();
 
   return (
-    <Box horizontal className={classNames("toolbarSection --noUserSelect", className)} style={style}>
+    <ToolbarGroup className={classNames(classes.root, className)} {...libProps}>
       {children}
-    </Box>
+    </ToolbarGroup>
   );
 });

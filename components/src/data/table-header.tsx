@@ -1,14 +1,10 @@
-import { memoize, type Props } from "@tntfx/core";
+import { memoize } from "@tntfx/core";
 import { classNames } from "@tntfx/theme";
-import { TableCell } from "./table-cell";
 import { useTable } from "./table-provider";
 import type { Column } from "./types";
 import { getHeaderTitle } from "./utils";
-import "./table-header.scss";
 
-export const TableHeader = memoize(function TableHeader<T>(props: Props) {
-  const { className } = props;
-
+export const TableHeader = memoize(function TableHeader<T>() {
   const { columns } = useTable<T>();
 
   const mergedParents = getParentMap(columns);
@@ -16,12 +12,10 @@ export const TableHeader = memoize(function TableHeader<T>(props: Props) {
   let parentCounter = mergedParents ? mergedParents[parentIndex].count : -1;
 
   return (
-    <thead className={classNames("tableHeader", className)}>
+    <thead>
       <HeaderTableParent mergedParents={mergedParents} />
-      <tr className={classNames("tableRow", { "tableHeader--nested": mergedParents })}>
+      <tr className={classNames("tableRow")}>
         {columns.map((column, i) => {
-          const { name } = column;
-
           const isDivider = i === parentCounter;
 
           if (isDivider) {
@@ -33,16 +27,7 @@ export const TableHeader = memoize(function TableHeader<T>(props: Props) {
             }
           }
 
-          return (
-            <TableCell
-              key={name}
-              header
-              className={classNames({ "tableHeader--divider": isDivider })}
-              colSpan={column.colSpan}
-            >
-              {getHeaderTitle<T>(column)}
-            </TableCell>
-          );
+          return getHeaderTitle<T>(column);
         })}
       </tr>
     </thead>
@@ -55,12 +40,8 @@ const HeaderTableParent = memoize(function HeaderTableParent({ mergedParents }: 
 
   return (
     <tr className="tableRow tableHeader--parentRow">
-      {mergedParents.map(({ title, count }, i) => {
-        return (
-          <TableCell key={i} header className={classNames({ "tableHeader--divider": title })} colSpan={count}>
-            {title}
-          </TableCell>
-        );
+      {mergedParents.map(({ title }) => {
+        return title;
       })}
     </tr>
   );

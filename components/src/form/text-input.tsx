@@ -1,106 +1,72 @@
-import type { FocusEvent, KeyboardEvent, PropsWithChildren } from "react";
-import { useCallback } from "react";
+import type { ChangeEvent, ForwardedRef } from "react";
+import { forwardRef, useCallback } from "react";
+import type { FieldProps, InputOnChangeData, InputProps } from "@fluentui/react-components";
+import { Field, Input } from "@fluentui/react-components";
 import { memoize } from "@tntfx/core";
-import { useToggle } from "@tntfx/hooks";
-import { Icon } from "@tntfx/icons";
-import { classNames } from "@tntfx/theme";
-import type { BaseInputProps } from "./base-input";
-import { BaseInput } from "./base-input";
-import type { FormElementProps } from "./form-element";
-import { FormElement } from "./form-element";
-import "./text-input.scss";
 
-export type TextInputProps = FormElementProps &
-  BaseInputProps & {
-    onEnter?: () => void;
-    onClear?: () => void;
-  };
+export type TextInputProps = Partial<
+  Omit<FieldProps, "onChange"> & Omit<InputProps, "onChange"> & { onChange: (value: string, name?: string) => void }
+>;
 
-export const TextInput = memoize(function TextInput(props: PropsWithChildren<TextInputProps>) {
+const TextInputWithRef = (props: TextInputProps, ref: ForwardedRef<HTMLInputElement>) => {
   const {
-    className,
+    // className,
     onChange,
-    onEnter,
-    onKeyUp,
-    error,
+    // onEnter,
+    // onKeyUp,
+    // error,
     name,
     label,
     readOnly,
     disabled,
-    onFocus,
-    onBlur,
+    // onFocus,
+    // onBlur,
     value,
-    children,
-    isLoading,
-    onClear,
-    help,
-    placeholder,
+    // children,
+    // isLoading,
+    // onClear,
+    // help,
+    // placeholder,
     role = "textbox",
-    slots = {},
+    // slots = {},
     ...libProps
   } = props;
 
-  const [hasFocus, getFocused, lostFocused] = useToggle();
-
-  const handleKeyUp = useCallback(
-    (e: KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === "Enter") {
-        onEnter?.();
-      }
-      onKeyUp?.(e);
+  const handleChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => {
+      onChange?.(data.value, name);
     },
-    [onEnter, onKeyUp]
+    [name, onChange]
   );
-
-  const handleFocus = useCallback(
-    (e: FocusEvent<HTMLInputElement, HTMLInputElement>) => {
-      getFocused();
-      onFocus?.(e);
-    },
-    [getFocused, onFocus]
-  );
-
-  const handleBlur = useCallback(
-    (e: FocusEvent<HTMLInputElement, HTMLInputElement>) => {
-      lostFocused();
-      onBlur?.(e);
-    },
-    [lostFocused, onBlur]
-  );
-
-  const showClearIcon = !readOnly && !disabled && value && !isLoading && onClear;
 
   return (
-    <FormElement
-      className={classNames("textInput", className, { "--focused": hasFocus, "--pristine": !value })}
+    <Field
       data-testid={`textInput-${name}`}
-      disabled={disabled}
-      error={error}
-      help={help}
-      isLoading={isLoading}
+      // error={error}
+      // help={help}
+      // isLoading={isLoading}
       label={label}
-      name={name}
-      readOnly={readOnly}
+      // name={name}
+      // readOnly={readOnly}
       role={role}
     >
-      <BaseInput
-        className="textInput__control"
+      <Input
         disabled={disabled}
         id={name}
         name={name}
-        placeholder={label && !hasFocus ? "" : placeholder}
+        // placeholder={label && !hasFocus ? "" : placeholder}
         readOnly={readOnly}
-        value={value || ""}
-        onBlur={handleBlur}
-        onChange={onChange}
-        onFocus={handleFocus}
-        onKeyUp={handleKeyUp}
+        ref={ref}
+        value={value?.toString() || ""}
+        // onBlur={handleBlur}
+        onChange={handleChange}
+        // onFocus={handleFocus}
+        // onKeyUp={handleKeyUp}
         {...libProps}
-        slots={{
-          end: showClearIcon ? <Icon name="cross" onClick={onClear} /> : slots.end,
-        }}
       />
-      {children}
-    </FormElement>
+    </Field>
   );
-});
+};
+
+export const TextInput = memoize(forwardRef(TextInputWithRef));
+TextInput.displayName = "TextInput";
