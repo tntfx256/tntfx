@@ -1,21 +1,30 @@
-import type { AriaRole, ForwardedRef, MouseEvent } from "react";
+import type { AriaRole, CSSProperties, ForwardedRef, MouseEvent } from "react";
 import { forwardRef } from "react";
 import { memoize, type PropsAndChildren } from "@tntfx/core";
-import type { EnhancedProps } from "@tntfx/theme";
-import { classNames, useParseProps } from "@tntfx/theme";
-import "./box.scss";
+import { classNames } from "@tntfx/theme";
+import { useBoxClasses } from "./box.style";
 
-export interface BoxProps extends PropsAndChildren, EnhancedProps {
+export interface BoxProps extends PropsAndChildren {
+  horizontal?: boolean;
   role?: AriaRole;
+  justifyContent?: CSSProperties["justifyContent"];
+  alignItems?: CSSProperties["alignItems"];
   onClick?: (e: MouseEvent) => void;
 }
 
 function BoxWithRef(props: BoxProps, ref: ForwardedRef<HTMLDivElement>) {
-  const { children, onClick, ...styleProps } = props;
-  const { className, style } = useParseProps(styleProps);
+  const { children, className, horizontal, justifyContent, alignItems, style, ...libProps } = props;
+
+  const libStyle = { justifyContent, alignItems, ...style };
+  const classes = useBoxClasses();
 
   return (
-    <div className={classNames("box", className)} ref={ref} style={style} onClick={onClick}>
+    <div
+      className={classNames(classes.box, horizontal && classes.horizontal, className)}
+      style={libStyle}
+      {...libProps}
+      ref={ref}
+    >
       {children}
     </div>
   );

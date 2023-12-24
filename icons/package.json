@@ -3,15 +3,17 @@
   "private": true,
   "version": "0.0.0",
   "main": "./index.ts",
-  "scripts": {},
+  "scripts": {
+    "gen": "tsc --skipLibCheck --outDir build --target es6 --module commonjs ./scripts/gen.ts && node  ./build/gen.js"
+  },
   "dependencies": {
-    "@tntfx/core": "*",
-    "react-icons": "^4.12.0"
+    "@fluentui/react-components": "^9.43.0",
+    "@fluentui/react-icons": "^2.0.224"
   },
   "devDependencies": {
-    "sass": "^1.69.5",
     "@tntfx/tsconfig": "*",
-    "@types/node": "^20.9.3",
-    "typescript": "^5.3.2"
+    "@types/node": "^20.10.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
   }
 }

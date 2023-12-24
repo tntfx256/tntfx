@@ -1,7 +1,7 @@
 import type { Boundary, Nullable } from "@tntfx/core";
 import { toBoundingRect } from "@tntfx/core";
-import { useResize, useRuntime } from "@tntfx/hooks";
 import type { SetDimension } from "./types";
+import { useResize, useRuntime } from "../../hooks";
 
 export function useFrameResize(
   id: string,

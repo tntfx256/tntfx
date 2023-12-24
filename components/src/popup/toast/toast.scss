@@ -1,9 +1,0 @@
-@use "@tntfx/theme";
-
-.toast {
-  z-index: theme.$layer-toast;
-  border: 1px solid theme.$color-border;
-  background-color: rgba(theme.$color-element / 0.15);
-  color: theme.$color-element-text;
-  pointer-events: all;
-}

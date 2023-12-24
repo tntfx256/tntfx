@@ -1,7 +1,6 @@
 import ReactMarkdown from "react-markdown";
 import type { PropsAndChildren } from "@tntfx/core";
 import { classNames } from "@tntfx/theme";
-import "./markdown.scss";
 
 export function Markdown(props: PropsAndChildren) {
   const { className, children } = props;

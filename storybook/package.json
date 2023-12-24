@@ -9,21 +9,19 @@
   "dependencies": {
     "@tntfx/components": "*",
     "@tntfx/core": "*",
-    "@tntfx/hooks": "*",
     "@tntfx/theme": "*"
   },
   "devDependencies": {
-    "@storybook/addon-essentials": "^7.5.3",
-    "@storybook/addon-interactions": "^7.5.3",
-    "@storybook/addon-links": "^7.5.3",
+    "@storybook/addon-essentials": "^7.6.5",
+    "@storybook/addon-interactions": "^7.6.5",
+    "@storybook/addon-links": "^7.6.5",
     "@storybook/addon-styling-webpack": "^0.0.5",
-    "@storybook/blocks": "^7.5.3",
-    "@storybook/nextjs": "^7.5.3",
-    "@storybook/react": "^7.5.3",
+    "@storybook/blocks": "^7.6.5",
+    "@storybook/nextjs": "^7.6.5",
+    "@storybook/react": "^7.6.5",
     "@storybook/testing-library": "^0.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "sass": "^1.69.5",
-    "storybook": "^7.5.3"
+    "storybook": "^7.6.5"
   }
 }

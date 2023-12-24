@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from "react";
 import type { Dimension } from "@tntfx/core";
-import { initStore } from "@tntfx/hooks";
+import { initStore } from "../../hooks";
 
 type FrameContext = {
   dimension?: Dimension;

@@ -6,7 +6,10 @@
   "types": "src/index.ts",
   "scripts": {},
   "dependencies": {
-    "react-fast-compare": "^3.2.2"
+    "react-fast-compare": "^3.2.2",
+    "zod": "^3.22.4"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@tntfx/icons": "*"
+  }
 }

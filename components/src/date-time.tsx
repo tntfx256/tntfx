@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { shortMonths } from "@tntfx/core";
-import { useLazyInterval } from "@tntfx/hooks";
 import { classNames } from "@tntfx/theme";
+import { useInterval } from "./hooks";
 import { Box } from "./layout/box";
-import { Text } from "./typography/text";
-import "./date-time.scss";
+import { Text } from "./text";
 
 type DateTimeData = ReturnType<typeof getDate>;
 
@@ -14,10 +13,10 @@ export function DateTime(props: DateTimeProps) {
   const { className } = props;
 
   const [date, setDate] = useState<DateTimeData>(getDatePlaceholder);
-  const timer = useLazyInterval(60000, () => setDate(getDate()));
+  const timer = useInterval(60000, () => setDate(getDate()));
 
   useEffect(() => {
-    timer.restart();
+    timer.start();
     setDate(getDate());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

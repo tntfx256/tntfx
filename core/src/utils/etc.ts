@@ -1,5 +1,4 @@
 import type { Any, TObject } from "../types";
-import { EmptyValues } from "../validation";
 
 type Callback = (...args: Any[]) => void;
 
@@ -31,17 +30,17 @@ export function getFirstPair<T = Any>(object: TObject<T>) {
   return pair ? { key: pair[0], value: pair[1] } : { key: "", value: "" };
 }
 
-export function getNonEmptyValues<T extends TObject>(data: T): Partial<T> {
-  const values: Partial<T> = {};
+// export function getNonEmptyValues<T extends TObject>(data: T): Partial<T> {
+//   const values: Partial<T> = {};
 
-  for (const [field, value] of Object.entries(data)) {
-    if (!EmptyValues.includes(value as Any)) {
-      (values as Any)[field] = value;
-    }
-  }
+//   for (const [field, value] of Object.entries(data)) {
+//     if (!EmptyValues.includes(value as Any)) {
+//       (values as Any)[field] = value;
+//     }
+//   }
 
-  return values;
-}
+//   return values;
+// }
 
 export function isServer() {
   return typeof window === "undefined";

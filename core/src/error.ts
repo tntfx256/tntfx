@@ -1,7 +1,5 @@
-import type { Field } from "./field";
 import { logger } from "./logger";
 import type { Any, TError } from "./types";
-import type { ValidationRules, Violations } from "./validation";
 
 export const errorNames = {
   ACCESS: "ERR_ACCESS",
@@ -39,7 +37,7 @@ export const errorMessages = {
 };
 export type ErrorMessages = (typeof errorMessages)[keyof typeof errorMessages];
 
-export const validationErrorMessages: Record<ValidationRules, (...args: Any[]) => string> = {
+export const validationErrorMessages = {
   assert: () => errorMessages.ASSERTION_FAILURE,
 
   enum: () => errorMessages.VALUE_INVALID,
@@ -72,7 +70,7 @@ if (process.env.NODE_ENV === "development") {
 export class SerializableError extends Error {
   public $$name = "SerializableError";
   public originalName?: string;
-  public violations?: Violations;
+  // public violations?: Violations;
   public status?: number;
   public code?: string;
   public description?: string;
@@ -148,29 +146,29 @@ export function finalizeError(rawError: TError): SerializableError {
   return error;
 }
 
-export class ValidationError extends SerializableError {
-  constructor(violations: Violations) {
-    super(errorMessages.VALIDATION, errorNames.VALIDATION);
-    this.violations = violations;
-  }
-}
+// export class ValidationError extends SerializableError {
+//   constructor(violations: Violations) {
+//     super(errorMessages.VALIDATION, errorNames.VALIDATION);
+//     this.violations = violations;
+//   }
+// }
 
-export function getViolationMessage(field: Field, rule: ValidationRules) {
-  return validationErrorMessages[rule](field.name, rule === "unknown" ? "" : field.props[rule]);
-}
+// export function getViolationMessage(field: Field, rule: ValidationRules) {
+//   return validationErrorMessages[rule](field.name, rule === "unknown" ? "" : field.props[rule]);
+// }
 
 export function isSerializableError(error: TError): error is SerializableError {
   return !!(error && typeof error === "object" && (error as Any).$$name === "SerializableError");
 }
 
-export function getNestedErrors(errors: Violations, prefix: string): Violations {
-  return Object.keys(errors).reduce((acc, name) => {
-    if (name.startsWith(prefix)) {
-      return { ...acc, [name.replace(prefix, "")]: errors[name] };
-    }
-    return acc;
-  }, {});
-}
+// export function getNestedErrors(errors: Violations, prefix: string): Violations {
+//   return Object.keys(errors).reduce((acc, name) => {
+//     if (name.startsWith(prefix)) {
+//       return { ...acc, [name.replace(prefix, "")]: errors[name] };
+//     }
+//     return acc;
+//   }, {});
+// }
 
 export function Err(name: ErrorNames, message: ErrorMessages, description?: string) {
   return createError(name, message, description);

@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {},
   "dependencies": {
-    "postcss": "^8.4.31",
-    "stylelint": "^15.11.0",
-    "stylelint-config-idiomatic-order": "^9.0.0",
-    "stylelint-config-recommended-scss": "^13.1.0",
-    "stylelint-order": "^6.0.3"
+    "postcss": "^8.4.32",
+    "stylelint": "^16.0.2",
+    "stylelint-config-idiomatic-order": "^10.0.0",
+    "stylelint-config-recommended-scss": "^14.0.0",
+    "stylelint-order": "^6.0.4"
   },
   "devDependencies": {}
 }

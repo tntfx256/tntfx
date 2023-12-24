@@ -1,106 +1,47 @@
-import type { FocusEvent, KeyboardEvent, PropsWithChildren } from "react";
-import { useCallback } from "react";
-import { memoize } from "@tntfx/core";
-import { useToggle } from "@tntfx/hooks";
-import { Icon } from "@tntfx/icons";
-import { classNames } from "@tntfx/theme";
-import type { BaseInputProps } from "./base-input";
-import { BaseInput } from "./base-input";
-import type { FormElementProps } from "./form-element";
-import { FormElement } from "./form-element";
-import "./text-input.scss";
+import type { ForwardedRef } from "react";
+import { forwardRef } from "react";
+import { Controller, useFormContext } from "react-hook-form";
+import type { FieldProps, InputProps } from "@fluentui/react-components";
+import { Field, Input } from "@fluentui/react-components";
+import type { ElementProps } from "./types";
 
-export type TextInputProps = FormElementProps &
-  BaseInputProps & {
-    onEnter?: () => void;
-    onClear?: () => void;
-  };
+export type TextInputProps = ElementProps<FieldProps & InputProps>;
 
-export const TextInput = memoize(function TextInput(props: PropsWithChildren<TextInputProps>) {
-  const {
-    className,
-    onChange,
-    onEnter,
-    onKeyUp,
-    error,
-    name,
-    label,
-    readOnly,
-    disabled,
-    onFocus,
-    onBlur,
-    value,
-    children,
-    isLoading,
-    onClear,
-    help,
-    placeholder,
-    role = "textbox",
-    slots = {},
-    ...libProps
-  } = props;
-
-  const [hasFocus, getFocused, lostFocused] = useToggle();
-
-  const handleKeyUp = useCallback(
-    (e: KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === "Enter") {
-        onEnter?.();
-      }
-      onKeyUp?.(e);
-    },
-    [onEnter, onKeyUp]
-  );
-
-  const handleFocus = useCallback(
-    (e: FocusEvent<HTMLInputElement, HTMLInputElement>) => {
-      getFocused();
-      onFocus?.(e);
-    },
-    [getFocused, onFocus]
-  );
-
-  const handleBlur = useCallback(
-    (e: FocusEvent<HTMLInputElement, HTMLInputElement>) => {
-      lostFocused();
-      onBlur?.(e);
-    },
-    [lostFocused, onBlur]
-  );
-
-  const showClearIcon = !readOnly && !disabled && value && !isLoading && onClear;
+const TextInputWithRef = (props: TextInputProps, ref: ForwardedRef<HTMLInputElement>) => {
+  const { label, required, validationMessage, validationMessageIcon, validationState, hint, ...libProps } = props;
 
   return (
-    <FormElement
-      className={classNames("textInput", className, { "--focused": hasFocus, "--pristine": !value })}
-      data-testid={`textInput-${name}`}
-      disabled={disabled}
-      error={error}
-      help={help}
-      isLoading={isLoading}
+    <Field
+      hint={hint}
       label={label}
-      name={name}
-      readOnly={readOnly}
-      role={role}
+      required={required}
+      validationMessage={validationMessage}
+      validationMessageIcon={validationMessageIcon}
+      validationState={validationState}
     >
-      <BaseInput
-        className="textInput__control"
-        disabled={disabled}
-        id={name}
-        name={name}
-        placeholder={label && !hasFocus ? "" : placeholder}
-        readOnly={readOnly}
-        value={value || ""}
-        onBlur={handleBlur}
-        onChange={onChange}
-        onFocus={handleFocus}
-        onKeyUp={handleKeyUp}
-        {...libProps}
-        slots={{
-          end: showClearIcon ? <Icon name="cross" onClick={onClear} /> : slots.end,
-        }}
-      />
-      {children}
-    </FormElement>
+      <Input ref={ref} required={required} {...libProps} />
+    </Field>
   );
-});
+};
+
+export const TextInput = forwardRef(TextInputWithRef);
+TextInput.displayName = "TextInput";
+
+export function ControlledTextInput(props: TextInputProps) {
+  const { control } = useFormContext();
+
+  return (
+    <Controller
+      control={control}
+      name={props.name}
+      render={({ field, fieldState }) => (
+        <TextInput
+          validationMessage={fieldState.error?.message}
+          validationState={fieldState.invalid ? "error" : "none"}
+          {...field}
+          {...props}
+        />
+      )}
+    />
+  );
+}

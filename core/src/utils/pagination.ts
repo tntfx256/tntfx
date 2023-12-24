@@ -4,6 +4,8 @@ export type PaginalData = {
   total: number;
 };
 
+export type PaginationHandler = (page: number, limit?: number) => void;
+
 export type PaginalResponse<T> = {
   page: number;
   limit: number;

@@ -1,6 +1,6 @@
 import type { Option, Props, StringKeys, TObject } from "@tntfx/core";
-import type { useHistory } from "@tntfx/hooks";
 import type { IconName } from "@tntfx/icons";
+import type { useHistory } from "../hooks";
 
 export type ContentMap = TObject<{ icon?: IconName; title: string; content: string }>;
 

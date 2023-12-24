@@ -1,60 +1,59 @@
-import { useCallback } from "react";
-import { classNames } from "@tntfx/theme";
-import { Backdrop } from "../../backdrop";
+import type { Actionable } from "@tntfx/core";
+import { Frame } from "../../layout";
 import { ActionBar } from "../../layout/bar/action-bar";
-import { Frame } from "../../layout/frame";
-import { getCloseAction } from "../../utils";
-import type { DialogProps } from "../types";
-import "./dialog.scss";
+import type { FrameProps } from "../../layout/frame/types";
+
+export interface DialogProps extends FrameProps, Actionable {
+  open?: boolean;
+  global?: boolean;
+  onClose?: () => void;
+}
 
 export function Dialog(props: DialogProps) {
   const {
-    isOpen,
-    className,
+    // title,
+    children,
+    open,
+    // className,
     actions,
-    persistent,
+    // persistent,
     onAction,
-    onClose,
-    global,
-    background,
+    // onClose,
+    // global,
+    // background,
     // type,
-    draggable = false,
-    resizable = false,
-    ...frameProps
+    // draggable = false,
+    // resizable = false,
+    ...libProps
   } = props;
 
-  const closeAction = getCloseAction(actions);
+  // const closeAction = getCloseAction(actions);
 
-  const handleClose = useCallback(() => {
-    if (onAction && closeAction) {
-      onAction(closeAction);
-    } else {
-      onClose?.();
-    }
-  }, [closeAction, onAction, onClose]);
+  // const handleClose = useCallback(() => {
+  //   if (onAction && closeAction) {
+  //     onAction(closeAction);
+  //   } else {
+  //     onClose?.();
+  //   }
+  // }, [closeAction, onAction, onClose]);
 
-  return isOpen ? (
-    <Backdrop
-      animation="zoom"
-      background={background}
-      boundary={frameProps.boundary}
-      className={classNames("dialog-backdrop", { [`${className}-dialog-backdrop`]: className })}
-      global={global ?? !frameProps.boundary}
-      isOpen={isOpen}
-      persistent={persistent}
+  // const handleOpenChange = useCallback(
+  //   (_event: DialogOpenChangeEvent, data: DialogOpenChangeData) => {
+  //     if (!data.open) {
+  //       onClose?.();
+  //     }
+  //   },
+  //   [onClose]
+  // );
+
+  return open ? (
+    <Frame
+      slots={{
+        footer: <ActionBar actions={actions} onAction={onAction} />,
+      }}
+      {...libProps}
     >
-      <Frame
-        isDialog
-        className={classNames("dialog", className)}
-        draggable={draggable}
-        resizable={resizable}
-        role="dialog"
-        slots={{
-          footer: actions || onAction ? <ActionBar actions={actions} onAction={onAction} /> : undefined,
-        }}
-        onClose={handleClose}
-        {...frameProps}
-      />
-    </Backdrop>
+      {children}
+    </Frame>
   ) : null;
 }

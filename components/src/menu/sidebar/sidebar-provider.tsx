@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from "react";
 import { useCallback } from "react";
-import { initStore } from "@tntfx/hooks";
+import { initStore } from "../../hooks";
 
 type SidebarState = { visible: boolean };
 const { useStore, StoreProvider } = initStore<SidebarState>({ name: "sidebar" });

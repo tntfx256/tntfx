@@ -1,6 +1,0 @@
-@use "@tntfx/theme";
-
-.dialog-container {
-  @include theme.fill(absolute);
-  pointer-events: none;
-}

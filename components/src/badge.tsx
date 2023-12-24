@@ -1,33 +1,21 @@
-import type { Accent, EnumString, PropsAndChildren } from "@tntfx/core";
-import { classNames, useParseProps } from "@tntfx/theme";
-import { Box } from "./layout/box";
-import { Text } from "./typography";
-import "./badge.scss";
+import type { BadgeProps as LibBadgeProps } from "@fluentui/react-components";
+import { Badge as LibBadge } from "@fluentui/react-components";
+import { classNames } from "@tntfx/theme";
+import { useStyle } from "./badge.style";
 
-export interface BadgeProps extends PropsAndChildren {
+export type BadgeProps = LibBadgeProps & {
   count: number | string;
-  accent?: EnumString<Accent>;
-}
+};
 
 export function Badge(props: BadgeProps) {
-  const { children, count } = props;
-  const { className, style } = useParseProps(props);
+  const { children, className, count } = props;
+
+  const classes = useStyle();
 
   return (
-    <Box
-      style={style}
-      className={classNames("badge-wrapper", {
-        [`${className}-badge-wrapper`]: className,
-      })}
-    >
+    <ins className={classNames(classes.root, className)}>
       {children}
-      {Boolean(count) && (
-        <Box className={classNames("badge", className)}>
-          <Text fontSize="xs" fontWeight="md">
-            {count}
-          </Text>
-        </Box>
-      )}
-    </Box>
+      {Boolean(count) && <LibBadge className={classes.badge}>{count}</LibBadge>}
+    </ins>
   );
 }

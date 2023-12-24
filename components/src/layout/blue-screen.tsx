@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 import type { TError } from "@tntfx/core";
 import { finalizeError } from "@tntfx/core";
-import { useToggle } from "@tntfx/hooks";
+import { useToggle } from "../hooks";
 
 /**
  * BlueScreen should not use any component

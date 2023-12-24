@@ -1,8 +1,6 @@
-import React from "react";
 import { type Preview } from "@storybook/react";
-import { accents, variants } from "@tntfx/core";
 import { ThemeProvider } from "@tntfx/theme";
-import "./preview.scss";
+import React from "react";
 
 const preview: Preview = {
   decorators: [
@@ -12,25 +10,6 @@ const preview: Preview = {
       </ThemeProvider>
     ),
   ],
-  argTypes: {
-    variant: {
-      options: variants,
-      mapping: variants.reduce((acc, variant) => ({ ...acc, [variant]: variant }), {}),
-    },
-    color: {
-      options: accents,
-      mapping: accents.reduce((acc, accent) => ({ ...acc, [accent]: accent }), {}),
-    },
-  },
-  parameters: {
-    actions: { argTypesRegex: "^on[A-Z].*" },
-    controls: {
-      matchers: {
-        color: /(background|color)$/i,
-        date: /Date$/i,
-      },
-    },
-  },
 };
 
 export default preview;

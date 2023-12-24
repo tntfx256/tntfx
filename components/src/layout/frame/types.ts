@@ -1,4 +1,4 @@
-import type { Dispatch, ReactNode, SetStateAction } from "react";
+import type { Dispatch, PropsWithRef, ReactElement, ReactNode, SetStateAction } from "react";
 import type { Dimension } from "@tntfx/core";
 import type { IconName } from "@tntfx/icons";
 import type { BoxProps } from "../box";
@@ -23,6 +23,7 @@ export interface FrameProps extends Omit<BoxProps, "id"> {
 
   // slots
   slots?: {
+    trigger?: ReactElement<PropsWithRef<HTMLElement>>;
     header?: ReactNode;
     titlebar?: ReactNode;
     sidebar?: ReactNode;

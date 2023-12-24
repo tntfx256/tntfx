@@ -1,34 +1,33 @@
-import type { ForwardedRef, MouseEvent, ReactElement } from "react";
+import type { ForwardedRef, MouseEvent } from "react";
 import { forwardRef, useCallback } from "react";
-import { type Accent, type Any, type MaybePromise, memoize, type PropsAndChildren, type Variant } from "@tntfx/core";
-import { useToggle } from "@tntfx/hooks";
-import type { EnhancedProps } from "@tntfx/theme";
-import { classNames, useParseProps } from "@tntfx/theme";
+import type { ButtonProps as LibButtonProps } from "@fluentui/react-components";
+import { Button as LibButton } from "@fluentui/react-components";
+import type { Any } from "@tntfx/core";
+import { memoize } from "@tntfx/core";
+import { classNames } from "@tntfx/theme";
+import { useStyle } from "./button.style";
+import { useToggle } from "./hooks";
 import { Loader } from "./loader";
-import "./button.scss";
 
-export interface ButtonProps extends PropsAndChildren, EnhancedProps {
-  title?: string;
+export type ButtonProps = LibButtonProps & {
   isLoading?: boolean;
-  onClick?: (e: MouseEvent) => MaybePromise<Any>;
-  disabled?: boolean;
-  variant?: Variant | `${Variant}`;
-  accent?: Accent | `${Accent}`;
-  slots?: {
-    start?: ReactElement;
-    end?: ReactElement;
-  };
-}
+  enableLoading?: boolean;
+};
 
-function ButtonWithRef(props: ButtonProps, ref: ForwardedRef<HTMLButtonElement>) {
-  const { children, title, isLoading, onClick, slots = {} } = props;
-  const { className, style } = useParseProps(props);
+function ButtonWithRef(props: ButtonProps, ref: ForwardedRef<HTMLButtonElement | HTMLAnchorElement>) {
+  const { children, isLoading, enableLoading, className, onClick, ...libProps } = props;
 
+  const classes = useStyle();
   const [isInnerLoading, showInnerLoader, hideInnerLoader] = useToggle();
 
   const handleClick = useCallback(
-    async (e: MouseEvent<HTMLButtonElement>) => {
+    async (e: MouseEvent<Any>) => {
       if (isLoading || isInnerLoading) return;
+
+      if (!enableLoading) {
+        onClick?.(e);
+        return;
+      }
 
       try {
         showInnerLoader();
@@ -37,25 +36,17 @@ function ButtonWithRef(props: ButtonProps, ref: ForwardedRef<HTMLButtonElement>)
         hideInnerLoader();
       }
     },
-    [hideInnerLoader, isInnerLoading, isLoading, onClick, showInnerLoader]
+    [enableLoading, hideInnerLoader, isInnerLoading, isLoading, onClick, showInnerLoader]
   );
 
   const showLoader = isInnerLoading || isLoading;
 
   return (
-    <button
-      className={classNames("button --noUserSelect --hover", className, { "--loading": isLoading })}
-      ref={ref}
-      style={style}
-      onClick={handleClick}
-    >
-      {slots.start && <span className="button__slot button__slot--start">{slots.start}</span>}
-      {title}
+    <LibButton className={classNames(classes.root, className)} ref={ref} onClick={handleClick} {...libProps}>
       {children}
-      {slots.end && <span className="button__slot button__slot--end">{slots.end}</span>}
 
-      <Loader className="button__loader" visible={showLoader} />
-    </button>
+      <Loader visible={showLoader} />
+    </LibButton>
   );
 }
 

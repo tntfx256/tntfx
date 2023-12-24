@@ -1,114 +1,39 @@
-import type { ForwardedRef, FunctionComponent, MouseEvent, PropsWithChildren, ReactNode } from "react";
-import { cloneElement, forwardRef, useCallback, useImperativeHandle } from "react";
+import type { ForwardedRef, FunctionComponent, PropsWithChildren, PropsWithRef, ReactElement, ReactNode } from "react";
+import { forwardRef } from "react";
+import type { MenuProps as LibMenuProps } from "@fluentui/react-components";
+import { Menu as LibMenu, MenuPopover, MenuTrigger } from "@fluentui/react-components";
+import type { Option } from "@tntfx/core";
 import { memoize } from "@tntfx/core";
-import { useBlurObserver, useRefState, useToggle } from "@tntfx/hooks";
-import { classNames, useParseProps } from "@tntfx/theme";
-import { MenuItem } from "./menu-item";
-import type { MenuProps } from "./types";
-import { useMenuHandler } from "./utils";
-import { Portal } from "../portal";
-import "./menu.scss";
+import { List } from "./list";
 
-/**
- *
- * no type        : static  : isOpen will be ignored
- * not horizontal : vertical
- *
- *
- * static
- *    subtype
- *    no subtype  : horizontal ? dropdown : contextmenu
- *
- * dropdown
- *    subtype
- *    no subtype  : context
- *
- * context
- *    subtype
- *    no subtype  : context
- */
+export interface MenuProps<T extends string = string> extends Partial<LibMenuProps> {
+  horizontal?: boolean;
+  selectedItem?: T;
+  onSelect?: (id: T) => void;
+  items?: Option<T>[];
 
-function MenuWithRef<T extends string = string>(props: MenuProps<T>, ref: ForwardedRef<HTMLUListElement>) {
-  const {
-    slots = {},
-    isSubmenu = Boolean(slots.trigger),
-    items,
-    selectedItem,
-    renderItem,
-    role,
-    onClick,
-    menuType = slots.trigger ? "context" : "static",
-    submenuType,
-    target,
-    isOpen = slots.trigger ? false : true,
-    onClose,
-    // horizontal,
-    switchSlotsBasedOnMenuPosition,
-    ...styleProps
-  } = props;
-  const { className, style } = useParseProps(styleProps);
+  slots?: {
+    trigger?: ReactElement<PropsWithRef<HTMLElement>>;
+    header?: ReactElement;
+    footer?: ReactElement;
+  };
+}
 
-  const [isContextMenuOpen, , , toggleContextMenu] = useToggle();
-  const [trigger, triggerRefHandler] = useRefState<HTMLElement>();
-  const [menu, menuRefHandler] = useRefState<HTMLUListElement>();
-
-  const handleMenuClose = useCallback(() => {
-    toggleContextMenu();
-    onClose?.();
-  }, [onClose, toggleContextMenu]);
-
-  const handleContextMenuTriggerClick = useCallback(
-    (e: MouseEvent) => {
-      slots.trigger?.props?.onClick?.(e);
-      toggleContextMenu();
-    },
-    [slots.trigger?.props, toggleContextMenu]
-  );
-  useImperativeHandle(ref, () => menu!, [menu]);
-
-  useBlurObserver(menu, handleMenuClose, !(isOpen || isContextMenuOpen));
-  const position = useMenuHandler({ menuType, target: target || trigger, menu, isOpen: isOpen || isContextMenuOpen });
-  const isGlobal = Boolean(menuType !== "static" || isSubmenu || slots.trigger);
-
-  const isOnTop = position === "above";
-  let headerSlot = switchSlotsBasedOnMenuPosition ? (isOnTop ? slots.footer : slots.header) : slots.header;
-  let footerSlot = switchSlotsBasedOnMenuPosition ? (isOnTop ? slots.header : slots.footer) : slots.footer;
+function MenuWithRef<T extends string = string>(props: MenuProps<T>, ref: ForwardedRef<HTMLDivElement>) {
+  const { slots = {}, items, selectedItem, onSelect, ...libProps } = props;
 
   return (
-    <>
-      {slots.trigger
-        ? cloneElement(slots.trigger, { ref: triggerRefHandler, onClick: handleContextMenuTriggerClick })
-        : null}
+    <LibMenu {...libProps}>
+      <MenuTrigger disableButtonEnhancement>{slots.trigger}</MenuTrigger>
 
-      {isOpen || isContextMenuOpen ? (
-        <Portal disable={!isGlobal}>
-          <ul
-            className={classNames(`menu menu--${menuType}`, className, { ["menu--submenu"]: isSubmenu })}
-            ref={menuRefHandler}
-            role={role || "menubar"}
-            style={style}
-          >
-            {headerSlot && <li className="menu__headerItem">{headerSlot}</li>}
+      <MenuPopover ref={ref}>
+        {slots.header}
 
-            {items?.map((item) => (
-              <MenuItem<T>
-                key={item.id}
-                className="menu__item"
-                item={item}
-                menuType={menuType}
-                render={renderItem}
-                role={role === "combobox" ? "option" : "menuitem"}
-                selectedItem={selectedItem}
-                submenuType={submenuType}
-                onClick={onClick}
-              />
-            ))}
+        <List vertical items={items} selectedItem={selectedItem} onSelect={onSelect} />
 
-            {footerSlot && <li className="menu__footerItem">{footerSlot}</li>}
-          </ul>
-        </Portal>
-      ) : null}
-    </>
+        {slots.footer}
+      </MenuPopover>
+    </LibMenu>
   );
 }
 

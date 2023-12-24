@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 import { useMemo } from "react";
 import type { Actions, Any, Nullable, OnAction } from "@tntfx/core";
 import { Action, ActionSet, logger } from "@tntfx/core";
-import { Icon } from "@tntfx/icons";
 import { Button } from "../../button";
 
 export function getActions<T extends string = string>(handleClick?: OnAction<T>, actionSet?: Actions<T>): ReactNode[] {
@@ -12,13 +11,13 @@ export function getActions<T extends string = string>(handleClick?: OnAction<T>,
     return actionSet.map((action) => (
       <Button
         key={action.id}
-        accent={action.accent || "default"}
+        // appearance={action.accent || "default"}
         title={action.title}
-        variant={action.variant || "void"}
-        slots={{
-          end: action.icon && action.iconPosition === "end" ? <Icon name={action.icon} /> : undefined,
-          start: action.icon && action.iconPosition !== "end" ? <Icon name={action.icon} /> : undefined,
-        }}
+        // variant={action.variant || "void"}
+        // slots={{
+        //   end: action.icon && action.iconPosition === "end" ? <Icon name={action.icon} /> : undefined,
+        //   start: action.icon && action.iconPosition !== "end" ? <Icon name={action.icon} /> : undefined,
+        // }}
         onClick={() => handleAction(action.id as Any)}
       />
     ));
@@ -27,27 +26,25 @@ export function getActions<T extends string = string>(handleClick?: OnAction<T>,
   switch (actionSet) {
     case ActionSet.OkCancel:
       return [
-        <Button key="cancel" accent="secondary" title="Cancel" onClick={() => handleAction(Action.Cancel as Any)} />,
-        <Button key="ok" accent="primary" title="Ok" variant="contained" onClick={() => handleAction(Action.Ok as Any)} />,
+        <Button key="cancel" appearance="secondary" title="Cancel" onClick={() => handleAction(Action.Cancel as Any)} />,
+        <Button key="ok" appearance="primary" color="primary" title="Ok" onClick={() => handleAction(Action.Ok as Any)} />,
       ];
 
     case "RetryCancel":
       return [
-        <Button key="cancel" accent="secondary" title="Cancel" onClick={() => handleAction(Action.Cancel as Any)} />,
+        <Button key="cancel" appearance="secondary" title="Cancel" onClick={() => handleAction(Action.Cancel as Any)} />,
         <Button
           key="retry"
-          accent="primary"
+          appearance="primary"
           title="Retry"
-          variant="contained"
+          // variant="contained"
           onClick={() => handleAction(Action.Retry as Any)}
         />,
       ];
   }
 
   // OK
-  return [
-    <Button key="ok" accent="primary" title="Ok" variant="contained" onClick={() => handleAction(Action.Ok as Any)} />,
-  ];
+  return [<Button key="ok" appearance="primary" title="Ok" onClick={() => handleAction(Action.Ok as Any)} />];
 }
 
 function ImplicitActionHandler(action: string) {

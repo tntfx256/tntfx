@@ -3,11 +3,10 @@ import type { ImageProps as NextImageProps } from "next/image";
 import NextImage from "next/image";
 import type { Nullable, SerializableError } from "@tntfx/core";
 import { Err } from "@tntfx/core";
-import { useStateReducer } from "@tntfx/hooks";
 import { classNames } from "@tntfx/theme";
 import { Conditional } from "./conditional";
+import { useStateReducer } from "./hooks";
 import { Loader } from "./loader";
-import "./image.scss";
 
 type ImageState = {
   isLoading: boolean;

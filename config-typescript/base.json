@@ -29,6 +29,8 @@
     "noUnusedParameters": false,
     "preserveWatchOutput": true,
 
+    "preserveSymlinks": true,
+
     "jsx": "preserve"
   }
 }

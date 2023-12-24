@@ -1,10 +1,9 @@
-import type { Model } from "../model";
-
 export type MaybePromise<T> = Promise<T> | T;
 export type MightThrow<T> = T | never;
 export type MightReject<T> = Promise<T | never>;
 export type Enumerable<T> = T | T[];
 export type Nullable<T> = T | null;
+export type Defined<T> = T extends null | undefined ? never : T;
 export type EnumString<T extends string | number> = T | `${T}`;
 
 export type Index = string | number | symbol;
@@ -19,16 +18,6 @@ export type Any<T = any> = T | null | undefined | void;
 export type Timestamp = number;
 export type Enum<T = string> = T[];
 export type List<T = string> = T[];
-export type TObject<T = Any, I extends Index = string> = Record<I, T>;
-
-export type Types = {
-  Boolean: boolean;
-  Enum: Enum;
-  List: List;
-  Number: number;
-  Object: Model;
-  String: string;
-  Timestamp: Timestamp;
-};
+export type TObject<TValue = Any, TIndex extends Index = string> = Record<TIndex, TValue>;
 
 export type Assert<Source, Parent> = Source extends Parent ? Source : Parent;

@@ -1,8 +1,8 @@
 import type { PropsWithChildren } from "react";
-import { initStore } from "@tntfx/hooks";
 import { Toast } from "./toast";
+import { initStore } from "../../hooks";
+import { GLOBAL_PORTAL_ID } from "../../portal";
 import type { ToastPayload } from "../types";
-import "./toast-context.scss";
 
 type ToastState = {
   toasts: ToastPayload[];
@@ -25,7 +25,7 @@ function ToastContainer() {
   const [{ toasts }] = useStore();
 
   return (
-    <div className="toast-container">
+    <div className="toast-container" id={GLOBAL_PORTAL_ID}>
       {toasts.map((props) => (
         <Toast key={props.id} {...props} />
       ))}

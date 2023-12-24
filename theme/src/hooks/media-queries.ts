@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Breakpoints } from "../utils";
+import { Breakpoints, isClient } from "@tntfx/core";
 
 export const MQ = {
   DARK_SCHEME: "(prefers-color-scheme: dark)",
@@ -9,7 +9,7 @@ export const MQ = {
 };
 
 export function useMediaQuery(query: string) {
-  const [isMatch, setIsMatch] = useState(() => matchMedia(query).matches);
+  const [isMatch, setIsMatch] = useState(() => (isClient() ? matchMedia(query).matches : false));
 
   useEffect(() => {
     function handleMatchChange(e: MediaQueryListEvent) {

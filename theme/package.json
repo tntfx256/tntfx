@@ -2,17 +2,14 @@
   "name": "@tntfx/theme",
   "version": "0.0.0",
   "private": true,
-  "main": "index.ts",
-  "types": "index.ts",
-  "files": [
-    "./index.scss"
-  ],
+  "main": "src/index.ts",
+  "types": "src/index.ts",
   "scripts": {},
   "dependencies": {
-    "@tntfx/core": "*",
-    "@tntfx/hooks": "*",
-    "react": "^18.2.0",
-    "sass": "^1.69.5"
+    "@fluentui/react-components": "^9.43.0",
+    "@tntfx/core": "*"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "react": "^18.2.0"
+  }
 }

@@ -44,9 +44,7 @@ export const Searchable: Story = {
   args: {
     options,
     name: "search",
-    multi: true,
-    searchable: true,
-    value: [],
+    multiselect: true,
   },
   render: function Render(props) {
     const [{ value }, setArgs] = useArgs();
