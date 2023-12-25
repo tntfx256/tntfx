@@ -15,5 +15,5 @@ export * from "./layout";
 export * from "./loader";
 export * from "./menu";
 export * from "./popup";
-export { Text, Title } from "./text";
+export * from "./text";
 export * from "./web-view";

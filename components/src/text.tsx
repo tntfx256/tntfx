@@ -6,6 +6,8 @@ import {
   Caption2,
   Display,
   LargeTitle,
+  Link as LibLink,
+  type LinkProps as LibLinkProps,
   Subtitle1,
   Subtitle2,
   type TextProps as LibTextProps,
@@ -65,4 +67,9 @@ export function Text(props: TextProps) {
     default:
       return <Body1 as="p" {...libProps} />;
   }
+}
+
+type LinkProps = LibLinkProps & {};
+export function Link(props: LinkProps) {
+  return <LibLink {...props} />;
 }

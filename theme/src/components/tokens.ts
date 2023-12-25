@@ -124,8 +124,9 @@ export const tokens = {
     sm: toRem(28),
     md: toRem(32),
     lg: toRem(38),
-    xl: toRem(42),
+    xl: toRem(42), // toolbar
     xxl: toRem(54),
+    xxxl: toRem(70),
   },
 
   borderRadius: {

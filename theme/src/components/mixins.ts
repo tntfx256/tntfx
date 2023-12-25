@@ -1,5 +1,4 @@
 import { type GriffelStyle, shorthands } from "@fluentui/react-components";
-import { tokens } from "./tokens";
 import { splitBorderStyle } from "./utils";
 
 export const mixins = {
