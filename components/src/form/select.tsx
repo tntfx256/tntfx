@@ -88,7 +88,7 @@ function SelectWithRef<T extends string = string, M extends boolean = false>(
         {...rest}
       >
         {options.map(({ id, title, disabled, icon }) => (
-          <Option key={id} disabled={disabled} id={id} text={title}>
+          <Option key={id} disabled={disabled} text={title}>
             {icon && <Icon name={icon} />}
             {title}
           </Option>
