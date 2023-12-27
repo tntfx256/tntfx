@@ -5,7 +5,7 @@ import type { FieldProps } from "@fluentui/react-components";
 import { Field } from "@fluentui/react-components";
 import type { DatePickerProps } from "@fluentui/react-datepicker-compat";
 import { DatePicker } from "@fluentui/react-datepicker-compat";
-import type { Any } from "@tntfx/core";
+import type { Any, Nullable } from "@tntfx/core";
 import type { ElementProps } from "./types";
 
 export type DateInputProps = ElementProps<FieldProps & DatePickerProps, Date>;
@@ -23,7 +23,7 @@ function DateInputWithRef(props: DateInputProps, ref: ForwardedRef<HTMLInputElem
     [onChange]
   );
 
-  let date = null;
+  let date: Nullable<Date> = null;
   if (value) {
     date = value instanceof Date ? value : new Date(value);
   }
