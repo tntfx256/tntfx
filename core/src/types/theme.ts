@@ -23,14 +23,11 @@ export enum MessageType {
 export const messageTypes = Object.values(MessageType) as MessageType[];
 
 export enum Accent {
-  Default = "default",
   Primary = "primary",
   Secondary = "secondary",
-  Destructive = "destructive",
-  Success = "success",
-  Warning = "warning",
-  Info = "info",
-  Error = "error",
+  Outline = "outline",
+  Subtle = "subtle",
+  Transparent = "transparent",
 }
 export const accents = Object.values(Accent) as Accent[];
 

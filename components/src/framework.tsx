@@ -3,10 +3,7 @@ import { createContext, useContext } from "react";
 import { createDOMRenderer, RendererProvider, SSRProvider } from "@fluentui/react-components";
 import type { ColorScheme, Theme } from "@tntfx/theme";
 import { ThemeProvider } from "@tntfx/theme";
-import { Runtime } from "./hooks";
-import { type ApiConfig, ApiProvider } from "./hooks";
-import { PopupProvider } from "./popup";
-import { DialogProvider } from "./popup/dialog/dialog-context";
+import { type ApiConfig, ApiProvider, Runtime } from "./hooks";
 
 interface NavigateOptions {
   scroll?: boolean;
@@ -53,7 +50,9 @@ export function FrameworkProvider(props: PropsWithChildren<FrameworkProps>) {
       <SSRProvider>
         <ApiProvider apiConfig={api}>
           <fwContext.Provider value={context}>
-            <ThemeProvider {...theme}>{children}</ThemeProvider>
+            <ThemeProvider {...theme}>
+              <Runtime>{children}</Runtime>
+            </ThemeProvider>
           </fwContext.Provider>
         </ApiProvider>
       </SSRProvider>

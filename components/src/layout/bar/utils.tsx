@@ -11,15 +11,13 @@ export function getActions<T extends string = string>(handleClick?: OnAction<T>,
     return actionSet.map((action) => (
       <Button
         key={action.id}
-        // appearance={action.accent || "default"}
-        title={action.title}
-        // variant={action.variant || "void"}
-        // slots={{
-        //   end: action.icon && action.iconPosition === "end" ? <Icon name={action.icon} /> : undefined,
-        //   start: action.icon && action.iconPosition !== "end" ? <Icon name={action.icon} /> : undefined,
-        // }}
+        appearance={action.accent || "transparent"}
+        icon={action.icon}
+        iconPosition={action.iconPosition}
         onClick={() => handleAction(action.id as Any)}
-      />
+      >
+        {action.title}
+      </Button>
     ));
   }
 

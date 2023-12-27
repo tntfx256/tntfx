@@ -2,13 +2,13 @@ import type { PropsWithChildren } from "react";
 import type { Dimension } from "@tntfx/core";
 import { initStore } from "../../hooks";
 
-type FrameContext = {
+type DialogContext = {
   dimension?: Dimension;
 };
 
-const { StoreProvider, useStore } = initStore<FrameContext>({ name: "frame" });
+const { StoreProvider, useStore } = initStore<DialogContext>({ name: "frame" });
 
-export function FrameProvider(props: PropsWithChildren<FrameContext>) {
+export function DialogProvider(props: PropsWithChildren<DialogContext>) {
   return <StoreProvider dimension={props.dimension}>{props.children}</StoreProvider>;
 }
 

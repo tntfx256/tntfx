@@ -1,10 +1,10 @@
 import type { ReactNode } from "react";
+import type { ToolbarGroupProps } from "@fluentui/react-components";
+import { ToolbarGroup } from "@fluentui/react-components";
 import { type Actionable, memoize, type PropsAndChildren } from "@tntfx/core";
-import type { ToolbarSectionProps } from "./toolbar-section";
-import { ToolbarSection } from "./toolbar-section";
 import { useActions } from "./utils";
 
-type ActionBarProps<T extends string = string> = PropsAndChildren & Actionable<T> & ToolbarSectionProps;
+type ActionBarProps<T extends string = string> = PropsAndChildren & Actionable<T> & ToolbarGroupProps;
 
 export const ActionBar = memoize(function ActionBar<T extends string = string>(props: ActionBarProps<T>) {
   const { actions, onAction, ...libProps } = props;
@@ -12,5 +12,5 @@ export const ActionBar = memoize(function ActionBar<T extends string = string>(p
 
   const actionableItems = useActions(actions, onAction);
 
-  return actionableItems ? <ToolbarSection {...libProps}>{actionableItems}</ToolbarSection> : null;
+  return actionableItems ? <ToolbarGroup {...libProps}>{actionableItems}</ToolbarGroup> : null;
 }) as <T extends string = string>(props: ActionBarProps<T>) => ReactNode;

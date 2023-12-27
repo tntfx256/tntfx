@@ -13,3 +13,9 @@ export const useStyle = Style.create({
     fontWeight: Style.tokens.fontWeight.sm,
   },
 });
+
+export const useGroupStyle = Style.create({
+  root: {
+    ...Style.mixins.row(),
+  },
+});

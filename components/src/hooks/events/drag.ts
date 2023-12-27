@@ -13,7 +13,7 @@ type DragInitialState = {
   lastPosition: { top: number; left: number };
 };
 
-type DragDimension = Pick<Dimension, "top" | "left">;
+type DragDimension = { top: number; left: number; dx: number; dy: number };
 export type UseDragConfig = {
   draggable?: boolean;
   onDragStart?: () => void;
@@ -92,7 +92,7 @@ export function useDrag<T extends HTMLElement = HTMLElement>(element: Nullable<T
 
       initial.current.lastPosition = { left, top };
       if (isInBoundary(boundingRect, clientX, clientY, BOUNDING_OFFSET)) {
-        onDragging?.({ top, left });
+        onDragging?.({ top, left, dx, dy });
       }
     }
 
@@ -111,7 +111,7 @@ export function useDrag<T extends HTMLElement = HTMLElement>(element: Nullable<T
         const dx = Math.abs(lastPosition.left - dimension.left);
         const dy = Math.abs(lastPosition.top - dimension.top);
         if (dx > MIN_DIFF || dy > MIN_DIFF) {
-          onDragEnd?.(initial.current.lastPosition);
+          onDragEnd?.({ ...lastPosition, dx, dy });
         }
       }
 

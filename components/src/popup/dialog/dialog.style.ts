@@ -4,6 +4,15 @@ export const useStyle = Style.create({
   root: {
     ...Style.mixins.padding(0),
     ...Style.mixins.overflow("hidden"),
+    // ...Style.mixins.border("2px solid red"),
+    zIndex: Style.tokens.layer.modal,
+  },
+  active: {
+    zIndex: Style.tokens.layer.modal + 1,
+  },
+
+  wrapper: {
+    ...Style.mixins.padding(0),
   },
 
   titlebar: {
@@ -13,16 +22,14 @@ export const useStyle = Style.create({
     height: Style.tokens.size.xl,
     justifyContent: "space-between",
     backdropFilter: `blur(${Style.tokens.blur.md})`,
-    backgroundColor: Style.tokens.palette.bodyAlpha,
+    // backgroundColor: Style.tokens.palette.bodyAlpha,
     zIndex: 3,
+    paddingLeft: Style.tokens.spacing.md,
+    fontWeight: Style.tokens.fontWeight.md,
   },
   titlebarIcon: {
     paddingLeft: Style.tokens.spacing.sm,
     ...Style.mixins.border("blue"),
-  },
-  titlebarTitle: {
-    fontWeight: Style.tokens.fontWeight.sm,
-    paddingLeft: Style.tokens.spacing.sm,
   },
   titlebarControls: {
     position: "absolute",
@@ -34,14 +41,28 @@ export const useStyle = Style.create({
   titlebarControlsIcon: {
     ...Style.mixins.padding(Style.tokens.borderRadius.md, Style.tokens.borderRadius.lg),
   },
+  titlebarCloseIcon: {
+    // backgroundColor: "transparent",
+    ...Style.mixins.transition("backgroundColor"),
+
+    [`&:hover`]: {
+      cursor: "pointer",
+      color: Style.tokens.palette.errorText,
+    },
+  },
 
   headerPlaceholder: {
-    height: `calc(1.125 * ${Style.tokens.size.sm})`,
+    height: Style.tokens.size.sm,
   },
 
   body: {
     ...Style.mixins.borderRadius(Style.tokens.borderRadius.lg),
-    ...Style.mixins.padding(Style.tokens.spacing.lg, Style.tokens.borderRadius.xl),
+    ...Style.mixins.padding(Style.tokens.spacing.lg),
     ...Style.mixins.margin(0),
+  },
+
+  footer: {
+    ...Style.mixins.padding(Style.tokens.spacing.sm),
+    paddingTop: 0,
   },
 });

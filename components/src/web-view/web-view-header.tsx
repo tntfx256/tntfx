@@ -2,8 +2,7 @@ import { createWebViewLink } from "@tntfx/core";
 import { Icon } from "@tntfx/icons";
 import { useWebView } from "./web-view-provider";
 import { TextInput } from "../form/text-input";
-import { Toolbar } from "../layout/bar/toolbar";
-import { ToolbarSection } from "../layout/bar/toolbar-section";
+import { Toolbar, ToolbarGroup } from "../layout/bar/toolbar";
 
 type WebViewHeaderProps = {
   onSidebarToggle?: () => void;
@@ -23,7 +22,7 @@ export function WebViewHeader(props: WebViewHeaderProps) {
 
   return (
     <Toolbar>
-      <ToolbarSection>
+      <ToolbarGroup>
         <Icon name="PanelLeft" onClick={handleSidebarToggle} />
         <Icon disabled={!history.canGoBack} name="Previous" onClick={history.goBack} />
         <Icon disabled={!history.canGoForward} name="Next" onClick={history.goForward} />
@@ -32,7 +31,7 @@ export function WebViewHeader(props: WebViewHeaderProps) {
           name="searchText"
           value={createWebViewLink(domain, history.activeItem || "", false)}
         />
-      </ToolbarSection>
+      </ToolbarGroup>
     </Toolbar>
   );
 }

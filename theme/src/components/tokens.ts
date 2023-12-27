@@ -9,6 +9,25 @@ export const tokens = {
     belowSupported: `@media screen and (max-width: ${Breakpoints.sm}px)`,
   },
 
+  animation: {
+    duration: {
+      xxs: fui.durationUltraFast,
+      xs: fui.durationFaster,
+      sm: fui.durationFast,
+      md: fui.durationNormal,
+      lg: fui.durationGentle,
+      xl: fui.durationSlow,
+      xxl: fui.durationSlower,
+      xxxl: fui.durationUltraSlow,
+    },
+    easing: {
+      // linear: fui.curveEasyEase,
+      // xs: fui.curveEasyEaseMax,
+      linear: fui.curveLinear,
+      // linear: fui.curveDecelerateMid,
+    },
+  },
+
   // fontFamily: vars.font_family,
   fontFamilyMono: fui.fontFamilyMonospace,
   fontSize: {

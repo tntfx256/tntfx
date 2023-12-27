@@ -10,6 +10,8 @@ import type {
 } from "@fluentui/react-components";
 import {
   createTableColumn,
+  ProgressBar,
+  Spinner,
   Table,
   TableBody,
   TableCell,
@@ -55,13 +57,14 @@ export function useDataTable<T extends object = object>() {
 }
 // TABLE
 export type DataTableProps<T extends object> = TableProps & {
+  loading?: boolean;
   rows?: T[];
   columns?: Column<T>[];
   pagination?: PaginalData;
   onPagination?: PaginationHandler;
 };
 export function DataTable<T extends object = object>(props: DataTableProps<T>) {
-  const { pagination, onPagination, children, title, className, columns = [], rows = [], ...libProps } = props;
+  const { pagination, onPagination, children, title, className, columns = [], rows = [], loading, ...libProps } = props;
   const classes = useStyle();
 
   const libColumns = useMemo(() => utils.toColumns<T>(columns), [columns]);
@@ -87,6 +90,7 @@ export function DataTable<T extends object = object>(props: DataTableProps<T>) {
             </TableHeader>
             <TableBody>{children}</TableBody>
           </Table>
+          {loading && <ProgressBar />}
         </Box>
 
         {pagination && <TablePagination pagination={pagination} onPagination={onPagination} />}

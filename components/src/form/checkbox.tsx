@@ -1,14 +1,21 @@
-import type { ForwardedRef } from "react";
-import { forwardRef } from "react";
+import type { ChangeEvent, ForwardedRef } from "react";
+import { forwardRef, useCallback } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import type { CheckboxProps as LibCheckboxProps, FieldProps } from "@fluentui/react-components";
+import type { CheckboxOnChangeData, CheckboxProps as LibCheckboxProps, FieldProps } from "@fluentui/react-components";
 import { Checkbox as LibCheckbox, Field } from "@fluentui/react-components";
 import type { ElementProps } from "./types";
 
-export type CheckboxProps = ElementProps<FieldProps & LibCheckboxProps>;
+export type CheckboxProps = ElementProps<FieldProps & LibCheckboxProps, boolean>;
 
 function CheckboxWithRef(props: CheckboxProps, ref: ForwardedRef<HTMLInputElement>) {
-  const { label, hint, required, validationMessage, validationMessageIcon, validationState, ...libProps } = props;
+  const { label, hint, required, validationMessage, validationMessageIcon, validationState, onChange, ...libProps } = props;
+
+  const handleChange = useCallback(
+    (ev: ChangeEvent<HTMLInputElement>, data: CheckboxOnChangeData) => {
+      onChange?.(!!data.checked);
+    },
+    [onChange]
+  );
 
   return (
     <Field
@@ -19,7 +26,7 @@ function CheckboxWithRef(props: CheckboxProps, ref: ForwardedRef<HTMLInputElemen
       validationMessageIcon={validationMessageIcon}
       validationState={validationState}
     >
-      <LibCheckbox ref={ref} {...libProps} />
+      <LibCheckbox ref={ref} onChange={handleChange} {...libProps} />
     </Field>
   );
 }

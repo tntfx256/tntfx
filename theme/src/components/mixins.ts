@@ -1,7 +1,19 @@
 import { type GriffelStyle, shorthands } from "@fluentui/react-components";
+import { tokens } from "./tokens";
 import { splitBorderStyle } from "./utils";
 
 export const mixins = {
+  transition(
+    properties: GriffelStyle["transitionProperty"] = "all",
+    duration: GriffelStyle["transitionDuration"] = tokens.animation.duration.md,
+    easing: GriffelStyle["transitionTimingFunction"] = (tokens.animation.easing.linear = "ease-in-out")
+  ): GriffelStyle {
+    return {
+      transitionProperty: properties,
+      transitionTimingFunction: easing,
+      transitionDuration: duration,
+    };
+  },
   borderRadius(size: string): GriffelStyle {
     return {
       borderTopLeftRadius: size,

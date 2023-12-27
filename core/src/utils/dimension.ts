@@ -37,6 +37,13 @@ export function toBoundingRect(boundary: Partial<BoundingRect> = {}): BoundingRe
   return { top, left, width, height, right: left + width, bottom: top + height };
 }
 
+export function toDimension(boundary: Partial<BoundingRect> = {}): Dimension {
+  const { desktop } = getScreenDimension();
+  const { top = 0, left = 0, width = desktop.width, height = desktop.height } = boundary;
+
+  return { top, left, width, height };
+}
+
 export function getMinMaxDimension(isDialog = false, boundary?: Dimension) {
   boundary = boundary || getScreenDimension().desktop;
 

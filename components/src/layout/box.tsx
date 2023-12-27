@@ -1,12 +1,13 @@
-import type { AriaRole, CSSProperties, ForwardedRef, MouseEvent } from "react";
+import type { AriaRole, CSSProperties, ForwardedRef, HTMLAttributes, MouseEvent } from "react";
 import { forwardRef } from "react";
 import { memoize, type PropsAndChildren } from "@tntfx/core";
 import { classNames } from "@tntfx/theme";
 import { useBoxClasses } from "./box.style";
 
-export interface BoxProps extends PropsAndChildren {
+export interface BoxProps extends PropsAndChildren, HTMLAttributes<HTMLDivElement> {
+  // id?: string;
   horizontal?: boolean;
-  role?: AriaRole;
+  // role?: AriaRole;
   justifyContent?: CSSProperties["justifyContent"];
   alignItems?: CSSProperties["alignItems"];
   onClick?: (e: MouseEvent) => void;

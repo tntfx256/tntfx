@@ -1,5 +1,7 @@
 import type { Any } from "../types";
 
+export { compress, decompress } from "lz-string";
+
 export function upperFirst(string: string) {
   return string[0].toUpperCase() + string.slice(1);
 }

@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import type { Boundary, Dimension, Nullable } from "@tntfx/core";
 import { toBoundingRect } from "@tntfx/core";
 import type { SetDimension } from "./types";
@@ -9,12 +8,12 @@ export function useFrameDrag(
   setDimension: SetDimension,
   draggable: boolean | undefined,
   frame: Nullable<HTMLDivElement>,
+  titlebar: Nullable<HTMLDivElement>,
   boundary?: Boundary
 ) {
   const runtime = useRuntime();
-  const [headerElement, setHeaderElement] = useState<Nullable<HTMLDivElement>>(null);
 
-  useDrag(headerElement, {
+  useDrag(titlebar, {
     draggable,
     boundingRect: toBoundingRect(boundary || {}),
     onDragStart() {
@@ -30,12 +29,4 @@ export function useFrameDrag(
       setDimension((current) => ({ ...current, top, left }) as Dimension);
     },
   });
-
-  useEffect(() => {
-    if (headerElement || !frame) {
-      return;
-    }
-
-    setHeaderElement(frame.querySelector<HTMLDivElement>(".frame__header"));
-  }, [frame, headerElement]);
 }

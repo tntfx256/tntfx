@@ -1,6 +1,8 @@
 import type { Timestamp } from "../types";
 
-export const shortMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+export const ONE_SECOND_MS = 1000;
+export const ONE_MINUTE_MS = ONE_SECOND_MS * 60;
+export const ONE_DAY_MS = ONE_MINUTE_MS * 60 * 24;
 
 const zeroFill = (digit: number) => (digit > 9 ? digit : `0${digit}`);
 

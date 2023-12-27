@@ -1,15 +1,32 @@
-import { type ForwardedRef, forwardRef } from "react";
+import type { ForwardedRef } from "react";
+import { forwardRef, useCallback } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import type { FieldProps } from "@fluentui/react-components";
 import { Field } from "@fluentui/react-components";
 import type { DatePickerProps } from "@fluentui/react-datepicker-compat";
 import { DatePicker } from "@fluentui/react-datepicker-compat";
+import type { Any } from "@tntfx/core";
 import type { ElementProps } from "./types";
 
-export type DateInputProps = ElementProps<FieldProps & DatePickerProps>;
+export type DateInputProps = ElementProps<FieldProps & DatePickerProps, Date>;
 
 function DateInputWithRef(props: DateInputProps, ref: ForwardedRef<HTMLInputElement>) {
-  const { label, hint, required, validationMessage, validationMessageIcon, validationState, ...rest } = props;
+  const { label, hint, required, validationMessage, validationMessageIcon, validationState, onChange, value, ...rest } =
+    props;
+
+  const handleChange = useCallback(
+    (date: Any<Date>) => {
+      if (date) {
+        onChange?.(date);
+      }
+    },
+    [onChange]
+  );
+
+  let date = null;
+  if (value) {
+    date = value instanceof Date ? value : new Date(value);
+  }
 
   return (
     <Field
@@ -20,7 +37,7 @@ function DateInputWithRef(props: DateInputProps, ref: ForwardedRef<HTMLInputElem
       validationMessageIcon={validationMessageIcon}
       validationState={validationState}
     >
-      <DatePicker ref={ref} {...rest} />
+      <DatePicker showMonthPickerAsOverlay ref={ref} value={date} onSelectDate={handleChange} {...rest} />
     </Field>
   );
 }

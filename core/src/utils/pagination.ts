@@ -75,11 +75,21 @@ export class Pagination {
     return this.#data.page > 1;
   }
 
-  get range(): [startIndex: number, endIndex: number] {
+  get startIndex(): number {
     const { page, limit, total } = this.#data;
-    if (this.#hasPagination) return [(page - 1) * limit, Math.min(page * limit, total) - 1];
+    const newIndex = (page - 1) * limit;
+    return newIndex >= 0 && newIndex < total ? newIndex : 0;
+  }
 
-    return [0, total - 1];
+  get endIndex(): number {
+    const { page, limit, total } = this.#data;
+
+    const newIndex = page * limit;
+    return newIndex >= total ? total - 1 : newIndex;
+  }
+
+  get range(): [startIndex: number, endIndex: number] {
+    return [this.startIndex, this.endIndex];
   }
 
   onChange(page: number, limit?: number) {

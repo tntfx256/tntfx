@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { shortMonths } from "@tntfx/core";
+import { DEFAULT_DATE_FORMATTING } from "@fluentui/react-calendar-compat";
 import { classNames } from "@tntfx/theme";
 import { useInterval } from "./hooks";
 import { Box } from "./layout/box";
@@ -33,16 +33,14 @@ export function DateTime(props: DateTimeProps) {
   );
 }
 
-const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const padZero = (d: number): number | string => (d < 10 ? `0${d}` : d);
 
 function getDate() {
   const date = new Date();
   const hour = padZero(date.getHours());
   const minutes = padZero(date.getMinutes());
-  const weekDay = weekDays[date.getDay()];
   const day = date.getDate().toString();
-  const month = shortMonths[date.getMonth()];
+  const [weekDay, month] = date.toString().split(" ");
   return { day, hour, minutes, month, weekDay };
 }
 

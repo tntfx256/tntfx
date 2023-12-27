@@ -1,5 +1,5 @@
 import type { IconName } from "@tntfx/icons";
-import type { EnumString } from "./base";
+import type { EnumString, StringKeys } from "./base";
 import type { Accent, Size, Variant } from "./theme";
 
 export type Option<T extends string = string> = {
@@ -12,7 +12,7 @@ export type Option<T extends string = string> = {
   hidden?: boolean;
   href?: string;
   icon?: IconName;
-  iconPosition?: "start" | "end";
+  iconPosition?: "before" | "after";
   path?: string;
   size?: EnumString<Size>;
   accent?: EnumString<Accent>;
@@ -20,8 +20,14 @@ export type Option<T extends string = string> = {
 };
 
 export const OptionModel = {
-  convert(options: ReadonlyArray<string>) {
-    type T = (typeof options)[number];
-    return options.map((id) => ({ id, title: id })) as Option<T>[];
+  convert(options: object | ReadonlyArray<string>) {
+    if (Array.isArray(options)) {
+      type T = (typeof options)[number];
+      return options.map((id) => ({ id, title: id })) as Option<T>[];
+    }
+
+    type K = StringKeys<typeof options>;
+    const keys = Object.keys(options) as K[];
+    return keys.map((id) => ({ id, title: options[id] }) as Option<K>);
   },
 };
