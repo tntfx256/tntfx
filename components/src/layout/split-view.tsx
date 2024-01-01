@@ -1,4 +1,7 @@
 import type { PropsAndChildren } from "@tntfx/core";
+import { classNames } from "@tntfx/theme";
+import { Box } from "./box";
+import { useStyle } from "./split-view.style";
 import { Sidebar } from "../menu/sidebar/sidebar";
 
 type SplitViewProps = PropsAndChildren & {
@@ -8,13 +11,14 @@ type SplitViewProps = PropsAndChildren & {
 };
 
 export function SplitView(props: SplitViewProps) {
-  const { children, isSideVisible, sideContent, ...libProps } = props;
+  const { children, isSideVisible, sideContent, className, ...libProps } = props;
+  const classes = useStyle();
 
   return (
-    <div {...libProps}>
+    <Box className={classNames(classes.root, className)} {...libProps}>
       <Sidebar open={isSideVisible}>{sideContent}</Sidebar>
 
-      <div className="content">{children}</div>
-    </div>
+      <Box className={classes.content}>{children}</Box>
+    </Box>
   );
 }

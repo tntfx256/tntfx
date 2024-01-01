@@ -1,37 +1,29 @@
-import type { ChangeEvent, ForwardedRef } from "react";
+import type { ForwardedRef } from "react";
 import { forwardRef, useCallback } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import type { FieldProps, InputOnChangeData, InputProps } from "@fluentui/react-components";
-import { Field, Input } from "@fluentui/react-components";
+import type { FieldProps, InputProps } from "@fluentui/react-components";
+import { Input } from "@fluentui/react-components";
+import type { Defined } from "@tntfx/core";
+import { withFieldWrapper } from "./field";
 import type { ElementProps } from "./types";
+import { interceptRef } from "../utils";
 
 export type TextInputProps = ElementProps<FieldProps & InputProps>;
 
 const TextInputWithRef = (props: TextInputProps, ref: ForwardedRef<HTMLInputElement>) => {
-  const { label, required, validationMessage, validationMessageIcon, validationState, hint, onChange, ...libProps } = props;
+  const { onChange, ...libProps } = props;
 
-  const handleChange = useCallback(
-    (ev: ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => {
+  const handleChange = useCallback<Defined<InputProps["onChange"]>>(
+    (ev, data) => {
       onChange?.(data.value);
     },
     [onChange]
   );
 
-  return (
-    <Field
-      hint={hint}
-      label={label}
-      required={required}
-      validationMessage={validationMessage}
-      validationMessageIcon={validationMessageIcon}
-      validationState={validationState}
-    >
-      <Input ref={ref} required={required} onChange={handleChange} {...libProps} />
-    </Field>
-  );
+  return <Input ref={interceptRef(ref)} onChange={handleChange} {...libProps} />;
 };
 
-export const TextInput = forwardRef(TextInputWithRef);
+export const TextInput = withFieldWrapper(forwardRef(TextInputWithRef));
 TextInput.displayName = "TextInput";
 
 export function ControlledTextInput(props: TextInputProps) {
@@ -40,7 +32,7 @@ export function ControlledTextInput(props: TextInputProps) {
   return (
     <Controller
       control={control}
-      name={props.name}
+      name={props.name!}
       render={({ field, fieldState }) => (
         <TextInput
           validationMessage={fieldState.error?.message || " "}

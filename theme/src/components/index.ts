@@ -1,4 +1,4 @@
-import { makeStyles } from "@fluentui/react-components";
+import { buttonClassNames, makeStyles } from "@fluentui/react-components";
 import { mixins } from "./mixins";
 import { tokens } from "./tokens";
 
@@ -19,4 +19,7 @@ export const Style = {
   create: makeStyles,
   tokens,
   mixins,
+  classNames: {
+    button: buttonClassNames,
+  },
 };

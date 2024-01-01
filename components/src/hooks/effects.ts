@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
-import type { Nullable } from "@tntfx/core";
+import type { DependencyList, EffectCallback } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { isEqual, type Nullable } from "@tntfx/core";
 
 export function useRefEffect<T>() {
   const [state, setState] = useState<Nullable<T>>(null);
@@ -31,4 +32,32 @@ export function useRenderEffect() {
   return function render() {
     setState((state) => state + 1);
   };
+}
+
+type UseWatchEffectConfig = {
+  skipFirstRender?: boolean;
+  renderOnUpdate?: boolean;
+};
+export function useWatchEffect(effect: EffectCallback, deps: DependencyList, config: UseWatchEffectConfig = {}) {
+  const render = useRenderEffect();
+  const prevDeps = useRef<Nullable<DependencyList>>(null);
+  const { skipFirstRender = true, renderOnUpdate = false } = config;
+
+  useEffect(() => {
+    if (skipFirstRender) {
+      if (prevDeps.current === null) {
+        prevDeps.current = deps;
+        return;
+      }
+    }
+    if (deps.some((dep, index) => !isEqual(dep, prevDeps.current?.[index]))) {
+      prevDeps.current = deps;
+      const effectResult = effect();
+      if (renderOnUpdate) {
+        render();
+      }
+      return effectResult;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, deps);
 }

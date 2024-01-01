@@ -33,6 +33,7 @@ export const useStackStyle = Style.create({
     ...Style.mixins.padding(Style.tokens.spacing.sm),
 
     [`& .${fieldClassNames.root}`]: {
+      marginBottom: Style.tokens.spacing.sm,
       width: "100%",
     },
   },

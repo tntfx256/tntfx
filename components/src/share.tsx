@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Icon } from "@tntfx/icons";
 import { classNames } from "@tntfx/theme";
+import { Icon } from "./icon";
 
 export type ShareProps = {
   url: string;

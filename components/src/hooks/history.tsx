@@ -1,22 +1,6 @@
 import { useCallback, useRef, useState } from "react";
-import { isEqual } from "@tntfx/core";
 
 export { usePrevious } from "@fluentui/react-hooks";
-
-export function useCompare<T>(value: T) {
-  const ref = useRef<T>(value);
-
-  const hasChanged = useCallback((value: T) => {
-    const isChanges = !isEqual(value, ref.current);
-    if (isChanges) {
-      ref.current = value;
-      return true;
-    }
-    return false;
-  }, []);
-
-  return hasChanged;
-}
 
 export function useHistory(initItem: string) {
   const history = useRef<string[]>([initItem]);

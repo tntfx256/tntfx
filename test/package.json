@@ -6,7 +6,7 @@
   "types": "src/index.tsx",
   "scripts": {},
   "dependencies": {
-    "@testing-library/jest-dom": "^6.1.5",
+    "@testing-library/jest-dom": "^6.1.6",
     "@testing-library/react": "^14.1.2",
     "@tntfx/core": "*",
     "jest-environment-jsdom": "^29.7.0"

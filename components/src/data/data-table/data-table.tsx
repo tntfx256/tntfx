@@ -1,97 +1,204 @@
-import type { MouseEvent } from "react";
-import { useCallback, useState } from "react";
-import type { TableProps } from "@fluentui/react-components";
-import { Table, TableBody } from "@fluentui/react-components";
-import type { Keys, PaginalData, PaginationHandler } from "@tntfx/core";
+import { useMemo } from "react";
+import type {
+  TableCellProps,
+  TableColumnDefinition,
+  TableColumnSizingOptions,
+  TableFeaturesState,
+  TableHeaderCellProps,
+  TableProps,
+  TableRowProps,
+} from "@fluentui/react-components";
+import {
+  createTableColumn,
+  ProgressBar,
+  Table,
+  TableBody,
+  TableCell,
+  TableHeader,
+  TableHeaderCell,
+  TableRow,
+  useTableColumnSizing_unstable,
+  useTableFeatures,
+} from "@fluentui/react-components";
+import type { Any, Keys, PaginalData, PaginationHandler } from "@tntfx/core";
 import { classNames } from "@tntfx/theme";
 import { useStyle } from "./data-table.style";
-import type { Column } from "./data-table-column";
-import { DataTableHeader } from "./data-table-header";
 import { TablePagination } from "./data-table-pagination";
-import type { DataTableRowProps } from "./data-table-row";
-import { DataTableRow } from "./data-table-row";
+import type { SetState } from "../../hooks";
+import { initStore } from "../../hooks";
 import { Box } from "../../layout";
-import { Title } from "../../text";
+import { Text } from "../../text";
 
-type SelectionMode = "single" | "multi";
+export type { TableBodyProps, TableHeaderProps } from "@fluentui/react-components";
+export { TableBody, TableCellLayout, TableHeader } from "@fluentui/react-components";
 
-export type DataTableProps<T extends object> = Omit<TableProps, "columns"> & {
-  idKey: Keys<T>;
-  rows: T[];
-  columns: Column<T>[];
+// COLUMN
+export type Column<T extends object = object> = Partial<TableColumnDefinition<T>> & {
+  columnId: string | Keys<T>;
   title?: string;
-  isLoading?: boolean;
-  pagination?: PaginalData;
-  selectionMode?: SelectionMode;
-  onPagination?: PaginationHandler;
-  renderHeader?: (columns: Column<T>[]) => React.ReactNode;
-  renderRow?: (props: DataTableRowProps<T>) => React.ReactNode;
-  onRowSelect?: (selected: string[]) => void;
+  parent?: string;
+  align?: "left" | "center" | "right";
+  colSpan?: number;
+  minWidth?: number;
+  width?: number;
+  maxWidth?: number;
+  renderHeaderCell?: (column: Column<T>) => React.ReactNode;
 };
 
-export function DataTable<T extends object>(props: DataTableProps<T>) {
-  const {
-    idKey,
-    className,
-    title,
-    rows,
-    columns,
-    pagination,
-    onPagination,
-    renderHeader,
-    renderRow,
-    onRowSelect,
-    selectionMode = "single",
-    ...libProps
-  } = props;
-
+// PROVIDER
+type DataTableState<T extends object = object> = {
+  // columns: Column<T>[];
+  columnSizing: TableFeaturesState<T>["columnSizing_unstable"];
+};
+const { StoreProvider, useStore } = initStore<DataTableState>({ name: "DataTableProvider" });
+export function useDataTable<T extends object = object>() {
+  return useStore() as [DataTableState<T>, SetState<DataTableState<T>>];
+}
+// TABLE
+export type DataTableProps<T extends object> = TableProps & {
+  loading?: boolean;
+  rows?: T[];
+  columns?: Column<T>[];
+  pagination?: PaginalData;
+  onPagination?: PaginationHandler;
+};
+export function DataTable<T extends object = object>(props: DataTableProps<T>) {
+  const { pagination, onPagination, children, title, className, columns = [], rows = [], loading, ...libProps } = props;
   const classes = useStyle();
-  const [selected, setSelected] = useState<string[]>([]);
 
-  const handleRowSelect = useCallback(
-    (e: MouseEvent<HTMLTableRowElement>, value?: string) => {
-      if (onRowSelect && value) {
-        let selection = selected;
-        if (selection.includes(value)) {
-          selection = selection.filter((item) => item !== value);
-        } else {
-          selection = selectionMode === "multi" ? [...selection, value] : [value];
-        }
+  const libColumns = useMemo(() => utils.toColumns<T>(columns), [columns]);
+  const columnSizingOptions = useMemo(() => utils.toColumnSizing<T>(columns), [columns]);
 
-        setSelected(selection);
-        onRowSelect(selection);
-      }
-    },
-    [onRowSelect, selected, selectionMode]
-  );
+  const { columnSizing_unstable } = useTableFeatures({ columns: libColumns, items: rows }, [
+    useTableColumnSizing_unstable({ columnSizingOptions }),
+  ]);
 
   return (
-    <Box className={classNames(classes.root, className)}>
-      {title && (
-        <Box horizontal className={classes.title}>
-          <Title>{title}</Title>
+    <StoreProvider columnSizing={columnSizing_unstable}>
+      <Box className={classNames(classes.root, className)}>
+        {title && (
+          <Box horizontal className={classes.title}>
+            <Text as="h1" size="xl">
+              {title}
+            </Text>
+          </Box>
+        )}
+
+        <Box className={classes.container}>
+          <Table className={classes.table} {...columnSizing_unstable.getTableProps()} {...libProps}>
+            <TableHeader>
+              <DataTableRow header columns={columns} />
+            </TableHeader>
+            <TableBody>{children}</TableBody>
+          </Table>
+          {loading && <ProgressBar />}
         </Box>
-      )}
-      <Box className={classes.container}>
-        <Table aria-label={title} className={classes.table} {...libProps}>
-          {renderHeader ? renderHeader(columns) : <DataTableHeader columns={columns} />}
-          <TableBody>
-            {rows.map((row) => {
-              const key = row[idKey] as string;
-              const isSelected = selected.includes(key);
-              const props: DataTableRowProps<T> = {
-                id: key,
-                row,
-                columns,
-                selected: isSelected,
-                onClick: handleRowSelect,
-              };
-              return renderRow ? renderRow(props) : <DataTableRow key={key} {...props} />;
-            })}
-          </TableBody>
-        </Table>
+
+        {pagination && <TablePagination pagination={pagination} onPagination={onPagination} />}
       </Box>
-      {pagination && <TablePagination pagination={pagination} onPagination={onPagination} />}
-    </Box>
+    </StoreProvider>
   );
 }
+
+// ROW
+export type DataTableRowProps<T extends object = object> = TableRowProps & {
+  header?: boolean;
+  columns?: Column<T>[];
+  row?: T;
+  selected?: boolean;
+};
+export function DataTableRow<T extends object = object>(props: DataTableRowProps<T>) {
+  const { columns = [], row = {}, children, header, selected, ...libProps } = props;
+
+  return (
+    <TableRow appearance={selected ? "brand" : "none"} aria-selected={selected} {...libProps}>
+      {children ??
+        columns.map((column) =>
+          header ? (
+            <DataTableHeaderCell<T> key={column.columnId} column={column} />
+          ) : (
+            <DataTableCell<T> key={column.columnId} column={column} row={row as T} />
+          )
+        )}
+    </TableRow>
+  );
+}
+
+// HEADER CELL
+export type DataTableHeaderCellProps<T extends object = object> = TableHeaderCellProps & {
+  column?: Column<T>;
+};
+export function DataTableHeaderCell<T extends object = object>(props: DataTableHeaderCellProps<T>) {
+  const { column = {} as Column<T>, children, className, ...libProps } = props;
+
+  const [{ columnSizing }] = useDataTable<T>();
+
+  const classes = useStyle();
+  if (column.colSpan) {
+    (libProps as Any).colSpan = column.colSpan;
+  }
+
+  return (
+    <TableHeaderCell
+      className={classNames(classes.cell, classes.headerCell, `align-${column.align}`, className)}
+      {...columnSizing.getTableHeaderCellProps(column.columnId)}
+      {...libProps}
+    >
+      {children ?? (column.renderHeaderCell ? column.renderHeaderCell(column) : column.title)}
+    </TableHeaderCell>
+  );
+}
+
+// DATA CELL
+export type DataTableCellProps<T extends object = object> = TableCellProps & {
+  column?: Column<T>;
+  row?: T;
+};
+export function DataTableCell<T extends object = object>(props: DataTableCellProps<T>) {
+  const { column = {} as Column<T>, row = {} as T, children, className, ...libProps } = props;
+
+  const [{ columnSizing }] = useDataTable<T>();
+  const classes = useStyle();
+  if (column.colSpan) {
+    (libProps as Any).colSpan = column.colSpan;
+  }
+
+  return (
+    <TableCell
+      className={classNames(classes.cell, `align-${column.align}`, className)}
+      {...columnSizing.getTableCellProps(column.columnId)}
+      {...libProps}
+    >
+      {children ??
+        (column.renderCell ? column.renderCell(row) : column.columnId ? (row[column.columnId as Keys<T>] as string) : "")}
+    </TableCell>
+  );
+}
+
+// UTILS
+const utils = {
+  toColumns<T extends object = object>(columns: Column<T>[]): TableColumnDefinition<T>[] {
+    return columns.map((column) => {
+      const { columnId, compare, renderCell, renderHeaderCell } = column;
+
+      return createTableColumn<T>({
+        columnId,
+        compare: compare || (() => 0),
+        renderCell(row: T) {
+          return renderCell ? renderCell(row) : <DataTableCell<T> column={column} row={row} />;
+        },
+        renderHeaderCell(data) {
+          return renderHeaderCell ? renderHeaderCell(data) : <DataTableHeaderCell<T> column={column} />;
+        },
+      });
+    });
+  },
+  toColumnSizing<T extends object = object>(columns: Column<T>[]): TableColumnSizingOptions {
+    return Object.fromEntries(
+      columns.map(({ columnId, width = 128, minWidth = width, maxWidth = width }) => [
+        columnId,
+        { minWidth, maxWidth, idealWidth: width },
+      ])
+    );
+  },
+};

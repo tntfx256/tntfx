@@ -1,107 +1,51 @@
-import type { ChangeEvent, ForwardedRef, KeyboardEvent, MouseEvent } from "react";
-import { forwardRef, useCallback, useState } from "react";
+import type { FC, ForwardedRef } from "react";
+import { forwardRef, useCallback, useMemo } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import type { ComboboxProps, FieldProps } from "@fluentui/react-components";
-import { Combobox, Field, Option, ProgressBar } from "@fluentui/react-components";
-import type { Option as TOption } from "@tntfx/core";
-import { Icon } from "@tntfx/icons";
-import { useStyle } from "./select.style";
+import type { DropdownProps } from "@fluentui/react-components";
+import { Dropdown, Option } from "@fluentui/react-components";
+import type { Defined, Option as TOption } from "@tntfx/core";
+import { withFieldWrapper } from "./field";
 import type { ElementProps } from "./types";
+import { extendOptions } from "./utils";
+import { Icon } from "../icon";
 
-export type OptionOnSelectData<T extends string = string> = {
-  optionValue?: T;
-  optionText?: T;
-  selectedOptions: T[];
+type SelfProps<T extends string, M extends boolean> = Omit<DropdownProps, "multiselect"> & {
+  multiselect?: M;
+  options: TOption<T>[];
 };
-
-export type SelectionEvents = ChangeEvent<HTMLElement> | KeyboardEvent<HTMLElement> | MouseEvent<HTMLElement>;
-
-export type SelectProps<T extends string = string, M extends boolean = false> = ElementProps<
-  FieldProps &
-    ComboboxProps & {
-      multiselect: M;
-      options: TOption<T>[];
-      loading: boolean;
-      filterable: boolean;
-      onFilterChange: (value: string) => void;
-    },
-  M extends true ? T[] : T
->;
+export type SelectProps<T extends string, M extends boolean> = ElementProps<SelfProps<T, M>, M extends true ? T[] : T>;
 
 function SelectWithRef<T extends string = string, M extends boolean = false>(
   props: SelectProps<T, M>,
-  ref: ForwardedRef<HTMLInputElement>
+  ref: ForwardedRef<HTMLButtonElement>
 ) {
-  const {
-    name,
-    label,
-    value,
-    options = [],
-    onChange,
-    placeholder,
-    multiselect,
-    validationMessage,
-    validationMessageIcon,
-    validationState,
-    loading,
-    onFilterChange,
-    filterable,
-    ...rest
-  } = props;
+  const { options = [], onChange, multiselect, ...rest } = props;
 
-  const classes = useStyle();
-
-  const changeHandler = useCallback(
-    (_event: SelectionEvents, data: OptionOnSelectData) => {
+  const optionSelectHandler = useCallback<Defined<DropdownProps["onOptionSelect"]>>(
+    (ev, data) => {
       onChange?.(multiselect ? data.selectedOptions : (data.selectedOptions[0] as any));
     },
     [multiselect, onChange]
   );
 
-  const filterHandler = useCallback(
-    (ev: ChangeEvent<HTMLInputElement>) => {
-      if (filterable && onFilterChange) {
-        onFilterChange(ev.target.value);
-      }
-    },
-    [filterable, onFilterChange]
-  );
-
-  const isFreeForm = filterable && !onFilterChange;
+  const allOptions = useMemo(() => extendOptions(options, !rest.required), [options, rest.required]);
 
   return (
-    <Field
-      label={label}
-      validationMessage={validationMessage}
-      validationMessageIcon={validationMessageIcon}
-      validationState={validationState}
-    >
-      <Combobox
-        freeform={isFreeForm}
-        multiselect={multiselect}
-        name={name}
-        placeholder={placeholder}
-        ref={ref}
-        value={value}
-        onChange={filterHandler}
-        onOptionSelect={changeHandler}
-        {...rest}
-      >
-        {options.map(({ id, title, disabled, icon }) => (
-          <Option key={id} disabled={disabled} text={title}>
-            {icon && <Icon name={icon} />}
-            {title}
-          </Option>
-        ))}
-      </Combobox>
-      {loading && <ProgressBar className={classes.loader} />}
-    </Field>
+    <Dropdown multiselect={multiselect} ref={ref} onOptionSelect={optionSelectHandler} {...rest}>
+      {allOptions.map(({ id, title, disabled, icon }) => (
+        <Option key={id} disabled={disabled} text={title} value={id}>
+          {icon && <Icon name={icon} />}
+          {title}
+        </Option>
+      ))}
+    </Dropdown>
   );
 }
 
-export const Select = forwardRef(SelectWithRef) as <T extends string = string, M extends boolean = false>(
+export const Select = withFieldWrapper(forwardRef(SelectWithRef)) as <T extends string = string, M extends boolean = false>(
   props: SelectProps<T, M> & { ref?: ForwardedRef<HTMLButtonElement> }
 ) => JSX.Element;
+(Select as FC).displayName = "Select";
 
 export function ControlledSelect<T extends string = string, M extends boolean = false>(props: SelectProps<T, M>) {
   const { control } = useFormContext();

@@ -1,7 +1,8 @@
 import { createWebViewLink } from "@tntfx/core";
-import { Icon } from "@tntfx/icons";
+import { useStyle } from "./web-view-header.style";
 import { useWebView } from "./web-view-provider";
 import { TextInput } from "../form/text-input";
+import { Icon } from "../icon";
 import { Toolbar, ToolbarGroup } from "../layout/bar/toolbar";
 
 type WebViewHeaderProps = {
@@ -11,6 +12,7 @@ type WebViewHeaderProps = {
 export function WebViewHeader(props: WebViewHeaderProps) {
   const { onSidebarToggle } = props;
   const { history, domain, onToggleMenu } = useWebView();
+  const classes = useStyle();
 
   function handleSidebarToggle() {
     if (onSidebarToggle) {
@@ -21,14 +23,17 @@ export function WebViewHeader(props: WebViewHeaderProps) {
   }
 
   return (
-    <Toolbar>
-      <ToolbarGroup>
+    <Toolbar className={classes.root}>
+      <ToolbarGroup className={classes.actions}>
         <Icon name="PanelLeft" onClick={handleSidebarToggle} />
         <Icon disabled={!history.canGoBack} name="Previous" onClick={history.goBack} />
         <Icon disabled={!history.canGoForward} name="Next" onClick={history.goForward} />
+      </ToolbarGroup>
+
+      <ToolbarGroup className={classes.addressBar}>
         <TextInput
-          className="header-address"
-          name="searchText"
+          readOnly
+          className={classes.addressInput}
           value={createWebViewLink(domain, history.activeItem || "", false)}
         />
       </ToolbarGroup>

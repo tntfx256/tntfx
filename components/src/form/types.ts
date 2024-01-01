@@ -1,4 +1,5 @@
-export type ElementProps<T, V = string, N extends string = string> = Partial<Omit<T, "name" | "onChange">> & {
-  name: N;
+import type { FieldProps } from "./field";
+
+export type ElementProps<T extends object, V = string> = Partial<Omit<FieldProps & T, "onChange">> & {
   onChange?: (value: V) => void;
 };

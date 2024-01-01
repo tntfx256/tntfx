@@ -10,6 +10,7 @@ export * from "./divider";
 export * from "./form";
 export * from "./framework";
 export * from "./hooks";
+export * from "./icon";
 export * from "./image";
 export * from "./layout";
 export * from "./loader";

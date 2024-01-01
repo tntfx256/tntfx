@@ -74,6 +74,7 @@ export class SerializableError extends Error {
   public status?: number;
   public code?: string;
   public description?: string;
+  // public stack?: string [];
 
   constructor(message = errorMessages.UNKNOWN_ERROR, name = errorNames.UNKNOWN, description = "") {
     super(message);

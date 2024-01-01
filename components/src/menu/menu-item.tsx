@@ -3,7 +3,7 @@ import type { TabProps } from "@fluentui/react-components";
 import { Tab } from "@fluentui/react-components";
 import type { Option } from "@tntfx/core";
 import { memoize } from "@tntfx/core";
-import { Icon } from "@tntfx/icons";
+import { Icon } from "../icon";
 
 export type MenuItemProps<T extends string = string> = Omit<TabProps, "onSelect"> & {
   item: Option<T>;

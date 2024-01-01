@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from "react";
-import { createContext, useContext, useEffect } from "react";
-import { useCompare } from "./history";
+import { createContext, useContext } from "react";
+import { useWatchEffect } from "./effects";
 import { createPatcherAction, createResetterAction, createSetterAction, useStateReducer } from "./reducer";
 
 export type Store<S> = ReturnType<typeof useStateReducer<S>>;
@@ -39,14 +39,11 @@ export function initStore<S>(config: StoreConfig) {
 
   function StoreProvider(props: StoreProviderProps<S>) {
     const { children, ...state } = props;
-    const hasChanged = useCompare(state);
     const store = useStateReducer<S>(state as S, persistReducerConfig);
 
-    useEffect(() => {
-      if (hasChanged(state)) {
-        store[1](state as S);
-      }
-    }, [hasChanged, state, store]);
+    useWatchEffect(() => {
+      store[1](state as S);
+    }, [state]);
 
     return <StoreContext.Provider value={store}>{children}</StoreContext.Provider>;
   }

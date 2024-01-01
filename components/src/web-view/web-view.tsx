@@ -1,18 +1,22 @@
 import { classNames } from "@tntfx/theme";
 import type { WebViewProps } from "./types";
+import { useStyle } from "./web-view.style";
 import { WebViewBody } from "./web-view-body";
 import { WebViewHeader } from "./web-view-header";
 import { WebViewProvider } from "./web-view-provider";
+import { Box } from "../layout";
 
 export function WebView(props: WebViewProps) {
   const { className } = props;
 
+  const classes = useStyle();
+
   return (
     <WebViewProvider {...props}>
-      <div className={classNames("web-view", className)}>
+      <Box className={classNames(classes.root, className)}>
         <WebViewHeader />
         <WebViewBody />
-      </div>
+      </Box>
     </WebViewProvider>
   );
 }

@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { Component } from "react";
 import type { Any } from "@tntfx/core";
-import { BlueScreen } from "./blue-screen";
+import { ErrorContent } from "./error-content";
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -49,7 +49,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
   render() {
     if (this.state.hasError) {
-      return <BlueScreen error={this.state.error} />;
+      return <ErrorContent error={this.state.error} />;
     }
 
     return <>{this.props.children}</>;

@@ -1,11 +1,12 @@
 import type { ToolbarGroupProps as LibToolbarGroupProps, ToolbarProps as LibToolbarProps } from "@fluentui/react-components";
 import { Toolbar as LibToolbar, ToolbarGroup as LibToolbarGroup } from "@fluentui/react-components";
 import { type Actions, memoize, type OnAction } from "@tntfx/core";
-import { Icon, type IconName } from "@tntfx/icons";
+import { type IconName } from "@tntfx/icons";
 import { classNames } from "@tntfx/theme";
 import { ActionBar } from "./action-bar";
 import { useGroupStyle, useStyle } from "./toolbar.style";
-import { Title } from "../../text";
+import { Icon } from "../../icon";
+import { Text } from "../../text";
 
 type ToolbarProps = LibToolbarProps & {
   icon?: IconName;
@@ -28,9 +29,9 @@ export const Toolbar = memoize(function Toolbar(props: ToolbarProps) {
       {hasTitlebar && (
         <ToolbarGroup>
           {icon && <Icon name={icon} onClick={onIconClick} />}
-          <Title className={classes.title} size="sm">
+          <Text className={classes.title} size="sm">
             {title}
-          </Title>
+          </Text>
         </ToolbarGroup>
       )}
 

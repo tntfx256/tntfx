@@ -1,9 +1,9 @@
 import { memoize, type OnAction, type PropsAndChildren } from "@tntfx/core";
-import { Icon } from "@tntfx/icons";
 import { classNames, useParseProps } from "@tntfx/theme";
 import { Box } from "./box";
 import { DateTime } from "../date-time";
 import { Divider } from "../divider";
+import { Icon } from "../icon";
 
 export type TaskbarAction = "start" | "settings";
 

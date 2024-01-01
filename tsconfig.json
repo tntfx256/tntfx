@@ -1,6 +1,6 @@
 {
   "extends": "./config-typescript/react.json",
 
-  "include": ["**/*.ts", "**/*.tsx", "**/*.js"],
-  "exclude": ["node_modules", "storybook-static"]
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }

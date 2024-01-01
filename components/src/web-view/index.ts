@@ -1,4 +1,5 @@
 export { Markdown } from "./markdown";
+export type { ContentMap } from "./types";
 export { WebView } from "./web-view";
 export { WebViewBody } from "./web-view-body";
 export { WebViewContent } from "./web-view-content";

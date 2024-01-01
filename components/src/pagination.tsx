@@ -1,6 +1,6 @@
 import type { PaginalData } from "@tntfx/core";
 import { Pagination as PaginationClass } from "@tntfx/core";
-import { Icon } from "@tntfx/icons";
+import { Icon } from "./icon";
 import { Box } from "./layout/box";
 import { useStyle } from "./pagination.style";
 import { Text } from "./text";

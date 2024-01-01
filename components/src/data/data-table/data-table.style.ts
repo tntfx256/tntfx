@@ -1,12 +1,14 @@
+import { tableHeaderCellClassNames } from "@fluentui/react-components";
 import { Style } from "@tntfx/theme";
 
 export const useStyle = Style.create({
   root: {
     width: "100%",
     maxHeight: "100%",
+    justifyContent: "space-between",
     ...Style.mixins.overflow("hidden"),
-    ...Style.mixins.border(Style.tokens.palette.border),
-    // ...Style.mixins.border("red"),
+    ...Style.mixins.border(),
+    ...Style.mixins.borderRadius(Style.tokens.borderRadius.md),
   },
 
   container: {
@@ -29,7 +31,24 @@ export const useStyle = Style.create({
   cell: {
     ...Style.mixins.paddingHorizontal("0px"),
     ...Style.mixins.overflow("hidden"),
-    ...Style.mixins.center(),
+    // ...Style.mixins.center(),
+
+    "&.align-left": {
+      textAlign: "left",
+    },
+    "&.align-center": {
+      textAlign: "center",
+      [`& .${tableHeaderCellClassNames.button}`]: {
+        justifyContent: "center",
+      },
+    },
+    "&.align-right": {
+      textAlign: "right",
+    },
+
+    [`& .${tableHeaderCellClassNames.button}`]: {
+      textAlign: "inherit",
+    },
   },
 
   headerCell: {

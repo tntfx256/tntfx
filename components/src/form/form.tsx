@@ -3,7 +3,7 @@ import type { UseFormProps, UseFormReturn } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import { Field } from "@fluentui/react-components";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { Actionable, ModelConstructor } from "@tntfx/core";
+import type { Actionable, FormValues, ModelConstructor } from "@tntfx/core";
 import { classNames } from "@tntfx/theme";
 import { useRowStyle, useStackStyle, useStyle } from "./form.style";
 import type { BoxProps } from "../layout";
@@ -35,10 +35,14 @@ export function Form<T extends object>(props: FormProps<T>) {
   );
 }
 
-export function useModel<T extends object>(Model: ModelConstructor<T>, props: UseFormProps<T>) {
+export type UseModelReturn<T extends object> = UseFormReturn<FormValues<T>>;
+export function useModel<T extends object>(
+  Model: ModelConstructor<T>,
+  props: UseFormProps<FormValues<T>>
+): UseModelReturn<T> {
   const [model] = useState(() => new Model());
 
-  const form = useForm<T>({
+  const form = useForm<FormValues<T>>({
     resolver: zodResolver(model.schema),
     ...props,
   });

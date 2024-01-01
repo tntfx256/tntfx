@@ -1,72 +1,60 @@
 import type { CSSProperties } from "react";
 import {
-  Body1,
-  Body2,
-  Caption1,
-  Caption2,
-  Display,
-  LargeTitle,
   Link as LibLink,
   type LinkProps as LibLinkProps,
-  Subtitle1,
-  Subtitle2,
+  Text as LibText,
   type TextProps as LibTextProps,
-  Title1,
-  Title2,
-  Title3,
 } from "@fluentui/react-components";
-import type { EnumString } from "@tntfx/core";
+import type { Any, EnumString } from "@tntfx/core";
 import { Size } from "@tntfx/core";
 
-export type TextProps = Omit<LibTextProps, "size"> & {
+export type TextProps = Omit<LibTextProps, "size" | "weight"> & {
   size?: EnumString<Size>;
-  textAlign?: CSSProperties["textAlign"];
+  weight?: EnumString<Size>;
 };
 
-export function Title(props: TextProps) {
-  const { size, textAlign, color, style, ...libProps } = props;
+const WeightMap: Record<Size, CSSProperties["fontWeight"]> = {
+  [Size.xxs]: 100,
+  [Size.xs]: 200,
+  [Size.sm]: 300,
+  [Size.md]: 400,
+  [Size.lg]: 500,
+  [Size.xl]: 600,
+  [Size.xxl]: 700,
+  [Size.xxxl]: 900,
+};
 
-  (libProps as TextProps).style = { textAlign, color, ...style };
+const SizeValueMap: Record<Size, LibTextProps["size"]> = {
+  [Size.xxs]: 100,
+  [Size.xs]: 200,
+  [Size.sm]: 300,
+  [Size.md]: 400,
+  [Size.lg]: 500,
+  [Size.xl]: 600,
+  [Size.xxl]: 700,
+  [Size.xxxl]: 900,
+};
 
-  switch (size) {
-    case Size.xs:
-      return <Subtitle2 as="h5" {...libProps} />;
-    case Size.sm:
-      return <Subtitle1 as="h4" {...libProps} />;
-    case Size.md:
-      return <Title3 as="h3" {...libProps} />;
-    case Size.lg:
-      return <Title2 as="h2" {...libProps} />;
-    case Size.xl:
-      return <Title1 as="h1" {...libProps} />;
-    case Size.xxl:
-      return <LargeTitle as="h1" {...libProps} />;
-    case Size.xxxl:
-      return <Display as="h1" {...libProps} />;
-
-    default:
-      return <Title3 as="h2" {...libProps} />;
-  }
-}
+const SizeElementMap = {
+  [Size.xxs]: "small",
+  [Size.xs]: "small",
+  [Size.sm]: "p",
+  [Size.md]: "p",
+  [Size.lg]: "h4",
+  [Size.xl]: "h3",
+  [Size.xxl]: "h2",
+  [Size.xxxl]: "h1",
+};
 
 export function Text(props: TextProps) {
-  const { size, textAlign, color, style, ...libProps } = props;
+  const { size, color, style, weight, as, ...libProps } = props;
 
-  (libProps as TextProps).style = { textAlign, color, ...style };
+  (libProps as TextProps).style = { color, fontWeight: WeightMap[weight ?? size ?? Size.sm], ...style };
 
-  switch (size) {
-    case Size.xs:
-      return <Caption2 as="em" {...libProps} />;
-    case Size.sm:
-      return <Caption1 as="em" {...libProps} />;
-    case Size.md:
-      return <Body1 as="p" {...libProps} />;
-    case Size.lg:
-      return <Body2 as="p" {...libProps} />;
+  const libSize = SizeValueMap[size ?? Size.md];
+  const libAs = as || (SizeElementMap[size ?? Size.md] as Any);
 
-    default:
-      return <Body1 as="p" {...libProps} />;
-  }
+  return <LibText as={libAs} size={libSize} style={style} {...libProps} />;
 }
 
 type LinkProps = LibLinkProps & {};
