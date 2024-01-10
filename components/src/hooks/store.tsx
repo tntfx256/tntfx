@@ -15,7 +15,7 @@ export type StoreConfig = {
 
 export type StoreProviderProps<S> = PropsWithChildren<S>;
 
-export function initStore<S>(config: StoreConfig) {
+export function createStore<S>(config: StoreConfig) {
   const { name, persist } = config;
   const persistReducerConfig = persist ? { persist: { name } } : undefined;
 

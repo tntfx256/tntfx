@@ -1,19 +1,33 @@
-import type { Any } from "@tntfx/core";
-import type { ParsedResponse } from "./types";
+import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
+import { QueryClient } from "@tanstack/react-query";
+import { isClient, ONE_DAY_MS, ONE_MINUTE_MS } from "@tntfx/core";
 
-// export function createInitialState(): RequestState<null> {
-//   return { ...createInitialState(), response: null };
-// }
+export function createQueryClient() {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false,
+        refetchOnReconnect: true,
+        refetchOnWindowFocus: false,
+        staleTime: 15 * ONE_MINUTE_MS,
+        gcTime: 7 * ONE_DAY_MS,
+      },
+      mutations: {},
+    },
+  });
+  return queryClient;
+}
 
-// export function parseResponse<T = Any>(result: RequestState<T>): ParsedResponse<T> {
-//   const { data, error, response } = result;
-//   const hasError = Boolean(error);
+export function createPersister() {
+  return createSyncStoragePersister({
+    storage: isClient() ? window.localStorage : undefined,
+    // serialize: (data) => compress(serialize(data)),
+    // deserialize: (data) => deserialize(decompress(data)),
+    // throttleTime: 1000,
+    // retry: removeOldestQuery
+  });
+}
 
-//   return hasError
-//     ? ({ data: null, error, response } as FailedResponse)
-//     : ({ data, error: null, response } as SuccessResponse<T>);
-// }
-
-export function isParsedResponse(response: ParsedResponse<Any> | unknown): response is ParsedResponse<Any> {
-  return !!response && typeof response === "object" && "data" in response && "hasError" in response;
+export function stringQuery<T = string>(variable: T): T {
+  return variable;
 }

@@ -16,7 +16,7 @@ const defaultNextConfig = {
   reactStrictMode: true,
   swcMinify: true,
 
-  transpilePackages: ["@tntfx/components", "@tntfx/core", "@tntfx/hooks", "@tntfx/theme"],
+  transpilePackages: ["@tntfx/components", "@tntfx/core", "@tntfx/theme"],
 };
 
 /**

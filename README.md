@@ -28,8 +28,6 @@
 
 ### [`@tntfx/icons`](./icons/README.md)
 
-### [`@tntfx/hooks`](./hooks/README.md)
-
 ### [`@tntfx/server`](./server/README.md)
 
 ### [`@tntfx/test`](./test/README.md)

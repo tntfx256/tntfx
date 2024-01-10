@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from "react";
 import type { TObject } from "@tntfx/core";
-import { initStore } from "./store";
+import { createStore } from "./store";
 
 type Locale = {
   name: string;
@@ -15,7 +15,7 @@ type IntlState = {
   selectedLocale: number;
 };
 
-const { StoreProvider } = initStore<IntlState>({ name: "intl", persist: { version: "0.0.0" } });
+const { StoreProvider } = createStore<IntlState>({ name: "intl", persist: { version: "0.0.0" } });
 
 export function IntlProvider(props: PropsWithChildren) {
   const { children } = props;

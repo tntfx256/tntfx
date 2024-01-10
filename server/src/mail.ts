@@ -12,7 +12,7 @@ const apiKey = process.env.MAILJET_API_KEY;
 const apiSecret = process.env.MAILJET_SECRET_KEY;
 
 if (!apiKey || !apiSecret) {
-  throw Err(Err.Name.VALIDATION, Err.Message.VALUE_REQUIRED, "Missing email configuration");
+  throw Err(Err.Name.VALIDATION, Err.Message.REQUIRED, "Missing email configuration");
 }
 
 const mailjet = MailJet.apiConnect(apiKey, apiSecret);

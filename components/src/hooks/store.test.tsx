@@ -1,7 +1,7 @@
 import type { PropsWithChildren } from "react";
 import type { Any, Nullable } from "@tntfx/core";
 import { act, fireEvent, render, screen } from "@tntfx/test";
-import { initStore } from "./store";
+import { createStore } from "./store";
 
 type Location = {
   lat: number;
@@ -23,9 +23,9 @@ const initialState: State = {
   selectedLocation: null,
 };
 
-describe("initStore", () => {
+describe("createStore", () => {
   it("should update the store on changing the incoming state", () => {
-    const { StoreProvider, useStore } = initStore<State>({ name: "testStore" });
+    const { StoreProvider, useStore } = createStore<State>({ name: "testStore" });
 
     let stateValue: Any = null;
     let secondStateValue: Any = null;

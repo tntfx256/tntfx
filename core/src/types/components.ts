@@ -26,4 +26,3 @@ export interface Props {
   style?: CSSProperties;
   role?: AriaRole;
 }
-export interface PropsAndChildren extends Props, PropsWithChildren {}

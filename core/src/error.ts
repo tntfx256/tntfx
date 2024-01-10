@@ -1,65 +1,59 @@
+import type { ZodError as ZodErrors } from "zod";
 import { logger } from "./logger";
 import type { Any, TError } from "./types";
 
-export const errorNames = {
-  ACCESS: "ERR_ACCESS",
-  CLIENT: "ERR_CLIENT",
-  FS: "ERR_FS",
-  RUNTIME: "ERR_RUNTIME",
-  SERVER: "ERR_SERVER",
-  UNKNOWN: "ERR_UNKNOWN",
-  VALIDATION: "ERR_VALIDATION",
-};
+const errorNames = {
+  ACCESS: "err_access",
+  CLIENT: "err_client",
+  FS: "err_fs",
+  RUNTIME: "err_runtime",
+  SERVER: "err_server",
+  UNKNOWN: "err_unknown",
+  VALIDATION: "err_validation",
+} as const;
 export type ErrorNames = (typeof errorNames)[keyof typeof errorNames];
 
-export const errorMessages = {
-  ACCESS_DENIED: "ACCESS_DENIED",
-  ALREADY_EXISTS: "ALREADY_EXISTS",
-  ASSERTION_FAILURE: "ASSERTION_FAILURE",
-  CODE_EXPIRED: "CODE_EXPIRED",
-  CODE_MISMATCH: "CODE_MISMATCH",
-  INVALID_LENGTH: "INVALID_LENGTH",
-  INVALID_OPERATION: "INVALID_OPERATION",
-  ITEMS_COUNT_INVALID: "ITEMS_COUNT_INVALID",
-  ITEMS_COUNT_TOO_HIGHT: "ITEMS_COUNT_TOO_HIGHT",
-  ITEMS_COUNT_TOO_LOW: "ITEMS_COUNT_TOO_LOW",
-  MISSING_VERIFICATION_CODE: "MISSING_VERIFICATION_CODE",
-  NOT_ACCEPTABLE: "NOT_ACCEPTABLE",
-  NOT_FOUND: "NOT_FOUND",
-  UNKNOWN_ERROR: "UNKNOWN_ERROR",
-  VALIDATION: "VALIDATION_ERROR",
-  VALUE_INVALID: "VALUE_INVALID",
-  VALUE_REQUIRED: "VALUE_REQUIRED",
-  VALUE_TOO_HIGH: "VALUE_TOO_HIGH",
-  VALUE_TOO_LONG: "VALUE_TOO_LONG",
-  VALUE_TOO_LOW: "VALUE_TOO_LOW",
-  VALUE_TOO_SHORT: "VALUE_TOO_SHORT",
-};
+const errorMessages = {
+  ACCESS_DENIED: "access_denied",
+  ALREADY_EXISTS: "already_exists",
+  ASSERTION_FAILURE: "assertion_failure",
+  INVALID_OPERATION: "invalid_operation",
+  NOT_ACCEPTABLE: "not_acceptable",
+  NOT_FOUND: "not_found",
+  INVALID: "value_invalid",
+  REQUIRED: "value_required",
+  INVALID_LENGTH: "invalid_length",
+  TOO_HIGH: "value_too_high",
+  TOO_LOW: "value_too_low",
+  TOO_LONG: "value_too_long",
+  TOO_SHORT: "value_too_short",
+  UNKNOWN_ERROR: "unknown_error",
+} as const;
 export type ErrorMessages = (typeof errorMessages)[keyof typeof errorMessages];
 
 export const validationErrorMessages = {
   assert: () => errorMessages.ASSERTION_FAILURE,
 
-  enum: () => errorMessages.VALUE_INVALID,
+  enum: () => errorMessages.INVALID,
 
   length: () => errorMessages.INVALID_LENGTH,
 
-  listLength: () => errorMessages.ITEMS_COUNT_INVALID,
+  listLength: () => errorMessages.INVALID_LENGTH,
 
-  listMaxLength: () => errorMessages.ITEMS_COUNT_TOO_HIGHT,
+  listMaxLength: () => errorMessages.TOO_LONG,
 
-  listMinLength: () => errorMessages.ITEMS_COUNT_TOO_LOW,
+  listMinLength: () => errorMessages.TOO_SHORT,
 
-  listType: () => errorMessages.VALUE_INVALID,
+  listType: () => errorMessages.INVALID,
   // assert: (n: string) => `assertion check has failed for ${n}`,
-  max: () => errorMessages.VALUE_TOO_HIGH,
-  maxLength: () => errorMessages.VALUE_TOO_LONG,
-  min: () => errorMessages.VALUE_TOO_LOW,
-  minLength: () => errorMessages.VALUE_TOO_SHORT,
-  model: () => errorMessages.VALUE_INVALID,
-  pattern: () => errorMessages.VALUE_INVALID,
-  required: () => errorMessages.VALUE_REQUIRED,
-  type: () => errorMessages.VALUE_INVALID,
+  max: () => errorMessages.TOO_HIGH,
+  maxLength: () => errorMessages.TOO_LONG,
+  min: () => errorMessages.TOO_LOW,
+  minLength: () => errorMessages.TOO_SHORT,
+  model: () => errorMessages.INVALID,
+  pattern: () => errorMessages.INVALID,
+  required: () => errorMessages.REQUIRED,
+  type: () => errorMessages.INVALID,
   unknown: () => errorMessages.UNKNOWN_ERROR,
 };
 
@@ -67,19 +61,20 @@ const possibleProperties = ["status", "code", "violations", "description"] as Ar
 if (process.env.NODE_ENV === "development") {
   possibleProperties.push("stack");
 }
+
 export class SerializableError extends Error {
   public $$name = "SerializableError";
   public originalName?: string;
   // public violations?: Violations;
   public status?: number;
-  public code?: string;
+  public code?: ErrorMessages;
   public description?: string;
-  // public stack?: string [];
+  public stack?: string;
 
-  constructor(message = errorMessages.UNKNOWN_ERROR, name = errorNames.UNKNOWN, description = "") {
-    super(message);
-    this.name = name;
-    this.description = description;
+  constructor(message?: ErrorMessages, name?: ErrorNames, description?: string) {
+    super(message || errorMessages.UNKNOWN_ERROR);
+    this.name = name || errorNames.UNKNOWN;
+    this.description = description || "";
   }
 
   public toJSON() {
@@ -94,7 +89,7 @@ export class SerializableError extends Error {
 }
 
 export function createError(name: ErrorNames, message: ErrorMessages, description?: string): SerializableError {
-  return new SerializableError(message, name, description);
+  return new SerializableError(message, name, description || "");
 }
 
 export function finalizeError(rawError: TError): SerializableError {
@@ -136,7 +131,7 @@ export function finalizeError(rawError: TError): SerializableError {
       }
     }
 
-    if (error.name && !Object.values(errorNames).includes(error.name.toUpperCase())) {
+    if (error.name && !Object.values(errorNames).includes(error.name as ErrorNames)) {
       error.originalName = error.name;
       error.name = errorNames.UNKNOWN;
     }
@@ -147,12 +142,26 @@ export function finalizeError(rawError: TError): SerializableError {
   return error;
 }
 
-// export class ValidationError extends SerializableError {
-//   constructor(violations: Violations) {
-//     super(errorMessages.VALIDATION, errorNames.VALIDATION);
-//     this.violations = violations;
-//   }
-// }
+export type Violation<T> = { [key in keyof T]: ErrorMessages };
+function izZodError<T>(error: ZodErrors<T> | Violation<T>): error is ZodErrors<T> {
+  return error && typeof error === "object" && (error as Any).issues;
+}
+
+export class ValidationError<T = Any> extends SerializableError {
+  public violations: Violation<T>;
+
+  constructor(violations: Violation<T>) {
+    super(errorMessages.INVALID, errorNames.VALIDATION);
+    if (izZodError(violations)) {
+      this.violations = violations.issues.reduce((acc: Any, issue) => {
+        acc[issue.path.join(".")] = issue.message;
+        return acc;
+      }, {} as Violation<T>);
+    } else {
+      this.violations = violations;
+    }
+  }
+}
 
 // export function getViolationMessage(field: Field, rule: ValidationRules) {
 //   return validationErrorMessages[rule](field.name, rule === "unknown" ? "" : field.props[rule]);
@@ -161,15 +170,6 @@ export function finalizeError(rawError: TError): SerializableError {
 export function isSerializableError(error: TError): error is SerializableError {
   return !!(error && typeof error === "object" && (error as Any).$$name === "SerializableError");
 }
-
-// export function getNestedErrors(errors: Violations, prefix: string): Violations {
-//   return Object.keys(errors).reduce((acc, name) => {
-//     if (name.startsWith(prefix)) {
-//       return { ...acc, [name.replace(prefix, "")]: errors[name] };
-//     }
-//     return acc;
-//   }, {});
-// }
 
 export function Err(name: ErrorNames, message: ErrorMessages, description?: string) {
   return createError(name, message, description);

@@ -18,6 +18,6 @@ switch (type) {
     genWorkspaceProject(options);
     break;
   default:
-    throw new Error(`Unknown type ${type}`);
+    console.error(`Unknown type ${type}`);
 }
 // }
