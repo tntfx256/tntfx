@@ -8,7 +8,6 @@ import { withFieldWrapper } from "./field";
 import type { ElementProps } from "./types";
 import { extendOptions, MAX_ITEMS } from "./utils";
 import { Icon } from "../../base-components";
-import { useWatchEffect } from "../../hooks";
 
 export type ComboboxProps<T extends string = string, M extends boolean = false> = ElementProps<
   FieldProps &
@@ -30,13 +29,13 @@ function ComboboxWithRef<T extends string = string, M extends boolean = false>(
   const [text, setText] = useState<string>(value || "");
   const [matchingOptions, setMatchingOptions] = useState<TOption[]>([]);
 
-  useWatchEffect(() => {
-    setText(value || "");
-  }, [value]);
+  // useWatchEffect(() => {
+  //   setText(value || "");
+  // }, [value]);
 
-  useWatchEffect(() => {
-    setMatchingOptions(() => extendOptions(options, !rest.required));
-  }, [options, rest.required]);
+  // useWatchEffect(() => {
+  //   setMatchingOptions(() => extendOptions(options, !rest.required));
+  // }, [options, rest.required]);
 
   const optionSelectHandler = useCallback<Defined<LibComboboxProps["onOptionSelect"]>>(
     (ev, data) => {

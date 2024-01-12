@@ -16,26 +16,19 @@ export function ErrorContent(props: ErrorContentProps) {
   return (
     <div
       style={{
-        position: "absolute",
+        border: `1px solid ${Style.tokens.palette.errorText}`,
+        borderRadius: "0.5rem",
         overflow: "hidden",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center",
-        background: "transparent",
+        backdropFilter: "blur(0.5rem)",
+        fontFamily: "monospace",
+        color: Style.tokens.palette.errorText,
+        padding: "2rem",
       }}
     >
-      <div
-        style={{
-          margin: "2rem",
-          overflow: "auto",
-          padding: "2rem",
-          fontFamily: "monospace",
-          borderRadius: "0.5rem",
-          color: Style.tokens.palette.errorText,
-          backdropFilter: "blur(0.5rem)",
-        }}
-      >
-        <h1 style={{ fontSize: "2rem", marginBottom: "1.5rem" }}>Error</h1>
+      <div style={{ overflow: "auto", flex: 1 }}>
+        <h1 style={{ fontSize: "1.5rem", marginBottom: "0.75rem" }}>Error</h1>
         <p className="message">{message || "Oops! Something went wrong!"}</p>
         {description && <p className="desc">{description}</p>}
         <pre className="details">{JSON.stringify({ code, name, status }, null, 2)}</pre>

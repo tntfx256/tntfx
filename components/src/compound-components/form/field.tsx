@@ -13,7 +13,15 @@ export type FieldProps = {
   hint?: LibFieldProps["hint"];
 };
 
-export function withFieldWrapper<T extends object = object, E = HTMLElement>(Component: FC<T>) {
+type FieldWrapperConfig = {
+  hideLabel?: boolean;
+};
+
+export function withFieldWrapper<T extends object = object, E = HTMLElement>(
+  Component: FC<T>,
+  config: FieldWrapperConfig = {}
+) {
+  const { hideLabel = false } = config;
   function WithField(props: FieldProps & T, ref?: ForwardedRef<E>) {
     const { label, validationMessage, validationMessageIcon, validationState, hint, orientation, ...childProps } = props;
 
@@ -23,14 +31,14 @@ export function withFieldWrapper<T extends object = object, E = HTMLElement>(Com
     return (
       <Field
         hint={hint}
-        label={label}
+        label={hideLabel ? undefined : label}
         orientation={orientation}
         required={props.required}
         validationMessage={validationMessage}
-        validationMessageIcon={validationMessageIcon}
+        validationMessageIcon={validationMessageIcon || ""}
         validationState={validationState}
       >
-        <Component {...(childProps as T)} ref={passedRef} />
+        <Component {...(childProps as T)} label={hideLabel ? label : undefined} ref={passedRef} />
       </Field>
     );
   }

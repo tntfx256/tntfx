@@ -1,0 +1,14 @@
+{
+  "name": "@tntfx/locale",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.ts",
+  "types": "index.ts",
+  "scripts": {},
+  "dependencies": {
+    "@tntfx/core": "*",
+    "i18next": "^23.7.16",
+    "react-i18next": "^14.0.0"
+  },
+  "devDependencies": {}
+}

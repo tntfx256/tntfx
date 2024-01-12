@@ -16,8 +16,8 @@ export type ItemType<T extends ReadonlyArray<unknown>> = T extends ReadonlyArray
 export type DeepPartial<T> = T extends object ? { [P in Keys<T>]?: DeepPartial<T[P]> } : T;
 export type DeepRequired<T> = Required<{ [K in Keys<T>]: Required<DeepRequired<T[K]>> }>;
 
+
 export type Any<T = any> = T | null | undefined | void;
-export type Timestamp = number;
 export type Enum<T = string> = T[];
 export type List<T = string> = T[];
 export type TObject<T = Any, Idx extends Index = string> = Record<Idx, T>;

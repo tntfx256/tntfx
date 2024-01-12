@@ -21,7 +21,7 @@ function ToggleWithRef(props: ToggleProps, ref: ForwardedRef<HTMLInputElement>) 
   return <Switch ref={ref} onChange={handleChange} {...libProps} />;
 }
 
-export const Toggle = withFieldWrapper(forwardRef(ToggleWithRef));
+export const Toggle = withFieldWrapper(forwardRef(ToggleWithRef), { hideLabel: true });
 Toggle.displayName = "Toggle";
 
 export function ControlledToggle(props: ToggleProps) {

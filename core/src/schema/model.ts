@@ -37,3 +37,5 @@ export class Model<T extends TObject = TObject> {
 }
 
 export type ModelConstructor<T extends TObject = TObject> = new () => Model<T>;
+
+export { z } from "zod";

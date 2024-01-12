@@ -1,14 +1,13 @@
 import type { ReactNode } from "react";
 import { useMemo } from "react";
-import type { QueryClient } from "@tanstack/react-query";
+import type { QueryClient, QueryClientConfig } from "@tanstack/react-query";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
-import type { Any, DeepPartial } from "@tntfx/core";
-import type { AxiosRequestConfig } from "axios";
+import type { RequestOptions } from "./request";
 import { createPersister, createQueryClient } from "./utils";
 import { createStore } from "../store";
 
-export type ApiConfig = AxiosRequestConfig<Any>;
+export type ApiConfig = RequestOptions & QueryClientConfig;
 
 export type ApiContextType = {
   apiConfig: ApiConfig;
@@ -25,7 +24,7 @@ export type ApiProviderProps = {
 export function ApiProvider(props: ApiProviderProps) {
   const { apiConfig, children } = props;
 
-  const client = useMemo(createQueryClient, []);
+  const client = useMemo(() => createQueryClient(apiConfig), [apiConfig]);
   const persistOptions = useMemo(() => ({ persister: createPersister() }), []);
 
   return (

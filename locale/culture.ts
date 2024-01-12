@@ -1,6 +1,6 @@
 import type { Locale } from "./locale";
 import { fallback } from "./locales/default";
-import { Err } from "../error";
+import { Err } from "@tntfx/core";
 
 export class Culture {
   protected static currentLocale = fallback.code;

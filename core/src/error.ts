@@ -64,7 +64,6 @@ if (process.env.NODE_ENV === "development") {
 
 export class SerializableError extends Error {
   public $$name = "SerializableError";
-  public originalName?: string;
   // public violations?: Violations;
   public status?: number;
   public code?: ErrorMessages;
@@ -129,11 +128,6 @@ export function finalizeError(rawError: TError): SerializableError {
       if (prop in (rawError as Any) && (rawError as Any)[prop] !== undefined) {
         (error as Any)[to || prop] = (rawError as Any)[prop];
       }
-    }
-
-    if (error.name && !Object.values(errorNames).includes(error.name as ErrorNames)) {
-      error.originalName = error.name;
-      error.name = errorNames.UNKNOWN;
     }
   } catch (err) {
     logger.error("[finalizeError]", err);

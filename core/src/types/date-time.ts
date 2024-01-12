@@ -5,3 +5,6 @@ export type Day = string;
 export type Hour = number;
 export type Minute = number;
 export type Second = number;
+export type Millisecond = number;
+
+export type Timestamp = number;
