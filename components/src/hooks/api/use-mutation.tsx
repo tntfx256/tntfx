@@ -3,42 +3,44 @@ import type { UseMutationOptions as UseMutationOptionsLib } from "@tanstack/reac
 import { useMutation as useMutationLib } from "@tanstack/react-query";
 import type { SerializableError } from "@tntfx/core";
 import { finalizeError } from "@tntfx/core";
-import type { AxiosRequestConfig } from "axios";
 import axios from "axios";
 import { useApiConfig } from "./api-provider";
+import type { RequestOptions } from "./request";
+import { splitApiConfig } from "./utils";
 
-export type UseMutationOptions<T, V = T, C = unknown> = Partial<UseMutationOptionsLib<T, SerializableError, V, C>> & {
-  fetcherConfig?: AxiosRequestConfig<C>;
-};
+export type UseMutationOptions<T, V = T, C = unknown> = Partial<UseMutationOptionsLib<T, SerializableError, V, C>> &
+  RequestOptions<V>;
 
 export function useMutation<T, V = T, C = unknown>(options: UseMutationOptions<T, V, C>) {
-  const { apiConfig } = useApiConfig();
+  const { apiConfig, queryClient } = useApiConfig();
 
-  const { fetcherConfig, mutationFn, mutationKey = [], ...mutationOptions } = options;
+  const [reqConfig] = splitApiConfig(apiConfig);
+  const { mutationFn, mutationKey = [], ...mutationOptions } = options;
 
   const defaultMutationFn = useCallback(
     async (variables: V) => {
       const { url, method, ...hlConfig } = apiConfig;
-      const finalUrl = [url, ...mutationKey].join("/");
 
       try {
-        const { data } = await axios(finalUrl, {
+        const { data } = await axios({
+          url: [url, ...mutationKey].join("/"),
           method: method || "POST",
           data: variables,
           ...hlConfig,
-          ...fetcherConfig,
         });
         return data;
       } catch (error) {
         return finalizeError(error);
       }
     },
-    [apiConfig, fetcherConfig, mutationKey]
+    [apiConfig, mutationKey]
   );
 
-  return useMutationLib({
-    ...mutationOptions,
-
-    mutationFn: mutationFn || defaultMutationFn,
-  });
+  return useMutationLib(
+    {
+      ...mutationOptions,
+      mutationFn: mutationFn || defaultMutationFn,
+    },
+    queryClient
+  );
 }
