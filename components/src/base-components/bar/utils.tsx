@@ -24,25 +24,36 @@ export function getActions<T extends string = string>(handleClick?: OnAction<T>,
   switch (actionSet) {
     case ActionSet.OkCancel:
       return [
-        <Button key="cancel" appearance="secondary" title="Cancel" onClick={() => handleAction(Action.Cancel as Any)} />,
-        <Button key="ok" appearance="primary" color="primary" title="Ok" onClick={() => handleAction(Action.Ok as Any)} />,
+        <Button key="cancel" appearance="secondary" onClick={() => handleAction(Action.Cancel as Any)}>
+          Cancel
+        </Button>,
+        <Button key="ok" appearance="primary" color="primary" onClick={() => handleAction(Action.Ok as Any)}>
+          Ok
+        </Button>,
       ];
 
     case "RetryCancel":
       return [
-        <Button key="cancel" appearance="secondary" title="Cancel" onClick={() => handleAction(Action.Cancel as Any)} />,
+        <Button key="cancel" appearance="secondary" onClick={() => handleAction(Action.Cancel as Any)}>
+          Cancel
+        </Button>,
         <Button
           key="retry"
           appearance="primary"
-          title="Retry"
           // variant="contained"
           onClick={() => handleAction(Action.Retry as Any)}
-        />,
+        >
+          Retry
+        </Button>,
       ];
   }
 
   // OK
-  return [<Button key="ok" appearance="primary" title="Ok" onClick={() => handleAction(Action.Ok as Any)} />];
+  return [
+    <Button key="ok" appearance="primary" onClick={() => handleAction(Action.Ok as Any)}>
+      Ok
+    </Button>,
+  ];
 }
 
 function ImplicitActionHandler(action: string) {

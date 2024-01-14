@@ -11,6 +11,7 @@ import { Size } from "@tntfx/core";
 export type TextProps = Omit<LibTextProps, "size" | "weight"> & {
   size?: EnumString<Size>;
   weight?: EnumString<Size>;
+  nowrap?: boolean;
 };
 
 const WeightMap: Record<Size, CSSProperties["fontWeight"]> = {
@@ -47,9 +48,14 @@ const SizeElementMap = {
 };
 
 export function Text(props: TextProps) {
-  const { size, color, style, weight, as, ...libProps } = props;
+  const { size, color, style, weight, as, nowrap, ...libProps } = props;
 
-  (libProps as TextProps).style = { color, fontWeight: WeightMap[weight ?? size ?? Size.sm], ...style };
+  (libProps as TextProps).style = {
+    color,
+    fontWeight: WeightMap[weight ?? size ?? Size.sm],
+    whiteSpace: nowrap ? "nowrap" : undefined,
+    ...style,
+  };
 
   const libSize = SizeValueMap[size ?? Size.md];
   const libAs = as || (SizeElementMap[size ?? Size.md] as Any);

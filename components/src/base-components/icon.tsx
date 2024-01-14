@@ -15,11 +15,13 @@ interface IconProps extends FluentIconsProps {
 }
 
 function IconWithRef(props: IconProps, ref: ForwardedRef<SVGSVGElement>) {
-  const { name, disabled, className, size, style = {}, ...libProps } = props;
+  const { name, disabled, className, size = "md", style = {}, ...libProps } = props;
 
   if (size) {
     style.width = Style.tokens.size[size];
+    style.minWidth = Style.tokens.size[size];
     style.height = Style.tokens.size[size];
+    style.minHeight = Style.tokens.size[size];
   }
 
   const classes = useStyles();

@@ -1,4 +1,12 @@
-import { buttonClassNames, makeStyles } from "@fluentui/react-components";
+import {
+  buttonClassNames,
+  dropdownClassNames,
+  fieldClassNames,
+  inputClassNames,
+  makeStyles,
+  selectClassNames,
+  textClassNames,
+} from "@fluentui/react-components";
 import { mixins } from "./mixins";
 import { tokens } from "./tokens";
 
@@ -21,5 +29,10 @@ export const Style = {
   mixins,
   classNames: {
     button: buttonClassNames,
+    field: fieldClassNames,
+    text: textClassNames,
+    input: inputClassNames,
+    dropdown: dropdownClassNames,
+    select: selectClassNames,
   },
 };

@@ -17,10 +17,12 @@ export const useRowStyle = Style.create({
   root: {
     alignItems: "center",
     justifyContent: "space-between",
-    ...Style.mixins.border("1px solid yellow"),
+    // ...Style.mixins.border("1px solid yellow"),
 
     [`& .${fieldClassNames.root}`]: {
       width: "100%",
+      // marginTop: Style.tokens.spacing.md,
+      // marginBottom: Style.tokens.spacing.sm,
 
       [`& + .${fieldClassNames.root}`]: {
         marginLeft: Style.tokens.spacing.sm,
@@ -32,12 +34,13 @@ export const useRowStyle = Style.create({
 export const useStackStyle = Style.create({
   root: {
     ...Style.mixins.padding(Style.tokens.spacing.sm),
-    ...Style.mixins.border("1px solid green"),
+    // ...Style.mixins.border("1px solid green"),
     width: "100%",
     flexGrow: 1,
 
     [`& .${fieldClassNames.root}`]: {
-      marginBottom: Style.tokens.spacing.sm,
+      marginTop: Style.tokens.spacing.md,
+      // marginBottom: Style.tokens.spacing.sm,
       width: "100%",
     },
   },

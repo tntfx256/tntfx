@@ -35,7 +35,7 @@ export function ControlledTextInput(props: TextInputProps) {
       name={props.name!}
       render={({ field, fieldState }) => (
         <TextInput
-          validationMessage={fieldState.error?.message || " "}
+          validationMessage={fieldState.error?.message}
           validationState={fieldState.invalid ? "error" : "none"}
           {...field}
           {...props}

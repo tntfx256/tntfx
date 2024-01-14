@@ -6,7 +6,7 @@
   "types": "src/index.ts",
   "scripts": {},
   "dependencies": {
-    "@fluentui/react-components": "^9.44.2",
+    "@fluentui/react-components": "^9.44.3",
     "@tntfx/core": "*"
   },
   "devDependencies": {

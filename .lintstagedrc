@@ -1,0 +1,1 @@
+{ "**!(node_modules)**/*.ts(x)?": "yarn run lint" }

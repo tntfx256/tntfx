@@ -1,4 +1,5 @@
 import { Err } from "@tntfx/core";
+import { i18n } from "i18next";
 import type { Locale } from "./locale";
 import { fallback } from "./locales/default";
 
@@ -7,9 +8,10 @@ export class Culture {
   protected static locales: Map<string, Locale> = new Map([[fallback.code, fallback]]);
 
   static register(...locale: Locale[]) {
-    for (const loc of locale) {
-      this.locales.set(loc.code, loc);
-    }
+    // await i18n.
+    // for (const loc of locale) {
+    //   this.locales.set(loc.code, loc);
+    // }
   }
 
   static switch(code: Locale["code"]) {

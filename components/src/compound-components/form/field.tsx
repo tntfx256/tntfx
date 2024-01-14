@@ -1,6 +1,7 @@
 import { type FC, type ForwardedRef, forwardRef, useRef } from "react";
 import type { FieldProps as LibFieldProps } from "@fluentui/react-components";
 import { Field } from "@fluentui/react-components";
+import { useStyle } from "./field.style";
 import { isRefValid } from "../../utils";
 
 export type FieldProps = {
@@ -25,17 +26,19 @@ export function withFieldWrapper<T extends object = object, E = HTMLElement>(
   function WithField(props: FieldProps & T, ref?: ForwardedRef<E>) {
     const { label, validationMessage, validationMessageIcon, validationState, hint, orientation, ...childProps } = props;
 
+    const classes = useStyle();
     const internalRef = useRef<E>(null);
     const passedRef = isRefValid(ref) ? ref : internalRef;
 
     return (
       <Field
+        className={classes.root}
         hint={hint}
         label={hideLabel ? undefined : label}
         orientation={orientation}
         required={props.required}
         validationMessage={validationMessage}
-        validationMessageIcon={validationMessageIcon || ""}
+        validationMessageIcon={validationMessageIcon}
         validationState={validationState}
       >
         <Component {...(childProps as T)} label={hideLabel ? label : undefined} ref={passedRef} />

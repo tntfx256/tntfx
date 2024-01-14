@@ -7,11 +7,11 @@
     "gen": "tsc --skipLibCheck --outDir build --target es6 --module commonjs ./scripts/gen.ts && node  ./build/gen.js"
   },
   "dependencies": {
-    "@fluentui/react-components": "^9.44.2"
+    "@fluentui/react-components": "^9.44.3"
   },
   "devDependencies": {
     "@tntfx/tsconfig": "*",
-    "@types/node": "^20.10.8",
+    "@types/node": "^20.11.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   }
