@@ -4,15 +4,18 @@ import { Controller, useFormContext } from "react-hook-form";
 import type { FieldProps, InputProps } from "@fluentui/react-components";
 import { Input } from "@fluentui/react-components";
 import type { Defined } from "@tntfx/core";
+import { classNames } from "@tntfx/theme";
 import { withFieldWrapper } from "./field";
+import { useInputStyle } from "./field.style";
 import type { ElementProps } from "./types";
 import { interceptRef } from "../../utils";
 
 export type TextInputProps = ElementProps<FieldProps & InputProps>;
 
 const TextInputWithRef = (props: TextInputProps, ref: ForwardedRef<HTMLInputElement>) => {
-  const { onChange, ...libProps } = props;
+  const { onChange, className, ...libProps } = props;
 
+  const classes = useInputStyle();
   const handleChange = useCallback<Defined<InputProps["onChange"]>>(
     (ev, data) => {
       onChange?.(data.value);
@@ -20,7 +23,9 @@ const TextInputWithRef = (props: TextInputProps, ref: ForwardedRef<HTMLInputElem
     [onChange]
   );
 
-  return <Input ref={interceptRef(ref)} onChange={handleChange} {...libProps} />;
+  return (
+    <Input className={classNames(classes.root, className)} ref={interceptRef(ref)} onChange={handleChange} {...libProps} />
+  );
 };
 
 export const TextInput = withFieldWrapper(forwardRef(TextInputWithRef));

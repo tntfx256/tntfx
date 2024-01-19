@@ -4,14 +4,17 @@ import { Controller, useFormContext } from "react-hook-form";
 import type { FieldProps, InputOnChangeData } from "@fluentui/react-components";
 import type { SearchBoxProps } from "@fluentui/react-search-preview";
 import { SearchBox } from "@fluentui/react-search-preview";
+import { classNames } from "@tntfx/theme";
 import { withFieldWrapper } from "./field";
+import { useInputStyle } from "./field.style";
 import type { ElementProps } from "./types";
 
 export type SearchInputProps = ElementProps<FieldProps & SearchBoxProps>;
 
 const SearchInputWithRef = (props: SearchInputProps, ref: ForwardedRef<HTMLInputElement>) => {
-  const { onChange, ...libProps } = props;
+  const { onChange, className, ...libProps } = props;
 
+  const classes = useInputStyle();
   const handleChange = useCallback(
     (ev: ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => {
       onChange?.(data.value);
@@ -29,7 +32,7 @@ const SearchInputWithRef = (props: SearchInputProps, ref: ForwardedRef<HTMLInput
   //   [onChange]
   // );
 
-  return <SearchBox ref={ref} onChange={handleChange} {...libProps} />;
+  return <SearchBox className={classNames(classes.root, className)} ref={ref} onChange={handleChange} {...libProps} />;
 };
 
 export const SearchInput = withFieldWrapper(forwardRef(SearchInputWithRef));

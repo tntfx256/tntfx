@@ -1,9 +1,11 @@
 import { fieldClassNames } from "@fluentui/react-components";
 import { Style } from "@tntfx/theme";
+import { MIN_WIDTH } from "./const";
 
 export const useStyle = Style.create({
   root: {
     position: "relative",
+    minWidth: MIN_WIDTH,
     maxWidth: `${Style.tokens.breakpoint.sm}px`,
     paddingTop: Style.tokens.spacing.md,
     paddingBottom: Style.tokens.spacing.md,
@@ -26,5 +28,12 @@ export const useStyle = Style.create({
       bottom: "-10%",
       left: 0,
     },
+  },
+});
+
+export const useInputStyle = Style.create({
+  root: {
+    minWidth: MIN_WIDTH,
+    ...Style.mixins.border("1px solid green"),
   },
 });

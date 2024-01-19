@@ -4,7 +4,9 @@ import { Controller, useFormContext } from "react-hook-form";
 import type { ComboboxProps as LibComboboxProps, FieldProps } from "@fluentui/react-components";
 import { Combobox as LibCombobox, Option, ProgressBar } from "@fluentui/react-components";
 import type { Defined, Option as TOption } from "@tntfx/core";
+import { classNames } from "@tntfx/theme";
 import { withFieldWrapper } from "./field";
+import { useInputStyle } from "./field.style";
 import type { ElementProps } from "./types";
 import { extendOptions, MAX_ITEMS } from "./utils";
 import { Icon } from "../../base-components";
@@ -25,8 +27,9 @@ function ComboboxWithRef<T extends string = string, M extends boolean = false>(
   props: ComboboxProps<T, M>,
   ref: ForwardedRef<HTMLInputElement>
 ) {
-  const { options = [], onChange, placeholder, multiselect, loading, value, ...rest } = props;
+  const { options = [], onChange, placeholder, multiselect, loading, value, className, ...rest } = props;
 
+  const classes = useInputStyle();
   const [text, setText] = useState<string>(value || "");
   const [matchingOptions, setMatchingOptions] = useState<TOption[]>([]);
 
@@ -68,6 +71,7 @@ function ComboboxWithRef<T extends string = string, M extends boolean = false>(
     <>
       <LibCombobox
         freeform
+        className={classNames(classes.root, className)}
         multiselect={multiselect}
         placeholder={placeholder}
         ref={ref}
