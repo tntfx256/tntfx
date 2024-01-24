@@ -3,8 +3,8 @@ import { forwardRef, useCallback } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import type { CheckboxOnChangeData, CheckboxProps as LibCheckboxProps, FieldProps } from "@fluentui/react-components";
 import { Checkbox as LibCheckbox } from "@fluentui/react-components";
-import { withFieldWrapper } from "./field";
-import type { ElementProps } from "./types";
+import { withFieldWrapper } from "../layout/field";
+import type { ElementProps } from "../types";
 
 export type CheckboxProps = ElementProps<FieldProps & LibCheckboxProps, boolean>;
 

@@ -1,12 +1,19 @@
-import { fieldClassNames } from "@fluentui/react-components";
+import { comboboxClassNames, fieldClassNames, inputClassNames } from "@fluentui/react-components";
+import { searchBoxClassNames } from "@fluentui/react-search-preview";
 import { Style } from "@tntfx/theme";
-import { MIN_WIDTH } from "./const";
+import { MIN_INPUT_WIDTH } from "../const";
+
+const classNames = [comboboxClassNames, inputClassNames, searchBoxClassNames];
+const mainClassNames = [
+  ...classNames.map((className) => `& .${className.root}`),
+  ...classNames.map((className) => `& .${className.input}`),
+].join(", ");
 
 export const useStyle = Style.create({
   root: {
     position: "relative",
-    minWidth: MIN_WIDTH,
-    maxWidth: `${Style.tokens.breakpoint.sm}px`,
+    minWidth: MIN_INPUT_WIDTH,
+    maxWidth: `${Style.tokens.breakpoint.xs}px`,
     paddingTop: Style.tokens.spacing.md,
     paddingBottom: Style.tokens.spacing.md,
     // ...Style.mixins.border("1px solid green"),
@@ -28,12 +35,9 @@ export const useStyle = Style.create({
       bottom: "-10%",
       left: 0,
     },
-  },
-});
 
-export const useInputStyle = Style.create({
-  root: {
-    minWidth: MIN_WIDTH,
-    ...Style.mixins.border("1px solid green"),
+    [`${mainClassNames}`]: {
+      minWidth: 0,
+    },
   },
 });

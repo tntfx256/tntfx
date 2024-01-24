@@ -3,8 +3,8 @@ import { forwardRef, useCallback } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import type { FieldProps, SwitchOnChangeData, SwitchProps } from "@fluentui/react-components";
 import { Switch } from "@fluentui/react-components";
-import { withFieldWrapper } from "./field";
-import type { ElementProps } from "./types";
+import { withFieldWrapper } from "../layout/field";
+import type { ElementProps } from "../types";
 
 export type ToggleProps = ElementProps<FieldProps & SwitchProps, boolean>;
 

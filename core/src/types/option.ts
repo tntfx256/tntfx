@@ -1,5 +1,5 @@
 import type { IconName } from "@tntfx/icons";
-import type { EnumString, StringKeys } from "./base";
+import type { EnumString, Keys, StringKeys } from "./base";
 import type { Accent, Size, Variant } from "./theme";
 
 export type Option<T extends string = string> = {
@@ -28,6 +28,13 @@ export const OptionModel = {
 
     type K = StringKeys<typeof options>;
     const keys = Object.keys(options) as K[];
-    return keys.map((id) => ({ id, title: options[id] }) as Option<K>);
+    return keys.map((title) => ({ id: options[title], title }) as Option<K>);
+  },
+
+  toOptions<T extends object>(options: T[], idKey: Keys<T>, titleKey: Keys<T>) {
+    return options.map((option) => ({
+      id: option[idKey],
+      title: option[titleKey],
+    })) as Option[];
   },
 };

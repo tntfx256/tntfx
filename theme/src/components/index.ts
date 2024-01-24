@@ -34,5 +34,8 @@ export const Style = {
     input: inputClassNames,
     dropdown: dropdownClassNames,
     select: selectClassNames,
+    icon: {
+      root: "fui-Icon",
+    },
   },
 };

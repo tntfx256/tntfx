@@ -15,7 +15,7 @@ interface IconProps extends FluentIconsProps {
 }
 
 function IconWithRef(props: IconProps, ref: ForwardedRef<SVGSVGElement>) {
-  const { name, disabled, className, size = "md", style = {}, ...libProps } = props;
+  const { name, disabled, className, size = "sm", style = {}, ...libProps } = props;
 
   if (size) {
     style.width = Style.tokens.size[size];
@@ -31,7 +31,7 @@ function IconWithRef(props: IconProps, ref: ForwardedRef<SVGSVGElement>) {
       aria-disabled={disabled}
       style={style}
       {...libProps}
-      className={mergeClasses(classes.root, className)}
+      className={mergeClasses(Style.classNames.icon.root, classes.root, className)}
       ref={ref}
     />
   ) : (

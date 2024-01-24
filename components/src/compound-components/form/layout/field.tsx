@@ -2,7 +2,7 @@ import { type FC, type ForwardedRef, forwardRef, useRef } from "react";
 import type { FieldProps as LibFieldProps } from "@fluentui/react-components";
 import { Field } from "@fluentui/react-components";
 import { useStyle } from "./field.style";
-import { isRefValid } from "../../utils";
+import { isRefValid } from "../../../utils";
 
 export type FieldProps = {
   orientation?: LibFieldProps["orientation"];

@@ -3,7 +3,7 @@ import { useStyle } from "./web-view-header.style";
 import { useWebView } from "./web-view-provider";
 import { Icon } from "../../base-components";
 import { Toolbar, ToolbarGroup } from "../../base-components/bar/toolbar";
-import { TextInput } from "../form/text-input";
+import { TextInput } from "../form/elements/text-input";
 
 type WebViewHeaderProps = {
   onSidebarToggle?: () => void;
