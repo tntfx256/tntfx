@@ -5,7 +5,7 @@
   "compilerOptions": {
     "module": "ESNext",
     "moduleResolution": "Node",
-    "target": "ES6",
+    "target": "ES2020",
     "esModuleInterop": true,
     "isolatedModules": true,
     "resolveJsonModule": true,
@@ -29,7 +29,12 @@
     "noUnusedParameters": false,
     "preserveWatchOutput": true,
 
+    "skipDefaultLibCheck": true,
+    "allowImportingTsExtensions": true,
+    "alwaysStrict": true,
     "preserveSymlinks": true,
+
+    "noImplicitAny": true,
 
     "jsx": "preserve"
   }

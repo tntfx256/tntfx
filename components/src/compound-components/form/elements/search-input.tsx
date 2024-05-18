@@ -13,7 +13,7 @@ const SearchInputWithRef = (props: SearchInputProps, ref: ForwardedRef<HTMLInput
   const { onChange, ...libProps } = props;
 
   const handleChange = useCallback(
-    (ev: ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => {
+    (ev: ChangeEvent<any>, data: InputOnChangeData) => {
       onChange?.(data.value);
     },
     [onChange]

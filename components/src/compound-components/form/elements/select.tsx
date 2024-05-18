@@ -2,7 +2,7 @@ import type { FC, ForwardedRef } from "react";
 import { forwardRef, useCallback, useMemo, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import type { ComboboxProps as LibComboboxProps, FieldProps } from "@fluentui/react-components";
-import { Combobox as LibCombobox, Option, ProgressBar } from "@fluentui/react-components";
+import { Combobox as LibCombobox, Option, OptionGroup, ProgressBar } from "@fluentui/react-components";
 import type { Defined, Option as TOption } from "@tntfx/core";
 import { Icon } from "../../../base-components";
 import { EMPTY_ARRAY } from "../const";
@@ -134,12 +134,23 @@ function SelectWithRef<T extends string = string, M extends boolean = false>(
         {...rest}
         value={text}
       >
-        {slicedOptions.map(({ id, title, disabled, icon }) => (
-          <Option key={id} disabled={disabled} text={title} value={id}>
-            {icon && <Icon name={icon} />}
-            {title}
-          </Option>
-        ))}
+        {slicedOptions.map(({ id, title, disabled, icon, children }) =>
+          children ? (
+            <OptionGroup key={id} label={title}>
+              {children.map(({ id, title, disabled, icon }) => (
+                <Option key={id} disabled={disabled} text={title} value={id}>
+                  {icon && <Icon name={icon} />}
+                  {title}
+                </Option>
+              ))}
+            </OptionGroup>
+          ) : (
+            <Option key={id} disabled={disabled} text={title} value={id}>
+              {icon && <Icon name={icon} />}
+              {title}
+            </Option>
+          )
+        )}
       </LibCombobox>
       {loading && <ProgressBar />}
     </>

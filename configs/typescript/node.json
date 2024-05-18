@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+
+  "display": "Node.js",
+  "extends": ["./base.json", "@tsconfig/node-lts/tsconfig.json"],
+
+  "compilerOptions": {
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "esModuleInterop": true,
+    "target": "esnext",
+
+    "verbatimModuleSyntax": true
+  }
+}

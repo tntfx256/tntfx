@@ -6,17 +6,17 @@
 
 ### Configs
 
-#### [`@tntfx/config-eslint`](./config-eslint/README.md)
+#### [`@tntfx/config-eslint`](./configs/eslint/README.md)
 
-#### [`@tntfx/config-graphql`](./config-graphql/README.md)
+#### [`@tntfx/config-graphql`](./configs/graphql/README.md)
 
-#### [`@tntfx/config-next`](./config-next/README.md)
+#### [`@tntfx/config-next`](./configs/next/README.md)
 
-#### [`@tntfx/config-prettier`](./config-prettier/README.md)
+#### [`@tntfx/config-prettier`](./configs/prettier/README.md)
 
-#### [`@tntfx/config-stylelint`](./config-stylelint/README.md)
+#### [`@tntfx/config-stylelint`](./configs/stylelint/README.md)
 
-#### [`@tntfx/config-typescript`](./config-typescript/README.md)
+#### [`@tntfx/config-typescript`](./configs/typescript/README.md)
 
 ### Packages
 

@@ -1,4 +1,4 @@
-import { writeFileSync } from "fs";
+import { writeFileSync } from "node:fs";
 import { join, parse } from "path";
 import { kebabCase, pascalCase } from "../utils/helpers";
 
@@ -11,10 +11,20 @@ export function genComponent(args: string[]) {
   const componentName = pascalCase(name);
   const fileName = kebabCase(name);
 
-  const styleImport = noStyle ? "" : `import { useStyle } from "./${fileName}.style";`;
-  const componentFileContent = `import type { Props } from "@tntfx/core";
+  const componentWithoutStyle = `import type { Props } from "@tntfx/core";
+
+export type ${componentName}Props = Props & {}
+
+export function ${componentName}(props: ${componentName}Props) {
+  const {} = props;
+
+  return <div></div>;
+}
+`;
+
+  const componentWithStyle = `import type { Props } from "@tntfx/core";
 import { classNames } from "@tntfx/theme";
-${styleImport}
+import { useStyle } from "./${fileName}.style";
 
 export type ${componentName}Props = Props & {}
 
@@ -22,7 +32,7 @@ export function ${componentName}(props: ${componentName}Props) {
   const { className, ...libProps } = props;
   const style = useStyle();
 
-return <div className={classNames(style.root, className)} {...libProps}></div>;
+  return <div className={classNames(style.root, className)} {...libProps}></div>;
 }
 `;
 
@@ -34,7 +44,7 @@ export const useStyle = Style.create({
 `;
 
   const destination = join(process.cwd(), dir, fileName);
-  writeFileSync(`${destination}.tsx`, componentFileContent);
+  writeFileSync(`${destination}.tsx`, noStyle ? componentWithoutStyle : componentWithStyle);
   if (!noStyle) {
     writeFileSync(`${destination}.style.ts`, styleFileContent);
   }

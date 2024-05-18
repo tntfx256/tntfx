@@ -1,0 +1,11 @@
+{
+  "name": "@tntfx/tsconfig",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {},
+  "dependencies": {
+    "@tsconfig/next": "^2.0.3",
+    "@tsconfig/node-lts": "^20.1.3"
+  }
+}

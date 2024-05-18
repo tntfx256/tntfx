@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/tsconfig",
 
   "display": "nextjs",
-  "extends": "./react.json",
+  "extends": ["./react.json", "@tsconfig/next/tsconfig.json"],
   "compilerOptions": {
     "jsxImportSource": "react",
     "allowJs": true,
@@ -14,6 +14,12 @@
     "module": "esnext",
     "noEmit": true,
     "resolveJsonModule": true,
-    "strict": false
+    "strict": false,
+
+    "moduleResolution": "bundler",
+    "esModuleInterop": true,
+    "allowImportingTsExtensions": true,
+    "allowArbitraryExtensions": true,
+    "verbatimModuleSyntax": true
   }
 }

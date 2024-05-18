@@ -3,7 +3,7 @@ const esLintConfig = {
   root: true,
   extends: ["next/core-web-vitals", "turbo", "prettier"],
   parser: "@typescript-eslint/parser",
-  plugins: ["@typescript-eslint", "simple-import-sort", "tsdoc"],
+  plugins: ["@typescript-eslint", "simple-import-sort"],
   reportUnusedDisableDirectives: true,
   globals: {
     React: true,
@@ -62,8 +62,6 @@ const esLintConfig = {
     ],
 
     "turbo/no-undeclared-env-vars": "warn",
-
-    "tsdoc/syntax": "warn",
   },
 };
 

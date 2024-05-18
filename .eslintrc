@@ -1,3 +1,5 @@
 {
-  "extends": ["./config-eslint/index.js"]
+  "extends": [
+    "./configs/eslint/index.js"
+  ]
 }

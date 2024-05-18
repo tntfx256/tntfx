@@ -4,6 +4,7 @@ import type { Nullable, TObject } from "../types";
 
 export class Model<T extends TObject = TObject> {
   #schema: ZodSchema<T>;
+  // @FIXME
   #values: Nullable<T> = null;
 
   constructor(schema: ZodSchema<T>) {
