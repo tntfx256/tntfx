@@ -7,12 +7,12 @@
     "gen": "tsx ./scripts/gen.ts"
   },
   "dependencies": {
-    "@fluentui/react-components": "^9.47.2"
+    "@fluentui/react-components": "~9.47.2"
   },
   "devDependencies": {
     "@tntfx/tsconfig": "*",
-    "@types/node": "^20.12.2",
-    "tsx": "^4.11.0",
-    "typescript": "^5.4.3"
+    "@types/node": "~20.12.2",
+    "tsx": "~4.11.0",
+    "typescript": "~5.4.3"
   }
 }
