@@ -21,13 +21,12 @@ import {
   useTableFeatures,
 } from "@fluentui/react-components";
 import type { Any, Keys, PaginalData, PaginationHandler } from "@tntfx/core";
+import { createStore, type SetState } from "@tntfx/hooks";
 import { classNames } from "@tntfx/theme";
 import { useStyle } from "./data-table.style";
 import { TablePagination } from "./data-table-pagination";
 import { Box } from "../../../base-components";
 import { Text } from "../../../base-components/text";
-import type { SetState } from "../../../hooks";
-import { createStore } from "../../../hooks";
 
 export type { TableBodyProps, TableHeaderProps } from "@fluentui/react-components";
 export { TableBody, TableCellLayout, TableHeader } from "@fluentui/react-components";

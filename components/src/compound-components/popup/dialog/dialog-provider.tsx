@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from "react";
 import type { Dimension } from "@tntfx/core";
-import { createStore } from "../../../hooks";
+import { createStore } from "@tntfx/hooks";
 
 type DialogContext = {
   dimension?: Dimension;

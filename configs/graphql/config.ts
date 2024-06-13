@@ -1,115 +1,91 @@
+import type { AddPluginConfig } from "@graphql-codegen/add/typings/config";
 import type { TypeScriptTypedDocumentNodesConfig } from "@graphql-codegen/typed-document-node";
 import type { TypeScriptPluginConfig } from "@graphql-codegen/typescript";
 import type { TypeScriptDocumentsPluginConfig } from "@graphql-codegen/typescript-operations";
-import type { ReactQueryRawPluginConfig } from "@graphql-codegen/typescript-react-query/typings/config";
 import type { TypeScriptResolversPluginConfig } from "@graphql-codegen/typescript-resolvers";
-import type {
-  RawClientSideBasePluginConfig,
-  RawConfig,
-  RawDocumentsConfig,
-  RawResolversConfig,
-  RawTypesConfig,
-} from "@graphql-codegen/visitor-plugin-common";
 import { DocumentMode } from "@graphql-codegen/visitor-plugin-common";
-import type { ValidationSchemaPluginConfig } from "graphql-codegen-typescript-validation-schema/dist/main/config";
+import type { ValidationSchemaPluginConfig } from "graphql-codegen-typescript-validation-schema/dist/types/config";
+import { join } from "node:path";
 
-export const plugins = [
-  "typescript",
-  "typed-document-node",
-  "typescript-operations",
-  "typescript-resolvers",
-  "typescript-validation-schema",
-  "typescript-react-query",
-];
+export const Paths = {
+  directives: join(__dirname, "directives.gql"),
+  schema: "src/**/schema.{gql,graphql}",
+  documents: "src/**/documents.{gql,graphql}",
+  output: "src/__generated",
+  types: "types.generated.ts",
+  client: "client.generated.ts",
+  server: "server.generated.ts",
+};
 
-const rawConfig: RawConfig = {
-  allowEnumStringTypes: true,
-  strictScalars: false,
+// types
+const tsPluginConfig: TypeScriptPluginConfig = {
   defaultScalarType: "unknown",
   skipTypename: true,
   useTypeImports: true,
-  emitLegacyCommonJSImports: false,
   scalars: {
     Date: "Date",
-    // ID: { input: "string", output: "string | number" },
-    // JSON: "{ [key: string]: any }",
   },
-};
-const rawTypesConfig: Omit<RawTypesConfig, keyof RawConfig> = {
-  declarationKind: "interface",
-  addUnderscoreToArgsType: true,
-};
-const rawResolversConfig: Omit<RawResolversConfig, keyof RawConfig> = {
-  addUnderscoreToArgsType: true,
-};
-const rawClientSideBasePluginConfig: Omit<RawClientSideBasePluginConfig, keyof RawConfig> = {
-  noGraphQLTag: true,
-  documentMode: DocumentMode.documentNode,
-  optimizeDocumentNode: true,
-};
-const rawDocumentsConfig: Omit<RawDocumentsConfig, keyof RawTypesConfig> = {
-  preResolveTypes: false,
-};
-const typeScriptPluginConfig: Omit<TypeScriptPluginConfig, keyof RawTypesConfig> = {
-  useImplementingTypes: true,
-  futureProofEnums: true,
-};
-const typeScriptTypedDocumentNodesConfig: Omit<TypeScriptTypedDocumentNodesConfig, keyof RawClientSideBasePluginConfig> = {
-  addTypenameToSelectionSets: false,
-  flattenGeneratedTypes: true,
-};
-const typeScriptDocumentsPluginConfig: Omit<TypeScriptDocumentsPluginConfig, keyof RawDocumentsConfig> = {};
-const typeScriptResolversPluginConfig: Omit<TypeScriptResolversPluginConfig, keyof RawResolversConfig> = {
-  useIndexSignature: true,
 };
 const validationSchemaPluginConfig: Omit<ValidationSchemaPluginConfig, keyof TypeScriptPluginConfig> = {
   schema: "zod",
   withObjectType: true,
+  validationSchemaExportType: "const",
   scalarSchemas: {
     Date: "z.date()",
     Email: "z.string().email()",
   },
-  validationSchemaExportType: "const",
   directives: {
     required: {
-      msg: "required",
+      required: "required",
     },
     constraint: {
+      required: ["required", "true", "$1"],
       minLength: ["min", "$1"],
       maxLength: ["max", "$1"],
+      length: ["length", "$1"],
+      pattern: ["regex", "/$1/"],
       min: ["min", "$1 - 1"],
       max: ["max", "$1 + 1"],
+
       format: {
-        uuid: "uuid",
-        uri: "url",
+        date: "date",
         email: "email",
       },
     },
   },
 };
-const reactQueryRawPluginConfig: Omit<ReactQueryRawPluginConfig, keyof RawClientSideBasePluginConfig> = {
-  exposeDocument: true,
-  reactQueryVersion: 5,
+
+export const typePlugins = ["typescript", "typescript-validation-schema"];
+export const typePluginsConfig: ValidationSchemaPluginConfig = {
+  ...tsPluginConfig,
+  ...validationSchemaPluginConfig,
 };
 
-interface Config
-  extends TypeScriptPluginConfig,
-    TypeScriptTypedDocumentNodesConfig,
-    TypeScriptDocumentsPluginConfig,
-    TypeScriptResolversPluginConfig,
-    ValidationSchemaPluginConfig,
-    Omit<ReactQueryRawPluginConfig, "scalars"> {}
+// client
+export const clientPlugins = ["add", "typescript-operations", "typed-document-node"];
+type DocumentConfig = TypeScriptDocumentsPluginConfig & TypeScriptTypedDocumentNodesConfig;
+export const clientPluginsConfig: Omit<DocumentConfig & AddPluginConfig, keyof TypeScriptPluginConfig> = {
+  content: `import * as types from "./${Paths.types.replace(".ts", "")}"`,
+  namespacedImportName: "types",
+  documentMode: DocumentMode.string,
+  // flattenGeneratedTypes: true,
+  // addTypenameToSelectionSets: false,
+};
 
-export const config: Config = {
-  ...rawConfig,
-  ...rawTypesConfig,
-  ...rawResolversConfig,
-  ...rawClientSideBasePluginConfig,
-  ...rawDocumentsConfig,
-  ...typeScriptPluginConfig,
-  ...typeScriptTypedDocumentNodesConfig,
-  ...typeScriptDocumentsPluginConfig,
-  ...typeScriptResolversPluginConfig,
-  ...validationSchemaPluginConfig,
-  ...reactQueryRawPluginConfig,
+// server
+export const serverPlugins = ["add", "typescript-resolvers"];
+export const serverPluginsConfig: Omit<TypeScriptResolversPluginConfig & AddPluginConfig, keyof TypeScriptPluginConfig> = {
+  content: `import * as types from "./${Paths.types.replace(".ts", "")}"`,
+  namespacedImportName: "types",
+  useIndexSignature: true,
+};
+
+// index file
+export const indexFilePlugins = ["add"];
+export const indexFilePluginsConfig: Omit<AddPluginConfig, keyof TypeScriptPluginConfig> = {
+  content: [
+    `export * from "./${Paths.types.replace(".ts", "")}"`,
+    `export * from "./${Paths.client.replace(".ts", "")}"`,
+    `export * from "./${Paths.server.replace(".ts", "")}"`,
+  ],
 };

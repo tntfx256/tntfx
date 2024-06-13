@@ -17,15 +17,15 @@ export function Divider(props: DividerProps) {
 
   const innerStyle: CSSProperties = {};
   if (size) {
-    if (vertical) {
-      innerStyle.minHeight = Style.tokens.size[size];
-      innerStyle.height = Style.tokens.size[size];
-      innerStyle.maxHeight = Style.tokens.size[size];
-    } else {
-      innerStyle.minWidth = Style.tokens.size[size];
-      innerStyle.width = Style.tokens.size[size];
-      innerStyle.maxWidth = Style.tokens.size[size];
-    }
+    // if (vertical) {
+    innerStyle.minHeight = Style.tokens.size[size];
+    innerStyle.height = Style.tokens.size[size];
+    innerStyle.maxHeight = Style.tokens.size[size];
+    // } else {
+    innerStyle.minWidth = Style.tokens.size[size];
+    innerStyle.width = Style.tokens.size[size];
+    innerStyle.maxWidth = Style.tokens.size[size];
+    // }
   }
   let libAppearance = isTransparent ? undefined : appearance;
 

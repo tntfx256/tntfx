@@ -1,7 +1,7 @@
 import type { Boundary, Dimension, Nullable } from "@tntfx/core";
 import { toBoundingRect } from "@tntfx/core";
+import { useDrag, useRuntime } from "@tntfx/hooks";
 import type { SetDimension } from "./types";
-import { useDrag, useRuntime } from "../../../hooks";
 
 export function useFrameDrag(
   id: string,

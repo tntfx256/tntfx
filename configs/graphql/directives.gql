@@ -1,18 +1,38 @@
+scalar Date
+scalar Email
+
+directive @required(required: Boolean = true) on FIELD_DEFINITION | ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+
 directive @constraint(
   # String constraints
-  minLength: Int
-  maxLength: Int
-  startsWith: String
-  endsWith: String
-  contains: String
-  notContains: String
-  pattern: String
-  format: String
+  minLength: Int!
+  maxLength: Int!
+  length: Int!
+  pattern: String!
+  format: String!
+
   # Number constraints
-  min: Float
-  max: Float
-  exclusiveMin: Float
-  exclusiveMax: Float
-  multipleOf: Float
-  uniqueTypeName: String
-) on INPUT_FIELD_DEFINITION | FIELD_DEFINITION
+  min: Float!
+  max: Float!
+) on FIELD | FIELD_DEFINITION | ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION | ENUM_VALUE
+
+type Error {
+  code: String!
+  message: String!
+  status: Int
+}
+
+enum OpStatus {
+  Error
+  Success
+}
+
+type OperationResult {
+  status: OpStatus!
+  error: Error!
+}
+
+input Pagination {
+  page: Int! @required
+  count: Int
+}

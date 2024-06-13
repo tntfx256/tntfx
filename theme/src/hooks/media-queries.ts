@@ -1,11 +1,13 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { Breakpoints, isClient } from "@tntfx/core";
 
 export const MQ = {
-  DARK_SCHEME: "(prefers-color-scheme: dark)",
-  LIGHT_SCHEME: "(prefers-color-scheme: light)",
-  ABOVE_MEDIUM: `(min-width: ${Breakpoints.md + 1}px)`,
-  BELOW_MEDIUM: `(min-width: ${Breakpoints.md + 1}px)`,
+  DARK_SCHEME: "@media(prefers-color-scheme: dark)",
+  LIGHT_SCHEME: "@media(prefers-color-scheme: light)",
+  ABOVE_MEDIUM: `@media(min-width: ${Breakpoints.md + 1}px)`,
+  BELOW_MEDIUM: `@media(max-width: ${Breakpoints.md}px)`,
 };
 
 export function useMediaQuery(query: string) {

@@ -16,6 +16,8 @@
     "allowJs": false,
     "skipLibCheck": true,
 
+    "strictBindCallApply": true,
+
     "declaration": true,
     "declarationMap": true,
     "inlineSources": false,

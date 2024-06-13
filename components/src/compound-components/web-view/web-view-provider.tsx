@@ -1,8 +1,8 @@
 import type { PropsWithChildren } from "react";
 import { useState } from "react";
 import type { Option } from "@tntfx/core";
+import { createStore, useHistory } from "@tntfx/hooks";
 import type { WebViewContext, WebViewProviderProps } from "./types";
-import { createStore, useHistory } from "../../hooks";
 
 const { StoreProvider, useStore } = createStore<WebViewContext>({ name: "webView" });
 

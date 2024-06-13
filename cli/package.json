@@ -5,7 +5,8 @@
   "main": "./src/index.ts",
   "bin": "./build/index.js",
   "scripts": {
-    "gen": "tsc --skipLibCheck --outDir build --target es6 --module commonjs ./src/index.ts && node ./build/index.js"
+    "gen2": "tsc --skipLibCheck --outDir build --target es6 --module commonjs ./src/index.ts && node ./build/index.js",
+    "gen": "tsx ./src/index.ts"
   },
   "dependencies": {},
   "devDependencies": {

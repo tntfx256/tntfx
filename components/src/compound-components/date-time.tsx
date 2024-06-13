@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
+import { useInterval } from "@tntfx/hooks";
 import { classNames } from "@tntfx/theme";
 import { Box } from "../base-components";
 import { Text } from "../base-components/text";
-import { useInterval } from "../hooks";
 
 type DateTimeData = ReturnType<typeof getDate>;
 

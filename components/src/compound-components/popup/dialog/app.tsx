@@ -1,8 +1,8 @@
 import type { PropsWithChildren, ReactElement } from "react";
 import { memoize } from "@tntfx/core";
+import { useRuntime } from "@tntfx/hooks";
 import { Dialog } from "./dialog";
 import type { DialogProps } from "./types";
-import { useRuntime } from "../../../hooks";
 
 export interface AppProps extends DialogProps {
   id: string;

@@ -4,17 +4,17 @@ import type { ButtonProps as LibButtonProps } from "@fluentui/react-components";
 import { Button as LibButton } from "@fluentui/react-components";
 import type { Any } from "@tntfx/core";
 import { memoize } from "@tntfx/core";
+import { useToggle } from "@tntfx/hooks";
 import { classNames } from "@tntfx/theme";
 import { useStyle } from "./button.style";
 import { Loader } from "./loader";
-import { useToggle } from "../hooks";
 
 export type ButtonProps = LibButtonProps & {
   isLoading?: boolean;
   enableLoading?: boolean;
 };
 
-function ButtonWithRef(props: ButtonProps, ref: ForwardedRef<HTMLButtonElement | HTMLAnchorElement>) {
+function ButtonWithRef(props: ButtonProps, ref: ForwardedRef<HTMLButtonElement>) {
   const { children, isLoading, enableLoading, className, onClick, disabled, ...libProps } = props;
 
   const classes = useStyle();

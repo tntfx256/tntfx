@@ -10,12 +10,12 @@ import {
   DialogTrigger,
 } from "@fluentui/react-components";
 import { memoize } from "@tntfx/core";
+import { useRuntime } from "@tntfx/hooks";
 import { classNames } from "@tntfx/theme";
 import { useStyle } from "./dialog.style";
 import type { DialogProps } from "./types";
 import { DialogStatus } from "./types";
 import { Box, Icon, useActions } from "../../../base-components";
-import { useRuntime } from "../../../hooks";
 
 export { DialogTrigger } from "@fluentui/react-components";
 

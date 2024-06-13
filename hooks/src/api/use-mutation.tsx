@@ -6,7 +6,6 @@ import { finalizeError } from "@tntfx/core";
 import axios from "axios";
 import { useApiConfig } from "./api-provider";
 import type { RequestOptions } from "./request";
-import { splitApiConfig } from "./utils";
 
 export type UseMutationOptions<T, V = T, C = unknown> = Partial<UseMutationOptionsLib<T, SerializableError, V, C>> &
   RequestOptions<V>;
@@ -14,7 +13,7 @@ export type UseMutationOptions<T, V = T, C = unknown> = Partial<UseMutationOptio
 export function useMutation<T, V = T, C = unknown>(options: UseMutationOptions<T, V, C>) {
   const { apiConfig, queryClient } = useApiConfig();
 
-  const [reqConfig] = splitApiConfig(apiConfig);
+  // const [reqConfig] = splitApiConfig(apiConfig);
   const { mutationFn, mutationKey = [], ...mutationOptions } = options;
 
   const defaultMutationFn = useCallback(

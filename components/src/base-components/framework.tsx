@@ -1,9 +1,9 @@
 import type { PropsWithChildren } from "react";
 import { createContext, useContext } from "react";
 import { createDOMRenderer, RendererProvider, SSRProvider } from "@fluentui/react-components";
+import { type ApiConfig, ApiProvider, Runtime } from "@tntfx/hooks";
 import type { ColorScheme, Theme } from "@tntfx/theme";
 import { ThemeProvider } from "@tntfx/theme";
-import { type ApiConfig, ApiProvider, Runtime } from "../hooks";
 
 interface NavigateOptions {
   scroll?: boolean;
