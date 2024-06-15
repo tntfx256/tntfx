@@ -5,10 +5,9 @@
   "extends": ["./base.json", "@tsconfig/node-lts/tsconfig.json"],
 
   "compilerOptions": {
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "esModuleInterop": true,
-    "target": "esnext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "target": "ESNext",
 
     "verbatimModuleSyntax": true
   }

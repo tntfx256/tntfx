@@ -4,13 +4,16 @@
   "private": true,
   "main": "src/index.ts",
   "types": "src/index.ts",
-  "scripts": {},
-  "dependencies": {
-    "@fluentui/react-components": "~9.47.2",
-    "@tntfx/core": "*",
-    "fluentui-next-appdir-directive": "~0.1.5"
+  "exports": {
+    ".": {
+      "import": "./src/index.ts"
+    },
+    "./*.css": {
+      "default": "./*.css"
+    }
   },
-  "devDependencies": {
-    "react": "~18.2.0"
+  "dependencies": {
+    "@fluentui/react-components": "~9.54.1",
+    "@tntfx/core": "workspace:*"
   }
 }

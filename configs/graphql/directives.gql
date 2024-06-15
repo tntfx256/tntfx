@@ -5,16 +5,16 @@ directive @required(required: Boolean = true) on FIELD_DEFINITION | ARGUMENT_DEF
 
 directive @constraint(
   # String constraints
-  minLength: Int!
-  maxLength: Int!
-  length: Int!
-  pattern: String!
-  format: String!
+  minLength: Int
+  maxLength: Int
+  length: Int
+  pattern: String
+  format: String
 
   # Number constraints
-  min: Float!
-  max: Float!
-) on FIELD | FIELD_DEFINITION | ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION | ENUM_VALUE
+  min: Float
+  max: Float
+) on FIELD_DEFINITION | ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
 
 type Error {
   code: String!
@@ -29,7 +29,7 @@ enum OpStatus {
 
 type OperationResult {
   status: OpStatus!
-  error: Error!
+  error: Error
 }
 
 input Pagination {

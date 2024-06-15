@@ -35,19 +35,24 @@ export function genWorkspaceProject(args: string[]) {
     private: true,
     version: "0.0.0",
     main: "./index.ts",
-    scripts: {},
+    types: "./index.ts",
+    scripts: {
+      lint: 'npx eslint "src/**/*.{ts,tsx}" --fix',
+      types: "tsc -p tsconfig.json --noEmit",
+    },
     dependencies: {
-      "@tntfx/core": "*",
+      "@tntfx/core": "workspace:*",
     },
     devDependencies: {
-      "@tntfx/tsconfig": "*",
+      "@tntfx/eslint-config": "workspace:*",
+      "@tntfx/tsconfig": "workspace:*",
     },
   };
 
   const tsconfig = {
-    extends: "@tntfx/tsconfig/base.json",
+    extends: "@tntfx/tsconfig/react.json",
 
-    include: ["."],
+    include: ["src"],
   };
 
   writeFileSync(join(absolutePath, "index.ts"), `export const NAME = "";\n`);
@@ -55,5 +60,5 @@ export function genWorkspaceProject(args: string[]) {
   writeFileSync(join(absolutePath, "tsconfig.json"), JSON.stringify(tsconfig, null, 2));
 
   exec(`yarn install`, { cwd: absolutePath, interactive: true });
-  exec(`yarn add @types/node typescript --dev`, { cwd: absolutePath, interactive: true });
+  exec(`yarn add --dev @types/node typescript --dev`, { cwd: absolutePath, interactive: true });
 }

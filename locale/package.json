@@ -4,12 +4,10 @@
   "private": true,
   "main": "index.ts",
   "types": "index.ts",
-  "scripts": {},
   "dependencies": {
-    "@tntfx/core": "*",
-    "i18next": "~23.10.1",
-    "next-i18next": "~15.2.0",
+    "@tntfx/core": "workspace:*",
+    "i18next": "~23.11.5",
+    "next-i18next": "~15.3.0",
     "react-i18next": "~14.1.0"
-  },
-  "devDependencies": {}
+  }
 }

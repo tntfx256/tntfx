@@ -2,18 +2,17 @@
   "name": "@tntfx/server",
   "version": "0.0.0",
   "private": true,
-  "scripts": {},
   "dependencies": {
     "@apollo/server": "~4.10.2",
     "@as-integrations/next": "~3.0.0",
     "@graphql-tools/schema": "~10.0.3",
-    "@tntfx/components": "*",
-    "@tntfx/core": "*",
-    "@tntfx/theme": "*",
-    "firebase-admin": "~12.0.0",
+    "@tntfx/components": "workspace:*",
+    "@tntfx/core": "workspace:*",
+    "@tntfx/theme": "workspace:*",
+    "firebase-admin": "~12.1.1",
     "graphql": "~16.8.1",
     "iron-session": "~8.0.1",
-    "next": "~14.1.4",
+    "next": "~14.2.4",
     "node-mailjet": "~6.0.5"
   }
 }

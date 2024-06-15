@@ -5,12 +5,6 @@
   "main": "./src/index.ts",
   "bin": "./build/index.js",
   "scripts": {
-    "gen2": "tsc --skipLibCheck --outDir build --target es6 --module commonjs ./src/index.ts && node ./build/index.js",
     "gen": "tsx ./src/index.ts"
-  },
-  "dependencies": {},
-  "devDependencies": {
-    "@types/node": "~20.12.2",
-    "typescript": "~5.4.3"
   }
 }

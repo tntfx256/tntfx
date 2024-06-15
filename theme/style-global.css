@@ -1,0 +1,44 @@
+::placeholder {
+  filter: opacity(0.25);
+}
+
+html,
+body {
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+
+  height: 100%;
+  min-height: 100%;
+
+  position: relative;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  overflow-y: auto;
+  font-family: inherit;
+
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+body > .appRoot {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+  font-family: inherit !important;
+}
+
+pre,
+code {
+  font-size: 11;
+  white-space: pre;
+}

@@ -4,7 +4,7 @@ export const useStyle = Style.create({
   root: {},
   transparent: {
     "&:before, &:after": {
-      border: "1px solid transparent",
+      ...Style.mixins.border("1px solid transparent"),
     },
   },
 });
